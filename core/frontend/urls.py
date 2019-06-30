@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from .api import (UserViewSet,DictionariesViewSet,CustomDictionariesViewSet,
 	TopicsViewSet,WordRootsViewSet)
+from rest_framework_swagger.views import get_swagger_view
 
 router = routers.DefaultRouter()
 router.register('api/user', UserViewSet, 'user')
@@ -11,7 +12,11 @@ router.register('api/customdictionaries', CustomDictionariesViewSet, 'customdict
 router.register('api/topics', TopicsViewSet, 'topics')
 router.register('api/wordroots', WordRootsViewSet, 'wordroots')
 
-urlpatterns = []
+schema_view = get_swagger_view(title='Swagger DRF-Orientdb-PostgreSQL REST API Documentation')
+
+urlpatterns = [
+    url(r'^swagger/$', schema_view)
+]
 
 urlpatterns += router.urls
 
