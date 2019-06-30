@@ -30,7 +30,7 @@ class Dictionaries(models.Model):
 	    default=NEUTRAL,
 	)
 	#polarity = models.CharField(choices = __polarity_values)
-	language_id = models.ForeignKey(Languages,related_name='dictionaries_language_id',on_delete=models.CASCADE)
+	language = models.ForeignKey(Languages,related_name='dictionaries_language_id',on_delete=models.CASCADE)
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
 	updated_date=models.DateTimeField(auto_now=True)
@@ -50,14 +50,14 @@ class CustomDictionaries(models.Model):
         (POSITIVE, 'Positive'),
         (NEGATIVE, 'Negative'),
     ]
-    user_id = models.ForeignKey(User,related_name='custom_dictionaries_user_id',on_delete=models.CASCADE)
+    user = models.ForeignKey(User,related_name='custom_dictionaries_user_id',on_delete=models.CASCADE)
     word = models.CharField( max_length = 100)
     polarity = models.CharField(
 		max_length=4,
 		choices=POLARITY_CHOICES,
 		default=NEUTRAL,
 	)
-    language_id = models.ForeignKey(Languages,related_name='custom_dictionaries_language_id',on_delete=models.CASCADE)
+    language = models.ForeignKey(Languages,related_name='custom_dictionaries_language_id',on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(default=False)
     updated_date=models.DateTimeField(auto_now=True)
@@ -84,7 +84,7 @@ class Searched(models.Model):
 		(POSITIVE, 'Positive'),
 		(NEGATIVE, 'Negative'),
 	]
-	user_id = models.ForeignKey(User,related_name='searched_user_id',on_delete=models.CASCADE)
+	user = models.ForeignKey(User,related_name='searched_user_id',on_delete=models.CASCADE)
 	word = models.CharField( max_length = 100)
 	polarity = models.CharField(
 	    max_length=4,
@@ -107,7 +107,7 @@ class Searched(models.Model):
 
 class Topics(models.Model):
 	name = models.CharField( max_length = 100)
-	language_id = models.ForeignKey(Languages,related_name='topics_language_id',on_delete=models.CASCADE)
+	language = models.ForeignKey(Languages,related_name='topics_language_id',on_delete=models.CASCADE)
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
 	updated_date=models.DateTimeField(auto_now=True)
@@ -115,7 +115,7 @@ class Topics(models.Model):
 	
 class WordRoots(models.Model):
 	word_root = models.CharField( max_length = 100)
-	topics_id = models.ForeignKey(Topics,related_name='word_roots_topics_id',on_delete=models.CASCADE)
+	topics = models.ForeignKey(Topics,related_name='word_roots_topics_id',on_delete=models.CASCADE)
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
 	updated_date=models.DateTimeField(auto_now=True)
