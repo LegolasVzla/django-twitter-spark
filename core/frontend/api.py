@@ -1,7 +1,7 @@
-from .models import (User,Dictionaries,CustomDictionaries,Topics,WordRoots)
+from .models import (User,Dictionary,CustomDictionary,Topic,WordRoot)
 from rest_framework import viewsets, permissions
-from .serializers import (UserSerializer,DictionariesSerializer,
-	CustomDictionariesSerializer,TopicsSerializer,WordRootsSerializer)
+from .serializers import (UserSerializer,DictionarySerializer,
+	CustomDictionarySerializer,TopicSerializer,WordRootSerializer)
 from rest_framework import serializers, validators
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
@@ -22,35 +22,35 @@ class UserViewSet(viewsets.ModelViewSet):
 	serializer_class = UserSerializer
 	pagination_class = StandardResultsSetPagination
 
-class DictionariesViewSet(viewsets.ModelViewSet):
-	queryset = Dictionaries.objects.all()
+class DictionaryViewSet(viewsets.ModelViewSet):
+	queryset = Dictionary.objects.all()
 	permission_classes = [
 		permissions.AllowAny
 	]
-	serializer_class = DictionariesSerializer
+	serializer_class = DictionarySerializer
 	pagination_class = StandardResultsSetPagination
 
-class CustomDictionariesViewSet(viewsets.ModelViewSet):
-	queryset = CustomDictionaries.objects.all()
+class CustomDictionaryViewSet(viewsets.ModelViewSet):
+	queryset = CustomDictionary.objects.all()
 	permission_classes = [
 		permissions.AllowAny
 	]
-	serializer_class = CustomDictionariesSerializer
+	serializer_class = CustomDictionarySerializer
 	pagination_class = StandardResultsSetPagination
 
-class TopicsViewSet(viewsets.ModelViewSet):
-	queryset = Topics.objects.all()
+class TopicViewSet(viewsets.ModelViewSet):
+	queryset = Topic.objects.all()
 	permission_classes = [
 		permissions.AllowAny
 	]
-	serializer_class = TopicsSerializer
+	serializer_class = TopicSerializer
 	pagination_class = StandardResultsSetPagination
 
-class WordRootsViewSet(viewsets.ModelViewSet):
-	queryset = WordRoots.objects.all()
+class WordRootViewSet(viewsets.ModelViewSet):
+	queryset = WordRoot.objects.all()
 	permission_classes = [
 		permissions.AllowAny
 	]
-	serializer_class = WordRootsSerializer
+	serializer_class = WordRootSerializer
 	pagination_class = StandardResultsSetPagination
 

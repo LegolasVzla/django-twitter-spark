@@ -6,14 +6,14 @@ from datetime import datetime
 User = get_user_model()
 
 # Create your models here.
-class Languages(models.Model):
+class Language(models.Model):
 	name = models.CharField( max_length = 100)
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
 	updated_date=models.DateTimeField(auto_now=True)
-	created_date = models.DateTimeField(default=datetime.now)
+	created_date = models.DateTimeField(auto_now_add=True)
 
-class Dictionaries(models.Model):
+class Dictionary(models.Model):
 	NEUTRAL = 'None'
 	POSITIVE = 'P'
 	NEGATIVE = 'N'
@@ -30,18 +30,18 @@ class Dictionaries(models.Model):
 	    default=NEUTRAL,
 	)
 	#polarity = models.CharField(choices = __polarity_values)
-	language = models.ForeignKey(Languages,related_name='dictionaries_language_id',on_delete=models.CASCADE)
+	language = models.ForeignKey(Language,related_name='dictionary_language_id',on_delete=models.CASCADE)
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
 	updated_date=models.DateTimeField(auto_now=True)
-	created_date = models.DateTimeField(default=datetime.now)
+	created_date = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
 		return self.word
 	def __unicode__(self ):
 		return self.word
 
-class CustomDictionaries(models.Model):
+class CustomDictionary(models.Model):
     NEUTRAL = 'None'
     POSITIVE = 'P'
     NEGATIVE = 'N'
@@ -50,18 +50,18 @@ class CustomDictionaries(models.Model):
         (POSITIVE, 'Positive'),
         (NEGATIVE, 'Negative'),
     ]
-    user = models.ForeignKey(User,related_name='custom_dictionaries_user_id',on_delete=models.CASCADE)
+    user = models.ForeignKey(User,related_name='custom_dictionary_user_id',on_delete=models.CASCADE)
     word = models.CharField( max_length = 100)
     polarity = models.CharField(
 		max_length=4,
 		choices=POLARITY_CHOICES,
 		default=NEUTRAL,
 	)
-    language = models.ForeignKey(Languages,related_name='custom_dictionaries_language_id',on_delete=models.CASCADE)
+    language = models.ForeignKey(Language,related_name='custom_dictionary_language_id',on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(default=False)
     updated_date=models.DateTimeField(auto_now=True)
-    created_date = models.DateTimeField(default=datetime.now)
+    created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
     	return self.word
@@ -73,7 +73,7 @@ class SocialNetwork(models.Model):
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
 	updated_date=models.DateTimeField(auto_now=True)
-	created_date = models.DateTimeField(default=datetime.now)
+	created_date = models.DateTimeField(auto_now_add=True)
 
 class Searched(models.Model):
 	NEUTRAL = 'None'
@@ -94,29 +94,29 @@ class Searched(models.Model):
 	topic = models.CharField( max_length = 100, null = True)
 	liked = models.IntegerField(default=0)	
 	retweeted = models.IntegerField(default=0)	
-	searched_date = models.DateTimeField(default=datetime.now)
+	searched_date = models.DateTimeField(auto_now_add=True)
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
 	updated_date=models.DateTimeField(auto_now=True)
-	created_date = models.DateTimeField(default=datetime.now)
+	created_date = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
 		return self.word
 	def __unicode__(self ):
 		return self.word
 
-class Topics(models.Model):
+class Topic(models.Model):
 	name = models.CharField( max_length = 100)
-	language = models.ForeignKey(Languages,related_name='topics_language_id',on_delete=models.CASCADE)
+	language = models.ForeignKey(Language,related_name='topic_language_id',on_delete=models.CASCADE)
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
 	updated_date=models.DateTimeField(auto_now=True)
-	created_date = models.DateTimeField(default=datetime.now)
+	created_date = models.DateTimeField(auto_now_add=True)
 	
-class WordRoots(models.Model):
+class WordRoot(models.Model):
 	word_root = models.CharField( max_length = 100)
-	topics = models.ForeignKey(Topics,related_name='word_roots_topics_id',on_delete=models.CASCADE)
+	topic = models.ForeignKey(Topic,related_name='word_root_topics_id',on_delete=models.CASCADE)
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
 	updated_date=models.DateTimeField(auto_now=True)
-	created_date = models.DateTimeField(default=datetime.now)
+	created_date = models.DateTimeField(auto_now_add=True)

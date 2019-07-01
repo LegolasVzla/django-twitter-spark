@@ -1,0 +1,1754 @@
+[    
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "entret",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "arte",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "cine",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "television",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "celebracion",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "teatr",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "espectacul",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "music",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "film",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "video",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "novel",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "festival",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "carnaval",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "artista",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "cantante",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "cancion",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "obra",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "mod",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "pelicul",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "religion",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "dios",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "sant",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "islam",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "sacerdot",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "pecado",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "isis",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "templ",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "igles",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "musulman",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "bibli",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "vatican",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "obizp",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "virg",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "feligres",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "pontific",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "santer",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "santeri",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "angel",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "catolic",
+            "topic_id": 2,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "deport",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "gan",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "equip",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "jug",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "jueg",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "part",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "tennis",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "fichaj",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "anot",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "anotacion",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "puntuacion",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "puntaj",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "competent",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "futbol",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "beisbol",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "natacion",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "softbol",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "gol",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "carrer",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "campeonat",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "olimpi",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "educ",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "educacion",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "aprend",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "activ",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "recurso",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "estudi",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "aula",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "peda",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "conoc",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "ensen",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "univers",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "profesor",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "colegi",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "bec",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "lice",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "maestr",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "asignatur",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "graduacion",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "tecnolog",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "tecnologi",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "cienci",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "cientif",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "investig",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "investigacion",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "avanc",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "innov",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "innovacion",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "telefon",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "internet",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "inform",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "informat",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "informatico",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "robot",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "comun",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "comput",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+     { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "celul",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "virtual",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "electron",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "econom",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "economi",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "negoci",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "negociacion",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "financ",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "fianci",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "financiacion",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "empres",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "empresari",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "inflacion",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "inversion",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "dolar",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "balanc",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "banc",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "merc",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "salari",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "monetari",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "moned",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "inflacion",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "prestam",
+            "topic_id": 6,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "salud",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "enferm",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "enfermedad",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "enfermeri",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "virus",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "medicin",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "medic",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "medicament",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "inmun",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "bact",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "bacteri",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "aliment",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "alimentacion",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "contag",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "contagi",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "infect",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "infeccion",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "paramed",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "cardi",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "hospital",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+   { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "polit",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "dictadur",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "gobiern",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "gobern",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "alcald",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "alcaldes",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "ejercit",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "milit",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "milician",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "dictador",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "eleccion",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "dictadur",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "gnb",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "democraci",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "cne",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "vot",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "anarqui",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "social",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "socied",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "civil",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "habit",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "asociacion",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "dialog",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "pais",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "mision",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "pobrez",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "derecho",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "deb",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "onu",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "comuna",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "manifestacion",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "manifest",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "huelga",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "protest",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "disturbi",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "transit",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },            
+    { "model": "frontend.wordroot",
+        "fields": {
+            "word_root": "march",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    }
+]
+

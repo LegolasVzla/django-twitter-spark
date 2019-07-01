@@ -1,0 +1,11 @@
+[
+    { "model": "frontend.socialnetwork",
+        "fields": {
+            "name": "Twitter",
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    }
+]

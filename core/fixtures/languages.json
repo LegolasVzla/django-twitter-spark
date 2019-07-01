@@ -1,0 +1,20 @@
+[
+    { "model": "frontend.language",
+        "fields": {
+            "name": "Spanish",
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"                        
+        }
+    },
+    { "model": "frontend.language",
+        "fields": {
+            "name": "English",
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"                        
+        }
+    }    
+]

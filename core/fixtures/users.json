@@ -1,0 +1,17 @@
+[
+    { "model": "users.customuser",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$150000$7Ovl4wMkMV9T$b0IcOXqvfBcj3MLLjbthAAa0lqdu2tW6tqPMnEv48b0=",
+            "is_superuser": true,
+            "first_name": "admin",
+            "last_name": "admin",
+            "email": "admin@admin.com",
+            "is_staff": true,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-06-30",
+            "date_joined": "2019-06-30"
+        }
+    }
+]
