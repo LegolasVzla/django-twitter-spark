@@ -8,8 +8,10 @@ The presently work was an academic thesis, about how to make topic categorizatio
 Authors:
 ---------------
 - Manuel Araujo
+
 - Manuel Carrero
 
+## Technologies
 - [Django REST framework](https://www.django-rest-framework.org/) is a powerful and flexible toolkit for building Web APIs.
 
 - [Apache Spark](https://spark.apache.org/) is a unified analytics engine for large-scale data processing.
@@ -72,9 +74,33 @@ You could see the home page in:
 
 	http://127.0.0.1:8000/
 
+## Models
+
+- Topic: is about people are talking in a specific moment in a social network.
+- Word root: is a word or word part that can form the basis of new words through the addition of prefixes and suffixes.
+- Dictionary: is a set of word that contains positive and negative words.
+- Custom Dictionary: is a user customizable set of words, with positive and negative words.
+
 ## Swagger Documentation
 
 [Swagger UI](https://swagger.io/tools/swagger-ui/) is a tool for API documentation. "Swagger UI allows anyone — be it your development team or your end consumers — to visualize and interact with the API’s resources without having any of the implementation logic in place. It’s automatically generated from your OpenAPI (formerly known as Swagger) Specification, with the visual documentation making it easy for back end implementation and client side consumption."
+
+## Endpoints Structure
+In a RESTful API, endpoints (URLs) define the structure of the API and how end users access data from our application using the HTTP methods (GET, POST, PUT, DELETE), making all posssible CRUD (create, retrieve, update, delete) operations.
+
+You can see the endpoints structure in the Swagger UI documentation:
+	
+	http://127.0.0.1:8000/swagger/
+
+Basically the structure is as below for all the main instances (User, Dictionaries, Custom Dictionaries, Topics and Word roots)
+
+Endpoint |HTTP Method | CRUD Method | Result
+-- | -- |-- |--
+`api/<instance>` | GET | READ | Get all the '<instance>' records
+`api/<instance>/:id` | GET | READ | Get a single <instance>
+`api/<instance>`| POST | CREATE | Create a new <instance> record
+`api/<instance>/:id` | PUT | UPDATE | Update a <instance> record
+`api/<instance>/:id` | DELETE | DELETE | Delete a <instance> record
 
 ## Contributions
 ------------------------
