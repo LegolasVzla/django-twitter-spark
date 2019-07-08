@@ -4,6 +4,9 @@ from rest_framework import routers
 from .api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
 	TopicViewSet,WordRootViewSet)
 from rest_framework_swagger.views import get_swagger_view
+from django.urls import path
+from rest_framework_simplejwt import views as jwt_views
+from frontend import views
 
 router = routers.DefaultRouter()
 router.register('api/user', UserViewSet, 'user')
@@ -12,10 +15,14 @@ router.register('api/customdictionary', CustomDictionaryViewSet, 'customdictiona
 router.register('api/topic', TopicViewSet, 'topic')
 router.register('api/wordroot', WordRootViewSet, 'wordroot')
 
+
 schema_view = get_swagger_view(title='Swagger DRF-Orientdb-PostgreSQL REST API Documentation')
 
 urlpatterns = [
-    url(r'^swagger/$', schema_view)
+    url(r'^swagger/$', schema_view),
+    url(r'^api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    url(r'^api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    url(r'^index/', views.IndexView.as_view(), name='index')
 ]
 
 urlpatterns += router.urls

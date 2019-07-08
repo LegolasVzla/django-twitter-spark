@@ -134,7 +134,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 ###################################################################
-##### CONFIG LOGGING
+##### LOGGING CONFIG 
 ###################################################################
 
 LOGGING = {
@@ -247,4 +247,14 @@ LOGGING = {
         },
 
     }
+}
+
+###################################################################
+##### REST_FRAMEWORK CONFIG 
+###################################################################
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
