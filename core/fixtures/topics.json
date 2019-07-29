@@ -1,5 +1,5 @@
 [
-    { "model": "frontend.topic",
+    { "model": "api.topic",
         "fields": {
             "name": "Entretenimiento",
             "language_id": 1,
@@ -9,7 +9,7 @@
             "created_date": "2019-06-30"            
         }
     },
-    { "model": "frontend.topic",
+    { "model": "api.topic",
         "fields": {
             "name": "Religión",
             "language_id": 1,
@@ -19,7 +19,7 @@
             "created_date": "2019-06-30"            
         }
     },
-    { "model": "frontend.topic",
+    { "model": "api.topic",
         "fields": {
             "name": "Deporte",
             "language_id": 1,
@@ -29,7 +29,7 @@
             "created_date": "2019-06-30"            
         }
     },
-    { "model": "frontend.topic",
+    { "model": "api.topic",
         "fields": {
             "name": "Educación",
             "language_id": 1,
@@ -39,7 +39,7 @@
             "created_date": "2019-06-30"            
         }
     },
-    { "model": "frontend.topic",
+    { "model": "api.topic",
         "fields": {
             "name": "Tecnología",
             "language_id": 1,
@@ -49,7 +49,7 @@
             "created_date": "2019-06-30"            
         }
     },
-    { "model": "frontend.topic",
+    { "model": "api.topic",
         "fields": {
             "name": "Economía",
             "language_id": 1,
@@ -59,7 +59,7 @@
             "created_date": "2019-06-30"            
         }
     },
-    { "model": "frontend.topic",
+    { "model": "api.topic",
         "fields": {
             "name": "Salud",
             "language_id": 1,
@@ -69,7 +69,7 @@
             "created_date": "2019-06-30"            
         }
     },
-    { "model": "frontend.topic",
+    { "model": "api.topic",
         "fields": {
             "name": "Política",
             "language_id": 1,
@@ -78,7 +78,7 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"            
         }
-    },    { "model": "frontend.topic",
+    },    { "model": "api.topic",
         "fields": {
             "name": "Social",
             "language_id": 1,

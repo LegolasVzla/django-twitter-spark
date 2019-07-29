@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'frontend',
+    'api',
+    'web',
     'rest_framework',
     'rest_framework_swagger'    
 ]

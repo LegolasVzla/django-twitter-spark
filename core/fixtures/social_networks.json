@@ -1,5 +1,5 @@
 [
-    { "model": "frontend.socialnetwork",
+    { "model": "api.socialnetwork",
         "fields": {
             "name": "Twitter",
             "is_active": true,
