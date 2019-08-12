@@ -56,15 +56,15 @@ In "django-twitter-spark/core/" path, create a **settings.ini** file, with the s
 
 Fill in with your own PostgreSQL credentials. By default, DB_HOST and DB_PORT in PostgreSQL are localhost/5432.
 
-Generate default data with the fixtures:
-
-	python3 fixtures_load.py
-
 Default credentials for admin superuser are: admin@admin.com / admin. Then run the migrations:
 
 	python manage.py makemigrations
 
 	python manage.py migrate
+
+Generate default data with the fixtures:
+
+	python3 fixtures_load.py
 
 Run the server:
 

@@ -1,9 +1,12 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import (HttpResponse, HttpResponseForbidden, 
 	HttpResponseRedirect)
 #from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.views import APIView
+from django.views.generic import View, RedirectView
 #from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from api.models import (User,Language,Dictionary,CustomDictionary,
@@ -13,10 +16,70 @@ import json
 import requests
 
 # Create your views here.
-class IndexView(APIView):
-
+class IndexView(View):
+    '''Load index form'''
     def get(self, request, *args, **kwargs):
         content = {}
         content['message'] = 'Hello Social Analyzer!'
 
         return render(request, 'index.html',content)
+
+class UserProfileView(APIView):
+	"""docstring for UserProfile"""
+	
+	def get():
+		pass
+
+	def post():
+		pass
+
+	def put():
+		pass
+
+	def remove():
+		pass
+
+class DiccionaryView(APIView):
+	"""docstring for DiccionaryView"""
+
+	def get():
+		pass
+
+	def post():
+		pass
+
+	def put():
+		pass
+
+	def remove():
+		pass
+
+class TwitterSearchView(APIView):
+	"""docstring for TwitterSearchView"""
+
+	def get():
+		pass
+
+	def post():
+		pass
+
+	def put():
+		pass
+
+	def remove():
+		pass
+
+class RecentTwitterSearchView(APIView):
+	"""docstring for RecentTwitterSearchView"""
+
+	def get():
+		pass
+
+	def post():
+		pass
+
+	def put():
+		pass
+
+	def remove():
+		pass
