@@ -11,7 +11,8 @@ from .views import (IndexView)
 app_name= 'web'
 
 urlpatterns = [
-	path('index/', IndexView.as_view(), name='index')
+#	path('index/', IndexView.as_view(), name='index')
+    url(r'^index/', IndexView.as_view(), name='index')
 ]
 
 

@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
+from web.views import (IndexView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 	path('',include('api.urls')),
-	path('',include('web.urls'))	
+	#path('',include('web.urls'))
+    url(r'^socialanalyzer/', IndexView.as_view(), name='web')
 ]
