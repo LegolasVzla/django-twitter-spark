@@ -22,7 +22,7 @@ class IndexView(View):
         content = {}
         content['message'] = 'Hello Social Analyzer!'
 
-        return render(request, 'index.html',content)
+        return render(request, 'web/index.html',content)
 
 class UserProfileView(APIView):
 	"""docstring for UserProfile"""
