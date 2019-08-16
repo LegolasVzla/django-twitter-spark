@@ -23,12 +23,16 @@ class IndexView(View):
         content['message'] = 'Hello Social Analyzer!'
 
         return render(request, 'web/index.html',content)
+        #return render(request, 'web/profile_get.html',content)
+        #return render(request, 'web/profile_update.html',content)
 
-class UserProfileView(APIView):
+class UserProfileView(View):
 	"""docstring for UserProfile"""
-	
-	def get():
-		pass
+	def get(self, request, *args, **kwargs):
+		content = {}
+		content['message'] = 'Profile'
+
+		return render(request, 'profile_get.html',content)
 
 	def post():
 		pass
