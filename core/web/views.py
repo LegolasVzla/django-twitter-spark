@@ -17,28 +17,29 @@ import requests
 
 # Create your views here.
 class IndexView(View):
-    '''Load index form'''
-    def get(self, request, *args, **kwargs):
-        content = {}
-        content['message'] = 'Hello Social Analyzer!'
+	'''Load index form'''
+	def get(self, request, *args, **kwargs):
+		content = {}
+		content['message'] = 'Hello Social Analyzer!'
 
-        return render(request, 'web/index.html',content)
-        #return render(request, 'web/profile_get.html',content)
-        #return render(request, 'web/profile_update.html',content)
+		return render(request, 'web/index.html',content)
 
 class UserProfileView(View):
 	"""docstring for UserProfile"""
 	def get(self, request, *args, **kwargs):
 		content = {}
-		content['message'] = 'Profile'
+		content['message'] = 'Profile Get'
 
-		return render(request, 'profile_get.html',content)
+		return render(request, 'web/profile_get.html',content)
 
 	def post():
 		pass
 
 	def put():
-		pass
+		content = {}
+		content['message'] = 'Profile Upload'
+
+		return render(request, 'web/profile_update.html',content)
 
 	def remove():
 		pass
