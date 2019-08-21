@@ -16,9 +16,9 @@
       {% block stylesheets %}
         <!-- Bootstrap -->
         <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-        <!-- Datatable Bootstrap 
+        <!-- Datatable Bootstrap -->
         <link rel="stylesheet" href="{% static 'css/bootstrap/datatables/1.10.19/dataTables.bootstrap4.min.css' %}">
-        -->
+        
         <!-- Font Awesome -->
         <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
         <!-- NProgress -->
@@ -75,16 +75,16 @@
         <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
         <!-- Bootstrap -->
         <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-        <!-- Bootstrap Datatable 
+        <!-- Bootstrap Datatable -->
         <script src="{% static 'js/bootstrap/datatables/jquery-3.3.1.js' %}"></script>
         <script src="{% static 'js/bootstrap/datatables/1.10.19/jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'js/bootstrap/datatables/1.10.19/dataTables.bootstrap4.min.js' %}"></script>
         <script>
         $(document).ready(function() {
-            $('#table').DataTable();
+            $('#twitterTopicsTable').DataTable();
         } );
         </script>
-        -->
+        
         <!-- FastClick 
         <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
         -->

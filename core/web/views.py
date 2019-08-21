@@ -33,7 +33,10 @@ class UserProfileView(View):
 		return render(request, 'web/profile_get.html',content)
 
 	def post():
-		pass
+		content = {}
+		content['message'] = 'Profile Create'
+
+		return render(request, 'web/profile_create.html',content)
 
 	def put():
 		content = {}

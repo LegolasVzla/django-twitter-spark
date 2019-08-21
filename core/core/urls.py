@@ -23,5 +23,6 @@ urlpatterns = [
 	path('',include('api.urls')),
 	#path('',include('web.urls'))
     url(r'^socialanalyzer/$', IndexView.as_view(), name='web'),
-    url(r'^socialanalyzer/profile_get/$', UserProfileView.as_view(), name='profile_get')    
+    url(r'^socialanalyzer/profile_get/$', UserProfileView.as_view(), name='profile_get'),
+    url(r'^socialanalyzer/profile_update/$', UserProfileView.as_view(), name='profile_update')
 ]
