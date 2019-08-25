@@ -96,7 +96,7 @@ Basically the structure is as below for all the main instances (User, Dictionari
 
 Endpoint |HTTP Method | CRUD Method | Result
 -- | -- |-- |--
-`api/<instance>` | GET | READ | Get all the '<instance>' records
+`api/<instance>` | GET | READ | Get all the <instance> records
 `api/<instance>/:id` | GET | READ | Get a single <instance>
 `api/<instance>`| POST | CREATE | Create a new <instance> record
 `api/<instance>/:id` | PUT | UPDATE | Update a <instance> record

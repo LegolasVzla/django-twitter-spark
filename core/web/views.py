@@ -49,8 +49,35 @@ class UserProfileView(View):
 	def remove(self, request, *args, **kwargs):
 		pass
 
-class SearchView(View):
-	"""docstring for SearchView"""
+class DictionaryView(APIView):
+	"""docstring for DictionaryView"""
+
+	def get(self, request, *args, **kwargs):
+		content = {}
+		content['message'] = 'Dictionary Get'
+
+		return render(request, 'web/dictionary_get.html',content)
+
+	def post(self, request, *args, **kwargs):
+		content = {}
+		content['message'] = 'Dictionary Post'
+
+		return render(request, 'web/dictionary_create.html',content)
+
+	def put(self, request, *args, **kwargs):
+		content = {}
+		content['message'] = 'Dictionary Put'
+
+		return render(request, 'web/dictionary_get.html',content)
+
+	def remove(self, request, *args, **kwargs):
+		content = {}
+		content['message'] = 'Dictionary Remove'
+
+		return render(request, 'web/dictionary_get.html',content)
+
+class TwitterSearchView(View):
+	"""docstring for TwitterSearchView"""
 	def get(self, request, *args, **kwargs):
 		content = {}
 		content['message'] = 'Twitter Search'
@@ -62,36 +89,6 @@ class SearchView(View):
 		content['message'] = 'Twitter Results '
 
 		return render(request, 'web/twitter_results.html',content)
-
-class DiccionaryView(APIView):
-	"""docstring for DiccionaryView"""
-
-	def get(self, request, *args, **kwargs):
-		pass
-
-	def post(self, request, *args, **kwargs):
-		pass
-
-	def put(self, request, *args, **kwargs):
-		pass
-
-	def remove(self, request, *args, **kwargs):
-		pass
-
-class TwitterSearchView(APIView):
-	"""docstring for TwitterSearchView"""
-
-	def get(self, request, *args, **kwargs):
-		pass
-
-	def post(self, request, *args, **kwargs):
-		pass
-
-	def put(self, request, *args, **kwargs):
-		pass
-
-	def remove(self, request, *args, **kwargs):
-		pass
 
 class RecentTwitterSearchView(APIView):
 	"""docstring for RecentTwitterSearchView"""

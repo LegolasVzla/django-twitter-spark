@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
-from web.views import (IndexView,UserProfileView,SearchView)
+from web.views import (IndexView,UserProfileView,DictionaryView,
+    TwitterSearchView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,10 @@ urlpatterns = [
     url(r'^socialanalyzer/$', IndexView.as_view(), name='web'),
     url(r'^socialanalyzer/profile_get/$', UserProfileView.as_view(), name='profile_get'),
     url(r'^socialanalyzer/profile_update/$', UserProfileView.as_view(), name='profile_update'),
-    url(r'^socialanalyzer/twitter_search/$', SearchView.as_view(), name='twitter_search'),
-    url(r'^socialanalyzer/twitter_results/$', SearchView.as_view(), name='twitter_results')
+    url(r'^socialanalyzer/twitter_search/$', TwitterSearchView.as_view(), name='twitter_search'),
+    url(r'^socialanalyzer/twitter_results/$', TwitterSearchView.as_view(), name='twitter_results'),
+    url(r'^socialanalyzer/dictionary_get/$', DictionaryView.as_view(), name='dictionary_get'),
+    url(r'^socialanalyzer/dictionary_create/$', DictionaryView.as_view(), name='dictionary_create'),
+    url(r'^socialanalyzer/dictionary_update/$', DictionaryView.as_view(), name='dictionary_update'),
+    url(r'^socialanalyzer/dictionary_remove/$', DictionaryView.as_view(), name='dictionary_remove')    
 ]
