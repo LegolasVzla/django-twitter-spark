@@ -1,15 +1,16 @@
 {% extends "web/layouts/base_site.html" %}
 
+{% block title %} Update Profile {% endblock title %}
+
 {% block content %}
   <div class="right_col" role="main">
-    <div class="">
-      <!-- Here will be bread crumb
-      <div class="page-title">
-        <div class="title_left">
-          <h3>Mi Perfil</h3>
-        </div>
-      </div>
-      -->
+    <div class="row">
+      <ol class="breadcrumb">
+        <li><a href="/socialanalyzer">Home</a></li>
+        <li class="active"><a href="/socialanalyzer/profile_get">Profile</a></li>        
+      </ol>
+    </div>
+
       <div class="clearfix"></div>
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -91,6 +92,5 @@
         </div>
       </div>
 
-    </div>
   </div>
 {% endblock content %}

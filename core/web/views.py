@@ -47,6 +47,20 @@ class UserProfileView(View):
 	def remove():
 		pass
 
+class SearchView(View):
+	"""docstring for SearchView"""
+	def get(self, request, *args, **kwargs):
+		content = {}
+		content['message'] = 'Search'
+
+		return render(request, 'web/search_word.html',content)
+
+	def post():
+		content = {}
+		content['message'] = 'Search Response'
+
+		return render(request, 'web/search_results.html',content)
+
 class DiccionaryView(APIView):
 	"""docstring for DiccionaryView"""
 

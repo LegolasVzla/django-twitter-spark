@@ -1,6 +1,6 @@
 {% extends "web/layouts/base_site.html" %}
 
-{% block title %} Dashboard 1 {% endblock title %}
+{% block title %} Home {% endblock title %}
 
 {% block stylesheets %}
   {{ block.super }}
@@ -119,13 +119,13 @@
           <div class="x_content">
           <div>
           <center>
-            <span class="label label-purple">Entretenimiento</span>
-            <span class="label label-warning">Religión</span>
-            <span class="label label-dark-green">Economía</span>
-            <span class="label label-primary">Deporte</span>
-            <span class="label label-piel">Salud</span>
-            <span class="label label-brown">Política</span>
-            <span class="label label-info">Social</span>
+            <span class="label label-success">Entretenimiento</span>
+            <span class="label label-default">Religión</span>
+            <span class="label label-info">Economía</span>
+            <span class="label label-warning">Deporte</span>
+            <span class="label label-danger">Salud</span>
+            <span class="label label-primary">Política</span>
+            <span class="label label-soft-brown">Social</span>
             </center><br>
           </div>
 
@@ -176,10 +176,10 @@
 
 {% block javascripts %}
   {{ block.super}}
-  <!-- Chart.js -->
-  <script src="/static/vendors/Chart.js/dist/Chart.min.js"></script>
-  <!-- gauge.js -->
-  <script src="/static/vendors/gauge.js/dist/gauge.min.js"></script>
+  <!-- Chart.js 
+  <script src="/static/vendors/Chart.js/dist/Chart.min.js"></script> -->
+  <!-- gauge.js 
+  <script src="/static/vendors/gauge.js/dist/gauge.min.js"></script> -->
   <!-- Skycons -->
   <script src="/static/vendors/skycons/skycons.js"></script>
   <!-- Flot -->
@@ -192,10 +192,10 @@
   <script src="/static/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
   <script src="/static/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
   <script src="/static/vendors/flot.curvedlines/curvedLines.js"></script>
-  <!-- DateJS -->
-  <script src="/static/vendors/DateJS/build/date.js"></script>
-  <!-- JQVMap -->
-  <script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+  <!-- DateJS 
+  <script src="/static/vendors/DateJS/build/date.js"></script> -->
+  <!-- JQVMap 
+  <script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script> 
   <script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-  <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+  <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script> -->
 {% endblock javascripts %}
