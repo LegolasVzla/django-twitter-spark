@@ -10,8 +10,10 @@ from django.views.generic import View, RedirectView
 #from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from api.models import (User,Language,Dictionary,CustomDictionary,
-	SocialNetwork,Searched,Topic,WordRoot)
-
+	SocialNetwork,Search,Topic,WordRoot)
+from api.serializers import (UserSerializer,DictionarySerializer,
+	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
+	WordRootSerializer)
 import json
 import requests
 

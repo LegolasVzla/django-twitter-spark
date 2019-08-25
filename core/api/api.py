@@ -1,7 +1,8 @@
-from .models import (User,Dictionary,CustomDictionary,Topic,WordRoot)
+from .models import (User,Dictionary,CustomDictionary,Topic,Search,WordRoot)
 from rest_framework import viewsets, permissions
 from .serializers import (UserSerializer,DictionarySerializer,
-	CustomDictionarySerializer,TopicSerializer,WordRootSerializer)
+	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
+	WordRootSerializer)
 from rest_framework import serializers, validators
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
@@ -44,6 +45,14 @@ class TopicViewSet(viewsets.ModelViewSet):
 		permissions.AllowAny
 	]
 	serializer_class = TopicSerializer
+	pagination_class = StandardResultsSetPagination
+
+class SearchViewSet(viewsets.ModelViewSet):
+	queryset = Search.objects.all()
+	permission_classes = [
+		permissions.AllowAny
+	]
+	serializer_class = SearchSerializer
 	pagination_class = StandardResultsSetPagination
 
 class WordRootViewSet(viewsets.ModelViewSet):

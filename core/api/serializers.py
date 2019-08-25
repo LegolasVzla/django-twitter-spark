@@ -1,4 +1,5 @@
-from .models import (User,Dictionary,CustomDictionary,Topic,WordRoot)
+from .models import (User,Dictionary,CustomDictionary,Topic,Search,
+	WordRoot)
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -11,19 +12,24 @@ class UserSerializer(serializers.ModelSerializer):
 class DictionarySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Dictionary
-		fields = ('id','word','polarity','language','is_active','is_deleted')
+		fields = ('__all__')
 
 class CustomDictionarySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = CustomDictionary
-		fields = ('id','user','word','polarity','language','is_active','is_deleted')
+		fields = ('__all__')
 
 class TopicSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Topic
-		fields = ('id','name','language','is_active','is_deleted')
+		fields = ('__all__')
+
+class SearchSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Search
+		fields = ('__all__')
 
 class WordRootSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = WordRoot
-		fields = ('id','word_root','topic','is_active','is_deleted')
+		fields = ('__all__')
