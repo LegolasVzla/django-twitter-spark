@@ -25,6 +25,6 @@ urlpatterns = [
     url(r'^socialanalyzer/$', IndexView.as_view(), name='web'),
     url(r'^socialanalyzer/profile_get/$', UserProfileView.as_view(), name='profile_get'),
     url(r'^socialanalyzer/profile_update/$', UserProfileView.as_view(), name='profile_update'),
-    url(r'^socialanalyzer/search_word/$', SearchView.as_view(), name='search_word'),
-    url(r'^socialanalyzer/search_results/$', SearchView.as_view(), name='search_response')
+    url(r'^socialanalyzer/twitter_search/$', SearchView.as_view(), name='twitter_search'),
+    url(r'^socialanalyzer/twitter_results/$', SearchView.as_view(), name='twitter_results')
 ]

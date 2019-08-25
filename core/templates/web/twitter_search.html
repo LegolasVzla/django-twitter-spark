@@ -32,11 +32,11 @@
 			</div>
 			<div class="col-xs-5 col-md-5 col-lg-5">
 				<center>
-					<form class="navbar-search" role="search" method="POST" action="{% url 'search_response' %}">{% csrf_token %}
+					<form class="navbar-search" role="search" method="POST" action="{% url 'twitter_results' %}">{% csrf_token %}
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Buscar" name="palabra" id="palabra" autofocus="" required="">
 						</div>
-						<button id="btn-buscar" class="btn btn-primary pull-center" type="submit" formmethod="POST" formaction="/web/search_results.html">Buscar Palabra o Frase</button>
+						<button id="btn-buscar" class="btn btn-primary pull-left" type="submit" formmethod="POST" formaction="/socialanalyzer/twitter_results/">Buscar Palabra o Frase</button>
 					</form>	
 				</center><br>
 

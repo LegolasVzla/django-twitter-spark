@@ -32,76 +32,76 @@ class UserProfileView(View):
 
 		return render(request, 'web/profile_get.html',content)
 
-	def post():
+	def post(self, request, *args, **kwargs):
 		content = {}
 		content['message'] = 'Profile Create'
 
 		return render(request, 'web/profile_create.html',content)
 
-	def put():
+	def put(self, request, *args, **kwargs):
 		content = {}
 		content['message'] = 'Profile Upload'
 
 		return render(request, 'web/profile_update.html',content)
 
-	def remove():
+	def remove(self, request, *args, **kwargs):
 		pass
 
 class SearchView(View):
 	"""docstring for SearchView"""
 	def get(self, request, *args, **kwargs):
 		content = {}
-		content['message'] = 'Search'
+		content['message'] = 'Twitter Search'
 
-		return render(request, 'web/search_word.html',content)
+		return render(request, 'web/twitter_search.html',content)
 
-	def post():
+	def post(self, request, *args, **kwargs):
 		content = {}
-		content['message'] = 'Search Response'
+		content['message'] = 'Twitter Results '
 
-		return render(request, 'web/search_results.html',content)
+		return render(request, 'web/twitter_results.html',content)
 
 class DiccionaryView(APIView):
 	"""docstring for DiccionaryView"""
 
-	def get():
+	def get(self, request, *args, **kwargs):
 		pass
 
-	def post():
+	def post(self, request, *args, **kwargs):
 		pass
 
-	def put():
+	def put(self, request, *args, **kwargs):
 		pass
 
-	def remove():
+	def remove(self, request, *args, **kwargs):
 		pass
 
 class TwitterSearchView(APIView):
 	"""docstring for TwitterSearchView"""
 
-	def get():
+	def get(self, request, *args, **kwargs):
 		pass
 
-	def post():
+	def post(self, request, *args, **kwargs):
 		pass
 
-	def put():
+	def put(self, request, *args, **kwargs):
 		pass
 
-	def remove():
+	def remove(self, request, *args, **kwargs):
 		pass
 
 class RecentTwitterSearchView(APIView):
 	"""docstring for RecentTwitterSearchView"""
 
-	def get():
+	def get(self, request, *args, **kwargs):
 		pass
 
-	def post():
+	def post(self, request, *args, **kwargs):
 		pass
 
-	def put():
+	def put(self, request, *args, **kwargs):
 		pass
 
-	def remove():
+	def remove(self, request, *args, **kwargs):
 		pass
