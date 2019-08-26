@@ -14,6 +14,37 @@
 	document.getElementById("inicio-li").classList.remove('active');
 </script>
 -->
+    <!-- Add Spot -->
+    <div class="container">
+      <div class="modal fade" id="wordUpdateModal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title"><b>Cambiar Polaridad de la Palabra: </b><label class="wordName"></label></h4><label class="wordIdToEdit" style="display: none;"></label>
+            </div>
+            <div class="modal-body">
+				<form action="{% url 'dictionary_update' %}" method="post">
+				{% csrf_token %}
+					<fieldset>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-3" for="polaridad">Polaridad</label>
+							<input class="control-label col-md-3 col-sm-3 col-xs-3" id="toggle-polarity" checked type="checkbox" data-on="Positiva" data-off="Negativa" data-onstyle="success" data-offstyle="danger" required="">
+						</div>
+						<br/><br/>
+
+	                  <div class="modal-footer">
+	                    <input class="btn btn-success" type="submit" onclick='' value="Guardar" />
+	                    <button type="button" class="btn btn-default" onclick="" data-dismiss="modal">Close</button>
+	                  </div>
+					</fieldset>
+				</form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <div class="right_col" role="main">
 
 	<div class="row">
@@ -133,27 +164,25 @@
 						<td>Fecha de Creación</td>
 						<td>Fecha de Modificación</td>
 						<td>
-						  <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="socialanalyzer/dictionary_update/{{Diccionarios.id}}"><i class="fa fa-edit"></i></a>
+						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12" data-toggle="modal" onclick='' data-target="#wordUpdateModal"><i class="fa fa-edit"></i>
 						  </div>
-
-						  <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="/socialanalyzer/dictionary_remove/{{Diccionarios.id}}"><i class="fa fa-trash-o"></i></a>
+						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12"><a href="/socialanalyzer/dictionary_remove/{{Diccionarios.id}}"><i class="fa fa-trash-o"></i></a>
 						  </div>
 						</td>
 					</tr>
-				<tr>
-					<td>2</td>
-					<td>Palabra</td>
-					<td>Negativa</td>
-					<td>Fecha de Creación</td>
-					<td>Fecha de Modificación</td>
-					<td>
-					  <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="socialanalyzer/dictionary_update/{{Diccionarios.id}}"><i class="fa fa-edit"></i></a>
-					  </div>
-
-					  <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="/socialanalyzer/dictionary_remove/{{Diccionarios.id}}"><i class="fa fa-trash-o"></i></a>
-					  </div>
-					</td>
-				</tr>
+					<tr>
+						<td>2</td>
+						<td>Palabra</td>
+						<td>Negativa</td>
+						<td>Fecha de Creación</td>
+						<td>Fecha de Modificación</td>
+						<td>
+						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12" data-toggle="modal" onclick='' data-target="#wordUpdateModal"><i class="fa fa-edit"></i>
+						  </div>
+						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12"><a href="/socialanalyzer/dictionary_remove/{{Diccionarios.id}}"><i class="fa fa-trash-o"></i></a>
+						  </div>
+						</td>
+					</tr>
 	          </tbody>
 	        </table>
 
@@ -170,43 +199,48 @@
 
 {% block javascripts %}
   {{ block.super}}
-  <!-- Bootstrap Datatable -->
-  <script>
-  $(document).ready(function() {
-      $('#customDictionaryTable').DataTable();
-  } );
-  </script>
-
-  <script type="text/javascript">
+	<!-- Bootstrap Datatable -->
+	<script>
+	$(document).ready(function() {
+	  $('#customDictionaryTable').DataTable();
+	} );
+	</script>
+	<!-- easypiechart -->
+	<script type="text/javascript">
 	$(function() {
-	    $('#easypiechart-green').easyPieChart({
-	        scaleColor: false,
-	        barColor: '#8ad919'
-	    });
+	$('#easypiechart-green').easyPieChart({
+	    scaleColor: false,
+	    barColor: '#8ad919'
+	});
 	});
 
 	$(function() {
-	    $('#easypiechart-orange').easyPieChart({
-	        scaleColor: false,
-	        barColor: '#ffb53e'
-	    });
+	$('#easypiechart-orange').easyPieChart({
+	    scaleColor: false,
+	    barColor: '#ffb53e'
+	});
 	});
 
 	$(function() {
-	    $('#easypiechart-red').easyPieChart({
-	        scaleColor: false,
-	        barColor: '#f9243f'
-	    });
+	$('#easypiechart-red').easyPieChart({
+	    scaleColor: false,
+	    barColor: '#f9243f'
+	});
 	});
 
 	$(function() {
-	   $('#easypiechart-blue').easyPieChart({
-	       scaleColor: false,
-	       barColor: '#30a5ff'
-	   });
+	$('#easypiechart-blue').easyPieChart({
+	   scaleColor: false,
+	   barColor: '#30a5ff'
+	});
 	});  	
-  </script>
+	</script>
+	<script src="{% static 'vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
+    <!-- Bootstrap Toggle -->	
+	<script>
+	  $(function() {
+	    $('#toggle-polarity').bootstrapToggle();
+	  })
+	</script>
 
-  <!-- easy-pie-chart -->
-  <script src="{% static 'vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
 {% endblock javascripts %}
