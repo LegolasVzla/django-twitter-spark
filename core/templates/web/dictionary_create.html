@@ -1,0 +1,109 @@
+{% extends "web/layouts/base_site.html" %}
+{% load static %}
+{% block title %} My Dictionary {% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+<!--
+<script type="text/javascript">
+	document.getElementById("buscar-palabra-li").classList.add('active');
+	//console.log(document.getElementById("buscar-palbra-li"))
+	document.getElementById("inicio-li").classList.remove('active');
+</script>
+-->
+<div class="right_col" role="main">
+
+	<div class="row">
+		<ol class="breadcrumb">
+	        <li class="active"><a href="/socialanalyzer">Home</a></li>
+	        <li class="active"><a href="/socialanalyzer/dictionary_get/">My Dictionary</a></li>	        
+		</ol>
+	</div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard_graph">
+
+			<div class="row x_title">
+				<div class="col-md-6">
+				  <h3>Agregar Palabra a mi Diccionario<small><b></b></small></h3>
+				</div>
+			</div>
+
+			<div class="col-md-12 col-sm-12 col-xs-12">
+			<p><i class="fa fa-comment-o"></i> Puedes añadir una palabra a tu diccionario personal y asignarle una polaridad, sin embargo no podrás añadir palabras que ya estén almacenadas en nuestro sistema.</p>
+			</div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+	<div class="row">
+		<div class="x_panel tile fixed_height_320">
+			<div class="x_title">
+			<h2>Nueva Palabra</h2>  	
+				<ul class="nav navbar-right panel_toolbox">
+				  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+				  </li>
+				  <li><a class="close-link"><i class="fa fa-close"></i></a>
+				  </li>
+				</ul>
+			<div class="clearfix"></div>
+			</div>
+
+			<div class="x_content">
+				<form action="{% url 'dictionary_get' %}" method="post">
+				{% csrf_token %}
+					<fieldset>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="new-word">Palabra</label>
+							<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+							  <input type="text" class="form-control has-feedback-left" id="#newWord" placeholder="Ingrese su nueva palabra" autofocus="" required="">
+							  <span class="fa fa-file-text form-control-feedback left" aria-hidden="true"></span>
+							</div>
+						</div>
+						<br/><br/>
+
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="polaridad">Polaridad</label>
+							  <input id="toggle-polarity" checked type="checkbox" data-on="Positiva" data-off="Negativa" data-onstyle="success" data-offstyle="danger" required="">
+						</div>
+						<br/><br/>
+	<!--						    
+						<div class="form-group"><b>Usuario:</b>
+							<input class="form-control" name="usuario_id_id" type="text" id="usuario_id_id">
+						</div>
+	-->
+						<input class="btn btn-primary pull-left" type="submit" value="Añadir Palabra" />
+
+					</fieldset>
+				</form>
+			</div>
+
+      		<div class="clearfix"></div>
+
+		</div>
+	</div>
+
+    <br />
+
+	<a href="/socialanalyzer"> <b><< Regresar</b></a>
+
+</div>
+
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super}}
+<script>
+  $(function() {
+    $('#toggle-polarity').bootstrapToggle();
+  })
+</script>  
+{% endblock javascripts %}
