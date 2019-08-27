@@ -1,0 +1,214 @@
+{% extends "web/layouts/base_site.html" %}
+{% load static %}
+{% block title %} My Dictionary {% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+<!--
+<script type="text/javascript">
+	document.getElementById("buscar-palabra-li").classList.add('active');
+	//console.log(document.getElementById("buscar-palbra-li"))
+	document.getElementById("inicio-li").classList.remove('active');
+</script>
+-->
+<div class="right_col" role="main">
+
+	<div class="row">
+		<ol class="breadcrumb">
+	        <li class="active"><a href="/socialanalyzer">Home</a></li>
+		</ol>
+	</div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard_graph">
+
+			<div class="row x_title">
+				<div class="col-md-6">
+				  <h3>Búsqueda Reciente<small><b></b> en Twitter</small></h3>
+				</div>
+			</div>
+
+			<div class="col-md-12 col-sm-12 col-xs-12">
+			<p><i class="fa fa-comment-o"></i> Información en detalle acerca de tus búsquedas recientes y variación en el tiempo. Puedes ver la variación en el tiempo de una palabra, al dar click sobre ella.</p>
+			</div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+	<div class="col-md-3 col-sm-3 col-xs-12">
+		<div class="x_panel tile fixed_height_320">
+			<div class="x_title">
+			<h2>MásBuscadas</h2>  	
+				<ul class="nav navbar-right panel_toolbox">
+				  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+				  </li>
+				  <li><a class="close-link"><i class="fa fa-close"></i></a>
+				  </li>
+				</ul>
+			<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+
+			    <div class="row tile_count">
+			      <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
+			        <span class="count_top"><i class="fa fa-thumbs-o-up"></i> Positiva</span>
+			        <h3><b>Venezuela</b></h3>
+			        <!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
+			      </div>
+			    </div>
+
+			    <div class="row tile_count">
+			      <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
+			        <span class="count_top"><i class="fa fa-thumbs-o-down"></i> Negativa</span>
+			        <h3><b>Contaminación</b></h3>
+			      </div>
+			    </div>
+
+			</div>
+
+      		<div class="clearfix"></div>
+
+		</div>
+	</div>
+
+	<div class="col-md-9 col-sm-9 col-xs-12">
+		<div class="x_panel tile fixed_height_320">
+			<div class="x_title">
+			<h2>Total de Palabras Buscadas</h2>  	
+				<ul class="nav navbar-right panel_toolbox">
+				  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+				  </li>
+				  <li><a class="close-link"><i class="fa fa-close"></i></a>
+				  </li>
+				</ul>
+			<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				<div class="col-xs-6 col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h4>Positivas</h4>
+							<div class="easypiechart" id="easypiechart-green" data-percent="{{palabras_positivas}}" ><span class="percent">{{palabras_positivas}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body easypiechart-panel">
+							<h4>Negativas</h4>
+							<div class="easypiechart" id="easypiechart-red" data-percent="{{palabras_negativas}}" ><span class="percent">{{palabras_negativas}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+      		<div class="clearfix"></div>
+
+		</div>
+	</div>
+
+    <br />
+
+	<div class="row">
+		<div class="x_panel tile fixed_height_320">
+		  <div class="x_title">
+	        <h2>Palabras buscadas</h2>  	
+		    <ul class="nav navbar-right panel_toolbox">
+		      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+		      </li>
+		      <li><a class="close-link"><i class="fa fa-close"></i></a>
+		      </li>
+		    </ul>
+		    <div class="clearfix"></div>
+		  </div>
+		  <div class="x_content">
+	        <table id="recentlyTwitterSearchTable" class="table table-striped table-bordered">
+	          	<thead>
+					<tr>
+						<th>N°</th>
+						<th>Palabra</th>
+						<th>Polaridad</th>
+						<th>N° Me Gusta</th>
+						<th>N° Retweets</th>
+						<th>Fecha de Búsqueda</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td><a href="/socialanalyzer/recently_search_twitter/{{i.palabra}}">Palabra</a></td>
+						<td><input id="toggle-polarity" checked type="checkbox" data-on="+ Positiva" data-onstyle="success" data-offstyle="danger" disabled data-toggle="toggle" data-width="100"></td>
+						<td>100</td>
+						<td>200</td>
+						<td>Fecha de Creación</td>
+					</tr>
+	          </tbody>
+	        </table>
+
+		  </div>
+
+		</div>
+	</div>
+
+	<a href="/socialanalyzer"> <b><< Regresar</b></a>
+
+</div>
+
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super}}
+	<!-- Bootstrap Datatable -->
+	<script>
+	$(document).ready(function() {
+	  $('#recentlyTwitterSearchTable').DataTable();
+	} );
+	</script>
+	<!-- easypiechart -->
+	<script type="text/javascript">
+	$(function() {
+	$('#easypiechart-green').easyPieChart({
+	    scaleColor: false,
+	    barColor: '#8ad919'
+	});
+	});
+
+	$(function() {
+	$('#easypiechart-orange').easyPieChart({
+	    scaleColor: false,
+	    barColor: '#ffb53e'
+	});
+	});
+
+	$(function() {
+	$('#easypiechart-red').easyPieChart({
+	    scaleColor: false,
+	    barColor: '#f9243f'
+	});
+	});
+
+	$(function() {
+	$('#easypiechart-blue').easyPieChart({
+	   scaleColor: false,
+	   barColor: '#30a5ff'
+	});
+	});  	
+	</script>
+	<script src="{% static 'vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
+    <!-- Bootstrap Toggle -->	
+	<script>
+	  $(function() {
+	    $('#toggle-polarity').bootstrapToggle();
+	  })
+	</script>
+
+{% endblock javascripts %}

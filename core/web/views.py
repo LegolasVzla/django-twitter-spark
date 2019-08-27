@@ -94,13 +94,7 @@ class RecentTwitterSearchView(APIView):
 	"""docstring for RecentTwitterSearchView"""
 
 	def get(self, request, *args, **kwargs):
-		pass
+		content = {}
+		content['message'] = 'Recently Search Get'
+		return render(request, 'web/recently_search_twitter.html',content)
 
-	def post(self, request, *args, **kwargs):
-		pass
-
-	def put(self, request, *args, **kwargs):
-		pass
-
-	def remove(self, request, *args, **kwargs):
-		pass

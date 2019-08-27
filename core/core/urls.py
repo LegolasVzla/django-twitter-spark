@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
 from web.views import (IndexView,UserProfileView,DictionaryView,
-    TwitterSearchView)
+    TwitterSearchView,RecentTwitterSearchView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^socialanalyzer/dictionary_get/$', DictionaryView.as_view(), name='dictionary_get'),
     url(r'^socialanalyzer/dictionary_create/$', DictionaryView.as_view(), name='dictionary_create'),
     url(r'^socialanalyzer/dictionary_update/$', DictionaryView.as_view(), name='dictionary_update'),
-    url(r'^socialanalyzer/dictionary_remove/$', DictionaryView.as_view(), name='dictionary_remove')    
+    url(r'^socialanalyzer/dictionary_remove/$', DictionaryView.as_view(), name='dictionary_remove'),
+    url(r'^socialanalyzer/recently_search_twitter/$', RecentTwitterSearchView.as_view(), name='recently_search_twitter')
 ]
