@@ -14,6 +14,14 @@
 	document.getElementById("inicio-li").classList.remove('active');
 </script>
 -->
+<div class="right_col" role="main">
+
+	<div class="row">
+		<ol class="breadcrumb">
+	        <li class="active"><a href="/socialanalyzer">Home</a></li>
+		</ol>
+	</div>
+
     <!-- Add Spot -->
     <div class="container">
       <div class="modal fade" id="wordUpdateModal" role="dialog">
@@ -21,18 +29,20 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title"><b>Cambiar Polaridad de la Palabra: </b><label class="wordName"></label></h4><label class="wordIdToEdit" style="display: none;"></label>
+              <h4 class="modal-title"><b>Cambiar la polaridad de la palabra: </b><label class="wordName"></label></h4><label class="wordIdToEdit" style="display: none;"></label>
             </div>
             <div class="modal-body">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+				<p><i class="fa fa-comment-o"></i> ¿Cambiaste de opinión? modifica la polaridad de la palabra.</p>
+				</div><br/><br/>
 				<form action="{% url 'dictionary_update' %}" method="post">
 				{% csrf_token %}
 					<fieldset>
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-3" for="polaridad">Polaridad</label>
-							<input class="control-label col-md-3 col-sm-3 col-xs-3" id="toggle-polarity" checked type="checkbox" data-on="Positiva" data-off="Negativa" data-onstyle="success" data-offstyle="danger" required="">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="polaridad">Polaridad:</label>
+							<input id="toggle-polarity" checked type="checkbox" data-on="+ Positiva" data-off="- Negativa" data-onstyle="success" data-offstyle="danger" required="" data-width="100">
 						</div>
-						<br/><br/>
-
+						<br/><br/><br/>
 	                  <div class="modal-footer">
 	                    <input class="btn btn-success" type="submit" onclick='' value="Guardar" />
 	                    <button type="button" class="btn btn-default" onclick="" data-dismiss="modal">Close</button>
@@ -44,14 +54,6 @@
         </div>
       </div>
     </div>
-
-<div class="right_col" role="main">
-
-	<div class="row">
-		<ol class="breadcrumb">
-	        <li class="active"><a href="/socialanalyzer">Home</a></li>
-		</ol>
-	</div>
 
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
