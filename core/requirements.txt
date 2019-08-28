@@ -6,7 +6,7 @@ Django==2.2.4
 django-rest-swagger==2.2.0
 djangorestframework==3.9.4
 djangorestframework-simplejwt==4.3.0
-httpie==1.0.2
+httpie==1.0.3
 idna==2.8
 itypes==1.1.0
 Jinja2==2.10.1

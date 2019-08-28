@@ -98,3 +98,8 @@ class RecentTwitterSearchView(APIView):
 		content['message'] = 'Recently Search Get'
 		return render(request, 'web/recently_search_twitter.html',content)
 
+	def post(self, request, *args, **kwargs):
+		content = {}
+		content['message'] = 'Recently Search Post'
+		return render(request, 'web/twitter_timeline.html',content)
+

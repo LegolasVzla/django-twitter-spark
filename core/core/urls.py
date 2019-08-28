@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^socialanalyzer/dictionary_create/$', DictionaryView.as_view(), name='dictionary_create'),
     url(r'^socialanalyzer/dictionary_update/$', DictionaryView.as_view(), name='dictionary_update'),
     url(r'^socialanalyzer/dictionary_remove/$', DictionaryView.as_view(), name='dictionary_remove'),
-    url(r'^socialanalyzer/recently_search_twitter/$', RecentTwitterSearchView.as_view(), name='recently_search_twitter')
+    url(r'^socialanalyzer/recently_search_twitter/$', RecentTwitterSearchView.as_view(), name='recently_search_twitter'),
+    url(r'^socialanalyzer/timeline_twitter/$', RecentTwitterSearchView.as_view(), name='timeline_twitter')
 ]

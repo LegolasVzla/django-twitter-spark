@@ -1,6 +1,6 @@
 {% extends "web/layouts/base_site.html" %}
 {% load static %}
-{% block title %} My Dictionary {% endblock title %}
+{% block title %} Recently Search on Twitter {% endblock title %}
 
 {% block stylesheets %}
   {{ block.super }}
@@ -145,7 +145,7 @@
 				<tbody>
 					<tr>
 						<td>1</td>
-						<td><a href="/socialanalyzer/recently_search_twitter/{{i.palabra}}">Palabra</a></td>
+						<td><a href="/socialanalyzer/timeline_twitter/{{i.palabra}}">Palabra</a></td>
 						<td><input id="toggle-polarity" checked type="checkbox" data-on="+ Positiva" data-onstyle="success" data-offstyle="danger" disabled data-toggle="toggle" data-width="100"></td>
 						<td>100</td>
 						<td>200</td>
