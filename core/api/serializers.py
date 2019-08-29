@@ -1,5 +1,5 @@
 from .models import (User,Dictionary,CustomDictionary,Topic,Search,
-	WordRoot)
+	WordRoot,SocialNetworkAccounts)
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -32,4 +32,9 @@ class SearchSerializer(serializers.ModelSerializer):
 class WordRootSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = WordRoot
+		fields = ('__all__')
+
+class SocialNetworkAccountsSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = SocialNetworkAccounts
 		fields = ('__all__')

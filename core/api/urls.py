@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from rest_framework import routers
 from .api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
-	TopicViewSet,SearchViewSet,WordRootViewSet)
+	TopicViewSet,SearchViewSet,WordRootViewSet,SocialNetworkAccountsViewSet)
 from rest_framework_swagger.views import get_swagger_view
 from django.urls import path
 from rest_framework_simplejwt import views as jwt_views
@@ -15,8 +15,9 @@ router.register('api/customdictionary', CustomDictionaryViewSet, 'customdictiona
 router.register('api/topic', TopicViewSet, 'topic')
 router.register('api/wordroot', WordRootViewSet, 'wordroot')
 router.register('api/search', SearchViewSet, 'search')
+router.register('api/social_network_accounts', SocialNetworkAccountsViewSet, 'social_network_accounts')
 
-schema_view = get_swagger_view(title='Swagger DRF-Orientdb-PostgreSQL REST API Documentation')
+schema_view = get_swagger_view(title='Swagger Topic Analyzer REST API Documentation')
 
 urlpatterns = [
     url(r'^swagger/$', schema_view),

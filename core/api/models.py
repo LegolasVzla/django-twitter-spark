@@ -94,7 +94,7 @@ class Search(models.Model):
 	]
 	user = models.ForeignKey(User,related_name='searched_user_id',on_delete=models.CASCADE)
 	word = models.CharField( max_length = 100)
-	social_network = models.ForeignKey(Topic,related_name='search_social_network_id',on_delete=models.CASCADE)
+	social_network = models.ForeignKey(SocialNetwork,related_name='search_social_network_id',on_delete=models.CASCADE)
 	polarity = models.CharField(
 	    max_length=4,
 	    choices=POLARITY_CHOICES,
@@ -116,6 +116,14 @@ class Search(models.Model):
 class WordRoot(models.Model):
 	word_root = models.CharField( max_length = 100)
 	topic = models.ForeignKey(Topic,related_name='word_root_topic_id',on_delete=models.CASCADE)
+	is_active = models.BooleanField(default=True)
+	is_deleted = models.BooleanField(default=False)
+	updated_date=models.DateTimeField(auto_now=True)
+	created_date = models.DateTimeField(auto_now_add=True)
+
+class SocialNetworkAccounts(models.Model):
+	name = models.CharField( max_length = 100)
+	social_network = models.ForeignKey(SocialNetwork,related_name='social_network_accounts_social_network_id',on_delete=models.CASCADE)
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
 	updated_date=models.DateTimeField(auto_now=True)

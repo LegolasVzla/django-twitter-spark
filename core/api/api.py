@@ -1,8 +1,9 @@
-from .models import (User,Dictionary,CustomDictionary,Topic,Search,WordRoot)
+from .models import (User,Dictionary,CustomDictionary,Topic,Search,
+	WordRoot,SocialNetworkAccounts)
 from rest_framework import viewsets, permissions
 from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
-	WordRootSerializer)
+	WordRootSerializer,SocialNetworkAccountsSerializer)
 from rest_framework import serializers, validators
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
@@ -61,5 +62,13 @@ class WordRootViewSet(viewsets.ModelViewSet):
 		permissions.AllowAny
 	]
 	serializer_class = WordRootSerializer
+	pagination_class = StandardResultsSetPagination
+
+class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
+	queryset = SocialNetworkAccounts.objects.all()
+	permission_classes = [
+		permissions.AllowAny
+	]
+	serializer_class = SocialNetworkAccountsSerializer
 	pagination_class = StandardResultsSetPagination
 

@@ -13,7 +13,7 @@ from api.models import (User,Language,Dictionary,CustomDictionary,
 	SocialNetwork,Search,Topic,WordRoot)
 from api.serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
-	WordRootSerializer)
+	WordRootSerializer,SocialNetworkAccounts)
 import json
 import requests
 
@@ -90,16 +90,17 @@ class TwitterSearchView(View):
 
 		return render(request, 'web/twitter_results.html',content)
 
-class RecentTwitterSearchView(APIView):
-	"""docstring for RecentTwitterSearchView"""
+class RecentSearchTwitterView(APIView):
+	"""docstring for RecentSearchTwitterView"""
 
 	def get(self, request, *args, **kwargs):
 		content = {}
 		content['message'] = 'Recently Search Get'
-		return render(request, 'web/recently_search_twitter.html',content)
+#		return render(request, 'web/recent_search_twitter.html',content)
+		return render(request, 'web/timeline_search_twitter.html',content)
 
 	def post(self, request, *args, **kwargs):
 		content = {}
 		content['message'] = 'Recently Search Post'
-		return render(request, 'web/twitter_timeline.html',content)
+		return render(request, 'web/timeline_search_twitter.html',content)
 
