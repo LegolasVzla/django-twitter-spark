@@ -17,7 +17,6 @@ from api.serializers import (UserSerializer,DictionarySerializer,
 import json
 import requests
 
-# Create your views here.
 class IndexView(View):
 	'''Load index form'''
 	def get(self, request, *args, **kwargs):

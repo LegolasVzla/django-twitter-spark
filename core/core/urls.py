@@ -22,8 +22,10 @@ from web.views import (IndexView,UserProfileView,DictionaryView,
 urlpatterns = [
     path('admin/', admin.site.urls),
 	path('',include('api.urls')),
-	#path('',include('web.urls'))
+    url(r'^accounts/', include('accounts.urls')),
+    #   path('',include('accounts.urls')),
     url(r'^socialanalyzer/$', IndexView.as_view(), name='web'),
+    #url(r'^socialanalyzer/signup/$', UserProfileView.as_view(), name='signup'),
     url(r'^socialanalyzer/profile_get/$', UserProfileView.as_view(), name='profile_get'),
     url(r'^socialanalyzer/profile_update/$', UserProfileView.as_view(), name='profile_update'),
     url(r'^socialanalyzer/twitter_search/$', TwitterSearchView.as_view(), name='twitter_search'),
