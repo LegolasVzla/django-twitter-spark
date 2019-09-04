@@ -6,7 +6,7 @@ from django.http import (HttpResponse, HttpResponseForbidden,
 	HttpResponseRedirect)
 #from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.views import APIView
-from django.views.generic import View, RedirectView
+from django.views.generic import View
 #from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from api.models import (User,Language,Dictionary,CustomDictionary,
@@ -17,7 +17,18 @@ from api.serializers import (UserSerializer,DictionarySerializer,
 import json
 import requests
 
+from rest_framework import views
+from rest_framework.response import Response
+
 class IndexView(View):
+	'''Load index form'''
+	def get(self, request, *args, **kwargs):
+		content = {}
+		content['message'] = 'Hello Social Analyzer!'
+
+		return render(request, 'web/index.html',content)
+
+class WordCloudViewSet(View):
 	'''Load index form'''
 	def get(self, request, *args, **kwargs):
 		content = {}
@@ -48,7 +59,7 @@ class UserProfileView(View):
 	def remove(self, request, *args, **kwargs):
 		pass
 
-class DictionaryView(APIView):
+class DictionaryView(View):
 	"""docstring for DictionaryView"""
 
 	def get(self, request, *args, **kwargs):
@@ -89,7 +100,7 @@ class TwitterSearchView(View):
 
 		return render(request, 'web/twitter_results.html',content)
 
-class RecentSearchTwitterView(APIView):
+class RecentSearchTwitterView(View):
 	"""docstring for RecentSearchTwitterView"""
 
 	def get(self, request, *args, **kwargs):

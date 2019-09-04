@@ -4,6 +4,13 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
+class WordCloudSerializer(serializers.Serializer):
+	id = serializers.IntegerField()
+	path = serializers.CharField()
+
+	#def create(self, data):
+	#return Company.objects.create(**data)
+
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User

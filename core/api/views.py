@@ -5,8 +5,11 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class IndexView(APIView):
-    permission_classes = (IsAuthenticated,)
 
     def get(self, request):
+        content = {'message': 'Welcome!'}
+        return Response(content)
+
+    def post(self, request):
         content = {'message': 'Welcome!'}
         return Response(content)
