@@ -3,7 +3,7 @@ from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 from rest_framework import viewsets, permissions
 from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
-	WordRootSerializer,SocialNetworkAccountsSerializer,WordCloudSerializer)
+	WordRootSerializer,SocialNetworkAccountsSerializer)
 from rest_framework import views
 #from rest_framework.views import APIView
 from rest_framework.decorators  import list_route
@@ -12,6 +12,11 @@ from rest_framework import serializers, validators
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+
+from os import path
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud, STOPWORDS
+from scipy.misc import imread
 
 from core.settings import BASE_DIR 
 import os
@@ -24,11 +29,22 @@ class WordCloudViewSet(viewsets.ViewSet):
 	os.chdir(BASE_DIR)
 
 	def create(self, request, *args, **kwargs):
+		os.chdir(BASE_DIR)
+		print("hola")
+		if (os.path.exists(BASE_DIR + "/word_clouds")):
+			os.chdir(BASE_DIR + "/word_clouds")
+		else:
+			os.mkdir(BASE_DIR + "/word_clouds")
+			os.chdir(BASE_DIR + "/word_clouds")
+		with open(BASE_DIR + "/my_wordcloud.txt", "+w") as text_file:
+			text_file.write("word_cloud1")
+			os.chdir(BASE_DIR)
 		word_cloud= [{"id": 10, "path": "location/word_cloud.png"}]
-		results = WordCloudSerializer(word_cloud, many=True).data
+		#results = WordCloudSerializer(word_cloud, many=True).data
 		return Response(results)
 
 	def list(self, request, *args, **kwargs):
+
 		word_cloud= [{"id": 20, "path": "location/word_cloud.png"}]
 		results = WordCloudSerializer(word_cloud, many=True).data
 		return Response(results)
