@@ -9,6 +9,7 @@ djangorestframework==3.9.4
 djangorestframework-simplejwt==4.3.0
 httpie==1.0.3
 idna==2.8
+imageio==2.5.0
 itypes==1.1.0
 Jinja2==2.10.1
 kiwisolver==1.1.0

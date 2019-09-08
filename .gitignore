@@ -103,3 +103,6 @@ settings.ini
 
 # mypy
 .mypy_cache/
+
+# Backend folders generated
+word_clouds  

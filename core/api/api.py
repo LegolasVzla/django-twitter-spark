@@ -5,18 +5,20 @@ from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
 	WordRootSerializer,SocialNetworkAccountsSerializer)
 from rest_framework import views
+from rest_framework import status
 #from rest_framework.views import APIView
-from rest_framework.decorators  import list_route
-from rest_framework.viewsets import GenericViewSet
-from rest_framework import serializers, validators
+#from rest_framework.decorators  import list_route
+#from rest_framework.viewsets import GenericViewSet
+#from rest_framework import serializers, validators
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 
 from os import path
+import random
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
-from scipy.misc import imread
+import imageio
 
 from core.settings import BASE_DIR 
 import os
@@ -26,28 +28,46 @@ import logging
 User = get_user_model()
 
 class WordCloudViewSet(viewsets.ViewSet):
-	os.chdir(BASE_DIR)
 
 	def create(self, request, *args, **kwargs):
-		os.chdir(BASE_DIR)
-		print("hola")
-		if (os.path.exists(BASE_DIR + "/word_clouds")):
-			os.chdir(BASE_DIR + "/word_clouds")
-		else:
-			os.mkdir(BASE_DIR + "/word_clouds")
-			os.chdir(BASE_DIR + "/word_clouds")
-		with open(BASE_DIR + "/my_wordcloud.txt", "+w") as text_file:
-			text_file.write("word_cloud1")
+		url = ''
+		try:
+			comments_list = request.data['data']['comments']
+			user_id = request.data['data']['user_id']
+			text = ' '.join(comments_list)
+			colors_array = ['viridis', 'inferno', 'plasma', 'magma','Blues', 'BuGn', 'BuPu','GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd','PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu','Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd','afmhot', 'autumn', 'bone', 'cool','copper', 'gist_heat', 'gray', 'hot','pink', 'spring', 'summer', 'winter','BrBG', 'bwr', 'coolwarm', 'PiYG', 'PRGn', 'PuOr','RdBu', 'RdGy', 'RdYlBu', 'RdYlGn', 'Spectral','seismic','Accent', 'Dark2', 'Paired', 'Pastel1','Pastel2', 'Set1', 'Set2', 'Set3', 'Vega10','Vega20', 'Vega20b', 'Vega20c','gist_earth', 'terrain', 'ocean', 'gist_stern','brg', 'CMRmap', 'cubehelix','gnuplot', 'gnuplot2', 'gist_ncar','nipy_spectral', 'jet', 'rainbow','gist_rainbow', 'hsv', 'flag', 'prism']
+			colors = random.randint(0, 74)
+
+			# Generating the word cloud
+			wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1800,height=1400,colormap= colors_array[colors],mask=imageio.imread('./static/images/cloud2.png')).generate(text)
+			#wordcloud = WordCloud(background_color='white',width=1800,height=1400).generate(text)
+			plt.imshow(wordcloud, interpolation='bilinear')
+			plt.axis("off")
+
+			if (os.path.exists(BASE_DIR + "/word_clouds")):
+				os.chdir(BASE_DIR + "/word_clouds")
+			else:
+				os.mkdir(BASE_DIR + "/word_clouds")
+				os.chdir(BASE_DIR + "/word_clouds")
+			plt.savefig('./my_twitter_wordcloud.png', dpi=800,transparent = True, bbox_inches='tight', pad_inches=0)
+
+			# Getting the url of the word cloud image generated
+			url = os.getcwd() + '/' + os.listdir(os.getcwd())[0]
+
 			os.chdir(BASE_DIR)
-		word_cloud= [{"id": 10, "path": "location/word_cloud.png"}]
-		#results = WordCloudSerializer(word_cloud, many=True).data
-		return Response(results)
+			data = { "status": status.HTTP_200_OK, "data": { "url": url } }
+
+			return Response(data)
+			
+		except Exception as e:
+			data = { "status": status.HTTP_500_INTERNAL_SERVER_ERROR, "data": { "url": url } }
+			return Response(data)
 
 	def list(self, request, *args, **kwargs):
 
 		word_cloud= [{"id": 20, "path": "location/word_cloud.png"}]
-		results = WordCloudSerializer(word_cloud, many=True).data
-		return Response(results)
+		data = { "code": 204 }
+		return Response(data,status=status.HTTP_200_OK)
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 10
