@@ -4,29 +4,49 @@ from django.shortcuts import render
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import (HttpResponse, HttpResponseForbidden, 
 	HttpResponseRedirect)
-#from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.views import APIView
 from django.views.generic import View
-#from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from rest_framework import views
+from rest_framework.response import Response
+#from django.core.exceptions import ObjectDoesNotExist
+#from rest_framework.permissions import IsAuthenticated
+#from rest_framework.views import APIView
+
 from api.models import (User,Language,Dictionary,CustomDictionary,
 	SocialNetwork,Search,Topic,WordRoot)
 from api.serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
 	WordRootSerializer,SocialNetworkAccounts)
+
 import json
 import requests
-
-from rest_framework import views
-from rest_framework.response import Response
 
 class IndexView(View):
 	'''Load index form'''
 	def get(self, request, *args, **kwargs):
-		content = {}
-		content['message'] = 'Hello Social Analyzer!'
-
-		return render(request, 'web/index.html',content)
+		url = ''
+		try:
+			word_cloud_url = "http://127.0.0.1:8000/api/wordcloud/"
+			response = requests.post(word_cloud_url)
+			response = response.content.decode('utf-8')
+			word_cloud_json = json.loads(response)
+			word_cloud_url = word_cloud_json['data']['url']
+			data = { 
+				"status": status.HTTP_200_OK,
+				"data": { 
+					"word_cloud_url": word_cloud_url 
+				} 
+			}
+			return render(request, 'web/index.html',data)
+			
+		except Exception as e:
+			data = { 
+				"status": status.HTTP_500_INTERNAL_SERVER_ERROR,
+				"data": { 
+					"url": url 
+				} 
+			}
+			return render(request, 'web/index.html',data)
 
 class WordCloudViewSet(View):
 	'''Load index form'''
