@@ -20,6 +20,7 @@ from api.serializers import (UserSerializer,DictionarySerializer,
 
 import json
 import requests
+import logging
 
 class IndexView(View):
 	'''Load index form'''
@@ -40,6 +41,7 @@ class IndexView(View):
 			return render(request, 'web/index.html',data)
 			
 		except Exception as e:
+			logging.getLogger('error_logger').exception("[IndexView] - Error: " + str(e))
 			data = { 
 				"status": status.HTTP_500_INTERNAL_SERVER_ERROR,
 				"data": { 
