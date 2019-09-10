@@ -25,7 +25,7 @@ import logging
 class IndexView(View):
 	'''Load index form'''
 	def get(self, request, *args, **kwargs):
-		url = ''
+		word_cloud_url = ''
 		try:
 			word_cloud_url = "http://127.0.0.1:8000/api/wordcloud/"
 			response = requests.post(word_cloud_url)
@@ -37,18 +37,17 @@ class IndexView(View):
 				"data": { 
 					"word_cloud_url": word_cloud_url 
 				} 
-			}
-			return render(request, 'web/index.html',data)
-			
+			}	
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[IndexView] - Error: " + str(e))
+			word_cloud_url = '/images/word_cloud_masks/cloud500.png'
 			data = { 
 				"status": status.HTTP_500_INTERNAL_SERVER_ERROR,
 				"data": { 
-					"url": url 
+					"word_cloud_url": word_cloud_url 
 				} 
 			}
-			return render(request, 'web/index.html',data)
+		return render(request, 'web/index.html',data)
 
 class WordCloudViewSet(View):
 	'''Load index form'''
