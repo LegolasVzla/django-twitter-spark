@@ -173,7 +173,10 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-	queryset = User.objects.all()
+	queryset = User.objects.all().filter(
+		is_active=True,
+		is_deleted=False
+	).order_by('id')
 	permission_classes = [
 		permissions.AllowAny
 	]
@@ -181,7 +184,10 @@ class UserViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class DictionaryViewSet(viewsets.ModelViewSet):
-	queryset = Dictionary.objects.all()
+	queryset = Dictionary.objects.all().filter(
+		is_active=True,
+		is_deleted=False
+	).order_by('id')
 	permission_classes = [
 		permissions.AllowAny
 	]
@@ -189,7 +195,10 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class CustomDictionaryViewSet(viewsets.ModelViewSet):
-	queryset = CustomDictionary.objects.all()
+	queryset = CustomDictionary.objects.all().filter(
+		is_active=True,
+		is_deleted=False
+	).order_by('id')
 	permission_classes = [
 		permissions.AllowAny
 	]
@@ -197,7 +206,10 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class TopicViewSet(viewsets.ModelViewSet):
-	queryset = Topic.objects.all()
+	queryset = Topic.objects.all().filter(
+		is_active=True,
+		is_deleted=False
+	).order_by('id')
 	permission_classes = [
 		permissions.AllowAny
 	]
@@ -205,7 +217,10 @@ class TopicViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class SearchViewSet(viewsets.ModelViewSet):
-	queryset = Search.objects.all()
+	queryset = Search.objects.all().filter(
+		is_active=True,
+		is_deleted=False
+	).order_by('id')
 	permission_classes = [
 		permissions.AllowAny
 	]
@@ -213,7 +228,10 @@ class SearchViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class WordRootViewSet(viewsets.ModelViewSet):
-	queryset = WordRoot.objects.all()
+	queryset = WordRoot.objects.all().filter(
+		is_active=True,
+		is_deleted=False
+	).order_by('id')
 	permission_classes = [
 		permissions.AllowAny
 	]
@@ -221,7 +239,10 @@ class WordRootViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
-	queryset = SocialNetworkAccounts.objects.all()
+	queryset = SocialNetworkAccounts.objects.all().filter(
+		is_active=True,
+		is_deleted=False
+	).order_by('id')
 	permission_classes = [
 		permissions.AllowAny
 	]

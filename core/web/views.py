@@ -6,12 +6,11 @@ from django.http import (HttpResponse, HttpResponseForbidden,
 	HttpResponseRedirect)
 from django.views.generic import View
 from rest_framework import status
-from rest_framework import views
+#from rest_framework import views
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 #from django.core.exceptions import ObjectDoesNotExist
 #from rest_framework.permissions import IsAuthenticated
-#from rest_framework.views import APIView
-
 from api.models import (User,Language,Dictionary,CustomDictionary,
 	SocialNetwork,Search,Topic,WordRoot)
 from api.serializers import (UserSerializer,DictionarySerializer,
@@ -49,14 +48,6 @@ class IndexView(View):
 			}
 		return render(request, 'web/index.html',data)
 
-class WordCloudViewSet(View):
-	'''Load index form'''
-	def get(self, request, *args, **kwargs):
-		content = {}
-		content['message'] = 'Hello Social Analyzer!'
-
-		return render(request, 'web/index.html',content)
-
 class UserProfileView(View):
 	"""docstring for UserProfile"""
 	def get(self, request, *args, **kwargs):
@@ -80,14 +71,17 @@ class UserProfileView(View):
 	def remove(self, request, *args, **kwargs):
 		pass
 
-class DictionaryView(View):
-	"""docstring for DictionaryView"""
+class CustomDictionaryView(View):
+	"""docstring for CustomDictionaryView"""
 
+	#@api_view(['GET', 'POST'])
 	def get(self, request, *args, **kwargs):
-		content = {}
-		content['message'] = 'Dictionary Get'
-
-		return render(request, 'web/dictionary_get.html',content)
+		#data = {}
+		#data['message'] = 'CustomDictionary Get'
+		custom_dictionary = CustomDictionary.objects.all()
+		serializer = CustomDictionarySerializer(custom_dictionary, many=True)
+		#data=(JsonResponse(serializer.data, safe=False))
+		return Response(serializer.data,status=200,template_name='web/dictionary_get.html')
 
 	def post(self, request, *args, **kwargs):
 		content = {}

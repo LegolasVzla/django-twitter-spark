@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
-from web.views import (IndexView,UserProfileView,DictionaryView,
+from web.views import (IndexView,UserProfileView,CustomDictionaryView,
     TwitterSearchView,RecentSearchTwitterView)
 
 urlpatterns = [
@@ -28,10 +28,10 @@ urlpatterns = [
     url(r'^socialanalyzer/profile_update/$', UserProfileView.as_view(), name='profile_update'),
     url(r'^socialanalyzer/twitter_search/$', TwitterSearchView.as_view(), name='twitter_search'),
     url(r'^socialanalyzer/twitter_results/$', TwitterSearchView.as_view(), name='twitter_results'),
-    url(r'^socialanalyzer/dictionary_get/$', DictionaryView.as_view(), name='dictionary_get'),
-    url(r'^socialanalyzer/dictionary_create/$', DictionaryView.as_view(), name='dictionary_create'),
-    url(r'^socialanalyzer/dictionary_update/$', DictionaryView.as_view(), name='dictionary_update'),
-    url(r'^socialanalyzer/dictionary_remove/$', DictionaryView.as_view(), name='dictionary_remove'),
+    url(r'^socialanalyzer/dictionary_get/$', CustomDictionaryView.as_view(), name='dictionary_get'),
+    url(r'^socialanalyzer/dictionary_create/$', CustomDictionaryView.as_view(), name='dictionary_create'),
+    url(r'^socialanalyzer/dictionary_update/$', CustomDictionaryView.as_view(), name='dictionary_update'),
+    url(r'^socialanalyzer/dictionary_remove/$', CustomDictionaryView.as_view(), name='dictionary_remove'),
     url(r'^socialanalyzer/recent_search_twitter/$', RecentSearchTwitterView.as_view(), name='recent_search_twitter'),
     url(r'^socialanalyzer/timeline_search_twitter/$', RecentSearchTwitterView.as_view(), name='timeline_search_twitter')
 ]

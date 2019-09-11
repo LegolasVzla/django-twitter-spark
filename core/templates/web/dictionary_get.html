@@ -128,7 +128,7 @@
 	<div class="row">
 		<div class="x_panel tile fixed_height_320">
 		  <div class="x_title">
-	        <h2>Diccionario</h2>  	
+	        <h2>Diccionario</h2>
 		    <ul class="nav navbar-right panel_toolbox">
 		      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 		      </li>
@@ -138,15 +138,7 @@
 		    <div class="clearfix"></div>
 		  </div>
 		  <div class="x_content">
-
-			{% for i in palabra2 %}
-				{% if i == ',' or i == '[' or i == ']' or i == '"' %}
-					<br/>
-				{% else %}
-					{{ i }}
-				{% endif %}
-			{% endfor %}
-
+		  	{{serializer.data}}
 	        <table id="customDictionaryTable" class="table table-striped table-bordered">
 	          	<thead>
 	              <tr>
@@ -159,12 +151,13 @@
 	              </tr>
 				</thead>
 				<tbody>
+                    {% for value in serializer %}
 					<tr>
-						<td>1</td>
-						<td>Palabra</td>
-						<td>Positiva</td>
-						<td>Fecha de Creación</td>
-						<td>Fecha de Modificación</td>
+						<td>{{forloop.counter}}</td>
+						<td>{{value.word}}</td>
+						<td>{{value.polarity}}</td>
+						<td>{{value.created_dateord}}</td>
+						<td>{{value.updated_date}}</td>
 						<td>
 						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12" data-toggle="modal" onclick='' data-target="#wordUpdateModal"><i class="fa fa-edit"></i>
 						  </div>
@@ -172,19 +165,7 @@
 						  </div>
 						</td>
 					</tr>
-					<tr>
-						<td>2</td>
-						<td>Palabra</td>
-						<td>Negativa</td>
-						<td>Fecha de Creación</td>
-						<td>Fecha de Modificación</td>
-						<td>
-						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12" data-toggle="modal" onclick='' data-target="#wordUpdateModal"><i class="fa fa-edit"></i>
-						  </div>
-						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12"><a href="/socialanalyzer/dictionary_remove/{{Diccionarios.id}}"><i class="fa fa-trash-o"></i></a>
-						  </div>
-						</td>
-					</tr>
+                    {% endfor %}
 	          </tbody>
 	        </table>
 
