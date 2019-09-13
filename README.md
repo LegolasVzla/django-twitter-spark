@@ -86,6 +86,7 @@ You could see the home page in:
 [Swagger UI](https://swagger.io/tools/swagger-ui/) is a tool for API documentation. "Swagger UI allows anyone — be it your development team or your end consumers — to visualize and interact with the API’s resources without having any of the implementation logic in place. It’s automatically generated from your OpenAPI (formerly known as Swagger) Specification, with the visual documentation making it easy for back end implementation and client side consumption."
 
 ## Endpoints Structure
+
 In a RESTful API, endpoints (URLs) define the structure of the API and how end users access data from our application using the HTTP methods (GET, POST, PUT, DELETE), making all posssible CRUD (create, retrieve, update, delete) operations.
 
 You can see the endpoints structure in the Swagger UI documentation:
@@ -101,6 +102,29 @@ Endpoint |HTTP Method | CRUD Method | Result
 `api/<instance>`| POST | CREATE | Create a new <instance> record
 `api/<instance>/:id` | PUT | UPDATE | Update a <instance> record
 `api/<instance>/:id` | DELETE | DELETE | Delete a <instance> record
+
+## Endpoints withoud Models
+
+* Wordcloud: consist in a Twitter word cloud image generation. It has the folow structure:
+
+- Input: a JSON format as below:
+
+{
+	"data": {
+		"comments": ["Commodo ea nostrud cillum laborum."],
+		"user_id": '1'
+	}
+}
+
+With "user_id" as an optional parameter. If this parameter is sent, a random word cloud will be generated, with random shape and colors. The image will be generated in the follow path:
+
+	/static/images/word_clouds/<user_id>
+
+If "user_id" is not sent, the image will be generated in:
+
+	/static/images/word_clouds/
+
+
 
 ## Contributions
 ------------------------
