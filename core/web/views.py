@@ -9,6 +9,8 @@ from rest_framework import status
 #from rest_framework import views
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework import generics
 #from django.core.exceptions import ObjectDoesNotExist
 #from rest_framework.permissions import IsAuthenticated
 from api.models import (User,Language,Dictionary,CustomDictionary,
@@ -71,17 +73,23 @@ class UserProfileView(View):
 	def remove(self, request, *args, **kwargs):
 		pass
 
-class CustomDictionaryView(View):
+class CustomDictionaryView(generics.RetrieveAPIView):
 	"""docstring for CustomDictionaryView"""
 
-	#@api_view(['GET', 'POST'])
+	#@api_view(['GET', 'POST','PUT','DELETE',])
+	#@parser_classes([CustomDictionaryView])
+	get_queryset = CustomDictionary.objects.all()
+	renderer_classes = [TemplateHTMLRenderer]
+
 	def get(self, request, *args, **kwargs):
-		#data = {}
+		content = {}
 		#data['message'] = 'CustomDictionary Get'
-		custom_dictionary = CustomDictionary.objects.all()
-		serializer = CustomDictionarySerializer(custom_dictionary, many=True)
+		serializer = CustomDictionarySerializer(self.get_queryset, many=True)	
 		#data=(JsonResponse(serializer.data, safe=False))
-		return Response(serializer.data,status=200,template_name='web/dictionary_get.html')
+		content['data']=json.loads(json.dumps(serializer.data[0]))
+		#print(serializer.data)
+		#import pdb;pdb.set_trace()
+		return Response(content,status=200,template_name='web/dictionary_get.html')
 
 	def post(self, request, *args, **kwargs):
 		content = {}

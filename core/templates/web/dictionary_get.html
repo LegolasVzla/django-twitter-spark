@@ -67,7 +67,7 @@
 
 			<div class="col-md-12 col-sm-12 col-xs-12">
 			<p><i class="fa fa-comment-o"></i> Las palabras añadidas en tu diccionario personal, serán tomarán en cuenta para realizar el estudio del análisis de sentimiento.</p>
-			</div>
+		</div>
 
           <div class="clearfix"></div>
         </div>
@@ -138,7 +138,6 @@
 		    <div class="clearfix"></div>
 		  </div>
 		  <div class="x_content">
-		  	{{serializer.data}}
 	        <table id="customDictionaryTable" class="table table-striped table-bordered">
 	          	<thead>
 	              <tr>
@@ -151,13 +150,13 @@
 	              </tr>
 				</thead>
 				<tbody>
-                    {% for value in serializer %}
+                    {% for key in data %}
 					<tr>
 						<td>{{forloop.counter}}</td>
-						<td>{{value.word}}</td>
-						<td>{{value.polarity}}</td>
-						<td>{{value.created_dateord}}</td>
-						<td>{{value.updated_date}}</td>
+						<td>{{data.word}}</td>
+						<td>{{data.polarity}}</td>
+						<td>{{data.created_date}}</td>
+						<td>{{data.updated_date}}</td>
 						<td>
 						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12" data-toggle="modal" onclick='' data-target="#wordUpdateModal"><i class="fa fa-edit"></i>
 						  </div>
