@@ -75,19 +75,16 @@ class UserProfileView(View):
 
 class CustomDictionaryView(generics.RetrieveAPIView):
 	"""docstring for CustomDictionaryView"""
-
-	#@api_view(['GET', 'POST','PUT','DELETE',])
-	#@parser_classes([CustomDictionaryView])
-	get_queryset = CustomDictionary.objects.all()
+	get_queryset = CustomDictionary.objects.all().filter(
+		is_active=True,
+		is_deleted=False
+	).order_by('id')
 	renderer_classes = [TemplateHTMLRenderer]
 
 	def get(self, request, *args, **kwargs):
 		content = {}
-		#data['message'] = 'CustomDictionary Get'
 		serializer = CustomDictionarySerializer(self.get_queryset, many=True)	
-		#data=(JsonResponse(serializer.data, safe=False))
-		content['data']=json.loads(json.dumps(serializer.data[0]))
-		#print(serializer.data)
+		content['data']=json.loads(json.dumps(serializer.data))
 		#import pdb;pdb.set_trace()
 		return Response(content,status=200,template_name='web/dictionary_get.html')
 

@@ -19,8 +19,8 @@ from os import path
 from os.path import exists
 import random
 import matplotlib.pyplot as plt
-#from wordcloud import WordCloud, STOPWORDS
-#import imageio
+from wordcloud import WordCloud, STOPWORDS
+import imageio
 
 from core.settings import BASE_DIR 
 import logging

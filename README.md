@@ -103,28 +103,55 @@ Endpoint |HTTP Method | CRUD Method | Result
 `api/<instance>/:id` | PUT | UPDATE | Update a <instance> record
 `api/<instance>/:id` | DELETE | DELETE | Delete a <instance> record
 
-## Endpoints withoud Models
+## Endpoints without Models
 
-* Wordcloud: consist in a Twitter word cloud image generation. It has the folow structure:
+* Wordcloud: endpoint to list and generate Twitter word cloud images
 
-- Input: a JSON format as below:
+Methods:
 
-{
-	"data": {
-		"comments": ["Commodo ea nostrud cillum laborum."],
-		"user_id": '1'
+- POST (create): consist in a Twitter's comments word cloud image generation. It has the folow structure:
+
+Input: a JSON format as below:
+
+	{
+		"data": {
+			"comments": ["twitter comments list"],
+			"user_id": '1'
+		}
 	}
-}
 
-With "user_id" as an optional parameter. If this parameter is sent, a random word cloud will be generated, with random shape and colors. The image will be generated in the follow path:
+Parameters:
+- Mandatory: data, comments
+- Optionals: user_id
+
+If user_id is given (authenticated=True), it will generate a random word cloud with one of the mask located in:
+
+	static/images/word_cloud_masks
+
+In other case, word cloud will be with square form. The image will be generated in the follow path:
 
 	/static/images/word_clouds/<user_id>
 
-If "user_id" is not sent, the image will be generated in:
+Output:
 
-	/static/images/word_clouds/
+Success: return the url where is stored the image and an authenticated boolean
 
+	{
+	    "status": 200,
+	    "data": {
+	        "url": "",
+	        "authenticated": 
+	    }
+	}
 
+Fail: return a message with the error response
+
+	{
+	    "status": 200,
+	    "data": {
+	        "message": ""
+	    }
+	}
 
 ## Contributions
 ------------------------

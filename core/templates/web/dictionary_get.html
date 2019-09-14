@@ -153,10 +153,10 @@
                     {% for key in data %}
 					<tr>
 						<td>{{forloop.counter}}</td>
-						<td>{{data.word}}</td>
-						<td>{{data.polarity}}</td>
-						<td>{{data.created_date}}</td>
-						<td>{{data.updated_date}}</td>
+						<td>{{key.word}}</td>
+						<td>{{key.polarity}}</td>
+						<td>{{key.created_date}}</td>
+						<td>{{key.updated_date}}</td>
 						<td>
 						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12" data-toggle="modal" onclick='' data-target="#wordUpdateModal"><i class="fa fa-edit"></i>
 						  </div>

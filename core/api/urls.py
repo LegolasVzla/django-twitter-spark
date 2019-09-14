@@ -24,9 +24,9 @@ schema_view = get_swagger_view(title='Swagger Topic Analyzer REST API Documentat
 urlpatterns = [
     url(r'^swagger/$', schema_view),
     url(r'^api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    url(r'^api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh')#,
+    url(r'^api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 #    url(r'^index/', views.IndexView.as_view(), name='index')    
-    #url(r'^api/wordcloud/', WordCloudViewSet.as_view({'get': 'list', 'post':'create'}), name='wordcloud')
+    url(r'^api/wordcloud/', WordCloudViewSet.as_view({'get': 'list', 'post':'create'}), name='wordcloud')
 ]
 
 urlpatterns += router.urls
