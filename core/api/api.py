@@ -66,11 +66,11 @@ class WordCloudViewSet(viewsets.ViewSet):
 				image = random.randint(0, 9)
 
 				# Generating the custom random word cloud
-				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1800,height=1400,colormap= colors_array[colors],mask=imageio.imread('./static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(text)
+				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap= colors_array[colors],mask=imageio.imread('./static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(text)
 
 			else:
 				# Generating the word cloud				
-				wordcloud = WordCloud(background_color='white',width=1800,height=1400).generate(text)
+				wordcloud = WordCloud(background_color='white',width=1600,height=1200).generate(text)
 			
 			plt.imshow(wordcloud, interpolation='bilinear')
 			plt.axis("off")
