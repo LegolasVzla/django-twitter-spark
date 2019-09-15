@@ -173,7 +173,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-	queryset = User.objects.all().filter(
+	queryset = User.objects.filter(
 		is_active=True,
 		is_deleted=False
 	).order_by('id')
@@ -184,7 +184,7 @@ class UserViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class DictionaryViewSet(viewsets.ModelViewSet):
-	queryset = Dictionary.objects.all().filter(
+	queryset = Dictionary.objects.filter(
 		is_active=True,
 		is_deleted=False
 	).order_by('id')
@@ -195,7 +195,7 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class CustomDictionaryViewSet(viewsets.ModelViewSet):
-	queryset = CustomDictionary.objects.all().filter(
+	queryset = CustomDictionary.objects.filter(
 		is_active=True,
 		is_deleted=False
 	).order_by('id')
@@ -206,7 +206,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class TopicViewSet(viewsets.ModelViewSet):
-	queryset = Topic.objects.all().filter(
+	queryset = Topic.objects.filter(
 		is_active=True,
 		is_deleted=False
 	).order_by('id')
@@ -217,7 +217,7 @@ class TopicViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class SearchViewSet(viewsets.ModelViewSet):
-	queryset = Search.objects.all().filter(
+	queryset = Search.objects.filter(
 		is_active=True,
 		is_deleted=False
 	).order_by('id')
@@ -228,7 +228,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class WordRootViewSet(viewsets.ModelViewSet):
-	queryset = WordRoot.objects.all().filter(
+	queryset = WordRoot.objects.filter(
 		is_active=True,
 		is_deleted=False
 	).order_by('id')
@@ -239,7 +239,7 @@ class WordRootViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
-	queryset = SocialNetworkAccounts.objects.all().filter(
+	queryset = SocialNetworkAccounts.objects.filter(
 		is_active=True,
 		is_deleted=False
 	).order_by('id')

@@ -77,7 +77,8 @@
     <br />
 
 	<div class="row">
-		<div class="x_panel tile fixed_height_320">
+	    <div class="col-md-12 col-sm-12 col-xs-12">
+	      <div class="x_panel">
 			<div class="x_title">
 			<h2>Indicadores</h2>  	
 				<ul class="nav navbar-right panel_toolbox">
@@ -89,11 +90,36 @@
 			<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
+		        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		          <div class="tile-stats">
+		            <div class="icon"><i class="fa fa-file-text"></i></div>
+		            <div class="count">{{data.total_words}}</div>
+		            <h3>Cantidad de Palabras</h3>
+		          </div>
+		        </div>
+
+		        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		          <div class="tile-stats">
+		            <div class="icon"><i class="fa fa-thumbs-o-up"></i></div>
+		            <div class="count">{{data.total_positive_words}}</div>
+		            <h3>N° Palabras Positivas</h3>
+		          </div>
+		        </div>
+
+		        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		          <div class="tile-stats">
+		            <div class="icon"><i class="fa fa-thumbs-o-down"></i></div>
+		            <div class="count">{{data.total_negative_words}}</div>
+		            <h3>N° Palabras Negativas</h3>
+		          </div>
+		        </div>        
+
+				<!--
 				<div class="col-xs-6 col-md-3">
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h4>N° de Palabras</h4>
-							<div class="easypiechart" id="easypiechart-blue" data-percent="{{cant_pal}}" ><span class="percent">{{cant_pal}}</span>
+							<div class="easypiechart" id="easypiechart-blue" data-percent="{{data.total_words}}" ><span class="percent">{{data.total_words}}</span>
 							</div>
 						</div>
 					</div>
@@ -102,7 +128,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h4>N° de Palabras Positivas</h4>
-							<div class="easypiechart" id="easypiechart-green" data-percent="{{palabras_positivas}}" ><span class="percent">{{palabras_positivas}}</span>
+							<div class="easypiechart" id="easypiechart-green" data-percent="{{data.total_positive_words}}" ><span class="percent">{{data.total_positive_words}}</span>
 							</div>
 						</div>
 					</div>
@@ -111,15 +137,16 @@
 					<div class="panel panel-default">
 						<div class="panel-body easypiechart-panel">
 							<h4>N° de Palabras Negativas</h4>
-							<div class="easypiechart" id="easypiechart-red" data-percent="{{palabras_negativas}}" ><span class="percent">{{palabras_negativas}}</span>
+							<div class="easypiechart" id="easypiechart-red" data-percent="{{data.total_negative_words}}" ><span class="percent">{{data.total_negative_words}}</span>
 							</div>
 						</div>
 					</div>
 				</div>
+				-->
 			</div>
 
       		<div class="clearfix"></div>
-
+			</div>
 		</div>
 	</div>
 
@@ -129,7 +156,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
 		  <div class="x_title">
-	        <h2>Diccionario</h2>
+	        <h2>Lista de Palabras en tu Diccionario</h2>
 		    <ul class="nav navbar-right panel_toolbox">
 		      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 		      </li>
@@ -151,7 +178,7 @@
 	              </tr>
 				</thead>
 				<tbody>
-                    {% for key in data %}
+                    {% for key in data.custom_dictionary %}
 					<tr>
 						<td>{{forloop.counter}}</td>
 						<td>{{key.word}}</td>
