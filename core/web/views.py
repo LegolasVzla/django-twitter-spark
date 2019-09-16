@@ -90,7 +90,7 @@ class CustomDictionaryView(generics.RetrieveAPIView):
 		try:
 			#serializer = CustomDictionarySerializer(self.get_queryset, many=True)
 			#data['data']=json.loads(json.dumps(serializer.data))
-			self.response_data['data']['custom_dictionary'] = self.get_queryset
+			self.response_data['data']['custom_dictionary'] = self.get_queryset 
 			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
@@ -200,6 +200,9 @@ class RecentSearchTwitterView(generics.RetrieveAPIView):
 			self.response_data['error'].append("[RecentSearchTwitterView] - Error: " + str(e))
 		return Response(self.response_data,status=self.code,template_name='web/recent_search_twitter.html')
 		#return Response(self.response_data,status=self.code,template_name='web/timeline_search_twitter.html')
+
+	def word_searched_detail(self, request, id):
+		pass
 
 	def post(self, request, *args, **kwargs):
 		data = {}

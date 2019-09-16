@@ -31,6 +31,11 @@ class WordCloudViewSet(viewsets.ViewSet):
 	'''
 	Endpoint to list and generate Twitter word cloud images
 	'''
+	def __init__(self):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+		self.error_message = ''
+
 	def create(self, request, *args, **kwargs):
 		'''
 		- POST method (create): generate a Twitter word cloud image from users 
@@ -51,9 +56,8 @@ class WordCloudViewSet(viewsets.ViewSet):
 		url = ''
 		user_id = ''
 		authenticated = False
-		error_message = ''
 		colors_array = ['viridis', 'inferno', 'plasma', 'magma','Blues', 'BuGn', 'BuPu','GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd','PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu','Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd','afmhot', 'autumn', 'bone', 'cool','copper', 'gist_heat', 'gray', 'hot','pink', 'spring', 'summer', 'winter','BrBG', 'bwr', 'coolwarm', 'PiYG', 'PRGn', 'PuOr','RdBu', 'RdGy', 'RdYlBu', 'RdYlGn', 'Spectral','seismic','Accent', 'Dark2', 'Paired', 'Pastel1','Pastel2', 'Set1', 'Set2', 'Set3', 'Vega10','Vega20', 'Vega20b', 'Vega20c','gist_earth', 'terrain', 'ocean', 'gist_stern','brg', 'CMRmap', 'cubehelix','gnuplot', 'gnuplot2', 'gist_ncar','nipy_spectral', 'jet', 'rainbow','gist_rainbow', 'hsv', 'flag', 'prism']
-		word_cloud_data = {"data": {"comments": ["Ea excepteur dolor velit sed qui non ad mollit minim incididunt laborum sunt laborum elit consequat eiusmod consequat ut deserunt est nostrud adipisicing officia cupidatat anim deserunt qui do eu veniam pariatur duis in non dolore incididunt cupidatat esse ut fugiat velit dolor consequat deserunt esse excepteur voluptate sit cillum in officia incididunt ad aute laboris in dolor mollit pariatur officia dolor do ad labore culpa sed sint duis esse labore sed adipisicing adipisicing ut laborum nostrud id do mollit anim qui ut irure cupidatat dolor magna occaecat in amet dolore sint aliquip ullamco eiusmod irure enim qui consequat sit nulla aliquip esse laboris incididunt dolore tempor aute velit deserunt eiusmod aliquip incididunt in pariatur labore dolor ut consequat velit elit mollit duis laboris ex amet dolore eu dolor proident tempor elit laboris quis laboris elit ut minim cupidatat reprehenderit nulla reprehenderit magna enim voluptate laborum ut occaecat esse sint consequat reprehenderit do deserunt ea enim deserunt officia officia minim dolor aliqua dolore esse veniam ut enim dolor incididunt elit dolor magna laborum ut anim exercitation esse dolore irure aute dolor elit officia velit ut reprehenderit minim nisi irure dolore fugiat dolore dolore cupidatat."],"user_id": '2'}}
+		word_cloud_data = {"data": {"comments": ["Ea excepteur dolor velit sed qui non ad mollit minim incididunt laborum sunt laborum elit consequat eiusmod consequat ut deserunt est nostrud adipisicing officia cupidatat anim deserunt qui do eu veniam pariatur duis in non dolore incididunt cupidatat esse ut fugiat velit dolor consequat deserunt esse excepteur voluptate sit cillum in officia incididunt ad aute laboris in dolor mollit pariatur officia dolor do ad labore culpa sed sint duis esse labore sed adipisicing adipisicing ut laborum nostrud id do mollit anim qui ut irure cupidatat dolor magna occaecat in amet dolore sint aliquip ullamco eiusmod irure enim qui consequat sit nulla aliquip esse laboris incididunt dolore tempor aute velit deserunt eiusmod aliquip incididunt in pariatur labore dolor ut consequat velit elit mollit duis laboris ex amet dolore eu dolor proident tempor elit laboris quis laboris elit ut minim cupidatat reprehenderit nulla reprehenderit magna enim voluptate laborum ut occaecat esse sint consequat reprehenderit do deserunt ea enim deserunt officia officia minim dolor aliqua dolore esse veniam ut enim dolor incididunt elit dolor magna laborum ut anim exercitation esse dolore irure aute dolor elit officia velit ut reprehenderit minim nisi irure dolore fugiat dolore dolore cupidatat."]}}
 		try:
 			comments_list = word_cloud_data['data']['comments']
 			text = ' '.join(comments_list)
@@ -99,29 +103,20 @@ class WordCloudViewSet(viewsets.ViewSet):
 				url = 'images/word_clouds/' + os.listdir(os.getcwd())[0]
 
 			os.chdir(BASE_DIR)
-			data = { 
-				"status": status.HTTP_200_OK,
-				"data": { 
-					"url": url,
-					"authenticated": authenticated 
-				} 
-			}
-			return Response(data)
+			self.code = status.HTTP_200_OK
+			self.response_data['data']['url'] = url
+			self.response_data['data']['authenticated'] = authenticated
 
 		except Exception as e:
 			if not word_cloud_data['data']['comments']:
-				error_message = "Comments can't be empty. "
-				logging.getLogger('error_logger').exception("[WordCloudViewSet] - Error: " + mesage + str(e))
+				self.error_message = 'Comments can"t be empty. '
 			else:
-				mesage = "word_cloud_data must be like: {'data': {'comments': ['twitter comments list'],'user_id': 1}}\ncomments list is must and user_id is optional. "
-				logging.getLogger('error_logger').exception("[WordCloudViewSet] - Error: " + mesage + str(e))
-			data = { 
-				"status": status.HTTP_500_INTERNAL_SERVER_ERROR,
-				"data": { 
-					"message": error_message 
-				} 
-			}
-			return Response(data)
+				self.error_message = 'word_cloud_data format must be like: {"data": {"comments": ["twitter comments list"],"user_id": '' }} where user_id can be empty. '
+			self.response_data['error'].append("[WordCloudViewSet] - Error: " + self.error_message + str(e))
+			logging.getLogger('error_logger').exception("[WordCloudViewSet] - Error: " + self.error_message + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+
+		return Response(self.response_data,status=self.code)
 
 	def list(self, request, *args, **kwargs):
 		'''
@@ -149,28 +144,19 @@ class WordCloudViewSet(viewsets.ViewSet):
 							aux_user_word_cloud_list = {}
 					os.chdir(BASE_DIR)
 
-			data = { 
-				"status": status.HTTP_200_OK,
-				"data": { 
-					"authenticated_word_clouds_url_list": authenticated_word_clouds_list,
-					"unathenticated_word_clouds_url": unauthenticated_word_cloud					
-				} 
-			}
-			return Response(data)
+			self.code = status.HTTP_200_OK
+			self.response_data['data']['authenticated_word_clouds_url_list'] = authenticated_word_clouds_list
+			self.response_data['data']['unathenticated_word_clouds_url'] = unauthenticated_word_cloud
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[WordCloudViewSet] - Error: " + str(e))
-			data = { 
-				"status": status.HTTP_500_INTERNAL_SERVER_ERROR,
-				"data": {}
-			}
-			return Response(data)
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+		return Response(self.response_data,status=self.code)
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 10
     #page_size_query_param = 'page_size'
     #max_page_size = 1000
-
 
 class UserViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.filter(

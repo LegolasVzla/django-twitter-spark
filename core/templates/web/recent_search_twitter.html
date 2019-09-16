@@ -352,7 +352,7 @@
                     {% for key in data.total_words %}					
 					<tr>
 						<td>{{forloop.counter}}</td>
-						<td><a href="/socialanalyzer/timeline_twitter/{{i.palabra}}">{{key.word}}</a></td>
+						<td><a href="/socialanalyzer/timeline_twitter/{{key.id}}"><b>{{key.word}}</b></a></td>
 						{% if key.polarity == 'P' %}
 							<td><span class="label label-success">Positiva</span></td>
 						{% elif key.polarity == 'N' %}
