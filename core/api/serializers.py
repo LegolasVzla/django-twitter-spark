@@ -19,6 +19,11 @@ class CustomDictionarySerializer(serializers.ModelSerializer):
 		model = CustomDictionary
 		fields = ('__all__')
 
+class CustomDictionaryKpiSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = CustomDictionary
+		fields = ('user_id','language_id')
+	
 class TopicSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Topic

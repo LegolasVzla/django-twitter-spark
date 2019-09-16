@@ -3,9 +3,12 @@ from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 from rest_framework import viewsets, permissions
 from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
-	WordRootSerializer,SocialNetworkAccountsSerializer)
+	WordRootSerializer,SocialNetworkAccountsSerializer,
+	CustomDictionaryKpiSerializer)
 from rest_framework import views
 from rest_framework import status
+from rest_framework import serializers
+from rest_framework.decorators import action, detail_route
 #from rest_framework.views import APIView
 #from rest_framework.decorators  import list_route
 #from rest_framework.viewsets import GenericViewSet
@@ -19,8 +22,8 @@ from os import path
 from os.path import exists
 import random
 import matplotlib.pyplot as plt
-from wordcloud import WordCloud, STOPWORDS
-import imageio
+#from wordcloud import WordCloud, STOPWORDS
+#import imageio
 
 from core.settings import BASE_DIR 
 import logging
@@ -190,6 +193,49 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	]
 	serializer_class = CustomDictionarySerializer
 	pagination_class = StandardResultsSetPagination
+
+	def __init__(self,*args, **kwargs):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+
+	def get_serializer_class(self):
+		if self.action == 'custom_dictionary_kpi':
+			return serializers.CustomDictionaryKpiSerializer
+		try:
+			return self.custom_serializer_classes[self.action]
+		except (KeyError, AttributeError):
+			return super(CustomDictionaryViewSet, self).get_serializer_class()
+
+	@action(methods=['post'], detail=True)
+	#@detail_route(serializer_class=CustomDictionaryKpiSerializer)
+	def custom_dictionary_kpi(self, request, *args, **kwargs):
+		try:
+			#serializer = CustomDictionarySerializer(self.get_queryset, many=True)
+			#data['data']=json.loads(json.dumps(serializer.data))
+			self.response_data['data']['custom_dictionary'] = self.queryset 
+			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						language_id=1
+					).count()
+			self.response_data['data']['total_positive_words'] = CustomDictionary.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						language_id=1,
+						polarity='P'						
+					).count()
+			self.response_data['data']['total_negative_words'] = CustomDictionary.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						language_id=1,
+						polarity='N'						
+					).count()					
+			self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
 
 class TopicViewSet(viewsets.ModelViewSet):
 	queryset = Topic.objects.filter(
