@@ -77,42 +77,43 @@ class CustomDictionaryView(generics.RetrieveAPIView):
 	"""docstring for CustomDictionaryView"""
 	get_queryset = CustomDictionary.objects.filter(
 		is_active=True,
-		is_deleted=False
+		is_deleted=False,
+		language_id=1
 	).order_by('id')
 	renderer_classes = [TemplateHTMLRenderer]
 
+	def __init__(self):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+
 	def get(self, request, *args, **kwargs):
-		data = {}
 		try:
 			#serializer = CustomDictionarySerializer(self.get_queryset, many=True)
 			#data['data']=json.loads(json.dumps(serializer.data))
-			data = { 
-				"status": status.HTTP_200_OK,
-				"data": { 
-					"custom_dictionary": self.get_queryset,
-					"total_words": CustomDictionary.objects.filter(
-						is_active=True,
-						is_deleted=False
-					).count(),
-					"total_positive_words": CustomDictionary.objects.filter(
+			self.response_data['data']['custom_dictionary'] = self.get_queryset
+			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
-						polarity='P'
-					).count(),
-					"total_negative_words": CustomDictionary.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						polarity='N'
+						language_id=1
 					).count()
-				}
-			}
+			self.response_data['data']['total_positive_words'] = CustomDictionary.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						language_id=1,
+						polarity='P'						
+					).count()
+			self.response_data['data']['total_negative_words'] = CustomDictionary.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						language_id=1,
+						polarity='N'						
+					).count()					
+			self.code = status.HTTP_200_OK
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
-			data = { 
-				"status": status.HTTP_500_INTERNAL_SERVER_ERROR,
-				"data": {} 
-			}
-		return Response(data,status=200,template_name='web/dictionary_get.html')
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
+		return Response(self.response_data,status=self.code,template_name='web/dictionary_get.html')
 
 	def post(self, request, *args, **kwargs):
 		data = {}
@@ -146,14 +147,59 @@ class TwitterSearchView(View):
 
 		return render(request, 'web/twitter_results.html',data)
 
-class RecentSearchTwitterView(View):
+class RecentSearchTwitterView(generics.RetrieveAPIView):
 	"""docstring for RecentSearchTwitterView"""
+	get_queryset = Search.objects.filter(
+		is_active=True,
+		is_deleted=False,
+		social_network_id=1
+	).order_by('id')
+	renderer_classes = [TemplateHTMLRenderer]
+
+	def __init__(self):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
 
 	def get(self, request, *args, **kwargs):
-		data = {}
-		data['message'] = 'Recently Search Get'
-#		return render(request, 'web/recent_search_twitter.html',data)
-		return render(request, 'web/timeline_search_twitter.html',data)
+		try:
+			self.response_data['data']['total_words'] = self.get_queryset			
+			self.response_data['data']['total_words']['total_positive_search'] = Search.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						polarity='P',
+						social_network_id=1
+					).count()
+			self.response_data['data']['total_words']['total_positive_search'] = Search.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						polarity='N',
+						social_network_id=1
+					).count()
+			self.response_data['data']['total_words']['total_positive_search'] = Search.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						polarity='None',
+						social_network_id=1
+					).count()
+			self.response_data['data']['top_positive_search'] = Search.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						polarity='P',
+						social_network_id=1
+					).count()
+			self.response_data['data']['top_negative_search'] = Search.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						polarity='N',
+						social_network_id=1
+					).count()					
+			self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[RecentSearchTwitterView] - Error: " + str(e))
+		return Response(self.response_data,status=self.code,template_name='web/recent_search_twitter.html')
+		#return Response(self.response_data,status=self.code,template_name='web/timeline_search_twitter.html')
 
 	def post(self, request, *args, **kwargs):
 		data = {}

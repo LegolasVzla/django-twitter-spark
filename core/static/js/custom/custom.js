@@ -184,6 +184,136 @@ if ($(".progress .progress-bar")[0]) {
 }
 // /Progressbar
 
+function init_chart_doughnut() {
+
+    if (typeof(Chart) === 'undefined') {
+        return;
+    }
+
+    console.log('init_chart_doughnut');
+
+    if ($('.recently_search').length) {
+
+        var chart_doughnut_settings = {
+            type: 'doughnut',
+            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+            data: {
+                labels: [
+                    "Positivas",
+                    "Negativas",
+                    "Neutrales"
+                ],
+                datasets: [{
+                    data: [45, 35, 20],
+                    backgroundColor: [
+                        "#26B99A",
+                        "#E74C3C",
+                        "#BDC3C7"
+                    ],
+                    hoverBackgroundColor: [
+                        "#36CAAB",
+                        "#E95E4F",
+                        "#CFD4D8"
+                    ]
+                }]
+            },
+            options: {
+                legend: false,
+                responsive: false
+            }
+        }
+
+        $('.recently_search').each(function() {
+
+            var chart_element = $(this);
+            var chart_doughnut = new Chart(chart_element, chart_doughnut_settings);
+
+        });
+
+    }
+
+    if ($('.top_positive_search').length) {
+
+        var chart_doughnut_settings = {
+            type: 'doughnut',
+            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+            data: {
+                labels: [
+                    "Positivas",
+                    "Negativas",
+                    "Neutrales"
+                ],
+                datasets: [{
+                    data: [45, 35, 20],
+                    backgroundColor: [
+                        "#26B99A",
+                        "#E74C3C",
+                        "#BDC3C7"
+                    ],
+                    hoverBackgroundColor: [
+                        "#36CAAB",
+                        "#E95E4F",
+                        "#CFD4D8"
+                    ]
+                }]
+            },
+            options: {
+                legend: false,
+                responsive: false
+            }
+        }
+
+        $('.top_positive_search').each(function() {
+
+            var chart_element = $(this);
+            var chart_doughnut = new Chart(chart_element, chart_doughnut_settings);
+
+        });
+
+    }
+
+    if ($('.top_negative_search').length) {
+
+        var chart_doughnut_settings = {
+            type: 'doughnut',
+            tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+            data: {
+                labels: [
+                    "Positivas",
+                    "Negativas",
+                    "Neutrales"
+                ],
+                datasets: [{
+                    data: [45, 35, 20],
+                    backgroundColor: [
+                        "#26B99A",
+                        "#E74C3C",
+                        "#BDC3C7"
+                    ],
+                    hoverBackgroundColor: [
+                        "#36CAAB",
+                        "#E95E4F",
+                        "#CFD4D8"
+                    ]
+                }]
+            },
+            options: {
+                legend: false,
+                responsive: false
+            }
+        }
+
+        $('.top_negative_search').each(function() {
+
+            var chart_element = $(this);
+            var chart_doughnut = new Chart(chart_element, chart_doughnut_settings);
+
+        });
+
+    }    
+}
+
+
 $(document).ready(function() {
 /*
     init_sparklines();
@@ -215,7 +345,9 @@ $(document).ready(function() {
     init_select2();
     init_validator();
     init_DataTables();
+*/    
     init_chart_doughnut();
+/*
     init_gauge();
     init_PNotify();
     init_starrr();

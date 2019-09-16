@@ -101,7 +101,7 @@
 		        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		          <div class="tile-stats">
 		            <div class="icon"><i class="fa fa-thumbs-o-up"></i></div>
-		            <div class="count">{{data.total_positive_words}}</div>
+		            <div class="count green">{{data.total_positive_words}}</div>
 		            <h3>N° Palabras Positivas</h3>
 		          </div>
 		        </div>
@@ -109,7 +109,7 @@
 		        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		          <div class="tile-stats">
 		            <div class="icon"><i class="fa fa-thumbs-o-down"></i></div>
-		            <div class="count">{{data.total_negative_words}}</div>
+		            <div class="count red">{{data.total_negative_words}}</div>
 		            <h3>N° Palabras Negativas</h3>
 		          </div>
 		        </div>        
@@ -219,7 +219,7 @@
 	  $('#customDictionaryTable').DataTable();
 	} );
 	</script>
-	<!-- easypiechart -->
+	<!-- easypiechart 
 	<script type="text/javascript">
 	$(function() {
 	$('#easypiechart-green').easyPieChart({
@@ -250,6 +250,7 @@
 	});  	
 	</script>
 	<script src="{% static 'vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
+	-->
     <!-- Bootstrap Toggle -->	
 	<script>
 	  $(function() {
