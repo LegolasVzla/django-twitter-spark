@@ -22,7 +22,7 @@ class CustomDictionarySerializer(serializers.ModelSerializer):
 class CustomDictionaryKpiSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = CustomDictionary
-		fields = ('user_id','language_id')
+		fields = ('user','language')
 	
 class TopicSerializer(serializers.ModelSerializer):
 	class Meta:

@@ -191,43 +191,38 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	permission_classes = [
 		permissions.AllowAny
 	]
-	serializer_class = CustomDictionarySerializer
+	#serializer_class = CustomDictionarySerializer
 	pagination_class = StandardResultsSetPagination
+
+	def get_serializer_class(self):
+		if self.action == 'custom_dictionary_kpi':
+			return CustomDictionaryKpiSerializer
+		return CustomDictionarySerializer
 
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': {}}
 		self.code = 0
 
-	def get_serializer_class(self):
-		if self.action == 'custom_dictionary_kpi':
-			return serializers.CustomDictionaryKpiSerializer
-		try:
-			return self.custom_serializer_classes[self.action]
-		except (KeyError, AttributeError):
-			return super(CustomDictionaryViewSet, self).get_serializer_class()
-
-	@action(methods=['post'], detail=True)
-	#@detail_route(serializer_class=CustomDictionaryKpiSerializer)
+	@action(methods=['post'], detail=False)
 	def custom_dictionary_kpi(self, request, *args, **kwargs):
+		#import pdb;pdb.set_trace()
 		try:
-			#serializer = CustomDictionarySerializer(self.get_queryset, many=True)
-			#data['data']=json.loads(json.dumps(serializer.data))
 			self.response_data['data']['custom_dictionary'] = self.queryset 
 			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
-						language_id=1
+						language_id=request.data['language']
 					).count()
 			self.response_data['data']['total_positive_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
-						language_id=1,
+						language_id=request.data['language'],
 						polarity='P'						
 					).count()
 			self.response_data['data']['total_negative_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
-						language_id=1,
+						language_id=request.data['language'],
 						polarity='N'						
 					).count()					
 			self.code = status.HTTP_200_OK

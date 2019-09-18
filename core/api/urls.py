@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 #    url(r'^index/', views.IndexView.as_view(), name='index')    
     url(r'^api/wordcloud/', WordCloudViewSet.as_view({'get': 'list', 'post':'create'}), name='wordcloud'),
-    url(r'^api/customdictionary/custom_dictionary_kpi/<int:user_id>/', CustomDictionaryViewSet.as_view({'post':'custom_dictionary_kpi'}), name='custom_dictionary_kpi')
+    url(r'^api/customdictionary/custom_dictionary_kpi/user/<int:user_id>/language/<int:language_id>', CustomDictionaryViewSet.as_view({'post': 'custom_dictionary_kpi'}), name='custom_dictionary_kpi')
 ]
 
 urlpatterns += router.urls
