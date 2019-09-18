@@ -5,6 +5,10 @@ from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
 	WordRootSerializer,SocialNetworkAccountsSerializer,
 	CustomDictionaryKpiSerializer)
+import io
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+
 from rest_framework import views
 from rest_framework import status
 from rest_framework import serializers
@@ -205,9 +209,12 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_kpi(self, request, *args, **kwargs):
-		#import pdb;pdb.set_trace()
 		try:
-			self.response_data['data']['custom_dictionary'] = self.queryset 
+			serializer = CustomDictionarySerializer(self.queryset, many=True)
+			content = JSONRenderer().render(serializer.data)
+			stream = io.BytesIO(content)
+			self.response_data['data']['custom_dictionary'] = JSONParser().parse(stream)
+			#import pdb;pdb.set_trace()
 			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
@@ -230,6 +237,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
+		#import pdb;pdb.set_trace()
 		return Response(self.response_data,status=self.code)
 
 class TopicViewSet(viewsets.ModelViewSet):
