@@ -18,6 +18,9 @@ from api.models import (User,Language,Dictionary,CustomDictionary,
 from api.serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
 	WordRootSerializer,SocialNetworkAccounts)
+from api.api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
+	TopicViewSet,SearchViewSet,WordRootViewSet,SocialNetworkAccountsViewSet,
+	WordCloudViewSet)
 
 import json
 import requests
@@ -25,30 +28,47 @@ import logging
 
 class IndexView(View):
 	'''Load index form'''
+	def __init__(self,*args, **kwargs):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+
 	def get(self, request, *args, **kwargs):
 		word_cloud_url = ''
 		try:
-			word_cloud_url = "http://127.0.0.1:8000/api/wordcloud/"
-			response = requests.post(word_cloud_url)
-			response = response.content.decode('utf-8')
-			word_cloud_json = json.loads(response)
-			word_cloud_url = word_cloud_json['data']['url']
+			_wordcloud = WordCloudViewSet(request)
+			#import pdb;pdb.set_trace()			
+			_wordcloud.create(request)
+			self.response_data['data'] = _wordcloud.response_data
+			self.code = _wordcloud.code			
+			#word_cloud_url = "http://127.0.0.1:8000/api/wordcloud/"
+			#response = requests.post(word_cloud_url)
+			#response = response.content.decode('utf-8')
+			#word_cloud_json = json.loads(response)
+			#word_cloud_url = word_cloud_json['data']['url']
+			word_cloud_url = self.response_data['data']['url']
+			'''
 			data = { 
 				"status": status.HTTP_200_OK,
 				"data": { 
 					"word_cloud_url": word_cloud_url 
 				} 
-			}	
+			}
+			'''
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[IndexView] - Error: " + str(e))
 			word_cloud_url = '/images/word_cloud_masks/cloud500.png'
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['data']['url'] = word_cloud_url
+			'''
 			data = { 
 				"status": status.HTTP_500_INTERNAL_SERVER_ERROR,
 				"data": { 
 					"word_cloud_url": word_cloud_url 
 				} 
 			}
-		return render(request, 'web/index.html',data)
+			'''
+		#return Response(self.response_data,status=self.code,template_name='web/index.html')			
+		return render(request, 'web/index.html',self.response_data)
 
 class UserProfileView(View):
 	"""docstring for UserProfile"""
