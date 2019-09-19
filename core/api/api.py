@@ -27,8 +27,8 @@ from os import path
 from os.path import exists
 import random
 import matplotlib.pyplot as plt
-#from wordcloud import WordCloud, STOPWORDS
-#import imageio
+from wordcloud import WordCloud, STOPWORDS
+import imageio
 
 from core.settings import BASE_DIR 
 import logging
@@ -211,7 +211,6 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_kpi(self, request, *args, **kwargs):
 		try:
-			#import pdb;pdb.set_trace()
 			queryset = CustomDictionary.objects.filter(
 				is_active=True,
 				is_deleted=False,
