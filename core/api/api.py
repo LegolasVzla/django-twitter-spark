@@ -5,9 +5,9 @@ from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
 	WordRootSerializer,SocialNetworkAccountsSerializer,
 	CustomDictionaryKpiSerializer)
-import io
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
+#import io
+#from rest_framework.renderers import JSONRenderer
+#from rest_framework.parsers import JSONParser
 
 from rest_framework import views
 from rest_framework import status
@@ -21,6 +21,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 
+import json
 import os
 from os import path
 from os.path import exists
@@ -210,34 +211,52 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_kpi(self, request, *args, **kwargs):
 		try:
-			serializer = CustomDictionarySerializer(self.queryset, many=True)
-			content = JSONRenderer().render(serializer.data)
-			stream = io.BytesIO(content)
-			self.response_data['data']['custom_dictionary'] = JSONParser().parse(stream)
 			#import pdb;pdb.set_trace()
+			queryset = CustomDictionary.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				language_id=request.data['language'],
+				user_id=request.data['user']
+			).order_by('id')
+			serializer = CustomDictionarySerializer(queryset, many=True)
+			#content = JSONRenderer().render(serializer.data)
+			#stream = io.BytesIO(content)
+			#self.response_data['data']['custom_dictionary'] = JSONParser().parse(stream)
+			self.response_data['data']['custom_dictionary']=json.loads(json.dumps(serializer.data))
 			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
-						language_id=request.data['language']
+						language_id=request.data['language'],
+						user_id=request.data['user']
 					).count()
 			self.response_data['data']['total_positive_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
 						language_id=request.data['language'],
-						polarity='P'						
+						user_id=request.data['user'],
+						polarity='P'
 					).count()
 			self.response_data['data']['total_negative_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
 						language_id=request.data['language'],
-						polarity='N'						
+						user_id=request.data['user'],
+						polarity='N'
 					).count()					
 			self.code = status.HTTP_200_OK
 		except Exception as e:
-			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
+			'''This kind of format data validation, will be improvement
+			coming soon
+			if not self.response_data['data']['user']:
+				self.response_data['data']['error'].append('User can"t be empty')
+			elif not self.response_data['data']['language']:
+				self.response_data['data']['error'].append('Language can"t be empty')
+			else:
+				self.response_data['data']['error'].append('Data format must be like: {"data": {"user": <user_id>, "language": <language_id> }}')
+			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + self.response_data['error'] + str(e))
+			'''
+			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))			
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
-		#import pdb;pdb.set_trace()
 		return Response(self.response_data,status=self.code)
 
 class TopicViewSet(viewsets.ModelViewSet):
