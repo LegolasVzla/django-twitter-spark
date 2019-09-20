@@ -18,6 +18,9 @@ from api.models import (User,Language,Dictionary,CustomDictionary,
 from api.serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
 	WordRootSerializer,SocialNetworkAccounts)
+from api.api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
+	TopicViewSet,SearchViewSet,WordRootViewSet,SocialNetworkAccountsViewSet,
+	WordCloudViewSet)
 
 import json
 import requests
@@ -25,30 +28,24 @@ import logging
 
 class IndexView(View):
 	'''Load index form'''
+	def __init__(self,*args, **kwargs):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+
 	def get(self, request, *args, **kwargs):
-		word_cloud_url = ''
 		try:
-			word_cloud_url = "http://127.0.0.1:8000/api/wordcloud/"
-			response = requests.post(word_cloud_url)
-			response = response.content.decode('utf-8')
-			word_cloud_json = json.loads(response)
-			word_cloud_url = word_cloud_json['data']['url']
-			data = { 
-				"status": status.HTTP_200_OK,
-				"data": { 
-					"word_cloud_url": word_cloud_url 
-				} 
-			}	
+			_wordcloud = WordCloudViewSet()
+			_wordcloud.create(request)
+			self.response_data['data'] = _wordcloud.response_data['data']
+			self.code = _wordcloud.code
+			
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[IndexView] - Error: " + str(e))
-			word_cloud_url = '/images/word_cloud_masks/cloud500.png'
-			data = { 
-				"status": status.HTTP_500_INTERNAL_SERVER_ERROR,
-				"data": { 
-					"word_cloud_url": word_cloud_url 
-				} 
-			}
-		return render(request, 'web/index.html',data)
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[IndexView] - Error: " + str(e))
+			self.response_data['data']['url'] = '/images/word_cloud_masks/cloud500.png'
+
+		return render(request,template_name='web/index.html',status=self.code,context=self.response_data)
 
 class UserProfileView(View):
 	"""docstring for UserProfile"""
