@@ -8,7 +8,7 @@ from django.views.generic import View
 from rest_framework import status
 #from rest_framework import views
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+#from rest_framework.decorators import api_view
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework import generics
 #from django.core.exceptions import ObjectDoesNotExist
@@ -45,7 +45,7 @@ class IndexView(View):
 			self.response_data['error'].append("[IndexView] - Error: " + str(e))
 			self.response_data['data']['url'] = '/images/word_cloud_masks/cloud500.png'
 
-		return render(request,template_name='web/index.html',status=self.code,context=self.response_data)
+		return render(request,'web/index.html',self.code,self.response_data)
 
 class UserProfileView(View):
 	"""docstring for UserProfile"""
@@ -70,47 +70,26 @@ class UserProfileView(View):
 	def remove(self, request, *args, **kwargs):
 		pass
 
-class CustomDictionaryView(generics.RetrieveAPIView):
+class CustomDictionaryView(View):
 	"""docstring for CustomDictionaryView"""
-	get_queryset = CustomDictionary.objects.filter(
-		is_active=True,
-		is_deleted=False,
-		language_id=1
-	).order_by('id')
-	renderer_classes = [TemplateHTMLRenderer]
-
-	def __init__(self):
+	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': {}}
 		self.code = 0
 
 	def get(self, request, *args, **kwargs):
 		try:
-			#serializer = CustomDictionarySerializer(self.get_queryset, many=True)
-			#data['data']=json.loads(json.dumps(serializer.data))
-			self.response_data['data']['custom_dictionary'] = self.get_queryset 
-			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						language_id=1
-					).count()
-			self.response_data['data']['total_positive_words'] = CustomDictionary.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						language_id=1,
-						polarity='P'						
-					).count()
-			self.response_data['data']['total_negative_words'] = CustomDictionary.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						language_id=1,
-						polarity='N'						
-					).count()					
-			self.code = status.HTTP_200_OK
+			_customdictionary = CustomDictionaryViewSet()
+			#import pdb;pdb.set_trace()
+			_customdictionary.custom_dictionary_kpi({"language": 1, "user": 1})
+			self.response_data['data'] = _customdictionary.response_data['data']
+			self.code = _customdictionary.code
+			
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
-		return Response(self.response_data,status=self.code,template_name='web/dictionary_get.html')
+
+		return render(request,template_name='web/dictionary_get.html',status=self.code,context=self.response_data)
 
 	def post(self, request, *args, **kwargs):
 		data = {}
