@@ -34,8 +34,8 @@ class IndexView(View):
 
 	def get(self, request, *args, **kwargs):
 		try:
-			_wordcloud = WordCloudViewSet()
-			_wordcloud.create(request)
+			_wordcloud = WordCloudViewSet()			
+			_wordcloud.create(request,user=1)
 			self.response_data['data'] = _wordcloud.response_data['data']
 			self.code = _wordcloud.code
 			
@@ -44,8 +44,7 @@ class IndexView(View):
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[IndexView] - Error: " + str(e))
 			self.response_data['data']['url'] = '/images/word_cloud_masks/cloud500.png'
-
-		return render(request,'web/index.html',self.code,self.response_data)
+		return render(request,template_name='web/index.html',status=self.code,context=self.response_data)
 
 class UserProfileView(View):
 	"""docstring for UserProfile"""
@@ -79,8 +78,7 @@ class CustomDictionaryView(View):
 	def get(self, request, *args, **kwargs):
 		try:
 			_customdictionary = CustomDictionaryViewSet()
-			#import pdb;pdb.set_trace()
-			_customdictionary.custom_dictionary_kpi({"language": 1, "user": 1})
+			_customdictionary.custom_dictionary_kpi(request,language=1,user=1)
 			self.response_data['data'] = _customdictionary.response_data['data']
 			self.code = _customdictionary.code
 			
@@ -88,7 +86,6 @@ class CustomDictionaryView(View):
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
-
 		return render(request,template_name='web/dictionary_get.html',status=self.code,context=self.response_data)
 
 	def post(self, request, *args, **kwargs):
