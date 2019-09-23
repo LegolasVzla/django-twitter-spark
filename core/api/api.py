@@ -32,8 +32,38 @@ import imageio
 
 from core.settings import BASE_DIR 
 import logging
+from functools import wraps
+from rest_framework import exceptions
 
 User = get_user_model()
+
+def validate_field_name(f):
+	@wraps(f)
+	def decorator(*args, **kwargs):
+		if(len(kwargs) > 0):
+			# HTML template
+			kwargs['data'] = kwargs
+		# DRF raw data, HTML form input
+		elif len(args[1].data) > 0:
+			kwargs['data'] = args[1].data
+		# Postman POST request made by params
+		elif len(args[1].query_params.dict()) > 0:
+			kwargs['data'] = args[1].query_params.dict()
+		return f(*args,**kwargs)
+	return decorator
+
+def validate_request(self, request, *args, **kwargs):
+	data = {}
+	if(len(kwargs) > 0):
+		# HTML template
+		data = kwargs
+	# DRF raw data, HTML form input
+	elif len(request.data) > 0:
+		data = request.data
+	# Postman POST request made by params
+	elif len(request.query_params.dict()) > 0:
+		data = request.query_params.dict()
+	return data
 
 class WordCloudViewSet(viewsets.ViewSet):
 	'''
@@ -166,9 +196,9 @@ class WordCloudViewSet(viewsets.ViewSet):
 		return Response(self.response_data,status=self.code)
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 10
-    #page_size_query_param = 'page_size'
-    #max_page_size = 1000
+	page_size = 10
+	#page_size_query_param = 'page_size'
+	#max_page_size = 1000
 
 class UserViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.filter(
@@ -212,22 +242,15 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			return CustomDictionaryKpiSerializer
 		return CustomDictionarySerializer
 
+	@validate_field_name
 	@action(methods=['post'], detail=False)
-	def custom_dictionary_kpi(self, request, *args, **kwargs):
-		user_id = ''
-		language_id = ''
-		try:
-			user_id = kwargs['user']
-			language_id = kwargs['language']
-		except Exception as e:
-			user_id = request.data['user']
-			language_id = request.data['language']
+	def custom_dictionary_kpi(self, *args, **kwargs):
 		try:
 			queryset = CustomDictionary.objects.filter(
 				is_active=True,
 				is_deleted=False,
-				language_id=language_id,
-				user_id=user_id
+				language_id=kwargs['data']['language'],
+				user_id=kwargs['data']['user']
 			).order_by('id')
 			#language_id=request.data['language'],
 			serializer = CustomDictionarySerializer(queryset, many=True)
@@ -238,21 +261,21 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
-						language_id=language_id,
-						user_id=user_id
+						language_id=kwargs['data']['language'],
+						user_id=kwargs['data']['user']
 					).count()
 			self.response_data['data']['total_positive_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
-						language_id=language_id,
-						user_id=user_id,
+						language_id=kwargs['data']['language'],
+						user_id=kwargs['data']['user'],
 						polarity='P'
 					).count()
 			self.response_data['data']['total_negative_words'] = CustomDictionary.objects.filter(
 						is_active=True,
 						is_deleted=False,
-						language_id=language_id,
-						user_id=user_id,
+						language_id=kwargs['data']['language'],
+						user_id=kwargs['data']['user'],
 						polarity='N'
 					).count()					
 			self.code = status.HTTP_200_OK
@@ -269,6 +292,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			'''
 			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[CustomDictionaryViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
 class TopicViewSet(viewsets.ModelViewSet):
