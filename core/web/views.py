@@ -120,59 +120,24 @@ class TwitterSearchView(View):
 
 		return render(request, 'web/twitter_results.html',data)
 
-class RecentSearchTwitterView(generics.RetrieveAPIView):
+class RecentSearchTwitterView(View):
 	"""docstring for RecentSearchTwitterView"""
-	get_queryset = Search.objects.filter(
-		is_active=True,
-		is_deleted=False,
-		social_network_id=1
-	).order_by('id')
-	renderer_classes = [TemplateHTMLRenderer]
-
-	def __init__(self):
+	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': {}}
 		self.code = 0
 
 	def get(self, request, *args, **kwargs):
 		try:
-			self.response_data['data']['total_words'] = self.get_queryset			
-			self.response_data['data']['total_words']['total_positive_search'] = Search.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						polarity='P',
-						social_network_id=1
-					).count()
-			self.response_data['data']['total_words']['total_positive_search'] = Search.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						polarity='N',
-						social_network_id=1
-					).count()
-			self.response_data['data']['total_words']['total_positive_search'] = Search.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						polarity='None',
-						social_network_id=1
-					).count()
-			self.response_data['data']['top_positive_search'] = Search.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						polarity='P',
-						social_network_id=1
-					).count()
-			self.response_data['data']['top_negative_search'] = Search.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						polarity='N',
-						social_network_id=1
-					).count()					
-			self.code = status.HTTP_200_OK
+			_recent_search = SearchViewSet()
+			_recent_search.recent_search(request,social_network=1,user=1)
+			self.response_data['data'] = _recent_search.response_data['data']
+			self.code = _recent_search.code
+			
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[RecentSearchTwitterView] - Error: " + str(e))
-		return Response(self.response_data,status=self.code,template_name='web/recent_search_twitter.html')
-		#return Response(self.response_data,status=self.code,template_name='web/timeline_search_twitter.html')
+		return render(request,template_name='web/recent_search_twitter.html',status=self.code,context=self.response_data)
 
 	def word_searched_detail(self, request, id):
 		pass
@@ -181,4 +146,3 @@ class RecentSearchTwitterView(generics.RetrieveAPIView):
 		data = {}
 		data['message'] = 'Recently Search Post'
 		return render(request, 'web/timeline_search_twitter.html',data)
-

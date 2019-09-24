@@ -34,6 +34,11 @@ class SearchSerializer(serializers.ModelSerializer):
 		model = Search
 		fields = ('__all__')
 
+class RecentSearchSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Search
+		fields = ('user','social_network')
+
 class WordRootSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = WordRoot

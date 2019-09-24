@@ -3,7 +3,7 @@ from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 from rest_framework import viewsets, permissions
 from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
-	WordRootSerializer,SocialNetworkAccountsSerializer,
+	RecentSearchSerializer,WordRootSerializer,SocialNetworkAccountsSerializer,
 	CustomDictionaryKpiSerializer)
 #import io
 #from rest_framework.renderers import JSONRenderer
@@ -52,22 +52,23 @@ def validate_field_name(f):
 		return f(*args,**kwargs)
 	return decorator
 
-def validate_request(self, request, *args, **kwargs):
-	data = {}
-	if(len(kwargs) > 0):
-		# HTML template
-		data = kwargs
-	# DRF raw data, HTML form input
-	elif len(request.data) > 0:
-		data = request.data
-	# Postman POST request made by params
-	elif len(request.query_params.dict()) > 0:
-		data = request.query_params.dict()
-	return data
-
 class WordCloudViewSet(viewsets.ViewSet):
 	'''
 	Endpoint to list and generate Twitter word cloud images
+	- POST method (create): generate a Twitter word cloud image from users 
+	comments.
+	Input must be as below:
+	{
+		"data": {
+			"comments": ["twitter comments list"],
+			"user_id": 1
+		}
+	}
+	- Mandatory: comments
+	- Optionals: user_id
+	If user_id is given, it will generate a random word cloud with some 
+	mask located in static/images/word_cloud_masks. In other case, wordcloud
+	will be with square form		
 	'''
 	def __init__(self):
 		self.response_data = {'error': [], 'data': {}}
@@ -75,22 +76,6 @@ class WordCloudViewSet(viewsets.ViewSet):
 		self.error_message = ''
 
 	def create(self, request, *args, **kwargs):
-		'''
-		- POST method (create): generate a Twitter word cloud image from users 
-		comments.
-		Input must be as below:
-		{
-			"data": {
-				"comments": ["twitter comments list"],
-				"user_id": 1
-			}
-		}
-		- Mandatory: comments
-		- Optionals: user_id
-		If user_id is given, it will generate a random word cloud with some 
-		mask located in static/images/word_cloud_masks. In other case, word loud will
-		be with square form		
-		'''
 		user_id = ''
 		try:
 			user_id = kwargs['user']
@@ -230,7 +215,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	permission_classes = [
 		permissions.AllowAny
 	]
-	#serializer_class = CustomDictionarySerializer
+	serializer_class = CustomDictionarySerializer
 	pagination_class = StandardResultsSetPagination
 
 	def __init__(self,*args, **kwargs):
@@ -316,6 +301,48 @@ class SearchViewSet(viewsets.ModelViewSet):
 	]
 	serializer_class = SearchSerializer
 	pagination_class = StandardResultsSetPagination
+
+	def __init__(self,*args, **kwargs):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+
+	def get_serializer_class(self):
+		if self.action == 'recent_search':
+			return RecentSearchSerializer
+		return SearchSerializer
+
+	@validate_field_name
+	@action(methods=['post'], detail=False)
+	def recent_search(self, request, *args, **kwargs):
+		try:
+			queryset = Search.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				social_network=kwargs['data']['social_network'],
+				user_id=kwargs['data']['user']
+			).order_by('id')
+			serializer = SearchSerializer(queryset, many=True)
+			self.response_data['data']['recently_search'] = json.loads(json.dumps(serializer.data))
+			self.response_data['data']['top_positive_search'] = Search.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						polarity='P',
+						social_network=kwargs['data']['social_network'],
+						user=kwargs['data']['user']
+					).count()
+			self.response_data['data']['top_negative_search'] = Search.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						polarity='N',
+						social_network=kwargs['data']['social_network'],
+						user=kwargs['data']['user']
+					).count()					
+			self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[RecentSearchTwitterView] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
 
 class WordRootViewSet(viewsets.ModelViewSet):
 	queryset = WordRoot.objects.filter(
