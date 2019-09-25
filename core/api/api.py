@@ -5,6 +5,7 @@ from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
 	RecentSearchSerializer,WordRootSerializer,SocialNetworkAccountsSerializer,
 	CustomDictionaryKpiSerializer)
+from django.db.models import Count
 #import io
 #from rest_framework.renderers import JSONRenderer
 #from rest_framework.parsers import JSONParser
@@ -315,28 +316,49 @@ class SearchViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def recent_search(self, request, *args, **kwargs):
 		try:
-			queryset = Search.objects.filter(
+			#import pdb;pdb.set_trace()
+
+			# Get the recently search of the current user
+			serializer = SearchSerializer(self.queryset, many=True)
+			self.response_data['data']['recently_search'] = json.loads(json.dumps(serializer.data))
+
+			# Get the total of search of the current user
+			total_search = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user']
-			).order_by('id')
-			serializer = SearchSerializer(queryset, many=True)
-			self.response_data['data']['recently_search'] = json.loads(json.dumps(serializer.data))
+			).count()
+
+			# Calculate the % of the positive and negative search done 
+			# by the current user
+			self.response_data['data']['weighted_group'] = Search.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				social_network=kwargs['data']['social_network'],
+				user_id=kwargs['data']['user']
+			).values('polarity').annotate(
+				weighted_group=Count('polarity')*100/total_search
+			)
+
+			# Get the top five positive most wanted words of the current user 
 			self.response_data['data']['top_positive_search'] = Search.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						polarity='P',
-						social_network=kwargs['data']['social_network'],
-						user=kwargs['data']['user']
-					).count()
+				is_active=True,
+				is_deleted=False,
+				social_network=kwargs['data']['social_network'],
+				user_id=kwargs['data']['user'],
+				polarity='P'
+			).values('word').annotate(count=Count('word'))
+
+			# Get the top negative positive most wanted words of the current user
 			self.response_data['data']['top_negative_search'] = Search.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						polarity='N',
-						social_network=kwargs['data']['social_network'],
-						user=kwargs['data']['user']
-					).count()					
+				is_active=True,
+				is_deleted=False,
+				social_network=kwargs['data']['social_network'],
+				user_id=kwargs['data']['user'],
+				polarity='N'
+			).values('word').annotate(count=Count('word'))
+
 			self.code = status.HTTP_200_OK
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))

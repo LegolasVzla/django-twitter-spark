@@ -112,24 +112,30 @@
 		        </td>
 		        <td>
 		          <table class="tile_info">
+		          	{% for key in data.weighted_group %}
 		            <tr>
+		            	{% if key.polarity == 'P' %}
 		              	<td>
-		                	<p><i class="fa fa-square green"></i>Positivas </p>
+		                	<p><i class="fa fa-square green"></i> Positivas</p>
 		              	</td>
-		              	<td>30%</td>
+		              	<td>{{key.weighted_group}}%</td>
 		            </tr>
 		            <tr>
+		            	{% elif key.polarity == 'N' %}
 						<td>
 							<p><i class="fa fa-square red"></i>Negativas </p>
 						</td>
-						<td>15%</td>
+						<td>{{key.weighted_group}}%</td>
 					</tr>
 					<tr>
+						{% else %}
 						<td>
-							<p><i class="fa fa-square aero"></i>Neutrales </p>
+							<p><i class="fa fa-square aero"></i>Neutrales</p>
 						</td>
-						<td>30%</td>
+						<td>{{key.weighted_group}}%</td>
+						{% endif %}
 		            </tr>
+		            {% endfor %}
 		          </table>
 		        </td>
 		      </tr>
@@ -349,7 +355,7 @@
 					</tr>
 				</thead>
 				<tbody>
-                    {% for key in data.total_words %}					
+                    {% for key in data.recently_search %}					
 					<tr>
 						<td>{{forloop.counter}}</td>
 						<td><a href="/socialanalyzer/timeline_twitter/{{key.id}}"><b>{{key.word}}</b></a></td>
