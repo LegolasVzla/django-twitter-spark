@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import platform
 from configparser import RawConfigParser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -135,7 +136,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (BASE_DIR + '/static/'),
+if(platform.system() == 'Windows'):
+    STATICFILES_DIRS = (BASE_DIR + '/static'),
+elif(platform.system() == 'Linux'):
+    STATICFILES_DIRS = (BASE_DIR + '\static'),
 
 ###################################################################
 ##### LOGGING CONFIG 
