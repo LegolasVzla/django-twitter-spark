@@ -316,13 +316,12 @@ class SearchViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def recent_search(self, request, *args, **kwargs):
 		try:
-			#import pdb;pdb.set_trace()
 
-			# Get the recently search of the current user
+			# 1. Get the recently search of the current user
 			serializer = SearchSerializer(self.queryset, many=True)
 			self.response_data['data']['recently_search'] = json.loads(json.dumps(serializer.data))
 
-			# Get the total of search of the current user
+			# 2. Get the total of search of the current user
 			total_search = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
@@ -330,7 +329,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 				user_id=kwargs['data']['user']
 			).count()
 
-			# Calculate the % of the positive and negative search done 
+			# Then, calculate the % of the positive and negative search done 
 			# by the current user
 			self.response_data['data']['weighted_group'] = Search.objects.filter(
 				is_active=True,
@@ -338,26 +337,45 @@ class SearchViewSet(viewsets.ModelViewSet):
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user']
 			).values('polarity').annotate(
-				weighted_group=Count('polarity')*100/total_search
-			)
+				weighted_group=Count('polarity')*100/total_search)
 
-			# Get the top five positive most wanted words of the current user 
+			# 3. Get the total of the positive search
+			total_positive_search = Search.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				social_network=kwargs['data']['social_network'],
+				user_id=kwargs['data']['user'],
+				polarity='P'
+			).count()
+
+			# Then, get the top five positive most wanted words of the 
+			# current user 
 			self.response_data['data']['top_positive_search'] = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user'],
 				polarity='P'
-			).values('word').annotate(count=Count('word'))
+			).values('word').annotate(count=Count('word')*100/total_positive_search)[:5]
 
-			# Get the top negative positive most wanted words of the current user
+			# 4. Get the total of the negative search
+			total_negative_search = Search.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				social_network=kwargs['data']['social_network'],
+				user_id=kwargs['data']['user'],
+				polarity='N'
+			).count()
+
+			# Then, get the top negative positive most wanted words of the 
+			# current user
 			self.response_data['data']['top_negative_search'] = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user'],
 				polarity='N'
-			).values('word').annotate(count=Count('word'))
+			).values('word').annotate(count=Count('word')*100/total_negative_search)[:5]
 
 			self.code = status.HTTP_200_OK
 		except Exception as e:

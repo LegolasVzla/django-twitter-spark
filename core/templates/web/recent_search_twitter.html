@@ -92,6 +92,7 @@
 		    <div class="clearfix"></div>
 		  </div>
 		  <div class="x_content">
+		  	{% if data.weighted_group  %} 
 		    <table class="" style="width:100%">
 		      <tr>
 		        <th>
@@ -140,6 +141,9 @@
 		        </td>
 		      </tr>
 		    </table>
+		  	{% else %}
+		  		<center><p>You have not done any search yet</p></center>
+		  	{% endif %}
 		  </div>
 		</div>
 	</div>
@@ -157,6 +161,7 @@
 		    <div class="clearfix"></div>
 		  </div>
 		  <div class="x_content">
+		  	{% if data.top_positive_search  %}
 		    <table class="" style="width:100%">
 		      <tr>
 		        <th>
@@ -177,7 +182,12 @@
 		        </td>
 		        <td>
 		          <table class="tile_info">
+		          	{% for key in data.top_positive_search %}
 		            <tr>
+		              	<td>
+		                	<p><i class="fa fa-square green"></i>{{key.word}} {{key.count}}%</p>
+		              	</td>
+		          	<!--
 		              <td>
 		                <p><i class="fa fa-square blue"></i>IOS </p>
 		              </td>
@@ -206,11 +216,16 @@
 		                <p><i class="fa fa-square red"></i>Others </p>
 		              </td>
 		              <td>30%</td>
+		        	-->
 		            </tr>
+		            {% endfor %}
 		          </table>
 		        </td>
 		      </tr>
 		    </table>
+		  	{% else %}
+		  		<center><p>You have not done any search yet</p></center>
+		  	{% endif %}		    
 		  </div>
 		</div>
 	</div>
@@ -228,6 +243,7 @@
 		    <div class="clearfix"></div>
 		  </div>
 		  <div class="x_content">
+		  	{% if data.top_negative_search  %}
 		    <table class="" style="width:100%">
 		      <tr>
 		        <th>
@@ -248,6 +264,12 @@
 		        </td>
 		        <td>
 		          <table class="tile_info">
+		          	{% for key in data.top_negative_search %}
+					<tr>
+		              	<td>
+		                	<p><i class="fa fa-square blue"></i>{{key.word}} {{key.count}}%</p>
+		              	</td>		          	
+		            <!--
 		            <tr>
 		              <td>
 		                <p><i class="fa fa-square blue"></i>IOS </p>
@@ -278,10 +300,16 @@
 		              </td>
 		              <td>30%</td>
 		            </tr>
+		        	-->
+		        	</tr>
+		            {% endfor %}
 		          </table>
 		        </td>
 		      </tr>
 		    </table>
+		  	{% else %}
+		  		<center><p>You have not done any search yet</p></center>
+		  	{% endif %}		  
 		  </div>
 		</div>
 	</div>	
