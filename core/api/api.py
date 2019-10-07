@@ -394,14 +394,35 @@ class SearchViewSet(viewsets.ModelViewSet):
 		try:
 			print("-------word_details-----------")
 			#import pdb;pdb.set_trace()
-			# 1. Get the information related with the timeline of the word on Twitter
-			self.response_data['data']['timeline_word_twitter'] = Search.objects.filter(
+			# 1. Get the information related with the timeline of the word 
+			# on Twitter in function of polarity
+			self.response_data['data']['timeline_word_twitter_polarity'] = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user'],
 				word=kwargs['data']['word']
-			).values('word','polarity','searched_data').order_by('id')
+			).values('word','polarity','searched_date').order_by('id')
+
+			# 2. Get the information related with the timeline of the word
+			# on Twitter in function of likes
+			self.response_data['data']['timeline_word_twitter_likes'] = Search.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				social_network=kwargs['data']['social_network'],
+				user_id=kwargs['data']['user'],
+				word=kwargs['data']['word']
+			).values('word','liked','searched_date').order_by('id')
+
+			# 3. Get the information related with the timeline of the word
+			# on Twitter in function of retweets
+			self.response_data['data']['timeline_word_twitter_shared'] = Search.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				social_network=kwargs['data']['social_network'],
+				user_id=kwargs['data']['user'],
+				word=kwargs['data']['word']
+			).values('word','shared','searched_date').order_by('id')
 
 			self.code = status.HTTP_200_OK
 		except Exception as e:
