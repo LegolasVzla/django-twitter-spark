@@ -3,7 +3,8 @@ from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 from rest_framework import viewsets, permissions
 from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
-	RecentSearchSerializer,WordRootSerializer,SocialNetworkAccountsSerializer,
+	RecentSearchSerializer,RecentSearchWordDetailsSerializer,
+	WordRootSerializer,SocialNetworkAccountsSerializer,
 	CustomDictionaryKpiSerializer)
 from django.db.models import Count
 #import io
@@ -38,9 +39,10 @@ from rest_framework import exceptions
 
 User = get_user_model()
 
-def validate_field_name(f):
+def validate_type_of_request(f):
 	@wraps(f)
 	def decorator(*args, **kwargs):
+		#import pdb;pdb.set_trace()
 		if(len(kwargs) > 0):
 			# HTML template
 			kwargs['data'] = kwargs
@@ -228,7 +230,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			return CustomDictionaryKpiSerializer
 		return CustomDictionarySerializer
 
-	@validate_field_name
+	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_kpi(self, *args, **kwargs):
 		try:
@@ -310,13 +312,15 @@ class SearchViewSet(viewsets.ModelViewSet):
 	def get_serializer_class(self):
 		if self.action == 'recent_search':
 			return RecentSearchSerializer
+		elif self.action == 'word_details':
+			return RecentSearchWordDetailsSerializer
 		return SearchSerializer
 
-	@validate_field_name
+	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def recent_search(self, request, *args, **kwargs):
 		try:
-
+			print("-------recent_search-----------")
 			# 1. Get the recently search of the current user
 			serializer = SearchSerializer(self.queryset, many=True)
 			self.response_data['data']['recently_search'] = json.loads(json.dumps(serializer.data))
@@ -356,7 +360,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user'],
 				polarity='P'
-			).values('word').annotate(count=Count('word')*100/total_positive_search)[:5]
+			).values('word').order_by('-count').annotate(count=Count('word')*100/total_positive_search)[:5]
 
 			# 4. Get the total of the negative search
 			total_negative_search = Search.objects.filter(
@@ -375,7 +379,29 @@ class SearchViewSet(viewsets.ModelViewSet):
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user'],
 				polarity='N'
-			).values('word').annotate(count=Count('word')*100/total_negative_search)[:5]
+			).values('word').order_by('-count').annotate(count=Count('word')*100/total_negative_search)[:5]
+
+			self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[RecentSearchTwitterView] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def word_details(self, request, *args, **kwargs):
+		try:
+			print("-------word_details-----------")
+			#import pdb;pdb.set_trace()
+			# 1. Get the information related with the timeline of the word on Twitter
+			self.response_data['data']['timeline_word_twitter'] = Search.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				social_network=kwargs['data']['social_network'],
+				user_id=kwargs['data']['user'],
+				word=kwargs['data']['word']
+			).values('word','polarity','searched_data').order_by('id')
 
 			self.code = status.HTTP_200_OK
 		except Exception as e:

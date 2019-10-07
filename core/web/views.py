@@ -140,7 +140,18 @@ class RecentSearchTwitterView(View):
 		return render(request,template_name='web/recent_search_twitter.html',status=self.code,context=self.response_data)
 
 	def word_searched_detail(self, request, id):
-		pass
+		#import pdb;pdb.set_trace()
+		try:
+			_recent_search = SearchViewSet()
+			_recent_search.word_details(request,social_network=1,word=id,user=1)
+			self.response_data['data'] = _recent_search.response_data['data']
+			self.code = _recent_search.code
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[RecentSearchTwitterView] - Error: " + str(e))
+		return render(request,template_name='web/word_searched_details_twitter.html',status=self.code,context=self.response_data)
 
 	def post(self, request, *args, **kwargs):
 		data = {}

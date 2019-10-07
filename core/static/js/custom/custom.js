@@ -186,6 +186,24 @@ if ($(".progress .progress-bar")[0]) {
 
 function init_chart_doughnut() {
 
+    console.log('----------1------------');
+    /*
+    $.ajax({
+        url:'/socialanalyzer/recent_search_twitter/recent_search',
+        type: 'GET',success: function showAnswer(data) {
+            //console.log("-------success 1-------",data);
+            if (data.code==200) {
+                console.log("-------success-------",data);
+                var delayInMilliseconds = 2000; // 2 second
+                setTimeout(function() {
+                    location.reload(true);
+                }, delayInMilliseconds);
+            }else{
+                console.log('Error, status:',data.code);
+            }
+        }
+    })
+    */
     if (typeof(Chart) === 'undefined') {
         return;
     }
@@ -313,6 +331,30 @@ function init_chart_doughnut() {
     }    
 }
 
+
+function wordSearchedDetail(word_id){
+    console.log("-------wordSearchedDetail-------",word_id)
+
+    $.ajax({
+        url:'/socialanalyzer/timeline_search_twitter/',
+        type: 'POST',
+        data: {
+          word_id: word_id
+     },success: function showAnswer(data) {
+        if (data.code==200) {
+
+            console.log("-------200 wordSearchedDetail-------",word_id)
+
+            // Send data to the modal inputs
+            //$(".spotName").text(data.spotName)
+
+        }else{
+            console.log('Error to load modal');
+            //alertify.error('An error happened when loading this modal, please try again.');         
+          }
+        }
+    })
+}
 
 $(document).ready(function() {
 /*
