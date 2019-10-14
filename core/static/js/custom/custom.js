@@ -332,25 +332,22 @@ function init_chart_doughnut() {
 }
 
 
-function wordSearchedDetail(word_id){
-    console.log("-------wordSearchedDetail-------",word_id)
-
+function wordSearchedDetail(word){
+    //console.log("-------wordSearchedDetail-------",word)
     $.ajax({
         url:'/socialanalyzer/timeline_search_twitter/',
-        type: 'POST',
+        type: 'GET',
         data: {
-          word_id: word_id
+          'word': word,
      },success: function showAnswer(data) {
+        console.log("-------DATA-------",data.code)
+        window.location.href = "web/word_searched_details_twitter.html";
         if (data.code==200) {
 
-            console.log("-------200 wordSearchedDetail-------",word_id)
-
-            // Send data to the modal inputs
-            //$(".spotName").text(data.spotName)
+            console.log("-------data-------",data)
 
         }else{
             console.log('Error to load modal');
-            //alertify.error('An error happened when loading this modal, please try again.');         
           }
         }
     })

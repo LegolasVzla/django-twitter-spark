@@ -8,6 +8,7 @@ from django.views.generic import View
 from rest_framework import status
 #from rest_framework import views
 from rest_framework.response import Response
+from django.http import JsonResponse
 #from rest_framework.decorators import api_view
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework import generics
@@ -139,21 +140,28 @@ class RecentSearchTwitterView(View):
 			self.response_data['error'].append("[RecentSearchTwitterView] - Error: " + str(e))
 		return render(request,template_name='web/recent_search_twitter.html',status=self.code,context=self.response_data)
 
-	def word_searched_detail(self, request, id):
-		#import pdb;pdb.set_trace()
+class TimelineSearchTwitterView(View):
+	"""docstring for RecentSearchTwitterView"""
+	def __init__(self,*args, **kwargs):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+
+	def get(self, request, *args, **kwargs):
 		try:
+			data = {}
 			_recent_search = SearchViewSet()
-			_recent_search.word_details(request,social_network=1,word=id,user=1)
+			_recent_search.word_details(request,social_network=1,
+				word=request.GET.get('word',None),user=1)
 			self.response_data['data'] = _recent_search.response_data['data']
 			self.code = _recent_search.code
+			self.response_data['data']['code'] = self.code
+			#import pdb;pdb.set_trace()
 
 		except Exception as e:
-			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
+			logging.getLogger('error_logger').exception("[TimelineSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[RecentSearchTwitterView] - Error: " + str(e))
-		return render(request,template_name='web/word_searched_details_twitter.html',status=self.code,context=self.response_data)
+			self.response_data['error'].append("[TimelineSearchTwitterView] - Error: " + str(e))
+		return render(request,template_name='web/word_searched_details_twitter.html',status=self.code,context=data)
+		#return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
+		#return HttpResponseRedirect('web/word_searched_details_twitter.html',self.response_data)
 
-	def post(self, request, *args, **kwargs):
-		data = {}
-		data['message'] = 'Recently Search Post'
-		return render(request, 'web/timeline_search_twitter.html',data)
