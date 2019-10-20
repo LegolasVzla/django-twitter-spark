@@ -114,5 +114,8 @@
 {% block javascripts %}
   {{ block.super}}
 	<script src="{% static 'vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
-
+	<script type="text/javascript">
+		palabra = "{{ data.timeline_word_twitter_polarity }}"
+		console.log(palabra)    	
+	</script>
 {% endblock javascripts %}

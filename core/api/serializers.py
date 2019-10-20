@@ -30,16 +30,19 @@ class TopicSerializer(serializers.ModelSerializer):
 		fields = ('__all__')
 
 class SearchSerializer(serializers.ModelSerializer):
+	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
 	class Meta:
 		model = Search
 		fields = ('__all__')
 
 class RecentSearchSerializer(serializers.ModelSerializer):
+	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
 	class Meta:
 		model = Search
 		fields = ('user','social_network')
 
 class RecentSearchWordDetailsSerializer(serializers.ModelSerializer):
+	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
 	class Meta:
 		model = Search
 		fields = ('user','social_network','word')

@@ -7,7 +7,7 @@ from .api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
 from rest_framework_swagger.views import get_swagger_view
 from django.urls import path
 from rest_framework_simplejwt import views as jwt_views
-from api import views
+#from api import views
 
 router = routers.DefaultRouter()
 router.register('api/user', UserViewSet, 'user')

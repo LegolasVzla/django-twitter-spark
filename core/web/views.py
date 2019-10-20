@@ -155,13 +155,17 @@ class TimelineSearchTwitterView(View):
 			self.response_data['data'] = _recent_search.response_data['data']
 			self.code = _recent_search.code
 			self.response_data['data']['code'] = self.code
+			data['data'] = 'timeline'
+			data['url'] = 'web/word_searched_details_twitter.html'
+			data['code'] = 200
 			#import pdb;pdb.set_trace()
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[TimelineSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[TimelineSearchTwitterView] - Error: " + str(e))
-		return render(request,template_name='web/word_searched_details_twitter.html',status=self.code,context=data)
+		return render(request,template_name='web/word_searched_details_twitter.html',status=self.code,context=self.response_data)
 		#return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
 		#return HttpResponseRedirect('web/word_searched_details_twitter.html',self.response_data)
+		#return JsonResponse({'code':200,'url':'web/word_searched_details_twitter.html','data':'timeline'})
 

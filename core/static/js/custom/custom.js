@@ -339,16 +339,10 @@ function wordSearchedDetail(word){
         type: 'GET',
         data: {
           'word': word,
-     },success: function showAnswer(data) {
-        console.log("-------DATA-------",data.code)
-        window.location.href = "web/word_searched_details_twitter.html";
-        if (data.code==200) {
-
-            console.log("-------data-------",data)
-
-        }else{
-            console.log('Error to load modal');
-          }
+        },success: function(data){
+            console.log("-------DATA-------",data)
+        },error: function(error_data){
+            console.error("error_data")
         }
     })
 }

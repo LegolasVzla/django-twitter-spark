@@ -386,8 +386,9 @@
                     {% for key in data.recently_search %}					
 					<tr>
 						<td>{{forloop.counter}}</td>
-						<td><a href="" onclick='wordSearchedDetail("{{key.word}}")'><b>{{key.word}}</b></a></td>
-						<div id="{{key.word}}" style="display:none"><%=myVar.varDefinition.getText()%></div>
+						<!--<td><a href="" onclick='wordSearchedDetail("{{key.word}}")'><b>{{key.word}}</b></a></td>-->
+						<td><a href="/socialanalyzer/timeline_search_twitter/?word={{key.word}}"><b>{{key.word}}</b></a></td>
+						<div id="{{key.word}}" style="display:none"></div>
 						{% if key.polarity == 'P' %}
 							<td><span class="label label-success">Positiva</span></td>
 						{% elif key.polarity == 'N' %}
@@ -455,5 +456,6 @@
 	<script src="{% static 'vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
 	-->
     <!-- Bootstrap Toggle -->
+    <!-- Chart.js -->
 
 {% endblock javascripts %}
