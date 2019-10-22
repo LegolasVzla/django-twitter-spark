@@ -39,13 +39,15 @@ class RecentSearchSerializer(serializers.ModelSerializer):
 	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
 	class Meta:
 		model = Search
-		fields = ('user','social_network')
+		fields = ('user','social_network','word','searched_date')
 
+'''
 class RecentSearchWordDetailsSerializer(serializers.ModelSerializer):
 	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
 	class Meta:
 		model = Search
-		fields = ('user','social_network','word')
+		fields = ('user','social_network','searched_date','sentiment_analysis_percentage')
+'''
 
 class WordRootSerializer(serializers.ModelSerializer):
 	class Meta:

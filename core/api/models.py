@@ -100,6 +100,7 @@ class Search(models.Model):
 	    choices=POLARITY_CHOICES,
 	    default=NEUTRAL,
 	)
+	sentiment_analysis_percentage = models.FloatField(default=0)
 	topic = models.ForeignKey(Topic,related_name='search_topic_id',on_delete=models.CASCADE)
 	liked = models.IntegerField(default=0)	
 	shared = models.IntegerField(default=0)	

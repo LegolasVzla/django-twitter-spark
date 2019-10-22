@@ -3,8 +3,7 @@ from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 from rest_framework import viewsets, permissions
 from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
-	RecentSearchSerializer,RecentSearchWordDetailsSerializer,
-	WordRootSerializer,SocialNetworkAccountsSerializer,
+	RecentSearchSerializer,WordRootSerializer,SocialNetworkAccountsSerializer,
 	CustomDictionaryKpiSerializer)
 from django.db.models import Count
 #import io
@@ -42,7 +41,6 @@ User = get_user_model()
 def validate_type_of_request(f):
 	@wraps(f)
 	def decorator(*args, **kwargs):
-		#import pdb;pdb.set_trace()
 		if(len(kwargs) > 0):
 			# HTML template
 			kwargs['data'] = kwargs
@@ -310,10 +308,8 @@ class SearchViewSet(viewsets.ModelViewSet):
 		self.code = 0
 
 	def get_serializer_class(self):
-		if self.action == 'recent_search':
+		if self.action in ['recent_search','word_details']:
 			return RecentSearchSerializer
-		elif self.action == 'word_details':
-			return RecentSearchWordDetailsSerializer
 		return SearchSerializer
 
 	@validate_type_of_request
@@ -394,35 +390,45 @@ class SearchViewSet(viewsets.ModelViewSet):
 		try:
 			print("-------word_details-----------")
 			#import pdb;pdb.set_trace()
+			self.response_data['data']['word'] = kwargs['data']['word']
 			# 1. Get the information related with the timeline of the word 
 			# on Twitter in function of polarity
-			self.response_data['data']['timeline_word_twitter_polarity'] = Search.objects.filter(
+			queryset = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user'],
 				word=kwargs['data']['word']
-			).values('word','polarity','searched_date').order_by('id')
+			).values('polarity','sentiment_analysis_percentage','searched_date').order_by('id')
+
+			serializer = RecentSearchSerializer(self.queryset, many=True)
+			self.response_data['data']['timeline_word_twitter_polarity'] = json.loads(json.dumps(serializer.data))
 
 			# 2. Get the information related with the timeline of the word
 			# on Twitter in function of likes
-			self.response_data['data']['timeline_word_twitter_likes'] = Search.objects.filter(
+			queryset = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user'],
 				word=kwargs['data']['word']
-			).values('word','liked','searched_date').order_by('id')
+			).values('liked','searched_date').order_by('id')
+
+			serializer = RecentSearchSerializer(self.queryset, many=True)
+			self.response_data['data']['timeline_word_twitter_likes'] = json.loads(json.dumps(serializer.data))
 
 			# 3. Get the information related with the timeline of the word
 			# on Twitter in function of retweets
-			self.response_data['data']['timeline_word_twitter_shared'] = Search.objects.filter(
+			queryset = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user'],
 				word=kwargs['data']['word']
-			).values('word','shared','searched_date').order_by('id')
+			).values('shared','searched_date').order_by('id')
+
+			serializer = RecentSearchSerializer(self.queryset, many=True)
+			self.response_data['data']['timeline_word_twitter_likes'] = json.loads(json.dumps(serializer.data))
 
 			self.code = status.HTTP_200_OK
 		except Exception as e:
