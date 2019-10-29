@@ -115,7 +115,15 @@
   {{ block.super}}
 	<script src="{% static 'vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
 	<script type="text/javascript">
-		palabra = "{{ data.timeline_word_twitter_polarity }}"
-		console.log(palabra)    	
+		//var twitter_word_timelime_polarity = JSON.parse("{{ data.timeline_word_twitter_polarity }}")
+
+		var twitter_word_timelime_polarity = JSON.stringify({{ data.timeline_word_twitter_polarity|safe }})
+
+
+		var twitter_word_timelime_likes = JSON.stringify({{ data.timeline_word_twitter_likes|safe }})
+		var twitter_word_timelime_shared = JSON.stringify({{ data.timeline_word_twitter_shared|safe }})
+		console.log(twitter_word_timelime_polarity.split(','))
+
+
 	</script>
 {% endblock javascripts %}

@@ -148,16 +148,12 @@ class TimelineSearchTwitterView(View):
 
 	def get(self, request, *args, **kwargs):
 		try:
-			data = {}
 			_recent_search = SearchViewSet()
 			_recent_search.word_details(request,social_network=1,
 				word=request.GET.get('word',None),user=1)
 			self.response_data['data'] = _recent_search.response_data['data']
 			self.code = _recent_search.code
 			self.response_data['data']['code'] = self.code
-			data['data'] = 'timeline'
-			data['url'] = 'web/word_searched_details_twitter.html'
-			data['code'] = 200
 			#import pdb;pdb.set_trace()
 
 		except Exception as e:

@@ -5,7 +5,7 @@ coreschema==0.0.4
 cycler==0.10.0
 Django==2.2.4
 django-rest-swagger==2.2.0
-djangorestframework==3.9.4
+djangorestframework==3.10.3
 djangorestframework-simplejwt==4.3.0
 httpie==1.0.3
 idna==2.8

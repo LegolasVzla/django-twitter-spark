@@ -3,6 +3,7 @@ from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 from rest_framework import viewsets, permissions
 from .serializers import (UserSerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
+	SentimentAnalysisSerializer,LikesSerializer,SharedSerializer,
 	RecentSearchSerializer,WordRootSerializer,SocialNetworkAccountsSerializer,
 	CustomDictionaryKpiSerializer)
 from django.db.models import Count
@@ -13,7 +14,7 @@ from django.db.models import Count
 from rest_framework import views
 from rest_framework import status
 from rest_framework import serializers
-from rest_framework.decorators import action, detail_route
+from rest_framework.decorators import action
 #from rest_framework.views import APIView
 #from rest_framework.decorators  import list_route
 #from rest_framework.viewsets import GenericViewSet
@@ -389,7 +390,6 @@ class SearchViewSet(viewsets.ModelViewSet):
 	def word_details(self, request, *args, **kwargs):
 		try:
 			print("-------word_details-----------")
-			#import pdb;pdb.set_trace()
 			self.response_data['data']['word'] = kwargs['data']['word']
 			# 1. Get the information related with the timeline of the word 
 			# on Twitter in function of polarity
@@ -399,9 +399,9 @@ class SearchViewSet(viewsets.ModelViewSet):
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user'],
 				word=kwargs['data']['word']
-			).values('polarity','sentiment_analysis_percentage','searched_date').order_by('id')
+			).order_by('id')
 
-			serializer = RecentSearchSerializer(self.queryset, many=True)
+			serializer = SearchSerializer(queryset, many=True)
 			self.response_data['data']['timeline_word_twitter_polarity'] = json.loads(json.dumps(serializer.data))
 
 			# 2. Get the information related with the timeline of the word
@@ -414,7 +414,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 				word=kwargs['data']['word']
 			).values('liked','searched_date').order_by('id')
 
-			serializer = RecentSearchSerializer(self.queryset, many=True)
+			serializer = LikesSerializer(queryset, many=True)
 			self.response_data['data']['timeline_word_twitter_likes'] = json.loads(json.dumps(serializer.data))
 
 			# 3. Get the information related with the timeline of the word
@@ -427,8 +427,8 @@ class SearchViewSet(viewsets.ModelViewSet):
 				word=kwargs['data']['word']
 			).values('shared','searched_date').order_by('id')
 
-			serializer = RecentSearchSerializer(self.queryset, many=True)
-			self.response_data['data']['timeline_word_twitter_likes'] = json.loads(json.dumps(serializer.data))
+			serializer = SharedSerializer(queryset, many=True)
+			self.response_data['data']['timeline_word_twitter_shared'] = json.loads(json.dumps(serializer.data))
 
 			self.code = status.HTTP_200_OK
 		except Exception as e:
