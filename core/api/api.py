@@ -399,7 +399,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 				social_network=kwargs['data']['social_network'],
 				user_id=kwargs['data']['user'],
 				word=kwargs['data']['word']
-			).order_by('id')
+			).values('polarity','sentiment_analysis_percentage','searched_date').order_by('id')
 
 			serializer = SearchSerializer(queryset, many=True)
 			self.response_data['data']['timeline_word_twitter_polarity'] = json.loads(json.dumps(serializer.data))

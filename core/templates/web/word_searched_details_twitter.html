@@ -115,15 +115,81 @@
   {{ block.super}}
 	<script src="{% static 'vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
 	<script type="text/javascript">
-		//var twitter_word_timelime_polarity = JSON.parse("{{ data.timeline_word_twitter_polarity }}")
+	function init_charts() {
+		var twitter_word_timelime_polarity_data = {{ data.timeline_word_twitter_polarity|safe }}
+		var twitter_word_timelime_polarity_date = []
+		var twitter_word_timelime_polarity = []
 
-		var twitter_word_timelime_polarity = JSON.stringify({{ data.timeline_word_twitter_polarity|safe }})
+		var twitter_word_timelime_likes_data = {{ data.timeline_word_twitter_likes|safe }}
+		var twitter_word_timelime_likes_date = []
+		var twitter_word_timelime_likes = []
+
+		var twitter_word_timelime_shared_data = {{ data.timeline_word_twitter_shared|safe }}
+		var twitter_word_timelime_shared_date = []
+		var twitter_word_timelime_shared = []
+
+		// Get twitter word timelime polarity data: date and sentiment analysis percentage
+		for (var i = twitter_word_timelime_polarity_data.length - 1; i >= 0; i--) {
+			//console.log(twitter_word_timelime_polarity_data[i])
+			twitter_word_timelime_polarity_date.push(twitter_word_timelime_polarity_data[i]['searched_date'])
+			twitter_word_timelime_polarity.push(twitter_word_timelime_polarity_data[i]['sentiment_analysis_percentage'])
+		}
+		//console.log("Polarity data--->",twitter_word_timelime_polarity_date," ",twitter_word_timelime_polarity)
+
+		// Get twitter word timelime likes data: date and liked
+		for (var i = twitter_word_timelime_likes_data.length - 1; i >= 0; i--) {
+			//console.log(twitter_word_timelime_likes_data[i])
+			twitter_word_timelime_likes_date.push(twitter_word_timelime_likes_data[i]['searched_date'])
+			twitter_word_timelime_likes.push(twitter_word_timelime_likes_data[i]['liked'])
+		}
+		//console.log("Likes data--->",twitter_word_timelime_likes_date," ",twitter_word_timelime_likes)
+
+		// Get twitter word timelime shared data: date and shared
+		for (var i = twitter_word_timelime_shared_data.length - 1; i >= 0; i--) {
+			//console.log(twitter_word_timelime_shared_data[i])
+			twitter_word_timelime_shared_date.push(twitter_word_timelime_shared_data[i]['searched_date'])
+			twitter_word_timelime_shared.push(twitter_word_timelime_shared_data[i]['shared'])
+		}
+		//console.log("Shared data--->",twitter_word_timelime_shared_date," ",twitter_word_timelime_shared)
+
+		console.log('run_charts  typeof [' + typeof(Chart) + ']');
+
+		if (typeof(Chart) === 'undefined') {
+		    return;
+		}
+
+	    Chart.defaults.global.legend = {
+	        enabled: false
+	    };
 
 
-		var twitter_word_timelime_likes = JSON.stringify({{ data.timeline_word_twitter_likes|safe }})
-		var twitter_word_timelime_shared = JSON.stringify({{ data.timeline_word_twitter_shared|safe }})
-		console.log(twitter_word_timelime_polarity.split(','))
+	    if ($('#line-chart').length) {
+	        var canvas_line_00 = new Chart(document.getElementById("line-chart"), {
+	            type: 'line',
+	            data: {
+	                labels: twitter_word_timelime_polarity_date,
+	                datasets: [{
+	                    label: "My First dataset",
+	                    backgroundColor: "rgba(38, 185, 154, 0.31)",
+	                    borderColor: "rgba(38, 185, 154, 0.7)",
+	                    pointBorderColor: "rgba(38, 185, 154, 0.7)",
+	                    pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+	                    pointHoverBackgroundColor: "#fff",
+	                    pointHoverBorderColor: "rgba(220,220,220,1)",
+	                    pointBorderWidth: 1,
+	                    data: twitter_word_timelime_polarity
+	                }]
+	            },
+	        });
+		}
 
+
+	}
+
+	$(document).ready(function() {
+		console.log('loading charts...')
+	    init_charts();
+	});
 
 	</script>
 {% endblock javascripts %}
