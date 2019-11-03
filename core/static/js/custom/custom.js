@@ -333,7 +333,7 @@ function init_chart_doughnut() {
 
 
 function wordSearchedDetail(word){
-    //console.log("-------wordSearchedDetail-------",word)
+    console.log("-------wordSearchedDetail-------",word)
     $.ajax({
         url:'/socialanalyzer/timeline_search_twitter/',
         type: 'GET',
@@ -341,9 +341,14 @@ function wordSearchedDetail(word){
           'word': word,
         },success: function(data){
             console.log("-------DATA-------",data)
+            //window.location.replace(data.url);
+            //window.location.href = data.url;
+            //location.href = data.url;
+            window.location.href = window.document.location.origin + "/socialanalyzer/timeline_search_twitter/?word=" + word
         },error: function(error_data){
-            console.error("error_data")
-        }
+          console.log("error")
+          console.log(error_data)
+      }
     })
 }
 

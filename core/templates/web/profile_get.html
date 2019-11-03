@@ -41,7 +41,7 @@
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre</label>
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                      <input type="text" class="form-control has-feedback-left" readonly="readonly" id="#firstName" placeholder="First Name">
+                      <input type="text" class="form-control has-feedback-left" readonly="readonly" id="#firstName" placeholder="{{data.first_name}}">
                       <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                     </div>
                   </div>
@@ -49,7 +49,7 @@
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Apellido</label>
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                      <input type="text" class="form-control has-feedback-left" readonly="readonly" id="#lasttName" placeholder="Last Name">
+                      <input type="text" class="form-control has-feedback-left" readonly="readonly" id="#lasttName" placeholder="{{data.last_name}}">
                       <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                     </div>
                   </div>
@@ -57,7 +57,7 @@
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Correo</label>
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                      <input type="text" class="form-control has-feedback-left" readonly="readonly" id="#email" placeholder="Email">
+                      <input type="text" class="form-control has-feedback-left" readonly="readonly" id="#email" placeholder="{{data.email}}">
                       <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                     </div>
                   </div>
@@ -65,11 +65,11 @@
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Password</label>
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                      <input type="password" class="form-control has-feedback-left" readonly="readonly" value="passwordonetwo">
+                      <input type="password" class="form-control has-feedback-left" readonly="readonly" value="{{data.first_name}}">
                       <span class="fa fa-unlock-alt form-control-feedback left" aria-hidden="true"></span>
                     </div>
                   </div>
-
+                  <!--
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Género</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -83,11 +83,11 @@
                       </div>
                     </div>
                   </div>
-
+                  -->
                   <div class="ln_solid"></div>
                   <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                      <a href="/socialanalyzer" class="btn btn-primary">Regresar</a>
+                      <a href="/socialanalyzer" id="btn-search-index-getback" class="btn btn-primary">Regresar</a>
                       <button type="submit" class="btn btn-success">Modificar</button>
                     </div>
                   </div>

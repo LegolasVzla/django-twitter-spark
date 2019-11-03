@@ -49,11 +49,23 @@ class IndexView(View):
 
 class UserProfileView(View):
 	"""docstring for UserProfile"""
-	def get(self, request, *args, **kwargs):
-		data = {}
-		data['message'] = 'Profile Get'
+	def __init__(self,*args, **kwargs):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
 
-		return render(request, 'web/profile_get.html',data)
+	def get(self, request, *args, **kwargs):
+		try:
+			_user = UserViewSet()
+			_user.user_details(request,user=1)
+			self.response_data['data'] = _user.response_data['data']
+			self.code = _user.code
+			self.response_data['data']['code'] = self.code
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[UserProfileView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[UserProfileView] - Error: " + str(e))
+		return render(request,'web/profile_get.html',self.response_data)
 
 	def post(self, request, *args, **kwargs):
 		data = {}
@@ -160,8 +172,9 @@ class TimelineSearchTwitterView(View):
 			logging.getLogger('error_logger').exception("[TimelineSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[TimelineSearchTwitterView] - Error: " + str(e))
-		return render(request,template_name='web/word_searched_details_twitter.html',status=self.code,context=self.response_data)
+		return render(request,'web/word_searched_details_twitter.html',self.response_data)
 		#return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
 		#return HttpResponseRedirect('web/word_searched_details_twitter.html',self.response_data)
-		#return JsonResponse({'code':200,'url':'web/word_searched_details_twitter.html','data':'timeline'})
+		#return JsonResponse({'code':self.code,'url':'web/word_searched_details_twitter.html','data':self.response_data['data']})
+		#return JsonResponse({'code':self.code,'url':reverse('timeline_search_twitter'),'data':self.response_data['data']})
 

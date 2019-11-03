@@ -1,11 +1,11 @@
 from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
 from rest_framework import viewsets, permissions
-from .serializers import (UserSerializer,DictionarySerializer,
-	CustomDictionarySerializer,TopicSerializer,SearchSerializer,
-	SentimentAnalysisSerializer,LikesSerializer,SharedSerializer,
-	RecentSearchSerializer,WordRootSerializer,SocialNetworkAccountsSerializer,
-	CustomDictionaryKpiSerializer)
+from .serializers import (UserSerializer,UserDetailsSerializer,
+	DictionarySerializer,CustomDictionarySerializer,TopicSerializer,
+	SearchSerializer,SentimentAnalysisSerializer,LikesSerializer,
+	SharedSerializer,RecentSearchSerializer,WordRootSerializer,
+	SocialNetworkAccountsSerializer,CustomDictionaryKpiSerializer)
 from django.db.models import Count
 #import io
 #from rest_framework.renderers import JSONRenderer
@@ -197,6 +197,34 @@ class UserViewSet(viewsets.ModelViewSet):
 	]
 	serializer_class = UserSerializer
 	pagination_class = StandardResultsSetPagination
+
+	def __init__(self,*args, **kwargs):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+
+	def get_serializer_class(self):
+		if self.action in ['user_details']:
+			return UserDetailsSerializer
+		return UserSerializer
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def user_details(self, request, *args, **kwargs):
+		try:
+			#import pdb;pdb.set_trace()
+			queryset = User.objects.filter(
+				id=kwargs['data']['user'],
+				is_active=True,
+				is_deleted=False
+			).values('first_name','last_name','email','password')
+			self.response_data['data'] = queryset[0]
+			self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[UserView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[UserView] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
+
 
 class DictionaryViewSet(viewsets.ModelViewSet):
 	queryset = Dictionary.objects.filter(

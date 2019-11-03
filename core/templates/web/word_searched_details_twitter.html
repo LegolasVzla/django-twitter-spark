@@ -57,7 +57,7 @@
 		    <div class="clearfix"></div>
 		  </div>
 		  <div class="x_content">
-
+	        <canvas class="line-chart" id="line-chart" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
 		  </div>
 
 		</div>
@@ -115,7 +115,6 @@
   {{ block.super}}
 	<script src="{% static 'vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
 	<script type="text/javascript">
-	function init_charts() {
 		var twitter_word_timelime_polarity_data = {{ data.timeline_word_twitter_polarity|safe }}
 		var twitter_word_timelime_polarity_date = []
 		var twitter_word_timelime_polarity = []
@@ -151,45 +150,6 @@
 			twitter_word_timelime_shared.push(twitter_word_timelime_shared_data[i]['shared'])
 		}
 		//console.log("Shared data--->",twitter_word_timelime_shared_date," ",twitter_word_timelime_shared)
-
-		console.log('run_charts  typeof [' + typeof(Chart) + ']');
-
-		if (typeof(Chart) === 'undefined') {
-		    return;
-		}
-
-	    Chart.defaults.global.legend = {
-	        enabled: false
-	    };
-
-
-	    if ($('#line-chart').length) {
-	        var canvas_line_00 = new Chart(document.getElementById("line-chart"), {
-	            type: 'line',
-	            data: {
-	                labels: twitter_word_timelime_polarity_date,
-	                datasets: [{
-	                    label: "My First dataset",
-	                    backgroundColor: "rgba(38, 185, 154, 0.31)",
-	                    borderColor: "rgba(38, 185, 154, 0.7)",
-	                    pointBorderColor: "rgba(38, 185, 154, 0.7)",
-	                    pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-	                    pointHoverBackgroundColor: "#fff",
-	                    pointHoverBorderColor: "rgba(220,220,220,1)",
-	                    pointBorderWidth: 1,
-	                    data: twitter_word_timelime_polarity
-	                }]
-	            },
-	        });
-		}
-
-
-	}
-
-	$(document).ready(function() {
-		console.log('loading charts...')
-	    init_charts();
-	});
 
 	</script>
 {% endblock javascripts %}

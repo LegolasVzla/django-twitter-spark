@@ -205,6 +205,24 @@
                 $(".load-lupa").fadeOut();        
              }               
           });
+        });
+        $("#btn-search-index-getback").click(function(){
+        var form = $(this).closest("form");
+          //console.log("Loading index title...");
+          $.ajax({
+              type : 'GET',
+              data : form.serialize(),
+              beforeSend: function() {
+                  $(".load-lupa").fadeIn();
+              },
+              success : function(data){
+                $(".load-lupa").fadeOut();
+              },
+              error: function(data){
+                console.log('Fail btn-search-index-logout')
+                $(".load-lupa").fadeOut();        
+             }               
+          });
         });        
         </script>
       {% endblock %}

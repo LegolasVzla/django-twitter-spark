@@ -386,8 +386,8 @@
                     {% for key in data.recently_search %}					
 					<tr>
 						<td>{{forloop.counter}}</td>
-						<!--<td><a href="" onclick='wordSearchedDetail("{{key.word}}")'><b>{{key.word}}</b></a></td>-->
-						<td><a href="/socialanalyzer/timeline_search_twitter/?word={{key.word}}"><b>{{key.word}}</b></a></td>
+						<td><a href="" onclick='wordSearchedDetail("{{key.word}}")'><b>{{key.word}}</b></a></td>
+						<!--<td><a href="/socialanalyzer/timeline_search_twitter/?word={{key.word}}"><b>{{key.word}}</b></a></td>-->
 						<div id="{{key.word}}" style="display:none"></div>
 						{% if key.polarity == 'P' %}
 							<td><span class="label label-success">Positiva</span></td>
