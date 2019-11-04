@@ -10,9 +10,10 @@ class UserSerializer(serializers.ModelSerializer):
 		fields = ('__all__')
 
 class UserDetailsSerializer(serializers.ModelSerializer):
+	user = serializers.Field()
 	class Meta:
 		model = User
-		fields = ('id','email')
+		fields = ('user',)
 
 class DictionarySerializer(serializers.ModelSerializer):
 	class Meta:

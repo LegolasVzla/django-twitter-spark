@@ -211,7 +211,6 @@ class UserViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def user_details(self, request, *args, **kwargs):
 		try:
-			#import pdb;pdb.set_trace()
 			queryset = User.objects.filter(
 				id=kwargs['data']['user'],
 				is_active=True,
@@ -224,7 +223,6 @@ class UserViewSet(viewsets.ModelViewSet):
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[UserView] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
-
 
 class DictionaryViewSet(viewsets.ModelViewSet):
 	queryset = Dictionary.objects.filter(
