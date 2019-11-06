@@ -352,6 +352,56 @@ function wordSearchedDetail(word){
     })
 }
 
+var temporalWordToEdit = null;
+
+// Function to display the polarity of the word in the modal: wordUpdateModal of the dictionary_get section
+function wordEditModal(wordId) {
+    $.ajax({
+        url:'/socialanalyzer/dictionary_edit_modal/',
+        type: 'GET',
+        data: {
+          word_id: wordId
+     },success: function(data) {
+        if (data.code==200) {
+
+            // Send data to the modal inputs
+            $(".word").text(data.word)
+            $("#toggle-polarity").val(data.polarity)
+            $(".wordIdToEdit").text(data.id)
+
+            temporalWordToEdit = data.id
+
+        }else{
+            console.log('Error to load modal');
+            alertify.error('An error happened when loading this modal, please try again.');         
+          }
+        }
+    })
+}
+
+// Function to edit the polarity of a word that is in your custom dictionary in the modal: wordUpdateModal of the dictionary_get section
+function wordUpdate(){
+    $.ajax({
+        url:'/socialanalyzer/dictionary_update/',
+        type: 'PUT',
+        data: {
+          word: $("#word").text(),
+          word_id: temporalWordToEdit
+         },success: function(data) {
+              if (data.code==200) {
+                alertify.success('Word modified successfully');
+                var delayInMilliseconds = 2000; // 2 second
+                setTimeout(function() {
+                  location.reload(true);
+                }, delayInMilliseconds);
+              }else{
+                console.log('Error, status:',data.code);
+                alertify.error('Error updating the word: ',data.word);
+              }
+            }
+        })
+}
+
 $(document).ready(function() {
 /*
     init_sparklines();

@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^api/user/user_details/user/<int:user_id>', UserViewSet.as_view({'post': 'user_details'}), name='user_details'),
     url(r'^api/wordcloud/', WordCloudViewSet.as_view({'get': 'list', 'post':'create'}), name='wordcloud'),
     url(r'^api/customdictionary/custom_dictionary_kpi/user/<int:user_id>/language/<int:language_id>', CustomDictionaryViewSet.as_view({'post': 'custom_dictionary_kpi'}), name='custom_dictionary_kpi'),
+    url(r'^api/customdictionary/custom_dictionary_polarity_get/user/<int:user_id>/language/<int:language_id>/word/<string:word>', CustomDictionaryViewSet.as_view({'post': 'custom_dictionary_polarity_get'}), name='custom_dictionary_polarity_get'),    
     url(r'^api/search/recent_search/user/<int:user_id>/social_network/<int:social_network_id>', SearchViewSet.as_view({'post': 'recent_search'}), name='recent_search'),
     url(r'^api/search/word_details/user/<int:user_id>/social_network/<int:social_network_id>/word/<string:word>', SearchViewSet.as_view({'post': 'word_details'}), name='word_details')
 ]

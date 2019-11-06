@@ -90,10 +90,21 @@ class CustomDictionaryView(View):
 
 	def get(self, request, *args, **kwargs):
 		try:
-			_customdictionary = CustomDictionaryViewSet()
-			_customdictionary.custom_dictionary_kpi(request,language=1,user=1)
-			self.response_data['data'] = _customdictionary.response_data['data']
-			self.code = _customdictionary.code
+			# In the modal of "Ver Mi Diccionario" section,
+			# when edit the polarity of a word, show the polarity
+			#import pdb;pdb.set_trace()
+			if request.is_ajax():
+				_customdictionary = CustomDictionaryViewSet()
+				_customdictionary.custom_dictionary_polarity_get(
+					request,word=request.GET['word_id'],language=1,user=1)
+				self.response_data['data'] = _customdictionary.response_data['data']
+				self.code = _customdictionary.code
+			# Display all the default data in "Ver Mi Diccionario" section
+			else:
+				_customdictionary = CustomDictionaryViewSet()
+				_customdictionary.custom_dictionary_kpi(request,language=1,user=1)
+				self.response_data['data'] = _customdictionary.response_data['data']
+				self.code = _customdictionary.code
 			
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))

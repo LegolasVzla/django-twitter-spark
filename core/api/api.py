@@ -308,6 +308,28 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			self.response_data['error'].append("[CustomDictionaryViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def custom_dictionary_polarity_get(self, *args, **kwargs):
+		try:
+			# Get the polarity of de word requested
+			queryset = CustomDictionary.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				language_id=kwargs['data']['language'],
+				user_id=kwargs['data']['user'],
+				word=kwargs['data']['word']
+			).values('polarity').order_by('id')
+			#import pdb;pdb.set_trace()
+
+			self.response_data['data']['polarity']=queryset[0]
+			self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[CustomDictionaryViewSet] - Error: " + str(e))			
+		return Response(self.response_data,status=self.code)
+
 class TopicViewSet(viewsets.ModelViewSet):
 	queryset = Topic.objects.filter(
 		is_active=True,
