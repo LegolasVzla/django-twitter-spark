@@ -340,16 +340,21 @@ function wordSearchedDetail(word){
         data: {
           'word': word,
         },success: function(data){
-            console.log("-------DATA-------",data)
-            //window.location.replace(data.url);
-            //window.location.href = data.url;
-            //location.href = data.url;
-            window.location.href = window.document.location.origin + "/socialanalyzer/timeline_search_twitter/?word=" + word
+            if (data.data.code==200) {
+                console.log("-------DATA-------",data)
+                //window.location.replace(data.url);
+                //window.location.href = data.url;
+                //location.href = data.url;
+                window.location.href = window.document.location.origin + "/socialanalyzer/timeline_search_twitter/?word=" + word
+            }else{
+                console.log('Error to load modal',data);
+                //alertify.error('An error happened when loading this modal, please try again.');         
+              }
         },error: function(error_data){
           console.log("error")
           console.log(error_data)
       }
-    })
+    })    
 }
 
 var temporalWordToEdit = null;
@@ -362,18 +367,27 @@ function wordEditModal(wordId) {
         data: {
           word_id: wordId
      },success: function(data) {
-        if (data.code==200) {
-
+        if (data.data.code==200) {
+            console.log("------>",data)
             // Send data to the modal inputs
-            $(".word").text(data.word)
-            $("#toggle-polarity").val(data.polarity)
-            $(".wordIdToEdit").text(data.id)
+            $(".word").text(data.data.word)
+            //$(".wordIdToEdit").text(data.data.id)
+            //console.log($('#toggle-polarity').bootstrapToggle()[0]['value'])
+            if (data.data.polarity.toLowerCase() == 'p'){
+                //$("#toggle-polarity").val("success")
+                $('#toggle-polarity').bootstrapToggle('on')
+                console.log('Es positiva')
+            }else {
+                //$("#toggle-polarity").val("danger")
+                $('#toggle-polarity').bootstrapToggle('off')
+                console.log('Es negativa')                
+            }
 
             temporalWordToEdit = data.id
 
         }else{
-            console.log('Error to load modal');
-            alertify.error('An error happened when loading this modal, please try again.');         
+            console.log('Error to load modal',data);
+            //alertify.error('An error happened when loading this modal, please try again.');         
           }
         }
     })

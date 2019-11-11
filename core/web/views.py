@@ -92,25 +92,29 @@ class CustomDictionaryView(View):
 		try:
 			# In the modal of "Ver Mi Diccionario" section,
 			# when edit the polarity of a word, show the polarity
-			#import pdb;pdb.set_trace()
 			if request.is_ajax():
 				_customdictionary = CustomDictionaryViewSet()
 				_customdictionary.custom_dictionary_polarity_get(
 					request,word=request.GET['word_id'],language=1,user=1)
 				self.response_data['data'] = _customdictionary.response_data['data']
 				self.code = _customdictionary.code
+				self.response_data['data']['code'] = self.code
+				#return HttpResponse(json.dumps(self.response_data, cls=DjangoJSONEncoder), content_type='application/json')
+				return JsonResponse(self.response_data)
+
 			# Display all the default data in "Ver Mi Diccionario" section
 			else:
 				_customdictionary = CustomDictionaryViewSet()
 				_customdictionary.custom_dictionary_kpi(request,language=1,user=1)
 				self.response_data['data'] = _customdictionary.response_data['data']
 				self.code = _customdictionary.code
-			
+				return render(request,template_name='web/dictionary_get.html',status=self.code,context=self.response_data)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
-		return render(request,template_name='web/dictionary_get.html',status=self.code,context=self.response_data)
+			return JsonResponse(self.response_data)
 
 	def post(self, request, *args, **kwargs):
 		data = {}
@@ -184,6 +188,7 @@ class TimelineSearchTwitterView(View):
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[TimelineSearchTwitterView] - Error: " + str(e))
 		return render(request,'web/word_searched_details_twitter.html',self.response_data)
+		#return JsonResponse(self.response_data)
 		#return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
 		#return HttpResponseRedirect('web/word_searched_details_twitter.html',self.response_data)
 		#return JsonResponse({'code':self.code,'url':'web/word_searched_details_twitter.html','data':self.response_data['data']})

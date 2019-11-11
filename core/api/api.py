@@ -314,15 +314,12 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		try:
 			# Get the polarity of de word requested
 			queryset = CustomDictionary.objects.filter(
-				is_active=True,
-				is_deleted=False,
+				id=kwargs['data']['word'],
 				language_id=kwargs['data']['language'],
-				user_id=kwargs['data']['user'],
-				word=kwargs['data']['word']
-			).values('polarity').order_by('id')
-			#import pdb;pdb.set_trace()
+				user_id=kwargs['data']['user']
+			).values('id','polarity','word').order_by('id')
 
-			self.response_data['data']['polarity']=queryset[0]
+			self.response_data['data'] = queryset[0]
 			self.code = status.HTTP_200_OK
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			

@@ -35,12 +35,12 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 				<p><i class="fa fa-comment-o"></i> ¿Cambiaste de opinión? modifica la polaridad de la palabra.</p>
 				</div><br/><br/>
-				<form method="get" novalidate>
 				{% csrf_token %}
+				<form method="get" novalidate>
 					<fieldset>
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="polaridad">Polaridad:</label>
-							<input id="toggle-polarity" checked type="checkbox" data-on="+ Positiva" data-off="- Negativa" data-onstyle="success" data-offstyle="danger" data-width="100">
+							<input id="toggle-polarity" checked type="checkbox" data-on="Positive" data-off="Negative" data-onstyle="success" data-offstyle="danger" data-width="100">
 						</div>
 						<br/><br/><br/>
 	                  <div class="modal-footer">
@@ -192,7 +192,7 @@
 						<td>{{key.created_date}}</td>
 						<td>{{key.updated_date}}</td>
 						<td>
-						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12" data-toggle="modal" onclick='wordEditModal({{key.id}})' data-target="#wordUpdateModal"><i class="fa fa-edit"></i>
+						  <div id="testBtn" class="btn fa-hover col-md-3 col-sm-4 col-xs-12" data-toggle="modal" onclick='wordEditModal({{key.id}})' data-target="#wordUpdateModal"><i class="fa fa-edit"></i>
 						  </div>
 						  <div class="btn fa-hover col-md-3 col-sm-4 col-xs-12"><a href="/socialanalyzer/dictionary_remove/{{Diccionarios.id}}"><i class="fa fa-trash-o"></i></a>
 						  </div>
@@ -253,9 +253,9 @@
 	-->
     <!-- Bootstrap Toggle -->	
 	<script>
-	  $(function() {
-	    $('#toggle-polarity').bootstrapToggle();
-	  })
+	$(function(){
+		$('#toggle-polarity').bootstrapToggle();
+	})
 	</script>
 
 {% endblock javascripts %}
