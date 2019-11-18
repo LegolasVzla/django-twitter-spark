@@ -22,7 +22,6 @@
 		</ol>
 	</div>
 
-    <!-- Add Spot -->
     <div class="container">
       <div class="modal fade" id="wordUpdateModal" role="dialog">
         <div class="modal-dialog">
@@ -36,7 +35,7 @@
 				<p><i class="fa fa-comment-o"></i> ¿Cambiaste de opinión? modifica la polaridad de la palabra.</p>
 				</div><br/><br/>
 				{% csrf_token %}
-				<form method="get" novalidate>
+				<form method="get">
 					<fieldset>
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="polaridad">Polaridad:</label>
@@ -213,6 +212,8 @@
 
 {% block javascripts %}
   {{ block.super}}
+	<!-- Prevent 404 http status error in PUT AJAX request -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	<!-- Bootstrap Datatable -->
 	<script>
 	$(document).ready(function() {

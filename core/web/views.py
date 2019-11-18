@@ -119,12 +119,27 @@ class CustomDictionaryView(View):
 	def post(self, request, *args, **kwargs):
 		data = {}
 		data['message'] = 'Dictionary Post'
-
+		print("--------post request-------")
 		return render(request, 'web/dictionary_create.html',data)
 
 	def put(self, request, *args, **kwargs):
-		data = {}
-		data['message'] = 'Dictionary Put'
+		try:
+			if request.method == 'PUT' and request.is_ajax():
+				# In the modal of "Ver Mi Diccionario" section,
+				# when edit the polarity of a word, save the changes
+				_customdictionary = CustomDictionaryViewSet()
+				_customdictionary.update(request,word=request.GET['word_id'],
+					polarity=request.GET['polarity'])
+				self.code = _customdictionary.code
+				self.response_data['data'] = _customdictionary.response_data['data']
+				self.response_data['data']['code'] = self.code
+				return render(request,template_name='web/dictionary_get.html',status=self.code,context=self.response_data)
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
+			return JsonResponse(self.response_data)
 
 		return render(request, 'web/dictionary_get.html',data)
 

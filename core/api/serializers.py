@@ -29,6 +29,16 @@ class CustomDictionaryKpiSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = CustomDictionary
 		fields = ('user','language')
+
+class CustomDictionaryPolaritySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = CustomDictionary
+		fields = ('polarity',)
+
+	def update(self, instance, data):
+		instance.polarity = data.get("polarity")
+		instance.save()
+		return instance
 	
 class TopicSerializer(serializers.ModelSerializer):
 	class Meta:

@@ -5,7 +5,8 @@ from .serializers import (UserSerializer,UserDetailsSerializer,
 	DictionarySerializer,CustomDictionarySerializer,TopicSerializer,
 	SearchSerializer,SentimentAnalysisSerializer,LikesSerializer,
 	SharedSerializer,RecentSearchSerializer,WordRootSerializer,
-	SocialNetworkAccountsSerializer,CustomDictionaryKpiSerializer)
+	SocialNetworkAccountsSerializer,CustomDictionaryKpiSerializer,
+	CustomDictionaryPolaritySerializer)
 from django.db.models import Count
 #import io
 #from rest_framework.renderers import JSONRenderer
@@ -38,6 +39,11 @@ from functools import wraps
 from rest_framework import exceptions
 
 User = get_user_model()
+
+class StandardResultsSetPagination(PageNumberPagination):
+	page_size = 10
+	#page_size_query_param = 'page_size'
+	#max_page_size = 1000
 
 def validate_type_of_request(f):
 	@wraps(f)
@@ -182,11 +188,6 @@ class WordCloudViewSet(viewsets.ViewSet):
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 		return Response(self.response_data,status=self.code)
 
-class StandardResultsSetPagination(PageNumberPagination):
-	page_size = 10
-	#page_size_query_param = 'page_size'
-	#max_page_size = 1000
-
 class UserViewSet(viewsets.ModelViewSet):
 	queryset = User.objects.filter(
 		is_active=True,
@@ -253,6 +254,8 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	def get_serializer_class(self):
 		if self.action == 'custom_dictionary_kpi':
 			return CustomDictionaryKpiSerializer
+		if self.action == 'update':
+			return CustomDictionarySerializer
 		return CustomDictionarySerializer
 
 	@validate_type_of_request
@@ -325,6 +328,39 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[CustomDictionaryViewSet] - Error: " + str(e))			
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	#@action(methods=['put'], detail=False)
+	def update(self, request, *args, **kwargs):
+		try:
+			data = {}
+			# Get the instance of the requested word to edit
+			instance = CustomDictionary.objects.get(
+				id=kwargs['data']['word'])
+
+			# Check the new polarity value for the word
+			if kwargs['data']['polarity'] == 'true':
+				data['polarity'] = 'P'
+			elif kwargs['data']['polarity'] == 'false':
+				data['polarity'] = 'N'
+			else:
+				data['polarity'] = 'None'
+			serializer = CustomDictionaryPolaritySerializer(instance, 
+				data=data, partial=True)
+			if serializer.is_valid():
+				serializer.save()
+				data['id'] = instance.id
+				data['word'] = instance.word
+				self.response_data['data'] = data
+				self.code = status.HTTP_200_OK
+			else:
+				self.response_data['error'].append("[CustomDictionaryViewSet] - Error: " + serializer.errors)
+				self.code = status.HTTP_400_BAD_REQUEST
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[CustomDictionaryViewSet] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
 
 class TopicViewSet(viewsets.ModelViewSet):
