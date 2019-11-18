@@ -124,6 +124,7 @@ class CustomDictionaryView(View):
 
 	def put(self, request, *args, **kwargs):
 		try:
+			#import pdb;pdb.set_trace()
 			if request.method == 'PUT' and request.is_ajax():
 				# In the modal of "Ver Mi Diccionario" section,
 				# when edit the polarity of a word, save the changes

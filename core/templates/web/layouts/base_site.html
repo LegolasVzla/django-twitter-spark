@@ -36,6 +36,12 @@
         <!-- JQVMap 
         <link href="{% static 'vendors/jqvmap/dist/jqvmap.min.css' %}" rel="stylesheet"/>
         -->
+        <!-- Alertify -->
+        <link rel="stylesheet" href="{% static 'css/alertifyjs/alertify.min.css' %} "/>
+        
+        <!-- include a theme -->
+        <link rel="stylesheet" href="{% static 'css/alertifyjs/themes/default.min.css' %} "/>
+        
       {% endblock stylesheets %}
       <!-- Custom Theme Style -->
       <link href="{% static 'css/custom/custom.css' %}" rel="stylesheet">
@@ -127,6 +133,8 @@
         <!-- Custom Theme Scripts -->
         <script src="{% static 'js/custom/custom.js' %}"></script>
 
+        <!-- Alertify -->
+        <script src="{% static 'js/alertifyjs/alertify.min.js' %}"></script>
 
         <div class="load-lupa" style="background: rgba(26, 135, 197, 0.72) none repeat scroll 0% 0%;width: 100%;height: 100%;position: absolute;left: 0;right: 0;bottom: 0;top: 0;margin: auto;position: fixed;z-index: 10;display: none;">
           {% load static %}

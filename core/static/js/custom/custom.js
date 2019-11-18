@@ -194,7 +194,7 @@ function init_chart_doughnut() {
             //console.log("-------success 1-------",data);
             if (data.code==200) {
                 console.log("-------success-------",data);
-                var delayInMilliseconds = 2000; // 2 second
+                var delayInMilliseconds = 3000; // 3 second
                 setTimeout(function() {
                     location.reload(true);
                 }, delayInMilliseconds);
@@ -348,7 +348,7 @@ function wordSearchedDetail(word){
                 window.location.href = window.document.location.origin + "/socialanalyzer/timeline_search_twitter/?word=" + word
             }else{
                 console.log('Error to load modal',data);
-                //alertify.error('An error happened when loading this modal, please try again.');         
+                alertify.error('An error happened when loading this modal, please try again.');         
               }
         },error: function(error_data){
           console.log("error")
@@ -383,8 +383,8 @@ function wordEditModal(wordId) {
             }
 
         }else{
-            console.log('Error to load modal',data);
-            //alertify.error('An error happened when loading this modal, please try again.');         
+            //console.log('Error to load modal',data);
+            //alertify.error('An error happened when loading this modal, please try again.');
           }
         }
     })
@@ -392,21 +392,18 @@ function wordEditModal(wordId) {
 
 // Function to edit the polarity of a word that is in your custom dictionary in the modal: wordUpdateModal of the dictionary_get section
 function wordUpdate(){
+    var wordData = {};
+    wordData["id"] = temporalWordToEdit
+    wordData["key"] = temporalWordToEdit
     $.ajax({
         url:'/socialanalyzer/dictionary_update/?word_id='+temporalWordToEdit+'&polarity='+$('#toggle-polarity').bootstrapToggle()[0].checked,
         headers: { "X-CSRFToken": $.cookie("csrftoken") },
-        type: 'PUT',success: function(data) {
-            if (data.data.code==200) {
-                //alertify.success('Word modified successfully');
-                var delayInMilliseconds = 2000; // 2 second
-                setTimeout(function() {
-                    location.reload(true);
-                }, delayInMilliseconds);
-            }else{
-                console.log('Error, status:',data.code);
-                //alertify.error('Error updating the word: ',data.word);
-            }
-        }
+        type: 'PUT',
+        data: wordData,
+    }).done(function () {
+        console.log('SUCCESS');
+    }).fail(function (msg) {
+        console.log('FAIL');
     })
 }
 
