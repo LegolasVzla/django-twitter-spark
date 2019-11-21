@@ -399,11 +399,16 @@ function wordUpdate(){
         url:'/socialanalyzer/dictionary_update/?word_id='+temporalWordToEdit+'&polarity='+$('#toggle-polarity').bootstrapToggle()[0].checked,
         headers: { "X-CSRFToken": $.cookie("csrftoken") },
         type: 'PUT',
-        data: wordData,
-    }).done(function () {
-        console.log('SUCCESS');
-    }).fail(function (msg) {
-        console.log('FAIL');
+        data: {
+            wordData
+        },success: function(data){
+            alertify.success('----------Word updated successfully.');
+            //console.log("Word updated successfully.")
+        },error: function(error_data){
+            alertify.error('An error happened updating the word.');
+            console.log("An error happened updating the word.")
+            //console.log(error_data)
+        }
     })
 }
 

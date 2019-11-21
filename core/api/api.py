@@ -147,7 +147,7 @@ class WordCloudViewSet(viewsets.ViewSet):
 				self.error_message = 'Comments can"t be empty. '
 			else:
 				self.error_message = 'word_cloud_data format must be like: {"data": {"comments": ["twitter comments list"],"user_id": '' }} where user_id can be empty. '
-			self.response_data['error'].append("[WordCloudViewSet] - Error: " + self.error_message + str(e))
+			self.response_data['error'].append("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
 			logging.getLogger('error_logger').exception("[WordCloudViewSet] - Error: " + self.error_message + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 
@@ -222,7 +222,7 @@ class UserViewSet(viewsets.ModelViewSet):
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[UserView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[UserView] - Error: " + str(e))
+			self.response_data['error'].append("[API - UserView] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
 
 class DictionaryViewSet(viewsets.ModelViewSet):
@@ -308,7 +308,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			'''
 			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[CustomDictionaryViewSet] - Error: " + str(e))			
+			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
 	@validate_type_of_request
@@ -327,40 +327,31 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[CustomDictionaryViewSet] - Error: " + str(e))			
+			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
 	@validate_type_of_request
 	#@action(methods=['put'], detail=False)
 	def update(self, request, *args, **kwargs):
 		try:
-			data = {}
 			# Get the instance of the requested word to edit
-			instance = CustomDictionary.objects.get(
-				id=kwargs['data']['word'])
+			instance = CustomDictionary.objects.get(id=kwargs['data']['word'])
 
-			# Check the new polarity value for the word
-			if kwargs['data']['polarity'] == 'true':
-				data['polarity'] = 'P'
-			elif kwargs['data']['polarity'] == 'false':
-				data['polarity'] = 'N'
-			else:
-				data['polarity'] = 'None'
 			serializer = CustomDictionaryPolaritySerializer(instance, 
-				data=data, partial=True)
+				data=kwargs['data'], partial=True)
+
 			if serializer.is_valid():
 				serializer.save()
-				data['id'] = instance.id
-				data['word'] = instance.word
-				self.response_data['data'] = data
+				self.response_data['data']['id'] = instance.id
+				self.response_data['data']['word'] = instance.word
 				self.code = status.HTTP_200_OK
 			else:
-				self.response_data['error'].append("[CustomDictionaryViewSet] - Error: " + serializer.errors)
+				self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + serializer.errors)
 				self.code = status.HTTP_400_BAD_REQUEST
 		except Exception as e:
-			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
+			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[CustomDictionaryViewSet] - Error: " + str(e))
+			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
 
 class TopicViewSet(viewsets.ModelViewSet):
@@ -463,7 +454,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[RecentSearchTwitterView] - Error: " + str(e))
+			self.response_data['error'].append("[API - RecentSearchTwitterView] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
 
 	@validate_type_of_request
@@ -515,7 +506,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[RecentSearchTwitterView] - Error: " + str(e))
+			self.response_data['error'].append("[API - RecentSearchTwitterView] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
 
 class WordRootViewSet(viewsets.ModelViewSet):

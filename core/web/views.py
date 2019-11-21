@@ -124,25 +124,28 @@ class CustomDictionaryView(View):
 
 	def put(self, request, *args, **kwargs):
 		try:
-			#import pdb;pdb.set_trace()
 			if request.method == 'PUT' and request.is_ajax():
+				# Check the new polarity value for the word
+				if request.GET['polarity'] == 'true':
+					new_polarity = 'P'
+				elif request.GET['polarity'] == 'false':
+					new_polarity = 'N'
+				else:
+					new_polarity = 'None'
+
 				# In the modal of "Ver Mi Diccionario" section,
 				# when edit the polarity of a word, save the changes
 				_customdictionary = CustomDictionaryViewSet()
 				_customdictionary.update(request,word=request.GET['word_id'],
-					polarity=request.GET['polarity'])
+					polarity=new_polarity)
 				self.code = _customdictionary.code
 				self.response_data['data'] = _customdictionary.response_data['data']
-				self.response_data['data']['code'] = self.code
-				return render(request,template_name='web/dictionary_get.html',status=self.code,context=self.response_data)
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
-			return JsonResponse(self.response_data)
-
-		return render(request, 'web/dictionary_get.html',data)
+		return JsonResponse(self.response_data)
 
 	def remove(self, request, *args, **kwargs):
 		data = {}
