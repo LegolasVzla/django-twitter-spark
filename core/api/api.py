@@ -148,7 +148,7 @@ class WordCloudViewSet(viewsets.ViewSet):
 			else:
 				self.error_message = 'word_cloud_data format must be like: {"data": {"comments": ["twitter comments list"],"user_id": '' }} where user_id can be empty. '
 			self.response_data['error'].append("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
-			logging.getLogger('error_logger').exception("[WordCloudViewSet] - Error: " + self.error_message + str(e))
+			logging.getLogger('error_logger').exception("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 
 		return Response(self.response_data,status=self.code)
@@ -184,7 +184,7 @@ class WordCloudViewSet(viewsets.ViewSet):
 			self.response_data['data']['unathenticated_word_clouds_url'] = unauthenticated_word_cloud
 
 		except Exception as e:
-			logging.getLogger('error_logger').exception("[WordCloudViewSet] - Error: " + str(e))
+			logging.getLogger('error_logger').exception("[API - WordCloudViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 		return Response(self.response_data,status=self.code)
 
@@ -220,7 +220,7 @@ class UserViewSet(viewsets.ModelViewSet):
 			self.response_data['data'] = queryset[0]
 			self.code = status.HTTP_200_OK
 		except Exception as e:
-			logging.getLogger('error_logger').exception("[UserView] - Error: " + str(e))
+			logging.getLogger('error_logger').exception("[API - UserView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[API - UserView] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
@@ -325,7 +325,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			self.response_data['data'] = queryset[0]
 			self.code = status.HTTP_200_OK
 		except Exception as e:
-			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
+			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))			
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
@@ -349,7 +349,26 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 				self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + serializer.errors)
 				self.code = status.HTTP_400_BAD_REQUEST
 		except Exception as e:
-			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))
+			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	def destroy(self, request, *args, **kwargs):
+		try:
+			# Get the instance of the requested word to destroy
+			instance = CustomDictionary.objects.get(id=kwargs['data']['word'])
+			instance.is_active = False
+			instance.is_deleted = True
+			instance.save()
+
+			self.response_data['data']['id'] = instance.id
+			self.response_data['data']['word'] = instance.word
+			self.code = status.HTTP_200_OK
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)

@@ -9,6 +9,7 @@ from rest_framework import status
 #from rest_framework import views
 from rest_framework.response import Response
 from django.http import JsonResponse
+from django.http import QueryDict
 #from rest_framework.decorators import api_view
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework import generics
@@ -147,11 +148,23 @@ class CustomDictionaryView(View):
 			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
 		return JsonResponse(self.response_data)
 
-	def remove(self, request, *args, **kwargs):
-		data = {}
-		data['message'] = 'Dictionary Remove'
+	def delete(self, request, *args, **kwargs):
+		try:
+			if request.method == 'DELETE' and request.is_ajax():
+				# In the modal of "Ver Mi Diccionario" section,
+				# when edit the polarity of a word, save the changes
+				_customdictionary = CustomDictionaryViewSet()
+				delete = QueryDict(request.body)
+				word_id = delete.get('word_id')
+				_customdictionary.destroy(request,word=word_id)
+				self.code = _customdictionary.code
+				self.response_data['data'] = _customdictionary.response_data['data']
 
-		return render(request, 'web/dictionary_get.html',data)
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
+		return JsonResponse(self.response_data)
 
 class TwitterSearchView(View):
 	"""docstring for TwitterSearchView"""

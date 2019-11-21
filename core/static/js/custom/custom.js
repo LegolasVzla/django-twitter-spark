@@ -402,12 +402,44 @@ function wordUpdate(){
         data: {
             wordData
         },success: function(data){
-            alertify.success('----------Word updated successfully.');
+            alertify.success('Word updated successfully.');
             //console.log("Word updated successfully.")
         },error: function(error_data){
             alertify.error('An error happened updating the word.');
             console.log("An error happened updating the word.")
             //console.log(error_data)
+        }
+    })
+}
+
+// Function to display the polarity of the word in the modal: wordUpdateModal of the dictionary_get section
+function wordRemove(wordId) {
+    var r = confirm("¿Are you sure to remove this word of your dictionary?");
+
+    if (r == true) {
+        console.log('');
+    }else {
+        return;
+    }
+    $.ajax({
+        url:'/socialanalyzer/dictionary_remove',
+        headers: { "X-CSRFToken": $.cookie("csrftoken") },        
+        type: 'DELETE',
+        data: {
+          word_id: wordId
+     },success: function showAnswer(data) {
+        console.log("==> deleting data:",data)
+        if (data.code==200) {
+            alertify.success("The word '" + data.word + "' was deleted successfully");
+            console.log("The word '" + data.word + "' was deleted successfully")
+            var delayInMilliseconds = 2000; // 2 second
+            setTimeout(function() {
+                location.reload(true);
+            }, delayInMilliseconds);
+        }else{
+            alertify.error('An error happened deleting the word, please try again.');
+            console.log("An error happened deleting the word, please try again.")
+        }
         }
     })
 }
