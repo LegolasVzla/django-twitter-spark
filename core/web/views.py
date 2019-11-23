@@ -157,8 +157,9 @@ class CustomDictionaryView(View):
 				delete = QueryDict(request.body)
 				word_id = delete.get('word_id')
 				_customdictionary.destroy(request,word=word_id)
-				self.code = _customdictionary.code
 				self.response_data['data'] = _customdictionary.response_data['data']
+				self.code = _customdictionary.code
+				self.response_data['data']['code'] = self.code
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
@@ -219,8 +220,8 @@ class TimelineSearchTwitterView(View):
 			logging.getLogger('error_logger').exception("[TimelineSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[TimelineSearchTwitterView] - Error: " + str(e))
-		return render(request,'web/word_searched_details_twitter.html',self.response_data)
-		#return JsonResponse(self.response_data)
+		#return render(request,'web/word_searched_details_twitter.html',self.response_data)
+		return JsonResponse(self.response_data)
 		#return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
 		#return HttpResponseRedirect('web/word_searched_details_twitter.html',self.response_data)
 		#return JsonResponse({'code':self.code,'url':'web/word_searched_details_twitter.html','data':self.response_data['data']})
