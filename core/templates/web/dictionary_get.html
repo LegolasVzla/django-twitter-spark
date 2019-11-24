@@ -66,12 +66,12 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 				<p><i class="fa fa-comment-o"></i> Aqui puedes agregar una nueva palabra a tu diccionario y asignarle la polaridad asociada.</p>
 				</div><br/><br/>
+				<form method="post">
 				{% csrf_token %}
-				<form method="get">
 					<fieldset>
 		                <div class="form-group">
-							<label class="col-form-label col-md-3 col-sm-3 col-xs-12" for="first-name">Palabra:</label>
-							<input type="text" class="form-control" id="wordName" placeholder="Escribe tu palabra" maxlength="100" required="">
+							<label class="col-form-label col-md-3 col-sm-3 col-xs-12" for="word">Palabra:</label>
+							<input type="text" class="form-control" id="new_word" placeholder="Escribe tu palabra" autofocus="" value="" maxlength="100" required="">
 		                </div>
 						<div class="form-group">
 							<label class="col-form-label col-md-3 col-sm-3 col-xs-12" for="polaridad">Polaridad:</label>

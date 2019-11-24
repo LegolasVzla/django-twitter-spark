@@ -118,10 +118,31 @@ class CustomDictionaryView(View):
 			return JsonResponse(self.response_data)
 
 	def post(self, request, *args, **kwargs):
-		data = {}
-		data['message'] = 'Dictionary Post'
 		print("--------post request-------")
-		return render(request, 'web/dictionary_create.html',data)
+		try:
+			if request.method == 'POST' and request.is_ajax():
+				if request.POST['polarity'] == 'true':
+					new_polarity = 'P'
+				elif request.POST['polarity'] == 'false':
+					new_polarity = 'N'
+				else:
+					new_polarity = 'None'
+
+				# In the modal of "Ver Mi Diccionario" section,
+				# when add a new word to your custom dictionary
+				_customdictionary = CustomDictionaryViewSet()
+				_customdictionary.create(request,word=request.POST['word'],
+					polarity=new_polarity,language=1,user=1)
+				self.response_data['data'] = _customdictionary.response_data['data']
+				self.code = _customdictionary.code
+				self.response_data['data']['code'] = self.code
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
+		#return render(request,'web/dictionary_get.html',self.response_data)
+		return JsonResponse(self.response_data)
 
 	def put(self, request, *args, **kwargs):
 		try:
@@ -152,7 +173,7 @@ class CustomDictionaryView(View):
 		try:
 			if request.method == 'DELETE' and request.is_ajax():
 				# In the modal of "Ver Mi Diccionario" section,
-				# when edit the polarity of a word, save the changes
+				# when delete a word selected
 				_customdictionary = CustomDictionaryViewSet()
 				delete = QueryDict(request.body)
 				word_id = delete.get('word_id')

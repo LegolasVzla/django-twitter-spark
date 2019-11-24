@@ -361,21 +361,21 @@ var temporalWordToEdit = null;
 
 // Function to save the spot information
 function wordCreate(){
-
-    if (jQuery.isEmptyObject($("#placeName").val())) {
+    if (jQuery.isEmptyObject($("#new_word").val())) {
         alertify.error('Please provide a word');
         return;
     }else{
         $.ajax({
+            type: "POST",
             url:'/socialanalyzer/dictionary_create/',
-            type: 'POST',
+            headers: { "X-CSRFToken": $.cookie("csrftoken") },
             data: {
-                wordName: $("#wordName").val(),
-                wordPolarity: $('#toggle-polarity-create').bootstrapToggle()[0].checked
+                word: $("#new_word").val(),
+                polarity: $('#toggle-polarity-create').bootstrapToggle()[0].checked
             },success: function showAnswer(data) {
               if (data.data.code==200) {
                 //console.log("success",data);
-                alertify.success('Word saved successfully');
+                alertify.success('Word "'+data.data.word+'" saved successfully');
                 var delayInMilliseconds = 2000; // 2 second
                 setTimeout(function() {
                   location.reload(true);

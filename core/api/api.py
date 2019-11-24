@@ -332,6 +332,25 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 
 	@validate_type_of_request
 	#@action(methods=['put'], detail=False)
+	def create(self, request, *args, **kwargs):
+		try:
+			serializer = CustomDictionarySerializer(data=kwargs)
+
+			if serializer.is_valid():
+				serializer.save()
+				self.response_data['data']['word'] = kwargs['word']
+				self.code = status.HTTP_200_OK
+			else:
+				self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + serializer.errors)
+				self.code = status.HTTP_400_BAD_REQUEST
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	#@action(methods=['put'], detail=False)
 	def update(self, request, *args, **kwargs):
 		try:
 			# Get the instance of the requested word to edit
