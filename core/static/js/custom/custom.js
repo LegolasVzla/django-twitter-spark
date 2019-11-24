@@ -359,6 +359,36 @@ function wordSearchedDetail(word){
 
 var temporalWordToEdit = null;
 
+// Function to save the spot information
+function wordCreate(){
+
+    if (jQuery.isEmptyObject($("#placeName").val())) {
+        alertify.error('Please provide a word');
+        return;
+    }else{
+        $.ajax({
+            url:'/socialanalyzer/dictionary_create/',
+            type: 'POST',
+            data: {
+                wordName: $("#wordName").val(),
+                wordPolarity: $('#toggle-polarity-create').bootstrapToggle()[0].checked
+            },success: function showAnswer(data) {
+              if (data.data.code==200) {
+                //console.log("success",data);
+                alertify.success('Word saved successfully');
+                var delayInMilliseconds = 2000; // 2 second
+                setTimeout(function() {
+                  location.reload(true);
+                }, delayInMilliseconds);
+              }else{
+                console.log('Error, status:',data.data.code);
+                alertify.error('An error happened saving the word, please try again.');
+              }
+            }
+        })
+    }
+}
+
 // Function to display the polarity of the word in the modal: wordUpdateModal of the dictionary_get section
 function wordEditModal(wordId) {
     $.ajax({
@@ -373,12 +403,12 @@ function wordEditModal(wordId) {
             temporalWordToEdit = data.data.id
             //$(".wordIdToEdit").text(data.data.id)
             if (data.data.polarity.toLowerCase() == 'p'){
-                //$("#toggle-polarity").val("success")
-                $('#toggle-polarity').bootstrapToggle('on')
+                //$("#toggle-polarity-update").val("success")
+                $('#toggle-polarity-update').bootstrapToggle('on')
                 //console.log('Es positiva')
             }else {
-                //$("#toggle-polarity").val("danger")
-                $('#toggle-polarity').bootstrapToggle('off')
+                //$("#toggle-polarity-update").val("danger")
+                $('#toggle-polarity-update').bootstrapToggle('off')
                 //console.log('Es negativa')                
             }
 
@@ -396,7 +426,7 @@ function wordUpdate(){
     wordData["id"] = temporalWordToEdit
     wordData["key"] = temporalWordToEdit
     $.ajax({
-        url:'/socialanalyzer/dictionary_update/?word_id='+temporalWordToEdit+'&polarity='+$('#toggle-polarity').bootstrapToggle()[0].checked,
+        url:'/socialanalyzer/dictionary_update/?word_id='+temporalWordToEdit+'&polarity='+$('#toggle-polarity-update').bootstrapToggle()[0].checked,
         headers: { "X-CSRFToken": $.cookie("csrftoken") },
         type: 'PUT',
         data: {
@@ -404,6 +434,10 @@ function wordUpdate(){
         },success: function(data){
             alertify.success('Word updated successfully.');
             //console.log("Word updated successfully.")
+            var delayInMilliseconds = 2000; // 2 second
+            setTimeout(function() {
+                location.reload(true);
+            }, delayInMilliseconds);
         },error: function(error_data){
             alertify.error('An error happened updating the word.');
             console.log("An error happened updating the word.")
