@@ -95,12 +95,12 @@ class CustomDictionaryView(View):
 			# when edit the polarity of a word, show the polarity
 			if request.is_ajax():
 				_customdictionary = CustomDictionaryViewSet()
+				import pdb;pdb.set_trace()
 				_customdictionary.custom_dictionary_polarity_get(
-					request,word=request.GET['word_id'],language=1,user=1)
+					request,word=request.GET['word_id'])
 				self.response_data['data'] = _customdictionary.response_data['data']
 				self.code = _customdictionary.code
 				self.response_data['data']['code'] = self.code
-				#return HttpResponse(json.dumps(self.response_data, cls=DjangoJSONEncoder), content_type='application/json')
 				return JsonResponse(self.response_data)
 
 			# Display all the default data in "Ver Mi Diccionario" section
@@ -118,7 +118,6 @@ class CustomDictionaryView(View):
 			return JsonResponse(self.response_data)
 
 	def post(self, request, *args, **kwargs):
-		print("--------post request-------")
 		try:
 			if request.method == 'POST' and request.is_ajax():
 				if request.POST['polarity'] == 'true':
@@ -141,7 +140,6 @@ class CustomDictionaryView(View):
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[CustomDictionaryView] - Error: " + str(e))
-		#return render(request,'web/dictionary_get.html',self.response_data)
 		return JsonResponse(self.response_data)
 
 	def put(self, request, *args, **kwargs):

@@ -254,8 +254,8 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	def get_serializer_class(self):
 		if self.action == 'custom_dictionary_kpi':
 			return CustomDictionaryKpiSerializer
-		if self.action == 'update':
-			return CustomDictionarySerializer
+		#if self.action == 'update':
+		#return CustomDictionarySerializer
 		return CustomDictionarySerializer
 
 	@validate_type_of_request
@@ -275,25 +275,25 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			#self.response_data['data']['custom_dictionary'] = JSONParser().parse(stream)
 			self.response_data['data']['custom_dictionary']=json.loads(json.dumps(serializer.data))
 			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						language_id=kwargs['data']['language'],
-						user_id=kwargs['data']['user']
-					).count()
+				is_active=True,
+				is_deleted=False,
+				language_id=kwargs['data']['language'],
+				user_id=kwargs['data']['user']
+			).count()
 			self.response_data['data']['total_positive_words'] = CustomDictionary.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						language_id=kwargs['data']['language'],
-						user_id=kwargs['data']['user'],
-						polarity='P'
-					).count()
+				is_active=True,
+				is_deleted=False,
+				language_id=kwargs['data']['language'],
+				user_id=kwargs['data']['user'],
+				polarity='P'
+			).count()
 			self.response_data['data']['total_negative_words'] = CustomDictionary.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						language_id=kwargs['data']['language'],
-						user_id=kwargs['data']['user'],
-						polarity='N'
-					).count()					
+				is_active=True,
+				is_deleted=False,
+				language_id=kwargs['data']['language'],
+				user_id=kwargs['data']['user'],
+				polarity='N'
+			).count()					
 			self.code = status.HTTP_200_OK
 		except Exception as e:
 			'''This kind of format data validation, will be improvement
@@ -315,13 +315,10 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_polarity_get(self, *args, **kwargs):
 		try:
-			# Get the polarity of de word requested
+			# Get the polarity of the word requested
 			queryset = CustomDictionary.objects.filter(
-				id=kwargs['data']['word'],
-				language_id=kwargs['data']['language'],
-				user_id=kwargs['data']['user']
+				id=kwargs['data']['word']
 			).values('id','polarity','word').order_by('id')
-
 			self.response_data['data'] = queryset[0]
 			self.code = status.HTTP_200_OK
 		except Exception as e:
@@ -331,7 +328,6 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		return Response(self.response_data,status=self.code)
 
 	@validate_type_of_request
-	#@action(methods=['put'], detail=False)
 	def create(self, request, *args, **kwargs):
 		try:
 			serializer = CustomDictionarySerializer(data=kwargs)
@@ -350,7 +346,6 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		return Response(self.response_data,status=self.code)
 
 	@validate_type_of_request
-	#@action(methods=['put'], detail=False)
 	def update(self, request, *args, **kwargs):
 		try:
 			# Get the instance of the requested word to edit
