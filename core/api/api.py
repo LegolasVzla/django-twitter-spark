@@ -315,16 +315,25 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_polarity_get(self, *args, **kwargs):
 		try:
-			# Get the polarity of the word requested
-			queryset = CustomDictionary.objects.filter(
-				id=kwargs['data']['word']
-			).values('id','polarity','word').order_by('id')
+			# The request comes from DRF Api View
+			if kwargs['data'].dict():
+				queryset = CustomDictionary.objects.filter(
+					word=kwargs['data']['word']
+				).values('id','polarity','word')
 			self.response_data['data'] = queryset[0]
 			self.code = status.HTTP_200_OK
 		except Exception as e:
-			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))			
-			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))			
+			try:
+				# The request comes from the web app
+				queryset = CustomDictionary.objects.filter(
+					id=kwargs['data']['word']
+				).values('id','polarity','word')
+				self.response_data['data'] = queryset[0]
+				self.code = status.HTTP_200_OK
+			except Exception as e:
+				logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))			
+				self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+				self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
 	@validate_type_of_request

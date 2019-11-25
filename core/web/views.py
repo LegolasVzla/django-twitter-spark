@@ -95,7 +95,6 @@ class CustomDictionaryView(View):
 			# when edit the polarity of a word, show the polarity
 			if request.is_ajax():
 				_customdictionary = CustomDictionaryViewSet()
-				import pdb;pdb.set_trace()
 				_customdictionary.custom_dictionary_polarity_get(
 					request,word=request.GET['word_id'])
 				self.response_data['data'] = _customdictionary.response_data['data']
