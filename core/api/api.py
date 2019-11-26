@@ -8,6 +8,7 @@ from .serializers import (UserSerializer,UserDetailsSerializer,
 	SocialNetworkAccountsSerializer,CustomDictionaryKpiSerializer,
 	CustomDictionaryPolaritySerializer)
 from django.db.models import Count
+from django.shortcuts import get_object_or_404
 #import io
 #from rest_framework.renderers import JSONRenderer
 #from rest_framework.parsers import JSONParser
@@ -254,8 +255,6 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	def get_serializer_class(self):
 		if self.action == 'custom_dictionary_kpi':
 			return CustomDictionaryKpiSerializer
-		#if self.action == 'update':
-		#return CustomDictionarySerializer
 		return CustomDictionarySerializer
 
 	@validate_type_of_request
@@ -315,23 +314,28 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_polarity_get(self, *args, **kwargs):
 		try:
-			# The request comes from DRF Api View
-			if kwargs['data'].dict():
-				queryset = CustomDictionary.objects.filter(
-					word=kwargs['data']['word']
-				).values('id','polarity','word')
+			# The request comes from the web app
+			queryset = CustomDictionary.objects.filter(
+				id=kwargs['data']['word']
+			).values('id','polarity','word')
 			self.response_data['data'] = queryset[0]
 			self.code = status.HTTP_200_OK
 		except Exception as e:
 			try:
-				# The request comes from the web app
-				queryset = CustomDictionary.objects.filter(
-					id=kwargs['data']['word']
-				).values('id','polarity','word')
-				self.response_data['data'] = queryset[0]
-				self.code = status.HTTP_200_OK
+				# The request comes from DRF Api View
+				if kwargs['data'].dict():
+					# Get the instance of the requested word to edit
+					queryset = get_object_or_404(
+						CustomDictionary.objects.filter(
+							word=kwargs['data']['word'],
+							is_active=True,
+							is_deleted=False
+						).values('id','polarity','word'),
+						word=kwargs['data']['word'])
+					self.response_data['data']['custom_dictionary']=queryset
+					self.code = status.HTTP_200_OK
 			except Exception as e:
-				logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))			
+				logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
 				self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 				self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
