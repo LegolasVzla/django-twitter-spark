@@ -34,21 +34,21 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 				<p><i class="fa fa-comment-o"></i> ¿Cambiaste de opinión? modifica la polaridad de la palabra.</p>
 				</div><br/><br/>
-				{% csrf_token %}
 				<form method="get">
+				{% csrf_token %}
 					<fieldset>
 						<div class="form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="polaridad">Polaridad:</label>
 							<input id="toggle-polarity-update" checked type="checkbox" data-on="Positive" data-off="Negative" data-onstyle="success" data-offstyle="danger" data-width="100">
 						</div>
 						<br/><br/><br/>
-	                  <div class="modal-footer">
-	                    <input class="btn btn-success" type="submit" onclick='wordUpdate()' value="Guardar" />
-	                    <button type="button" class="btn btn-default" onclick="" data-dismiss="modal">Close</button>
-	                  </div>
 					</fieldset>
 				</form>
             </div>
+			<div class="modal-footer">
+				<input type="submit" class="btn btn-primary" onclick='wordUpdate()' value="Guardar" />
+				<button type="button" class="btn btn-default" onclick="" data-dismiss="modal">Close</button>
+			</div>            
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@
 				</form>
             </div>
 			<div class="modal-footer">
-				<button type="button"class="btn btn-primary" onclick='wordCreate()' value="Guardar">Guardar</button>
+				<button type="button" class="btn btn-primary" onclick='wordCreate()' value="Guardar">Guardar</button>
 				<button type="button" class="btn btn-default" onclick="" data-dismiss="modal">Close</button>
 			</div>
           </div>

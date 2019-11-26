@@ -1,6 +1,5 @@
 from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
-from rest_framework import viewsets, permissions
 from .serializers import (UserSerializer,UserDetailsSerializer,
 	DictionarySerializer,CustomDictionarySerializer,TopicSerializer,
 	SearchSerializer,SentimentAnalysisSerializer,LikesSerializer,
@@ -9,21 +8,22 @@ from .serializers import (UserSerializer,UserDetailsSerializer,
 	CustomDictionaryPolaritySerializer)
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
-#import io
-#from rest_framework.renderers import JSONRenderer
-#from rest_framework.parsers import JSONParser
+from django.contrib.auth import get_user_model
 
+from rest_framework import viewsets, permissions
 from rest_framework import views
 from rest_framework import status
 from rest_framework import serializers
 from rest_framework.decorators import action
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+from rest_framework import exceptions
+#from rest_framework.renderers import JSONRenderer
+#from rest_framework.parsers import JSONParser
 #from rest_framework.views import APIView
 #from rest_framework.decorators  import list_route
 #from rest_framework.viewsets import GenericViewSet
 #from rest_framework import serializers, validators
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.response import Response
-from django.contrib.auth import get_user_model
 
 import json
 import os
@@ -33,11 +33,11 @@ import random
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
 import imageio
+#import io
 
 from core.settings import BASE_DIR 
 import logging
 from functools import wraps
-from rest_framework import exceptions
 
 User = get_user_model()
 
@@ -316,7 +316,9 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		try:
 			# The request comes from the web app
 			queryset = CustomDictionary.objects.filter(
-				id=kwargs['data']['word']
+				id=kwargs['data']['word'],
+				is_active=True,
+				is_deleted=False
 			).values('id','polarity','word')
 			self.response_data['data'] = queryset[0]
 			self.code = status.HTTP_200_OK

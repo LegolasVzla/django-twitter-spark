@@ -1,20 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
-from django.core.serializers.json import DjangoJSONEncoder
-from django.http import (HttpResponse, HttpResponseForbidden, 
-	HttpResponseRedirect)
-from django.views.generic import View
-from rest_framework import status
-#from rest_framework import views
-from rest_framework.response import Response
-from django.http import JsonResponse
-from django.http import QueryDict
-#from rest_framework.decorators import api_view
-from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework import generics
-#from django.core.exceptions import ObjectDoesNotExist
-#from rest_framework.permissions import IsAuthenticated
 from api.models import (User,Language,Dictionary,CustomDictionary,
 	SocialNetwork,Search,Topic,WordRoot)
 from api.serializers import (UserSerializer,DictionarySerializer,
@@ -23,6 +8,22 @@ from api.serializers import (UserSerializer,DictionarySerializer,
 from api.api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
 	TopicViewSet,SearchViewSet,WordRootViewSet,SocialNetworkAccountsViewSet,
 	WordCloudViewSet)
+
+from django.shortcuts import render
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import (HttpResponse, HttpResponseForbidden, 
+	HttpResponseRedirect)
+from django.views.generic import View
+from django.http import JsonResponse
+from django.http import QueryDict
+
+from rest_framework import status
+from rest_framework.response import Response
+#from rest_framework import views
+#from rest_framework.decorators import api_view
+#from rest_framework import generics
+#from django.core.exceptions import ObjectDoesNotExist
+#from rest_framework.permissions import IsAuthenticated
 
 import json
 import requests

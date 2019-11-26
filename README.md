@@ -82,6 +82,7 @@ You could see the home page in:
 - Word root: is a word or word part that can form the basis of new words through the addition of prefixes and suffixes.
 - Dictionary: is a set of word that contains positive and negative words.
 - Custom Dictionary: is a user customizable set of words, with positive and negative words.
+- Search: is a tracking table where you could find you recently search.
 
 ## Swagger Documentation
 
