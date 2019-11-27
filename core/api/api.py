@@ -1,7 +1,8 @@
 from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
 from .serializers import (UserSerializer,UserDetailsSerializer,
-	DictionarySerializer,CustomDictionarySerializer,TopicSerializer,
+	UserProfileUpdateSerializer,DictionarySerializer,
+	CustomDictionarySerializer,TopicSerializer,
 	SearchSerializer,SentimentAnalysisSerializer,LikesSerializer,
 	SharedSerializer,RecentSearchSerializer,WordRootSerializer,
 	SocialNetworkAccountsSerializer,CustomDictionaryKpiSerializer,
@@ -207,6 +208,8 @@ class UserViewSet(viewsets.ModelViewSet):
 	def get_serializer_class(self):
 		if self.action in ['user_details']:
 			return UserDetailsSerializer
+		if self.action in ['update']:
+			return UserProfileUpdateSerializer
 		return UserSerializer
 
 	@validate_type_of_request
@@ -220,6 +223,28 @@ class UserViewSet(viewsets.ModelViewSet):
 			).values('first_name','last_name','email','password')
 			self.response_data['data'] = queryset[0]
 			self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - UserView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - UserView] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	def profile_update(self, request, *args, **kwargs):
+		try:
+			# Get the instance of the user requested to edit
+			instance = User.objects.get(email=kwargs['data']['email'])
+
+			serializer = UserProfileUpdateSerializer(instance, 
+				data=kwargs['data'], partial=True)
+
+			if serializer.is_valid():
+				serializer.save()
+				self.response_data['data']['id'] = instance.id
+				self.code = status.HTTP_200_OK
+			else:
+				self.response_data['error'].append("[API - UserView] - Error: " + serializer.errors)
+				self.code = status.HTTP_400_BAD_REQUEST
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - UserView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR

@@ -57,6 +57,7 @@ class UserProfileView(View):
 
 	def get(self, request, *args, **kwargs):
 		try:
+			print("------user profile get------")
 			_user = UserViewSet()
 			_user.user_details(request,user=1)
 			self.response_data['data'] = _user.response_data['data']
@@ -70,12 +71,14 @@ class UserProfileView(View):
 		return render(request,'web/profile_get.html',self.response_data)
 
 	def post(self, request, *args, **kwargs):
+		print("------user profile post------")
 		data = {}
 		data['message'] = 'Profile Create'
 
 		return render(request, 'web/profile_create.html',data)
 
 	def put(self, request, *args, **kwargs):
+		print("------user profile put------")
 		data = {}
 		data['message'] = 'Profile Upload'
 

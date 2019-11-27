@@ -15,6 +15,17 @@ class UserDetailsSerializer(serializers.ModelSerializer):
 		model = User
 		fields = ('user',)
 
+class UserProfileUpdateSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
+		fields = ('email','first_name','last_name')
+
+	def update(self, instance, data):
+		instance.first_name = data.get("first_name")
+		instance.last_name = data.get("last_name")		
+		instance.save()
+		return instance
+
 class DictionarySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Dictionary
