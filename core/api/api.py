@@ -208,7 +208,7 @@ class UserViewSet(viewsets.ModelViewSet):
 	def get_serializer_class(self):
 		if self.action in ['user_details']:
 			return UserDetailsSerializer
-		if self.action in ['update']:
+		if self.action in ['profile_update']:
 			return UserProfileUpdateSerializer
 		return UserSerializer
 
@@ -230,13 +230,13 @@ class UserViewSet(viewsets.ModelViewSet):
 		return Response(self.response_data,status=self.code)
 
 	@validate_type_of_request
+	@action(methods=['put'], detail=False)	
 	def profile_update(self, request, *args, **kwargs):
 		try:
 			# Get the instance of the user requested to edit
 			instance = User.objects.get(email=kwargs['data']['email'])
 
-			serializer = UserProfileUpdateSerializer(instance, 
-				data=kwargs['data'], partial=True)
+			serializer = UserProfileUpdateSerializer(instance, data=kwargs['data'], partial=True)
 
 			if serializer.is_valid():
 				serializer.save()
