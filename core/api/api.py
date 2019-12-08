@@ -216,12 +216,13 @@ class UserViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def user_details(self, request, *args, **kwargs):
 		try:
-			queryset = User.objects.filter(
-				id=kwargs['data']['user'],
-				is_active=True,
-				is_deleted=False
-			).values('first_name','last_name','email','password')
-			self.response_data['data'] = queryset[0]
+			queryset = get_object_or_404(
+				User.objects.filter(
+					id=kwargs['data']['user'],
+					is_active=True,
+					is_deleted=False
+				).values('id','first_name','last_name','email'))
+			self.response_data['data'] = queryset
 			self.code = status.HTTP_200_OK
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - UserView] - Error: " + str(e))
@@ -236,11 +237,18 @@ class UserViewSet(viewsets.ModelViewSet):
 			# Get the instance of the user requested to edit
 			instance = User.objects.get(email=kwargs['data']['email'])
 
-			serializer = UserProfileUpdateSerializer(instance, data=kwargs['data'], partial=True)
+			if not kwargs['data']['first_name']:
+				serializer = UserSerializer(instance, data=kwargs['data'], partial=True, fields=('email','first_name','last_name'), required_fields=['email'],excluded_fields=['first_name'])
+			elif not kwargs['data']['last_name']:
+				serializer = UserSerializer(instance, data=kwargs['data'], partial=True, fields=('email','first_name','last_name'), required_fields=['email'],excluded_fields=['last_name'])
+			else:
+				serializer = UserSerializer(instance, data=kwargs['data'], partial=True, fields=('email','first_name','last_name'), required_fields=['email'])
 
 			if serializer.is_valid():
 				serializer.save()
 				self.response_data['data']['id'] = instance.id
+				self.response_data['data']['first_name'] = instance.first_name
+				self.response_data['data']['last_name'] = instance.last_name
 				self.code = status.HTTP_200_OK
 			else:
 				self.response_data['error'].append("[API - UserView] - Error: " + serializer.errors)

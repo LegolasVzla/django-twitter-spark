@@ -8,8 +8,10 @@ from .managers import CustomUserManager
 
 # Create your models here.
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-	first_name = models.CharField( max_length = 100, blank = False)
-	last_name = models.CharField( max_length = 100, blank = False)
+	'''First Name and Last Name are must in POST and optionals in PUT and also
+	are required in forms'''
+	first_name = models.CharField( max_length = 100, null=True, blank = True)
+	last_name = models.CharField( max_length = 100, null=True, blank = True)
 	email = models.EmailField(_('email address'), unique=True)
 	is_staff = models.BooleanField(default=False)
 	is_active = models.BooleanField(default=True)
