@@ -98,6 +98,16 @@ DATABASES = {
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+
+###################################################################
+##### Tweepy CONFIG
+###################################################################
+
+CONSUMER_KEY = config.get('tweepyConf', 'CONSUMER_KEY') 
+CONSUMER_SECRET = config.get('tweepyConf', 'CONSUMER_SECRET') 
+ACCESS_TOKEN = config.get('tweepyConf', 'ACCESS_TOKEN') 
+ACCESS_TOKEN_SECRET = config.get('tweepyConf', 'ACCESS_TOKEN_SECRET') 
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 

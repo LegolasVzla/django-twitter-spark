@@ -56,6 +56,12 @@ In "django-twitter-spark/core/" path, create a **settings.ini** file, with the s
 	DB_HOST=host
 	DB_PORT=port
 
+	[tweepyConf]
+	CONSUMER_KEY = <consumer_key>
+	CONSUMER_SECRET = <consumer_secret>
+	ACCESS_TOKEN = <access_token>
+	ACCESS_TOKEN_SECRET = <access_token_secret>
+
 Fill in with your own PostgreSQL credentials. By default, DB_HOST and DB_PORT in PostgreSQL are localhost/5432.
 
 Default credentials for admin superuser are: admin@admin.com / admin. Then run the migrations:
