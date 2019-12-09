@@ -71,11 +71,11 @@ class WordCloudViewSet(viewsets.ViewSet):
 	{
 		"data": {
 			"comments": ["twitter comments list"],
-			"user_id": 1
+			"user": 1
 		}
 	}
 	- Mandatory: comments
-	- Optionals: user_id
+	- Optionals: user
 	If user_id is given, it will generate a random word cloud with some 
 	mask located in static/images/word_cloud_masks. In other case, wordcloud
 	will be with square form		
@@ -85,30 +85,28 @@ class WordCloudViewSet(viewsets.ViewSet):
 		self.code = 0
 		self.error_message = ''
 
+	@validate_type_of_request
 	def create(self, request, *args, **kwargs):
 		user_id = ''
-		try:
-			user_id = kwargs['user']
-		except Exception as e:
-			user_id = request.data['data']['user_id']
 		url = ''
 		authenticated = False
-		colors_array = ['viridis', 'inferno', 'plasma', 'magma','Blues', 'BuGn', 'BuPu','GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd','PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu','Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd','afmhot', 'autumn', 'bone', 'cool','copper', 'gist_heat', 'gray', 'hot','pink', 'spring', 'summer', 'winter','BrBG', 'bwr', 'coolwarm', 'PiYG', 'PRGn', 'PuOr','RdBu', 'RdGy', 'RdYlBu', 'RdYlGn', 'Spectral','seismic','Accent', 'Dark2', 'Paired', 'Pastel1','Pastel2', 'Set1', 'Set2', 'Set3', 'Vega10','Vega20', 'Vega20b', 'Vega20c','gist_earth', 'terrain', 'ocean', 'gist_stern','brg', 'CMRmap', 'cubehelix','gnuplot', 'gnuplot2', 'gist_ncar','nipy_spectral', 'jet', 'rainbow','gist_rainbow', 'hsv', 'flag', 'prism']
-		word_cloud_data = {"data": {"comments": ["Ea excepteur dolor velit sed qui non ad mollit minim incididunt laborum sunt laborum elit consequat eiusmod consequat ut deserunt est nostrud adipisicing officia cupidatat anim deserunt qui do eu veniam pariatur duis in non dolore incididunt cupidatat esse ut fugiat velit dolor consequat deserunt esse excepteur voluptate sit cillum in officia incididunt ad aute laboris in dolor mollit pariatur officia dolor do ad labore culpa sed sint duis esse labore sed adipisicing adipisicing ut laborum nostrud id do mollit anim qui ut irure cupidatat dolor magna occaecat in amet dolore sint aliquip ullamco eiusmod irure enim qui consequat sit nulla aliquip esse laboris incididunt dolore tempor aute velit deserunt eiusmod aliquip incididunt in pariatur labore dolor ut consequat velit elit mollit duis laboris ex amet dolore eu dolor proident tempor elit laboris quis laboris elit ut minim cupidatat reprehenderit nulla reprehenderit magna enim voluptate laborum ut occaecat esse sint consequat reprehenderit do deserunt ea enim deserunt officia officia minim dolor aliqua dolore esse veniam ut enim dolor incididunt elit dolor magna laborum ut anim exercitation esse dolore irure aute dolor elit officia velit ut reprehenderit minim nisi irure dolore fugiat dolore dolore cupidatat."], "user_id": user_id }}
+		colors_array = ['viridis', 'inferno', 'plasma', 'magma','Blues', 'BuGn', 'BuPu','GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd','PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu','Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd','afmhot', 'autumn', 'bone', 'cool','copper', 'gist_heat', 'gray', 'hot','pink', 'spring', 'summer', 'winter','BrBG', 'bwr', 'coolwarm', 'PiYG', 'PRGn', 'PuOr','RdBu', 'RdGy', 'RdYlBu', 'RdYlGn', 'Spectral','seismic','Accent', 'Dark2', 'Paired', 'Pastel1','Pastel2', 'Set1', 'Set2', 'Set3', 'Vega20', 'Vega20b', 'Vega20c','gist_earth', 'terrain', 'ocean', 'gist_stern','brg', 'CMRmap', 'cubehelix','gnuplot', 'gnuplot2', 'gist_ncar','nipy_spectral', 'jet', 'rainbow','gist_rainbow', 'hsv', 'flag', 'prism']
 		try:
-			comments_list = word_cloud_data['data']['comments']
+			user_id = kwargs['data']['data']['user']
+			comments_list = kwargs['data']['data']['comments']
 			text = ' '.join(comments_list)
 			colors = random.randint(0, 74)
+			
 			print("Generating the wordcloud image...")
+
 			# If user is authenticated
-			if (word_cloud_data['data']['user_id']):
+			if (kwargs['data']['data']['user']):
 				authenticated = True
-				user_id = word_cloud_data['data']['user_id']
+				user_id = kwargs['data']['data']['user']
 				image = random.randint(0, 9)
 
 				# Generating the custom random word cloud
-				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap= colors_array[colors],mask=imageio.imread('./static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(text)
-
+				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap=colors_array[colors],mask=imageio.imread('./static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(text)
 			else:
 				# Generating the word cloud				
 				wordcloud = WordCloud(background_color='white',width=1600,height=1200).generate(text)
@@ -145,10 +143,10 @@ class WordCloudViewSet(viewsets.ViewSet):
 			self.response_data['data']['authenticated'] = authenticated
 
 		except Exception as e:
-			if not word_cloud_data['data']['comments']:
+			if not kwargs['data']['data']['comments']:
 				self.error_message = 'Comments can"t be empty. '
 			else:
-				self.error_message = 'word_cloud_data format must be like: {"data": {"comments": ["twitter comments list"],"user_id": '' }} where user_id can be empty. '
+				self.error_message = 'word_cloud_data format must be like: {"data": {"comments": ["twitter comments list"],"user": '' }} where user can be empty. '
 			self.response_data['error'].append("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
 			logging.getLogger('error_logger').exception("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
