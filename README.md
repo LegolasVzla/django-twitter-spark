@@ -89,6 +89,7 @@ You could see the home page in:
 - Dictionary: is a set of word that contains positive and negative words.
 - Custom Dictionary: is a user customizable set of words, with positive and negative words.
 - Search: is a tracking table where you could find you recently search.
+- SocialNetworkAccounts: is a set of social networks accounts used to sentiment analysis.
 
 ## Swagger Documentation
 
@@ -125,7 +126,7 @@ Input: a JSON format as below:
 	{
 		"data": {
 			"comments": ["twitter comments list"],
-			"user_id": '1'
+			"user": '1'
 		}
 	}
 
@@ -139,7 +140,7 @@ If user_id is given (authenticated=True), it will generate a random word cloud w
 
 In other case, word cloud will be with square form. The image will be generated in the follow path:
 
-	/static/images/word_clouds/<user_id>
+	/static/images/word_clouds/<user>
 
 Output:
 

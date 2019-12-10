@@ -1,0 +1,46 @@
+[
+    { "model": "api.socialnetworkaccounts",
+        "fields": {
+            "name": "CaraotaDigital",
+            "quantity_by_request": 10,
+            "social_network": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-12-09",
+            "created_date": "2019-12-09"                        
+        }
+    },
+    { "model": "api.socialnetworkaccounts",
+        "fields": {
+            "name": "ElNacionalWeb",
+            "quantity_by_request": 10,
+            "social_network": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-12-09",
+            "created_date": "2019-12-09"                        
+        }
+    },
+    { "model": "api.socialnetworkaccounts",
+        "fields": {
+            "name": "ElUniversal",
+            "quantity_by_request": 10,
+            "social_network": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-12-09",
+            "created_date": "2019-12-09"                        
+        }
+    },
+    { "model": "api.socialnetworkaccounts",
+        "fields": {
+            "name": "NoticiasVenezue",
+            "quantity_by_request": 10,
+            "social_network": 1,
+            "is_active": true,
+            "is_deleted": true,
+            "updated_date": "2019-12-09",
+            "created_date": "2019-12-09"                        
+        }
+    }    
+]

@@ -124,6 +124,7 @@ class WordRoot(models.Model):
 
 class SocialNetworkAccounts(models.Model):
 	name = models.CharField( max_length = 100)
+	quantity_by_request = models.IntegerField(default=0)
 	social_network = models.ForeignKey(SocialNetwork,related_name='social_network_accounts_social_network_id',on_delete=models.CASCADE)
 	is_active = models.BooleanField(default=True)
 	is_deleted = models.BooleanField(default=False)
