@@ -136,7 +136,7 @@ class WordRootSerializer(serializers.ModelSerializer):
 		model = WordRoot
 		fields = ('__all__')
 
-class SocialNetworkAccountsSerializer(serializers.ModelSerializer):
+class SocialNetworkAccountsSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	class Meta:
 		model = SocialNetworkAccounts
 		fields = ('__all__')

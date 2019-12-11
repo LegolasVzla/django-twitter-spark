@@ -621,9 +621,10 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 			queryset = SocialNetworkAccounts.objects.filter(
 				is_active=True,
 				is_deleted=False,
-				social_network_id=kwargs['data']['social_network']
-			)
-			serializer = SocialNetworkAccountsSerializer(queryset, many=True)
+				social_network_id=kwargs['data']['social_network'])
+			serializer = SocialNetworkAccountsSerializer(queryset,many=True,
+				required_fields=['social_network'],
+				fields=('id','name','social_network','quantity_by_request'))
 			self.response_data['data']['accounts_by_social_network']=json.loads(json.dumps(serializer.data))
 			self.code = status.HTTP_200_OK
 		except Exception as e:
