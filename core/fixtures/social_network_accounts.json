@@ -5,7 +5,7 @@
             "quantity_by_request": 10,
             "social_network": 1,
             "is_active": true,
-            "is_deleted": true,
+            "is_deleted": false,
             "updated_date": "2019-12-09",
             "created_date": "2019-12-09"                        
         }
@@ -16,7 +16,7 @@
             "quantity_by_request": 10,
             "social_network": 1,
             "is_active": true,
-            "is_deleted": true,
+            "is_deleted": false,
             "updated_date": "2019-12-09",
             "created_date": "2019-12-09"                        
         }
@@ -27,7 +27,7 @@
             "quantity_by_request": 10,
             "social_network": 1,
             "is_active": true,
-            "is_deleted": true,
+            "is_deleted": false,
             "updated_date": "2019-12-09",
             "created_date": "2019-12-09"                        
         }
@@ -38,7 +38,7 @@
             "quantity_by_request": 10,
             "social_network": 1,
             "is_active": true,
-            "is_deleted": true,
+            "is_deleted": false,
             "updated_date": "2019-12-09",
             "created_date": "2019-12-09"                        
         }

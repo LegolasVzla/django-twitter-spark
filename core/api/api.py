@@ -610,3 +610,24 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 	serializer_class = SocialNetworkAccountsSerializer
 	pagination_class = StandardResultsSetPagination
 
+	def __init__(self,*args, **kwargs):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def accounts_by_social_network(self, *args, **kwargs):
+		try:
+			queryset = SocialNetworkAccounts.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				social_network_id=kwargs['data']['social_network']
+			)
+			serializer = SocialNetworkAccountsSerializer(queryset, many=True)
+			self.response_data['data']['accounts_by_social_network']=json.loads(json.dumps(serializer.data))
+			self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[SocialNetworkAccountsViewSet] - Error: " + str(e))			
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - SocialNetworkAccountsViewSet] - Error: " + str(e))			
+		return Response(self.response_data,status=self.code)
