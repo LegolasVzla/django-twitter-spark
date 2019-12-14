@@ -471,20 +471,15 @@ class SearchViewSet(viewsets.ModelViewSet):
 		self.code = 0
 
 	def get_serializer_class(self):
-		if self.action in ['recent_search','word_details']:
+		if self.action in ['recent_search_kpi','recent_search','word_details']:
 			return RecentSearchSerializer
 		return SearchSerializer
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
-	def recent_search(self, request, *args, **kwargs):
+	def recent_search_kpi(self, request, *args, **kwargs):
 		try:
-			print("-------recent_search-----------")
-			# 1. Get the recently search of the current user
-			serializer = SearchSerializer(self.queryset, many=True)
-			self.response_data['data']['recently_search'] = json.loads(json.dumps(serializer.data))
-
-			# 2. Get the total of search of the current user
+			# 1. Get the total of search of the current user
 			total_search = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
@@ -502,7 +497,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 			).values('polarity').annotate(
 				weighted_group=Count('polarity')*100/total_search)
 
-			# 3. Get the total of the positive search
+			# 2. Get the total of the positive search
 			total_positive_search = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
@@ -521,7 +516,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 				polarity='P'
 			).values('word').order_by('-count').annotate(count=Count('word')*100/total_positive_search)[:5]
 
-			# 4. Get the total of the negative search
+			# 3. Get the total of the negative search
 			total_negative_search = Search.objects.filter(
 				is_active=True,
 				is_deleted=False,
@@ -540,6 +535,20 @@ class SearchViewSet(viewsets.ModelViewSet):
 				polarity='N'
 			).values('word').order_by('-count').annotate(count=Count('word')*100/total_negative_search)[:5]
 
+			self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - RecentSearchTwitterView] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def recent_search(self, request, *args, **kwargs):
+		try:
+			# Get the recently search of the current user
+			serializer = SearchSerializer(self.queryset, many=True)
+			self.response_data['data']['recently_search'] = json.loads(json.dumps(serializer.data))
 			self.code = status.HTTP_200_OK
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))

@@ -214,6 +214,8 @@ class RecentSearchTwitterView(View):
 	def get(self, request, *args, **kwargs):
 		try:
 			_recent_search = SearchViewSet()
+			_recent_search.recent_search_kpi(request,social_network=1,user=1)
+			self.response_data['data'] = _recent_search.response_data['data']
 			_recent_search.recent_search(request,social_network=1,user=1)
 			self.response_data['data'] = _recent_search.response_data['data']
 			self.code = _recent_search.code
