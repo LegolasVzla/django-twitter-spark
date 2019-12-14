@@ -111,6 +111,8 @@ class CustomDictionaryView(View):
 				_customdictionary = CustomDictionaryViewSet()
 				_customdictionary.custom_dictionary_kpi(request,language=1,user=1)
 				self.response_data['data'] = _customdictionary.response_data['data']
+				_customdictionary.user_custom_dictionary(request,language=1,user=1)
+				self.response_data['data'] = _customdictionary.response_data['data']
 				self.code = _customdictionary.code
 				return render(request,template_name='web/dictionary_get.html',status=self.code,context=self.response_data)
 

@@ -284,7 +284,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		self.code = 0
 
 	def get_serializer_class(self):
-		if self.action == 'custom_dictionary_kpi':
+		if self.action in ['custom_dictionary_kpi','user_custom_dictionary']:
 			return CustomDictionaryKpiSerializer
 		return CustomDictionarySerializer
 
@@ -292,24 +292,12 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_kpi(self, *args, **kwargs):
 		try:
-			queryset = CustomDictionary.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				language_id=kwargs['data']['language'],
-				user_id=kwargs['data']['user']
-			).order_by('id')
-			#language_id=request.data['language'],
-			serializer = CustomDictionarySerializer(queryset, many=True)
-			#content = JSONRenderer().render(serializer.data)
-			#stream = io.BytesIO(content)
-			#self.response_data['data']['custom_dictionary'] = JSONParser().parse(stream)
-			self.response_data['data']['custom_dictionary']=json.loads(json.dumps(serializer.data))
 			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
 				is_active=True,
 				is_deleted=False,
 				language_id=kwargs['data']['language'],
 				user_id=kwargs['data']['user']
-			).count()
+			).count()			
 			self.response_data['data']['total_positive_words'] = CustomDictionary.objects.filter(
 				is_active=True,
 				is_deleted=False,
@@ -336,6 +324,29 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 				self.response_data['data']['error'].append('Data format must be like: {"data": {"user": <user_id>, "language": <language_id> }}')
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + self.response_data['error'] + str(e))
 			'''
+			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))			
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def user_custom_dictionary(self, *args, **kwargs):
+		try:
+			queryset = CustomDictionary.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				language_id=kwargs['data']['language'],
+				user_id=kwargs['data']['user']
+			).order_by('id')
+			#language_id=request.data['language'],
+			serializer = CustomDictionarySerializer(queryset, many=True)
+			#content = JSONRenderer().render(serializer.data)
+			#stream = io.BytesIO(content)
+			#self.response_data['data']['custom_dictionary'] = JSONParser().parse(stream)
+			self.response_data['data']['custom_dictionary']=json.loads(json.dumps(serializer.data))
+			self.code = status.HTTP_200_OK
+		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))			

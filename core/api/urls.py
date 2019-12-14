@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^api/user/user_details/user/<int:user_id>', UserViewSet.as_view({'post': 'user_details'}), name='user_details'),    
     url(r'^api/wordcloud/', WordCloudViewSet.as_view({'get': 'list', 'post':'create'}), name='wordcloud'),
     url(r'^api/customdictionary/custom_dictionary_kpi/user/<int:user_id>/language/<int:language_id>', CustomDictionaryViewSet.as_view({'post': 'custom_dictionary_kpi'}), name='custom_dictionary_kpi'),
+    url(r'^api/customdictionary/user_custom_dictionary/user/<int:user_id>/language/<int:language_id>', CustomDictionaryViewSet.as_view({'post': 'user_custom_dictionary'}), name='user_custom_dictionary'),
     url(r'^api/customdictionary/custom_dictionary_polarity_get/word/<string:word>', CustomDictionaryViewSet.as_view({'post': 'custom_dictionary_polarity_get'}), name='custom_dictionary_polarity_get'),
     url(r'^api/customdictionary/custom_dictionary_polarity_create/<int:user_id>/language/<int:language_id>/word/<int:word>/polarity/<string:polarity>', CustomDictionaryViewSet.as_view({'post': 'create'}), name='custom_dictionary_polarity_create'),
     url(r'^api/customdictionary/custom_dictionary_polarity_update/word/<int:word>/polarity/<string:polarity>', CustomDictionaryViewSet.as_view({'put': 'update'}), name='custom_dictionary_polarity_update'),
