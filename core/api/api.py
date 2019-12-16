@@ -37,6 +37,7 @@ import imageio
 #import io
 
 from core.settings import BASE_DIR 
+from api.social_networks_api_connections import *
 import logging
 from functools import wraps
 
@@ -48,6 +49,9 @@ class StandardResultsSetPagination(PageNumberPagination):
 	#max_page_size = 1000
 
 def validate_type_of_request(f):
+	'''
+	Allows to validate the type of request for the endpoints
+	'''
 	@wraps(f)
 	def decorator(*args, **kwargs):
 		if(len(kwargs) > 0):
@@ -64,22 +68,8 @@ def validate_type_of_request(f):
 
 class WordCloudViewSet(viewsets.ViewSet):
 	'''
-	Endpoint to list and generate Twitter word cloud images
-	- POST method (create): generate a Twitter word cloud image from users 
-	comments.
-	Input must be as below:
-	{
-		"data": {
-			"comments": ["twitter comments list"],
-			"user": 1
-		}
-	}
-	- Mandatory: comments
-	- Optionals: user
-	If user_id is given, it will generate a random word cloud with some 
-	mask located in static/images/word_cloud_masks. In other case, wordcloud
-	will be with square form		
-	'''
+	Class for word cloud generation. It allows to generate a word cloud with trending tweets
+	'''		
 	def __init__(self):
 		self.response_data = {'error': [], 'data': {}}
 		self.code = 0
@@ -87,6 +77,23 @@ class WordCloudViewSet(viewsets.ViewSet):
 
 	@validate_type_of_request
 	def create(self, request, *args, **kwargs):
+		'''
+		Endpoint to list and generate Twitter word cloud images
+		- POST method (create): generate a Twitter word cloud image from users 
+		comments.
+		Input must be as below:
+		{
+			"data": {
+				"comments": ["twitter comments list"],
+				"user": 1
+			}
+		}
+		- Mandatory: comments
+		- Optionals: user
+		If user_id is given, it will generate a random word cloud with some 
+		mask located in static/images/word_cloud_masks. In other case, wordcloud
+		will be with square form		
+		'''
 		user_id = ''
 		url = ''
 		authenticated = False
@@ -189,6 +196,9 @@ class WordCloudViewSet(viewsets.ViewSet):
 		return Response(self.response_data,status=self.code)
 
 class UserViewSet(viewsets.ModelViewSet):
+	'''
+	Class related with the User Model.
+	'''
 	queryset = User.objects.filter(
 		is_active=True,
 		is_deleted=False
@@ -258,6 +268,9 @@ class UserViewSet(viewsets.ModelViewSet):
 		return Response(self.response_data,status=self.code)
 
 class DictionaryViewSet(viewsets.ModelViewSet):
+	'''
+	Class related with the Dictionary Model, that is a set of word that contains positive and negative words.
+	'''
 	queryset = Dictionary.objects.filter(
 		is_active=True,
 		is_deleted=False
@@ -269,6 +282,9 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class CustomDictionaryViewSet(viewsets.ModelViewSet):
+	'''
+	Class related with the CustomDictionary Model, that is a customizable set of words per user, with positive and negative words
+	'''	
 	queryset = CustomDictionary.objects.filter(
 		is_active=True,
 		is_deleted=False
@@ -387,11 +403,10 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@validate_type_of_request
 	def create(self, request, *args, **kwargs):
 		try:
-			serializer = CustomDictionarySerializer(data=kwargs)
-
+			serializer = CustomDictionarySerializer(data=kwargs['data'])
 			if serializer.is_valid():
 				serializer.save()
-				self.response_data['data']['word'] = kwargs['word']
+				self.response_data['data']['word'] = kwargs['data']['word']
 				self.code = status.HTTP_200_OK
 			else:
 				self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + serializer.errors)
@@ -445,6 +460,9 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		return Response(self.response_data,status=self.code)
 
 class TopicViewSet(viewsets.ModelViewSet):
+	'''
+	Class related with the Topic Model, what is about people are talking in a specific moment in a social network.
+	'''
 	queryset = Topic.objects.filter(
 		is_active=True,
 		is_deleted=False
@@ -456,6 +474,9 @@ class TopicViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class SearchViewSet(viewsets.ModelViewSet):
+	'''
+	Class related with the Search Model, that is a tracking model where you could find recently search by user.
+	'''	
 	queryset = Search.objects.filter(
 		is_active=True,
 		is_deleted=False
@@ -609,6 +630,9 @@ class SearchViewSet(viewsets.ModelViewSet):
 		return Response(self.response_data,status=self.code)
 
 class WordRootViewSet(viewsets.ModelViewSet):
+	'''
+	Class related with the WordRoot Model, that is a word or word part that can form the basis of new words through the addition of prefixes and suffixes.
+	'''
 	queryset = WordRoot.objects.filter(
 		is_active=True,
 		is_deleted=False
@@ -620,6 +644,9 @@ class WordRootViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
+	'''
+	Class related with the SocialNetworksAccounts Model, that is a set of social networks accounts used to sentiment analysis..
+	'''	
 	queryset = SocialNetworkAccounts.objects.filter(
 		is_active=True,
 		is_deleted=False
