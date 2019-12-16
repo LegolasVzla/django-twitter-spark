@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from .api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
 	TopicViewSet,SearchViewSet,WordRootViewSet,SocialNetworkAccountsViewSet,
-	WordCloudViewSet)
+	WordCloudViewSet,TwitterViewSet)
 from rest_framework_swagger.views import get_swagger_view
 from django.urls import path
 from rest_framework_simplejwt import views as jwt_views
@@ -38,7 +38,8 @@ urlpatterns = [
     url(r'^api/search/recent_search/user/<int:user_id>/social_network/<int:social_network_id>', SearchViewSet.as_view({'post': 'recent_search'}), name='recent_search'),
     url(r'^api/search/recent_search/user/<int:user_id>/social_network/<int:social_network_id>', SearchViewSet.as_view({'post': 'recent_search'}), name='recent_search'),
     url(r'^api/search/word_details/user/<int:user_id>/social_network/<int:social_network_id>/word/<string:word>', SearchViewSet.as_view({'post': 'word_details'}), name='word_details'),
-    url(r'^api/social_network_accounts/accounts_by_social_network/social_network/<int:social_network_id>', SocialNetworkAccountsViewSet.as_view({'post': 'accounts_by_social_network'}), name='accounts_by_social_network')
+    url(r'^api/social_network_accounts/accounts_by_social_network/social_network/<int:social_network_id>', SocialNetworkAccountsViewSet.as_view({'post': 'accounts_by_social_network'}), name='accounts_by_social_network'),
+    url(r'^api/twitter_analytics/', TwitterViewSet.as_view({'post':'twitter_timeline'}), name='twitter_analytics')
 ]
 
 urlpatterns += router.urls

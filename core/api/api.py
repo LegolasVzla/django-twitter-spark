@@ -195,6 +195,38 @@ class WordCloudViewSet(viewsets.ViewSet):
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 		return Response(self.response_data,status=self.code)
 
+class TwitterViewSet(viewsets.ViewSet):
+	'''
+	Class for twitter timeline generation. It allows to generate a twitter timeline with trending tweets
+	'''		
+	def __init__(self):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+		self.error_message = ''
+		
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def twitter_timeline(self, request, *args, **kwargs):
+		'''
+		- POST method: get twitter timeline from SocialNetworkAccounts Model
+		'''
+		twitter_timeline = {}
+		twitter_accounts_data = {}
+		try:
+			_socialnetworkaccounts = SocialNetworkAccountsViewSet()
+			_socialnetworkaccounts.accounts_by_social_network(social_network=kwargs['data']['data']['social_network_id'])
+			if _socialnetworkaccounts.code == 200:
+				twitter_accounts_data = _socialnetworkaccounts.response_data['data']['accounts_by_social_network']
+				_socialnetworksapiconnections = SocialNetworksApiConnections(self)
+				tweepy_api_client =_socialnetworksapiconnections.tweepy_connection()
+				for twitter_account in twitter_accounts_data:
+					twitter_timeline.append(tweepy_api_client.user_timeline(screen_name = twitter_account['name'], count=twitter_account['quantity_by_request']))
+				self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - TwitterViewSet] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+		return Response(self.response_data,status=self.code)
+
 class UserViewSet(viewsets.ModelViewSet):
 	'''
 	Class related with the User Model.

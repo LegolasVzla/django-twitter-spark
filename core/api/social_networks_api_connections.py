@@ -10,7 +10,7 @@ class SocialNetworksApiConnections(object):
 		super(SocialNetworksApiConnections, self).__init__()
 		self.arg = arg
 
-	def tweepy_connection():
+	def tweepy_connection(self):
 		try:
 			auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 			auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)

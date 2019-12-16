@@ -62,13 +62,15 @@ In "django-twitter-spark/core/" path, create a **settings.ini** file, with the s
 	ACCESS_TOKEN = <access_token>
 	ACCESS_TOKEN_SECRET = <access_token_secret>
 
-Fill in with your own PostgreSQL credentials. By default, DB_HOST and DB_PORT in PostgreSQL are localhost/5432.
+- postgresdbConf section: fill in with your own PostgreSQL credentials. By default, DB_HOST and DB_PORT in PostgreSQL are localhost/5432.
 
 Default credentials for admin superuser are: admin@admin.com / admin. Then run the migrations:
 
 	python manage.py makemigrations
 
 	python manage.py migrate
+
+- tweepyConf section: register a [Tweepy account](https://developer.twitter.com/en/apply-for-access) and fill in with your own credentials.
 
 Generate default data with the fixtures:
 
@@ -87,7 +89,7 @@ You could see the home page in:
 - Topic: is about people are talking in a specific moment in a social network.
 - Word root: is a word or word part that can form the basis of new words through the addition of prefixes and suffixes.
 - Dictionary: is a set of word that contains positive and negative words.
-- Custom Dictionary: is a user customizable set of words, with positive and negative words.
+- CustomDictionary: is a customizable set of words per user, with positive and negative words
 - Search: is a tracking table where you could find you recently search.
 - SocialNetworkAccounts: is a set of social networks accounts used to sentiment analysis.
 
@@ -157,10 +159,9 @@ Success: return the url where is stored the image and an authenticated boolean
 Fail: return a message with the error response
 
 	{
-	    "status": 200,
-	    "data": {
-	        "message": ""
-	    }
+	    "status": 500,
+	    "data": {},
+	    "error:" [message]
 	}
 
 ## Contributions
