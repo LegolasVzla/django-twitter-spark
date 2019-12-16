@@ -210,7 +210,7 @@ class TwitterViewSet(viewsets.ViewSet):
 		'''
 		- POST method: get twitter timeline from SocialNetworkAccounts Model
 		'''
-		twitter_timeline = {}
+		twitter_timeline = []
 		twitter_accounts_data = {}
 		try:
 			_socialnetworkaccounts = SocialNetworkAccountsViewSet()
@@ -221,6 +221,7 @@ class TwitterViewSet(viewsets.ViewSet):
 				tweepy_api_client =_socialnetworksapiconnections.tweepy_connection()
 				for twitter_account in twitter_accounts_data:
 					twitter_timeline.append(tweepy_api_client.user_timeline(screen_name = twitter_account['name'], count=twitter_account['quantity_by_request']))
+				self.response_data['twitter_timeline'] = twitter_timeline
 				self.code = status.HTTP_200_OK
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - TwitterViewSet] - Error: " + str(e))
