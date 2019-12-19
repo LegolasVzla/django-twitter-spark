@@ -200,17 +200,17 @@ class TwitterViewSet(viewsets.ViewSet):
 	Class for twitter timeline generation. It allows to generate a twitter timeline with trending tweets
 	'''		
 	def __init__(self):
-		self.response_data = {'error': [], 'data': {}}
+		self.response_data = {'error': [], 'data': []}
 		self.code = 0
 		self.error_message = ''
 		
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
-	def twitter_timeline(self, request, *args, **kwargs):
+	def tweets_get(self, request, *args, **kwargs):
 		'''
 		- POST method: get twitter timeline from SocialNetworkAccounts Model
 		'''
-		twitter_timeline = []
+		data = {}
 		twitter_accounts_data = {}
 		try:
 			_socialnetworkaccounts = SocialNetworkAccountsViewSet()
@@ -219,9 +219,22 @@ class TwitterViewSet(viewsets.ViewSet):
 				twitter_accounts_data = _socialnetworkaccounts.response_data['data']['accounts_by_social_network']
 				_socialnetworksapiconnections = SocialNetworksApiConnections(self)
 				tweepy_api_client =_socialnetworksapiconnections.tweepy_connection()
-				for twitter_account in twitter_accounts_data:
-					twitter_timeline.append(tweepy_api_client.user_timeline(screen_name = twitter_account['name'], count=twitter_account['quantity_by_request']))
-				self.response_data['twitter_timeline'] = twitter_timeline
+				for twitter_account_index, twitter_account in enumerate(twitter_accounts_data):
+					all_twitter_timeline_data = tweepy_api_client.user_timeline(screen_name = twitter_account['name'], count=twitter_account['quantity_by_request'])
+					data['account_name'] = all_twitter_timeline_data[twitter_account_index]['user']['screen_name']
+					for all_twitter_timeline_data in all_twitter_timeline_data:
+						data['tweets'] = {}
+						data['tweets']['id'] = all_twitter_timeline_data[twitter_account_index]['id']
+						data['tweets']['user'] = all_twitter_timeline_data[twitter_account_index]['user']['screen_name']
+						data['tweets']['text'] = all_twitter_timeline_data[twitter_account_index]['text']
+						data['tweets']['retweet_count'] = all_twitter_timeline_data[twitter_account_index]['retweet_count']
+						data['tweets']['favorite_count'] = all_twitter_timeline_data[twitter_account_index]['favorite_count']
+						data['tweets']['created_at'] = all_twitter_timeline_data[twitter_account_index]['created_at']
+						self.response_data.append(data)
+						for i,j in data.items():
+							data[i] = ""						
+					twitter_account_data = {}
+					#data.append(tweepy_api_client.user_timeline(screen_name = twitter_account['name'], count=twitter_account['quantity_by_request']))
 				self.code = status.HTTP_200_OK
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - TwitterViewSet] - Error: " + str(e))
@@ -701,7 +714,7 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 			queryset = SocialNetworkAccounts.objects.filter(
 				is_active=True,
 				is_deleted=False,
-				social_network_id=kwargs['data']['social_network'])
+				social_network_id=kwargs['data']['social_network']).order_by('id')
 			serializer = SocialNetworkAccountsSerializer(queryset,many=True,
 				required_fields=['social_network'],
 				fields=('id','name','social_network','quantity_by_request'))
