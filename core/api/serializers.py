@@ -140,3 +140,8 @@ class SocialNetworkAccountsSerializer(DynamicFieldsModelSerializer,serializers.M
 	class Meta:
 		model = SocialNetworkAccounts
 		fields = ('__all__')
+
+class SocialNetworkAccountsAPISerializer(serializers.ModelSerializer):
+	class Meta:
+		model = SocialNetworkAccounts
+		fields = ('social_network',)

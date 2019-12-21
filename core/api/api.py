@@ -5,8 +5,8 @@ from .serializers import (UserSerializer,UserDetailsSerializer,
 	CustomDictionarySerializer,TopicSerializer,
 	SearchSerializer,SentimentAnalysisSerializer,LikesSerializer,
 	SharedSerializer,RecentSearchSerializer,WordRootSerializer,
-	SocialNetworkAccountsSerializer,CustomDictionaryKpiSerializer,
-	CustomDictionaryPolaritySerializer)
+	SocialNetworkAccountsSerializer,SocialNetworkAccountsAPISerializer,
+	CustomDictionaryKpiSerializer,CustomDictionaryPolaritySerializer)
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
@@ -199,12 +199,14 @@ class WordCloudViewSet(viewsets.ViewSet):
 class TwitterViewSet(viewsets.ViewSet):
 	'''
 	Class for twitter timeline generation. It allows to generate a twitter timeline with trending tweets
-	'''		
+	'''
+	serializer_class = SocialNetworkAccountsAPISerializer
+
 	def __init__(self):
 		self.response_data = {'error': [], 'data': []}
 		self.code = 0
 		self.error_message = ''
-		
+
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def tweets_get(self, request, *args, **kwargs):
@@ -217,7 +219,7 @@ class TwitterViewSet(viewsets.ViewSet):
 			# Get twtter accounts stored in SocialNetworkAccounts model 
 			_socialnetworkaccounts = SocialNetworkAccountsViewSet()
 			_socialnetworkaccounts.accounts_by_social_network(
-				social_network=kwargs['data']['data']['social_network_id'])
+				social_network=kwargs['data']['social_network'])
 
 			# If request is success, connect with Tweepy
 			if _socialnetworkaccounts.code == 200:
@@ -241,7 +243,6 @@ class TwitterViewSet(viewsets.ViewSet):
 					for tweet_data in all_twitter_timeline_data:
 						data['tweet'] = {}
 						data['tweet']['id'] = tweet_data['id']
-						data['tweet']['user'] = tweet_data['user']['screen_name']
 						data['tweet']['text'] = tweet_data['text']
 						data['tweet']['retweet_count'] = tweet_data['retweet_count']
 						data['tweet']['favorite_count'] = tweet_data['favorite_count']
