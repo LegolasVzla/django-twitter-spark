@@ -27,6 +27,7 @@ from rest_framework import exceptions
 #from rest_framework import serializers, validators
 
 import json
+import copy
 import os
 from os import path
 from os.path import exists
@@ -208,33 +209,45 @@ class TwitterViewSet(viewsets.ViewSet):
 	@action(methods=['post'], detail=False)
 	def tweets_get(self, request, *args, **kwargs):
 		'''
-		- POST method: get twitter timeline from SocialNetworkAccounts Model
+		- POST method: get twitter data from SocialNetworkAccounts Model using Tweepy
 		'''
 		data = {}
 		twitter_accounts_data = {}
 		try:
+			# Get twtter accounts stored in SocialNetworkAccounts model 
 			_socialnetworkaccounts = SocialNetworkAccountsViewSet()
-			_socialnetworkaccounts.accounts_by_social_network(social_network=kwargs['data']['data']['social_network_id'])
+			_socialnetworkaccounts.accounts_by_social_network(
+				social_network=kwargs['data']['data']['social_network_id'])
+
+			# If request is success, connect with Tweepy
 			if _socialnetworkaccounts.code == 200:
+				
 				twitter_accounts_data = _socialnetworkaccounts.response_data['data']['accounts_by_social_network']
+				
 				_socialnetworksapiconnections = SocialNetworksApiConnections(self)
 				tweepy_api_client =_socialnetworksapiconnections.tweepy_connection()
+
+				# Iterate on each twitter accounts
 				for twitter_account_index, twitter_account in enumerate(twitter_accounts_data):
-					all_twitter_timeline_data = tweepy_api_client.user_timeline(screen_name = twitter_account['name'], count=twitter_account['quantity_by_request'])
+					
+					all_twitter_timeline_data = tweepy_api_client.user_timeline(
+						screen_name = twitter_account['name'], 
+						count=twitter_account['quantity_by_request'])
+
+					# Get twitter account name from the current twitter account
 					data['account_name'] = all_twitter_timeline_data[twitter_account_index]['user']['screen_name']
-					for all_twitter_timeline_data in all_twitter_timeline_data:
-						data['tweets'] = {}
-						data['tweets']['id'] = all_twitter_timeline_data[twitter_account_index]['id']
-						data['tweets']['user'] = all_twitter_timeline_data[twitter_account_index]['user']['screen_name']
-						data['tweets']['text'] = all_twitter_timeline_data[twitter_account_index]['text']
-						data['tweets']['retweet_count'] = all_twitter_timeline_data[twitter_account_index]['retweet_count']
-						data['tweets']['favorite_count'] = all_twitter_timeline_data[twitter_account_index]['favorite_count']
-						data['tweets']['created_at'] = all_twitter_timeline_data[twitter_account_index]['created_at']
-						self.response_data.append(data)
-						for i,j in data.items():
-							data[i] = ""						
-					twitter_account_data = {}
-					#data.append(tweepy_api_client.user_timeline(screen_name = twitter_account['name'], count=twitter_account['quantity_by_request']))
+
+					# Iterate on each of the tweet data, extracted from the current twitter account
+					for tweet_data in all_twitter_timeline_data:
+						data['tweet'] = {}
+						data['tweet']['id'] = tweet_data['id']
+						data['tweet']['user'] = tweet_data['user']['screen_name']
+						data['tweet']['text'] = tweet_data['text']
+						data['tweet']['retweet_count'] = tweet_data['retweet_count']
+						data['tweet']['favorite_count'] = tweet_data['favorite_count']
+						data['tweet']['created_at'] = tweet_data['created_at']
+						self.response_data['data'].append(copy.deepcopy(data))
+
 				self.code = status.HTTP_200_OK
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - TwitterViewSet] - Error: " + str(e))
