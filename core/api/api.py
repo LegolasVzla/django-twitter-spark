@@ -2,7 +2,7 @@ from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
 from .serializers import (UserSerializer,UserDetailsSerializer,
 	UserProfileUpdateSerializer,DictionarySerializer,
-	CustomDictionarySerializer,TopicSerializer,
+	CustomDictionarySerializer,TopicSerializer,WordCloudAPISerializer,
 	SearchSerializer,SentimentAnalysisSerializer,LikesSerializer,
 	SharedSerializer,RecentSearchSerializer,WordRootSerializer,
 	SocialNetworkAccountsSerializer,SocialNetworkAccountsAPISerializer,
@@ -67,10 +67,12 @@ def validate_type_of_request(f):
 		return f(*args,**kwargs)
 	return decorator
 
-class WordCloudViewSet(viewsets.ViewSet):
+class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 	'''
 	Class for word cloud generation. It allows to generate a word cloud with trending tweets
-	'''		
+	'''
+	serializer_class = WordCloudAPISerializer
+
 	def __init__(self):
 		self.response_data = {'error': [], 'data': {}}
 		self.code = 0
@@ -100,24 +102,22 @@ class WordCloudViewSet(viewsets.ViewSet):
 		authenticated = False
 		colors_array = ['viridis', 'inferno', 'plasma', 'magma','Blues', 'BuGn', 'BuPu','GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd','PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu','Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd','afmhot', 'autumn', 'bone', 'cool','copper', 'gist_heat', 'gray', 'hot','pink', 'spring', 'summer', 'winter','BrBG', 'bwr', 'coolwarm', 'PiYG', 'PRGn', 'PuOr','RdBu', 'RdGy', 'RdYlBu', 'RdYlGn', 'Spectral','seismic','Accent', 'Dark2', 'Paired', 'Pastel1','Pastel2', 'Set1', 'Set2', 'Set3', 'Vega20', 'Vega20b', 'Vega20c','gist_earth', 'terrain', 'ocean', 'gist_stern','brg', 'CMRmap', 'cubehelix','gnuplot', 'gnuplot2', 'gist_ncar','nipy_spectral', 'jet', 'rainbow','gist_rainbow', 'hsv', 'flag', 'prism']
 		try:
-			user_id = kwargs['data']['data']['user']
-			comments_list = kwargs['data']['data']['comments']
-			text = ' '.join(comments_list)
+			user_id = kwargs['data']['user']
 			colors = random.randint(0, 74)
 			
 			print("Generating the wordcloud image...")
 
 			# If user is authenticated
-			if (kwargs['data']['data']['user']):
+			if (kwargs['data']['user']):
 				authenticated = True
-				user_id = kwargs['data']['data']['user']
+				user_id = kwargs['data']['user']
 				image = random.randint(0, 9)
 
 				# Generating the custom random word cloud
-				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap=colors_array[colors],mask=imageio.imread('./static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(text)
+				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap=colors_array[colors],mask=imageio.imread('./static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(kwargs['data']['comments'])
 			else:
 				# Generating the word cloud				
-				wordcloud = WordCloud(background_color='white',width=1600,height=1200).generate(text)
+				wordcloud = WordCloud(background_color='white',width=1600,height=1200).generate(kwargs['data']['comments'])
 			
 			plt.imshow(wordcloud, interpolation='bilinear')
 			plt.axis("off")
@@ -151,7 +151,7 @@ class WordCloudViewSet(viewsets.ViewSet):
 			self.response_data['data']['authenticated'] = authenticated
 
 		except Exception as e:
-			if not kwargs['data']['data']['comments']:
+			if not kwargs['data']['comments']:
 				self.error_message = 'Comments can"t be empty. '
 			else:
 				self.error_message = 'word_cloud_data format must be like: {"data": {"comments": ["twitter comments list"],"user": '' }} where user can be empty. '
@@ -198,7 +198,7 @@ class WordCloudViewSet(viewsets.ViewSet):
 
 class TwitterViewSet(viewsets.ViewSet):
 	'''
-	Class for twitter timeline generation. It allows to generate a twitter timeline with trending tweets
+	Class to get a list with trending tweets
 	'''
 	serializer_class = SocialNetworkAccountsAPISerializer
 

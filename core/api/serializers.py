@@ -38,6 +38,13 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
             for field_name in required_fields:
                 self.fields[field_name].required = True
 
+class WordCloudAPISerializer(serializers.ModelSerializer):
+	comments = serializers.CharField(allow_blank=False, max_length=100)
+	user = serializers.IntegerField(source='id')
+	class Meta:
+		model = User
+		fields = ('comments','user')
+
 class UserSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	first_name = serializers.CharField(allow_blank=False, max_length=100)
 	last_name = serializers.CharField(allow_blank=False, max_length=100)
