@@ -86,12 +86,12 @@ You could see the home page in:
 
 ## Models
 
-- Topic: is about people are talking in a specific moment in a social network.
-- Word root: is a word or word part that can form the basis of new words through the addition of prefixes and suffixes.
-- Dictionary: is a set of word that contains positive and negative words.
-- CustomDictionary: is a customizable set of words per user, with positive and negative words
-- Search: is a tracking table where you could find you recently search.
-- SocialNetworkAccounts: is a set of social networks accounts used to sentiment analysis.
+* Topic: is about people are talking in a specific moment in a social network.
+* Word root: is a word or word part that can form the basis of new words through the addition of prefixes and suffixes.
+* Dictionary: is a set of word that contains positive and negative words.
+* CustomDictionary: is a customizable set of words per user, with positive and negative words
+* Search: is a tracking table where you could find you recently search.
+* SocialNetworkAccounts: is a set of social networks accounts used to sentiment analysis.
 
 ## Swagger Documentation
 
@@ -117,52 +117,37 @@ Endpoint |HTTP Method | CRUD Method | Result
 
 ## Endpoints without Models
 
-* Wordcloud: endpoint to list and generate Twitter word cloud images
+* Word_cloud: `api/wordcloud/`
 
-Methods:
+Endpoint |HTTP Method | CRUD Method | Result
+-- | -- |-- |--
+`api/wordcloud/create` | POST | CREATE | To generate Twitter word cloud images.
 
-- POST (create): consist in a Twitter's comments word cloud image generation. It has the folow structure:
+* Parameters:
+- Mandatory: comments
+- Optionals: user
 
-Input: a JSON format as below:
+If user is given (authenticated=True), it will generate a random word cloud with one of the mask located in:
 
-	{
-		"data": {
-			"comments": ["twitter comments list"],
-			"user": '1'
-		}
-	}
-
-Parameters:
-- Mandatory: data, comments
-- Optionals: user_id
-
-If user_id is given (authenticated=True), it will generate a random word cloud with one of the mask located in:
-
-	static/images/word_cloud_masks
+	/static/images/word_cloud_masks
 
 In other case, word cloud will be with square form. The image will be generated in the follow path:
 
 	/static/images/word_clouds/<user>
 
-Output:
+Endpoint |HTTP Method | CRUD Method | Result
+-- | -- |-- |--
+`api/wordcloud/list` | GET | READ | To list Twitter word cloud images by users.
 
-Success: return the url where is stored the image and an authenticated boolean
+* Twitter_analytics: `api/twitter_analytics/`
 
-	{
-	    "status": 200,
-	    "data": {
-	        "url": "",
-	        "authenticated": 
-	    }
-	}
+Endpoint |HTTP Method | CRUD Method | Result
+-- | -- |-- |--
+* Twitter_analytics: `api/twitter_analytics/`
+`api/twitter_analytics/tweets_get` | POST | CREATE | To get a list with trending tweets
 
-Fail: return a message with the error response
-
-	{
-	    "status": 500,
-	    "data": {},
-	    "error:" [message]
-	}
+* Parameters:
+- Mandatory: social_network_account
 
 ## Contributions
 ------------------------
