@@ -1,12 +1,13 @@
 from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
-from .serializers import (UserSerializer,UserDetailsSerializer,
-	UserProfileUpdateSerializer,DictionarySerializer,
+from .serializers import (UserSerializer,UserDetailsAPISerializer,
+	UserProfileUpdateAPISerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,WordCloudAPISerializer,
 	SearchSerializer,SentimentAnalysisSerializer,LikesSerializer,
 	SharedSerializer,RecentSearchSerializer,WordRootSerializer,
 	SocialNetworkAccountsSerializer,SocialNetworkAccountsAPISerializer,
-	CustomDictionaryKpiSerializer,CustomDictionaryPolaritySerializer)
+	CustomDictionaryKpiAPISerializer,CustomDictionaryPolaritySerializer,
+	CustomDictionaryWordAPISerializer)
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
@@ -81,16 +82,8 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 	@validate_type_of_request
 	def create(self, request, *args, **kwargs):
 		'''
-		Endpoint to list and generate Twitter word cloud images
 		- POST method (create): generate a Twitter word cloud image from users 
 		comments.
-		Input must be as below:
-		{
-			"data": {
-				"comments": ["twitter comments list"],
-				"user": 1
-			}
-		}
 		- Mandatory: comments
 		- Optionals: user
 		If user_id is given, it will generate a random word cloud with some 
@@ -266,7 +259,6 @@ class UserViewSet(viewsets.ModelViewSet):
 	permission_classes = [
 		permissions.AllowAny
 	]
-	serializer_class = UserSerializer
 	pagination_class = StandardResultsSetPagination
 
 	def __init__(self,*args, **kwargs):
@@ -275,9 +267,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
 	def get_serializer_class(self):
 		if self.action in ['user_details']:
-			return UserDetailsSerializer
+			return UserDetailsAPISerializer
 		if self.action in ['profile_update']:
-			return UserProfileUpdateSerializer
+			return UserProfileUpdateAPISerializer
 		return UserSerializer
 
 	@validate_type_of_request
@@ -352,7 +344,6 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	permission_classes = [
 		permissions.AllowAny
 	]
-	serializer_class = CustomDictionarySerializer
 	pagination_class = StandardResultsSetPagination
 
 	def __init__(self,*args, **kwargs):
@@ -361,7 +352,9 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 
 	def get_serializer_class(self):
 		if self.action in ['custom_dictionary_kpi','user_custom_dictionary']:
-			return CustomDictionaryKpiSerializer
+			return CustomDictionaryKpiAPISerializer
+		if self.action in ['custom_dictionary_polarity_get']:
+			return CustomDictionaryWordAPISerializer
 		return CustomDictionarySerializer
 
 	@validate_type_of_request
@@ -448,6 +441,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 					queryset = get_object_or_404(
 						CustomDictionary.objects.filter(
 							word=kwargs['data']['word'],
+							user_id=kwargs['data']['user'],
 							is_active=True,
 							is_deleted=False
 						).values('id','polarity','word'),
@@ -552,7 +546,8 @@ class SearchViewSet(viewsets.ModelViewSet):
 		self.code = 0
 
 	def get_serializer_class(self):
-		if self.action in ['recent_search_kpi','recent_search','word_details']:
+		if self.action in ['recent_search_kpi','recent_search',
+			'word_details']:
 			return RecentSearchSerializer
 		return SearchSerializer
 
@@ -641,7 +636,6 @@ class SearchViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def word_details(self, request, *args, **kwargs):
 		try:
-			print("-------word_details-----------")
 			self.response_data['data']['word'] = kwargs['data']['word']
 			# 1. Get the information related with the timeline of the word 
 			# on Twitter in function of polarity
@@ -714,12 +708,16 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 	permission_classes = [
 		permissions.AllowAny
 	]
-	serializer_class = SocialNetworkAccountsSerializer
 	pagination_class = StandardResultsSetPagination
 
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': {}}
 		self.code = 0
+
+	def get_serializer_class(self):
+		if self.action in ['accounts_by_social_network']:
+			return SocialNetworkAccountsAPISerializer
+		return SocialNetworkAccountsSerializer
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)

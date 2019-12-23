@@ -17,7 +17,7 @@ router.register('api/topic', TopicViewSet, 'topic')
 router.register('api/wordroot', WordRootViewSet, 'wordroot')
 router.register('api/search', SearchViewSet, 'search')
 router.register('api/social_network_accounts', SocialNetworkAccountsViewSet, 'social_network_accounts')
-#router.register('api/wordcloud', WordCloudViewSet, 'wordcloud')
+#router.register('api/word_cloud', WordCloudViewSet, 'word_cloud')
 
 schema_view = get_swagger_view(title='Swagger Topic Analyzer REST API Documentation')
 
@@ -28,7 +28,7 @@ urlpatterns = [
 #    url(r'^index/', views.IndexView.as_view(), name='index')    
     url(r'^api/user/profile_update/user/<int:user_id>', UserViewSet.as_view({'put': 'profile_update'}), name='profile_update'),
     url(r'^api/user/user_details/user/<int:user_id>', UserViewSet.as_view({'post': 'user_details'}), name='user_details'),    
-    url(r'^api/wordcloud/', WordCloudViewSet.as_view({'get': 'list', 'post':'create'}), name='wordcloud'),
+    url(r'^api/word_cloud/', WordCloudViewSet.as_view({'get': 'list', 'post':'create'}), name='word_cloud'),
     url(r'^api/customdictionary/custom_dictionary_kpi/user/<int:user_id>/language/<int:language_id>', CustomDictionaryViewSet.as_view({'post': 'custom_dictionary_kpi'}), name='custom_dictionary_kpi'),
     url(r'^api/customdictionary/user_custom_dictionary/user/<int:user_id>/language/<int:language_id>', CustomDictionaryViewSet.as_view({'post': 'user_custom_dictionary'}), name='user_custom_dictionary'),
     url(r'^api/customdictionary/custom_dictionary_polarity_get/word/<string:word>', CustomDictionaryViewSet.as_view({'post': 'custom_dictionary_polarity_get'}), name='custom_dictionary_polarity_get'),

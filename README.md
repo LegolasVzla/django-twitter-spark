@@ -117,11 +117,11 @@ Endpoint |HTTP Method | CRUD Method | Result
 
 ## Endpoints without Models
 
-* Word_cloud: `api/wordcloud/`
+* Word_cloud: `api/word_cloud/`
 
 Endpoint |HTTP Method | CRUD Method | Result
 -- | -- |-- |--
-`api/wordcloud/create` | POST | CREATE | To generate Twitter word cloud images.
+`api/word_cloud/create` | POST | CREATE | To generate Twitter word cloud images.
 
 * Parameters:
 - Mandatory: comments
@@ -137,7 +137,7 @@ In other case, word cloud will be with square form. The image will be generated 
 
 Endpoint |HTTP Method | CRUD Method | Result
 -- | -- |-- |--
-`api/wordcloud/list` | GET | READ | To list Twitter word cloud images by users.
+`api/word_cloud/list` | GET | READ | To list Twitter word cloud images by users.
 
 * Twitter_analytics: `api/twitter_analytics/`
 

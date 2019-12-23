@@ -52,13 +52,13 @@ class UserSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 		model = User
 		fields = ('__all__')
 
-class UserDetailsSerializer(serializers.ModelSerializer):
+class UserDetailsAPISerializer(serializers.ModelSerializer):
 	user = serializers.Field()
 	class Meta:
 		model = User
 		fields = ('user',)
 
-class UserProfileUpdateSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
+class UserProfileUpdateAPISerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	class Meta:
 		model = User
 		fields = ('email','first_name','last_name')
@@ -79,10 +79,15 @@ class CustomDictionarySerializer(serializers.ModelSerializer):
 		model = CustomDictionary
 		fields = ('__all__')
 
-class CustomDictionaryKpiSerializer(serializers.ModelSerializer):
+class CustomDictionaryKpiAPISerializer(serializers.ModelSerializer):
 	class Meta:
 		model = CustomDictionary
 		fields = ('user','language')
+
+class CustomDictionaryWordAPISerializer(serializers.ModelSerializer):
+	class Meta:
+		model = CustomDictionary
+		fields = ('user','word')
 
 class CustomDictionaryPolaritySerializer(serializers.ModelSerializer):
 	class Meta:
