@@ -204,7 +204,7 @@ class TwitterViewSet(viewsets.ViewSet):
 	@action(methods=['post'], detail=False)
 	def tweets_get(self, request, *args, **kwargs):
 		'''
-		- POST method: get twitter data from SocialNetworkAccounts Model using Tweepy
+		- POST method (tweets_get): get twitter data from SocialNetworkAccounts Model using Tweepy
 		'''
 		data = {}
 		twitter_accounts_data = {}
@@ -275,6 +275,11 @@ class UserViewSet(viewsets.ModelViewSet):
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def user_details(self, request, *args, **kwargs):
+		'''
+		- POST method (user_details): get specific fields of the user (id,first_name,last_name,email)
+		comments.
+		- Mandatory: user
+		'''
 		try:
 			queryset = get_object_or_404(
 				User.objects.filter(
@@ -293,6 +298,11 @@ class UserViewSet(viewsets.ModelViewSet):
 	@validate_type_of_request
 	@action(methods=['put'], detail=False)	
 	def profile_update(self, request, *args, **kwargs):
+		'''
+		- PUT method (profile_update): updated user from email input
+		comments.
+		- Mandatory: email
+		'''
 		try:
 			# Get the instance of the user requested to edit
 			instance = User.objects.get(email=kwargs['data']['email'])
@@ -360,6 +370,10 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_kpi(self, *args, **kwargs):
+		'''
+		- POST method (custom_dictionary_kpi): get user custom dictionary kpi's (total of words, total positive words, total negative words) from email input
+		- Mandatory: user, language
+		'''
 		try:
 			self.response_data['data']['total_words'] = CustomDictionary.objects.filter(
 				is_active=True,
@@ -401,6 +415,10 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def user_custom_dictionary(self, *args, **kwargs):
+		'''
+		- POST method (user_custom_dictionary): get user custom dictionary
+		- Mandatory: user, language
+		'''
 		try:
 			queryset = CustomDictionary.objects.filter(
 				is_active=True,
@@ -424,6 +442,10 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_polarity_get(self, *args, **kwargs):
+		'''
+		- POST method (user_custom_dictionary): get the polarity of a word
+		- Mandatory: user, word
+		'''
 		try:
 			# The request comes from the web app
 			queryset = CustomDictionary.objects.filter(
@@ -456,6 +478,10 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 
 	@validate_type_of_request
 	def create(self, request, *args, **kwargs):
+		'''
+		- POST method (create): create a new word for a custom dictionary
+		- Mandatory: word, polarity, is_active, is_deleted, user, language
+		'''
 		try:
 			serializer = CustomDictionarySerializer(data=kwargs['data'])
 			if serializer.is_valid():
@@ -473,6 +499,10 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 
 	@validate_type_of_request
 	def update(self, request, *args, **kwargs):
+		'''
+		- PUT method (update): update the polarity of a word
+		- Mandatory: word_id, polarity
+		'''
 		try:
 			# Get the instance of the requested word to edit
 			instance = CustomDictionary.objects.get(id=kwargs['data']['word'])
@@ -496,6 +526,10 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 
 	@validate_type_of_request
 	def destroy(self, request, *args, **kwargs):
+		'''
+		- DELETE method (destroy): delete a word of an user custom dictionary
+		- Mandatory: word_id
+		'''
 		try:
 			# Get the instance of the requested word to destroy
 			instance = CustomDictionary.objects.get(id=kwargs['data']['word'])
@@ -554,6 +588,10 @@ class SearchViewSet(viewsets.ModelViewSet):
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def recent_search_kpi(self, request, *args, **kwargs):
+		'''
+		- POST method (recent_search_kpi): get user custom recent search kpi's (total of positive and negative search by group, top positive search, top negative search
+		- Mandatory: user
+		'''
 		try:
 			# 1. Get the total of search of the current user
 			total_search = Search.objects.filter(
@@ -621,6 +659,10 @@ class SearchViewSet(viewsets.ModelViewSet):
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def recent_search(self, request, *args, **kwargs):
+		'''
+		- POST method (recent_search): get user recent search
+		- Mandatory: user
+		'''
 		try:
 			# Get the recently search of the current user
 			serializer = SearchSerializer(self.queryset, many=True)
@@ -635,6 +677,10 @@ class SearchViewSet(viewsets.ModelViewSet):
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def word_details(self, request, *args, **kwargs):
+		'''
+		- POST method (word_details): get an user timeline of a word searched (timeline_word_twitter_shared,timeline_word_twitter_likes,timeline_word_twitter_polarity)
+		- Mandatory: social_network_id, word_id, user_id
+		'''
 		try:
 			self.response_data['data']['word'] = kwargs['data']['word']
 			# 1. Get the information related with the timeline of the word 
@@ -699,7 +745,7 @@ class WordRootViewSet(viewsets.ModelViewSet):
 
 class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 	'''
-	Class related with the SocialNetworksAccounts Model, that is a set of social networks accounts used to sentiment analysis..
+	Class related with the SocialNetworksAccounts Model, that is a set of social networks accounts used to sentiment analysis
 	'''	
 	queryset = SocialNetworkAccounts.objects.filter(
 		is_active=True,
@@ -722,6 +768,10 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def accounts_by_social_network(self, *args, **kwargs):
+		'''
+		- POST method (post): get the social networks accounts list of an specific social network
+		- Mandatory: social network account
+		'''
 		try:
 			queryset = SocialNetworkAccounts.objects.filter(
 				is_active=True,
