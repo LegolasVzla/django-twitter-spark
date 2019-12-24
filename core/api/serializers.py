@@ -104,19 +104,11 @@ class TopicSerializer(serializers.ModelSerializer):
 		model = Topic
 		fields = ('__all__')
 
-class SearchSerializer(serializers.ModelSerializer):
+class SearchSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
 	class Meta:
 		model = Search
 		fields = ('__all__')
-
-	def __init__(self, instance=None, data=None, **kwargs):
-		super(SearchSerializer, self).__init__(instance, data, **kwargs)
-		if instance is not None and instance._fields is not None:     
-			allowed = set(instance._fields)
-			existing = set(self.fields.keys())
-			for fn in existing - allowed:
-				self.fields.pop(fn)
 
 class RecentSearchSerializer(serializers.ModelSerializer):
 	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
@@ -124,24 +116,6 @@ class RecentSearchSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Search
 		fields = ('user','social_network','word','searched_date')
-
-class SentimentAnalysisSerializer(serializers.ModelSerializer):
-	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
-	class Meta:
-		model = Search
-		fields = ('polarity','searched_date','sentiment_analysis_percentage')
-
-class LikesSerializer(serializers.ModelSerializer):
-	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
-	class Meta:
-		model = Search
-		fields = ('liked','searched_date')
-
-class SharedSerializer(serializers.ModelSerializer):
-	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
-	class Meta:
-		model = Search
-		fields = ('shared','searched_date')
 
 class WordRootSerializer(serializers.ModelSerializer):
 	class Meta:

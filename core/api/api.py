@@ -3,11 +3,10 @@ from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 from .serializers import (UserSerializer,UserDetailsAPISerializer,
 	UserProfileUpdateAPISerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,WordCloudAPISerializer,
-	SearchSerializer,SentimentAnalysisSerializer,LikesSerializer,
-	SharedSerializer,RecentSearchSerializer,WordRootSerializer,
-	SocialNetworkAccountsSerializer,SocialNetworkAccountsAPISerializer,
-	CustomDictionaryKpiAPISerializer,CustomDictionaryPolaritySerializer,
-	CustomDictionaryWordAPISerializer)
+	SearchSerializer,RecentSearchSerializer,
+	WordRootSerializer,SocialNetworkAccountsSerializer,
+	SocialNetworkAccountsAPISerializer,CustomDictionaryKpiAPISerializer,
+	CustomDictionaryPolaritySerializer,CustomDictionaryWordAPISerializer)
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
@@ -100,12 +99,12 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 			
 			print("Generating the wordcloud image...")
 
+			import pdb;pdb.set_trace()
 			# If user is authenticated
 			if (kwargs['data']['user']):
 				authenticated = True
 				user_id = kwargs['data']['user']
 				image = random.randint(0, 9)
-
 				# Generating the custom random word cloud
 				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap=colors_array[colors],mask=imageio.imread('./static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(kwargs['data']['comments'])
 			else:
@@ -187,6 +186,7 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - WordCloudViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - WordCloudViewSet] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
 
 class TwitterViewSet(viewsets.ViewSet):
@@ -246,6 +246,7 @@ class TwitterViewSet(viewsets.ViewSet):
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - TwitterViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - TwitterViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -572,7 +573,6 @@ class SearchViewSet(viewsets.ModelViewSet):
 	permission_classes = [
 		permissions.AllowAny
 	]
-	serializer_class = SearchSerializer
 	pagination_class = StandardResultsSetPagination
 
 	def __init__(self,*args, **kwargs):
@@ -693,7 +693,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 				word=kwargs['data']['word']
 			).values('polarity','sentiment_analysis_percentage','searched_date').order_by('id')
 
-			serializer = SearchSerializer(queryset, many=True)
+			serializer = SearchSerializer(queryset, many=True, fields=('liked','searched_date'))
 			self.response_data['data']['timeline_word_twitter_polarity'] = json.loads(json.dumps(serializer.data))
 
 			# 2. Get the information related with the timeline of the word
@@ -706,7 +706,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 				word=kwargs['data']['word']
 			).values('liked','searched_date').order_by('id')
 
-			serializer = LikesSerializer(queryset, many=True)
+			serializer = SearchSerializer(queryset, many=True, fields=('liked','searched_date'))
 			self.response_data['data']['timeline_word_twitter_likes'] = json.loads(json.dumps(serializer.data))
 
 			# 3. Get the information related with the timeline of the word
@@ -719,15 +719,15 @@ class SearchViewSet(viewsets.ModelViewSet):
 				word=kwargs['data']['word']
 			).values('shared','searched_date').order_by('id')
 
-			serializer = SharedSerializer(queryset, many=True)
+			serializer = SearchSerializer(queryset, many=True, fields=('shared','searched_date'))
 			self.response_data['data']['timeline_word_twitter_shared'] = json.loads(json.dumps(serializer.data))
-
 			self.code = status.HTTP_200_OK
+			return Response(self.response_data,status=self.code)
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[API - RecentSearchTwitterView] - Error: " + str(e))
-		return Response(self.response_data,status=self.code)
+			return Response(self.response_data,status=self.code)
 
 class WordRootViewSet(viewsets.ModelViewSet):
 	'''
