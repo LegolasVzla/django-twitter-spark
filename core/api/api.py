@@ -3,7 +3,7 @@ from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 from .serializers import (UserSerializer,UserDetailsAPISerializer,
 	UserProfileUpdateAPISerializer,DictionarySerializer,
 	CustomDictionarySerializer,TopicSerializer,WordCloudAPISerializer,
-	SearchSerializer,RecentSearchSerializer,
+	SearchSerializer,RecentSearchAPISerializer,WordDetailsAPISerializer,
 	WordRootSerializer,SocialNetworkAccountsSerializer,
 	SocialNetworkAccountsAPISerializer,CustomDictionaryKpiAPISerializer,
 	CustomDictionaryPolaritySerializer,CustomDictionaryWordAPISerializer)
@@ -46,7 +46,7 @@ User = get_user_model()
 
 class StandardResultsSetPagination(PageNumberPagination):
 	page_size = 10
-	#page_size_query_param = 'page_size'
+	#page_size_query_param = 'page'
 	#max_page_size = 1000
 
 def validate_type_of_request(f):
@@ -99,12 +99,12 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 			
 			print("Generating the wordcloud image...")
 
-			import pdb;pdb.set_trace()
 			# If user is authenticated
 			if (kwargs['data']['user']):
 				authenticated = True
 				user_id = kwargs['data']['user']
 				image = random.randint(0, 9)
+
 				# Generating the custom random word cloud
 				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap=colors_array[colors],mask=imageio.imread('./static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(kwargs['data']['comments'])
 			else:
@@ -147,9 +147,10 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 				self.error_message = 'Comments can"t be empty. '
 			else:
 				self.error_message = 'word_cloud_data format must be like: {"data": {"comments": ["twitter comments list"],"user": '' }} where user can be empty. '
-			self.response_data['error'].append("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
 			logging.getLogger('error_logger').exception("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
+			self.response_data['data']['url'] = '/images/word_cloud_masks/cloud500.png'
 
 		return Response(self.response_data,status=self.code)
 
@@ -580,9 +581,10 @@ class SearchViewSet(viewsets.ModelViewSet):
 		self.code = 0
 
 	def get_serializer_class(self):
-		if self.action in ['recent_search_kpi','recent_search',
-			'word_details']:
-			return RecentSearchSerializer
+		if self.action in ['recent_search_kpi','recent_search']:
+			return RecentSearchAPISerializer
+		if self.action in ['word_details']:
+			return WordDetailsAPISerializer
 		return SearchSerializer
 
 	@validate_type_of_request
@@ -590,7 +592,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 	def recent_search_kpi(self, request, *args, **kwargs):
 		'''
 		- POST method (recent_search_kpi): get user custom recent search kpi's (total of positive and negative search by group, top positive search, top negative search
-		- Mandatory: user
+		- Mandatory: user, social_network_id
 		'''
 		try:
 			# 1. Get the total of search of the current user
@@ -661,11 +663,18 @@ class SearchViewSet(viewsets.ModelViewSet):
 	def recent_search(self, request, *args, **kwargs):
 		'''
 		- POST method (recent_search): get user recent search
-		- Mandatory: user
+		- Mandatory: user, social_network_id
 		'''
 		try:
+			queryset = Search.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				social_network=kwargs['data']['social_network'],
+				user_id=kwargs['data']['user'])
+
 			# Get the recently search of the current user
-			serializer = SearchSerializer(self.queryset, many=True)
+			serializer = SearchSerializer(queryset, many=True, fields=(
+				'id','word','polarity','liked','shared','searched_date'))
 			self.response_data['data']['recently_search'] = json.loads(json.dumps(serializer.data))
 			self.code = status.HTTP_200_OK
 		except Exception as e:
@@ -679,7 +688,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 	def word_details(self, request, *args, **kwargs):
 		'''
 		- POST method (word_details): get an user timeline of a word searched (timeline_word_twitter_shared,timeline_word_twitter_likes,timeline_word_twitter_polarity)
-		- Mandatory: social_network_id, word_id, user_id
+		- Mandatory: social_network_id, word, user_id
 		'''
 		try:
 			self.response_data['data']['word'] = kwargs['data']['word']
@@ -723,6 +732,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 			self.response_data['data']['timeline_word_twitter_shared'] = json.loads(json.dumps(serializer.data))
 			self.code = status.HTTP_200_OK
 			return Response(self.response_data,status=self.code)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[RecentSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR

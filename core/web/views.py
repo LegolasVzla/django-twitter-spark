@@ -46,7 +46,6 @@ class IndexView(View):
 			logging.getLogger('error_logger').exception("[IndexView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[IndexView] - Error: " + str(e))
-			self.response_data['data']['url'] = '/images/word_cloud_masks/cloud500.png'
 		return render(request,template_name='web/index.html',status=self.code,context=self.response_data)
 
 class UserProfileView(View):

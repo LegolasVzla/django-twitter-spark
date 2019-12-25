@@ -110,7 +110,13 @@ class SearchSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer)
 		model = Search
 		fields = ('__all__')
 
-class RecentSearchSerializer(serializers.ModelSerializer):
+class RecentSearchAPISerializer(serializers.ModelSerializer):
+	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
+	class Meta:
+		model = Search
+		fields = ('user','social_network','searched_date')
+
+class WordDetailsAPISerializer(serializers.ModelSerializer):
 	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
 	#user = serializers.IntegerField(source='user_id')
 	class Meta:
