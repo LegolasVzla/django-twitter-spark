@@ -9,7 +9,7 @@
             "email": "admin@admin.com",
             "is_staff": true,
             "is_active": true,
-            "is_deleted": true,
+            "is_deleted": false,
             "updated_date": "2019-06-30",
             "date_joined": "2019-06-30"
         }

@@ -345,6 +345,10 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 	serializer_class = DictionarySerializer
 	pagination_class = StandardResultsSetPagination
 
+	def __init__(self,*args, **kwargs):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 0
+
 class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	'''
 	Class related with the CustomDictionary Model, that is a customizable set of words per user, with positive and negative words
