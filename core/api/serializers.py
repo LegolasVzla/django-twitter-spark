@@ -79,7 +79,7 @@ class DictionaryPolarityAPISerializer(DynamicFieldsModelSerializer,serializers.M
 		model = Dictionary
 		fields = ('polarity','language')
 
-class CustomDictionarySerializer(serializers.ModelSerializer):
+class CustomDictionarySerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	class Meta:
 		model = CustomDictionary
 		fields = ('__all__')

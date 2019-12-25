@@ -465,18 +465,16 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		- Mandatory: user, language
 		'''
 		try:
-			queryset = CustomDictionary.objects.filter(
+			self.response_data['data']['custom_dictionary'] = CustomDictionary.objects.filter(
 				is_active=True,
 				is_deleted=False,
 				language_id=kwargs['data']['language'],
 				user_id=kwargs['data']['user']
-			).order_by('id')
-			#language_id=request.data['language'],
-			serializer = CustomDictionarySerializer(queryset, many=True)
+			).order_by('id').values(
+				'id','word','polarity','created_date','updated_date')
 			#content = JSONRenderer().render(serializer.data)
 			#stream = io.BytesIO(content)
 			#self.response_data['data']['custom_dictionary'] = JSONParser().parse(stream)
-			self.response_data['data']['custom_dictionary']=json.loads(json.dumps(serializer.data))
 			self.code = status.HTTP_200_OK
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryViewSet] - Error: " + str(e))			
@@ -554,6 +552,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 
 			serializer = CustomDictionaryPolaritySerializer(instance, 
 				data=kwargs['data'], partial=True)
+			#serializer = CustomDictionarySerializer(instance, data=kwargs['data'],required_fields=['polarity'],partial=True)
 
 			if serializer.is_valid():
 				serializer.save()
@@ -717,7 +716,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 				is_active=True,
 				is_deleted=False,
 				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user'])
+				user_id=kwargs['data']['user']).order_by('id').reverse()
 
 			# Get the recently search of the current user
 			serializer = SearchSerializer(queryset, many=True, fields=(
