@@ -2,8 +2,9 @@ from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
 from .serializers import (UserSerializer,UserDetailsAPISerializer,
 	UserProfileUpdateAPISerializer,DictionarySerializer,
-	CustomDictionarySerializer,TopicSerializer,WordCloudAPISerializer,
-	SearchSerializer,RecentSearchAPISerializer,WordDetailsAPISerializer,
+	DictionaryPolarityAPISerializer,CustomDictionarySerializer,
+	TopicSerializer,WordCloudAPISerializer,SearchSerializer,
+	RecentSearchAPISerializer,WordDetailsAPISerializer,
 	WordRootSerializer,SocialNetworkAccountsSerializer,
 	SocialNetworkAccountsAPISerializer,CustomDictionaryKpiAPISerializer,
 	CustomDictionaryPolaritySerializer,CustomDictionaryWordAPISerializer)
@@ -69,7 +70,8 @@ def validate_type_of_request(f):
 
 class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 	'''
-	Class for word cloud generation. It allows to generate a word cloud with trending tweets
+	Class for word cloud generation. It allows to generate a word cloud with 
+	trending tweets
 	'''
 	serializer_class = WordCloudAPISerializer
 
@@ -86,8 +88,8 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 		- Mandatory: comments
 		- Optionals: user
 		If user_id is given, it will generate a random word cloud with some 
-		mask located in static/images/word_cloud_masks. In other case, wordcloud
-		will be with square form		
+		mask located in static/images/word_cloud_masks. In other case, 
+		wordcloud will be with square form		
 		'''
 		user_id = ''
 		url = ''
@@ -205,7 +207,8 @@ class TwitterViewSet(viewsets.ViewSet):
 	@action(methods=['post'], detail=False)
 	def tweets_get(self, request, *args, **kwargs):
 		'''
-		- POST method (tweets_get): get twitter data from SocialNetworkAccounts Model using Tweepy
+		- POST method (tweets_get): get twitter data from 
+		SocialNetworkAccounts Model using Tweepy
 		'''
 		data = {}
 		twitter_accounts_data = {}
@@ -278,7 +281,8 @@ class UserViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def user_details(self, request, *args, **kwargs):
 		'''
-		- POST method (user_details): get specific fields of the user (id,first_name,last_name,email)
+		- POST method (user_details): get specific fields of the user
+		(id,first_name,last_name,email)
 		comments.
 		- Mandatory: user
 		'''
@@ -333,7 +337,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class DictionaryViewSet(viewsets.ModelViewSet):
 	'''
-	Class related with the Dictionary Model, that is a set of word that contains positive and negative words.
+	Class related with the Dictionary Model, that is a set of word that 
+	contains positive and negative words.
 	'''
 	queryset = Dictionary.objects.filter(
 		is_active=True,
@@ -342,16 +347,48 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 	permission_classes = [
 		permissions.AllowAny
 	]
-	serializer_class = DictionarySerializer
 	pagination_class = StandardResultsSetPagination
 
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': {}}
 		self.code = 0
 
+	def get_serializer_class(self):
+		if self.action in ['dictionary_by_polarity']:
+			return DictionaryPolarityAPISerializer
+		return DictionarySerializer
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def dictionary_by_polarity(self, *args, **kwargs):
+		'''
+		- POST method (post): get dictionary by polarity filtering (positive 
+		or negative words list)
+		- Mandatory: polarity, language_id
+		'''
+		try:
+			queryset = Dictionary.objects.filter(
+				is_active=True,
+				is_deleted=False,
+				polarity=kwargs['data']['polarity'],
+				language_id=kwargs['data']['language']
+				).order_by('id')
+			# Missing language field in required_fields parameter...
+			serializer = DictionarySerializer(queryset,many=True,
+				required_fields=['polarity'],
+				fields=('id','word','polarity'))
+			self.response_data['data']['words']=json.loads(json.dumps(serializer.data))
+			self.code = status.HTTP_200_OK
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[DictionaryViewSet] - Error: " + str(e))			
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - DictionaryViewSet] - Error: " + str(e))			
+		return Response(self.response_data,status=self.code)
+
 class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	'''
-	Class related with the CustomDictionary Model, that is a customizable set of words per user, with positive and negative words
+	Class related with the CustomDictionary Model, that is a customizable 
+	set of words per user, with positive and negative words
 	'''	
 	queryset = CustomDictionary.objects.filter(
 		is_active=True,
@@ -377,7 +414,9 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def custom_dictionary_kpi(self, *args, **kwargs):
 		'''
-		- POST method (custom_dictionary_kpi): get user custom dictionary kpi's (total of words, total positive words, total negative words) from email input
+		- POST method (custom_dictionary_kpi): get user custom dictionary
+		kpi's (total of words, total positive words, total negative words)
+		from email input
 		- Mandatory: user, language
 		'''
 		try:
@@ -555,7 +594,8 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 
 class TopicViewSet(viewsets.ModelViewSet):
 	'''
-	Class related with the Topic Model, what is about people are talking in a specific moment in a social network.
+	Class related with the Topic Model, what is about people are talking 
+	in a specific moment in a social network.
 	'''
 	queryset = Topic.objects.filter(
 		is_active=True,
@@ -569,7 +609,8 @@ class TopicViewSet(viewsets.ModelViewSet):
 
 class SearchViewSet(viewsets.ModelViewSet):
 	'''
-	Class related with the Search Model, that is a tracking model where you could find recently search by user.
+	Class related with the Search Model, that is a tracking model where you
+	could find recently search by user.
 	'''	
 	queryset = Search.objects.filter(
 		is_active=True,
@@ -595,7 +636,9 @@ class SearchViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def recent_search_kpi(self, request, *args, **kwargs):
 		'''
-		- POST method (recent_search_kpi): get user custom recent search kpi's (total of positive and negative search by group, top positive search, top negative search
+		- POST method (recent_search_kpi): get user custom recent search 
+		kpi's (total of positive and negative search by group, top positive 
+		search, top negative search
 		- Mandatory: user, social_network_id
 		'''
 		try:
@@ -691,7 +734,9 @@ class SearchViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def word_details(self, request, *args, **kwargs):
 		'''
-		- POST method (word_details): get an user timeline of a word searched (timeline_word_twitter_shared,timeline_word_twitter_likes,timeline_word_twitter_polarity)
+		- POST method (word_details): get an user timeline of a word 
+		searched (timeline_word_twitter_shared,timeline_word_twitter_likes,
+		timeline_word_twitter_polarity)
 		- Mandatory: social_network_id, word, user_id
 		'''
 		try:
@@ -745,7 +790,9 @@ class SearchViewSet(viewsets.ModelViewSet):
 
 class WordRootViewSet(viewsets.ModelViewSet):
 	'''
-	Class related with the WordRoot Model, that is a word or word part that can form the basis of new words through the addition of prefixes and suffixes.
+	Class related with the WordRoot Model, that is a word or word part that
+	can form the basis of new words through the addition of prefixes and 
+	suffixes.
 	'''
 	queryset = WordRoot.objects.filter(
 		is_active=True,
@@ -759,7 +806,8 @@ class WordRootViewSet(viewsets.ModelViewSet):
 
 class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 	'''
-	Class related with the SocialNetworksAccounts Model, that is a set of social networks accounts used to sentiment analysis
+	Class related with the SocialNetworksAccounts Model, that is a set of
+	social networks accounts used to sentiment analysis
 	'''	
 	queryset = SocialNetworkAccounts.objects.filter(
 		is_active=True,
@@ -783,7 +831,8 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 	@action(methods=['post'], detail=False)
 	def accounts_by_social_network(self, *args, **kwargs):
 		'''
-		- POST method (post): get the social networks accounts list of an specific social network
+		- POST method (post): get the social networks accounts list of an
+		specific social network
 		- Mandatory: social network account
 		'''
 		try:
@@ -799,5 +848,5 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[SocialNetworkAccountsViewSet] - Error: " + str(e))			
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[API - SocialNetworkAccountsViewSet] - Error: " + str(e))			
+			self.response_data['error'].append("[API - SocialNetworkAccountsViewSet] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)

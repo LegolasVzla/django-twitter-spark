@@ -69,10 +69,15 @@ class UserProfileUpdateAPISerializer(DynamicFieldsModelSerializer,serializers.Mo
 		instance.save()
 		return instance
 
-class DictionarySerializer(serializers.ModelSerializer):
+class DictionarySerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	class Meta:
 		model = Dictionary
 		fields = ('__all__')
+
+class DictionaryPolarityAPISerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
+	class Meta:
+		model = Dictionary
+		fields = ('polarity','language')
 
 class CustomDictionarySerializer(serializers.ModelSerializer):
 	class Meta:
