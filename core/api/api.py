@@ -76,7 +76,8 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 	serializer_class = WordCloudAPISerializer
 
 	def __init__(self):
-		self.response_data = {'error': [], 'data': {}}
+		self.response_data = {'error': [], 'data': []}
+		self.data = {}
 		self.code = 0
 		self.error_message = ''
 
@@ -89,7 +90,7 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 		- Optionals: user
 		If user_id is given, it will generate a random word cloud with some 
 		mask located in static/images/word_cloud_masks. In other case, 
-		wordcloud will be with square form		
+		wordcloud will be with square form
 		'''
 		user_id = ''
 		url = ''
@@ -108,7 +109,7 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 				image = random.randint(0, 9)
 
 				# Generating the custom random word cloud
-				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap=colors_array[colors],mask=imageio.imread('./static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(kwargs['data']['comments'])
+				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap=colors_array[colors],mask=imageio.imread(BASE_DIR + '/static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(kwargs['data']['comments'])
 			else:
 				# Generating the word cloud				
 				wordcloud = WordCloud(background_color='white',width=1600,height=1200).generate(kwargs['data']['comments'])
@@ -141,8 +142,9 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 
 			os.chdir(BASE_DIR)
 			self.code = status.HTTP_200_OK
-			self.response_data['data']['url'] = url
-			self.response_data['data']['authenticated'] = authenticated
+			self.data['url'] = url
+			self.data['authenticated'] = authenticated
+			self.response_data['data'].append(self.data)
 
 		except Exception as e:
 			if not kwargs['data']['comments']:
@@ -152,7 +154,8 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 			logging.getLogger('error_logger').exception("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
-			self.response_data['data']['url'] = '/images/word_cloud_masks/cloud500.png'
+			self.data['url'] = '/images/word_cloud_masks/cloud500.png'
+			self.response_data['data'].append(self.data)
 
 		return Response(self.response_data,status=self.code)
 
@@ -183,8 +186,9 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					os.chdir(BASE_DIR)
 
 			self.code = status.HTTP_200_OK
-			self.response_data['data']['authenticated_word_clouds_url_list'] = authenticated_word_clouds_list
-			self.response_data['data']['unathenticated_word_clouds_url'] = unauthenticated_word_cloud
+			self.data['authenticated_word_clouds_url_list'] = authenticated_word_clouds_list
+			self.data['unathenticated_word_clouds_url'] = unauthenticated_word_cloud
+			self.response_data['data'].append(self.data)
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - WordCloudViewSet] - Error: " + str(e))
