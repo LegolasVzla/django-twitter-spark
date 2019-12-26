@@ -59,9 +59,9 @@ class UserProfileView(View):
 			print("------user profile get------")
 			_user = UserViewSet()
 			_user.user_details(request,user=1)
-			self.response_data['data'] = _user.response_data['data']
+			self.response_data['data'] = _user.response_data['data'][0]
 			self.code = _user.code
-			self.response_data['data']['code'] = self.code
+			#self.response_data['data']['code'] = self.code
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[UserProfileView] - Error: " + str(e))

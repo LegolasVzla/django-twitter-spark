@@ -271,7 +271,8 @@ class UserViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 	def __init__(self,*args, **kwargs):
-		self.response_data = {'error': [], 'data': {}}
+		self.response_data = {'error': [], 'data': []}
+		self.data = {}
 		self.code = 0
 
 	def get_serializer_class(self):
@@ -297,7 +298,8 @@ class UserViewSet(viewsets.ModelViewSet):
 					is_active=True,
 					is_deleted=False
 				).values('id','first_name','last_name','email'))
-			self.response_data['data'] = queryset
+			self.data = queryset
+			self.response_data['data'].append(self.data)
 			self.code = status.HTTP_200_OK
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - UserView] - Error: " + str(e))
@@ -326,9 +328,10 @@ class UserViewSet(viewsets.ModelViewSet):
 
 			if serializer.is_valid():
 				serializer.save()
-				self.response_data['data']['id'] = instance.id
-				self.response_data['data']['first_name'] = instance.first_name
-				self.response_data['data']['last_name'] = instance.last_name
+				self.data['id'] = instance.id
+				self.data['first_name'] = instance.first_name
+				self.data['last_name'] = instance.last_name
+				self.response_data['data'].append(self.data)
 				self.code = status.HTTP_200_OK
 			else:
 				self.response_data['error'].append("[API - UserView] - Error: " + serializer.errors)
