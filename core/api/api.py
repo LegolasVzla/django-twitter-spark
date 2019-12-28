@@ -204,6 +204,7 @@ class TwitterViewSet(viewsets.ViewSet):
 
 	def __init__(self):
 		self.response_data = {'error': [], 'data': []}
+		self.data = {}
 		self.code = 0
 		self.error_message = ''
 
@@ -214,7 +215,6 @@ class TwitterViewSet(viewsets.ViewSet):
 		- POST method (tweets_get): get twitter data from 
 		SocialNetworkAccounts Model using Tweepy
 		'''
-		data = {}
 		twitter_accounts_data = {}
 		try:
 			# Get twtter accounts stored in SocialNetworkAccounts model 
@@ -224,30 +224,33 @@ class TwitterViewSet(viewsets.ViewSet):
 
 			# If request is success, connect with Tweepy
 			if _socialnetworkaccounts.code == 200:
-				twitter_accounts_data = _socialnetworkaccounts.response_data['data']['accounts_by_social_network']
+				twitter_accounts_data = _socialnetworkaccounts.response_data['data'][0]['accounts_by_social_network']
 				
 				_socialnetworksapiconnections = SocialNetworksApiConnections(self)
 				tweepy_api_client =_socialnetworksapiconnections.tweepy_connection()
 
 				# Iterate on each twitter accounts
-				for twitter_account_index, twitter_account in enumerate(twitter_accounts_data):
-					
-					all_twitter_timeline_data = tweepy_api_client.user_timeline(
-						screen_name = twitter_account['name'], 
-						count=twitter_account['quantity_by_request'])
+				for twitter_account_index, twitter_account_data in enumerate(twitter_accounts_data):
 
+					# Make the request to get tweets of the current twitter account
+					all_twitter_timeline_data = tweepy_api_client.user_timeline(
+						screen_name = twitter_account_data['name'], 
+						count=twitter_account_data['quantity_by_request'])
+					
 					# Get twitter account name from the current twitter account
-					data['account_name'] = all_twitter_timeline_data[twitter_account_index]['user']['screen_name']
+					self.data['account_name'] = twitter_account_data['name']
+					self.data['tweet'] = []
 
 					# Iterate on each of the tweet data, extracted from the current twitter account
-					for tweet_data in all_twitter_timeline_data:
-						data['tweet'] = {}
-						data['tweet']['id'] = tweet_data['id']
-						data['tweet']['text'] = tweet_data['text']
-						data['tweet']['retweet_count'] = tweet_data['retweet_count']
-						data['tweet']['favorite_count'] = tweet_data['favorite_count']
-						data['tweet']['created_at'] = tweet_data['created_at']
-						self.response_data['data'].append(copy.deepcopy(data))
+					for tweet_data_index,tweet_data in enumerate(all_twitter_timeline_data):
+						tweet_element_data = {}
+						tweet_element_data['id'] = tweet_data['id']
+						tweet_element_data['text'] = tweet_data['text']
+						tweet_element_data['retweet_count'] = tweet_data['retweet_count']
+						tweet_element_data['favorite_count'] = tweet_data['favorite_count']
+						tweet_element_data['created_at'] = tweet_data['created_at']
+						self.data['tweet'].append(copy.deepcopy(tweet_element_data))
+					self.response_data['data'].append(copy.deepcopy(self.data))
 
 				self.code = status.HTTP_200_OK
 		except Exception as e:
