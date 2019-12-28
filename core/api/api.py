@@ -224,7 +224,6 @@ class TwitterViewSet(viewsets.ViewSet):
 
 			# If request is success, connect with Tweepy
 			if _socialnetworkaccounts.code == 200:
-				
 				twitter_accounts_data = _socialnetworkaccounts.response_data['data']['accounts_by_social_network']
 				
 				_socialnetworksapiconnections = SocialNetworksApiConnections(self)
@@ -825,7 +824,8 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 	pagination_class = StandardResultsSetPagination
 
 	def __init__(self,*args, **kwargs):
-		self.response_data = {'error': [], 'data': {}}
+		self.response_data = {'error': [], 'data': []}
+		self.data = {}
 		self.code = 0
 
 	def get_serializer_class(self):
@@ -849,10 +849,11 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 			serializer = SocialNetworkAccountsSerializer(queryset,many=True,
 				required_fields=['social_network'],
 				fields=('id','name','social_network','quantity_by_request'))
-			self.response_data['data']['accounts_by_social_network']=json.loads(json.dumps(serializer.data))
+			self.data['accounts_by_social_network']=json.loads(json.dumps(serializer.data))
+			self.response_data['data'].append(self.data)
 			self.code = status.HTTP_200_OK
 		except Exception as e:
-			logging.getLogger('error_logger').exception("[SocialNetworkAccountsViewSet] - Error: " + str(e))			
+			logging.getLogger('error_logger').exception("[SocialNetworkAccountsViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[API - SocialNetworkAccountsViewSet] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)

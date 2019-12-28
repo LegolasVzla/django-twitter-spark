@@ -27,7 +27,7 @@ Authors:
 What would happen if we integrate this technologies?...Let's check it!
 
 ## Requirements
-- Ubuntu 18
+- Ubuntu 16 or higher
 - Install PostgreSQL:
 ```
   sudo apt-get update
@@ -35,7 +35,7 @@ What would happen if we integrate this technologies?...Let's check it!
 ```
 ## Installation
 
-Create your virtualenv (see Troubleshooting section) and install the requirements:
+Create your virtualenv and install the requirements:
 
 	virtualenv env --python=python3
 	source env/bin/activate
@@ -123,7 +123,7 @@ Endpoint |HTTP Method | CRUD Method | Result
 -- | -- |-- |--
 `api/word_cloud/create` | POST | CREATE | To generate Twitter word cloud images.
 
-* Parameters:
+Parameters:
 - Mandatory: comments
 - Optionals: user
 
@@ -143,10 +143,9 @@ Endpoint |HTTP Method | CRUD Method | Result
 
 Endpoint |HTTP Method | CRUD Method | Result
 -- | -- |-- |--
-* Twitter_analytics: `api/twitter_analytics/`
 `api/twitter_analytics/tweets_get` | POST | CREATE | To get a list with trending tweets
 
-* Parameters:
+Parameters:
 - Mandatory: social_network_account
 
 ## Contributions
