@@ -347,8 +347,8 @@ function wordSearchedDetail(word){
                 //location.href = data.url;
                 window.location.href = window.document.location.origin + "/socialanalyzer/timeline_search_twitter/?word=" + word
             }else{
-                console.log('Error to load modal',data);
                 alertify.error('An error happened when loading this modal, please try again.');         
+                //console.log('Error to load modal',data);
               }
         },error: function(error_data){
           console.log("error")
@@ -381,8 +381,8 @@ function wordCreate(){
                   location.reload(true);
                 }, delayInMilliseconds);
               }else{
-                console.log('Error, status:',data.data.code);
                 alertify.error('An error happened saving the word, please try again.');
+                //console.log('Error, status:',data.data.code);
               }
             }
         })
@@ -413,8 +413,8 @@ function wordEditModal(wordId) {
             }
 
         }else{
+            alertify.error('An error happened when loading this modal, please try again.');
             //console.log('Error to load modal',data);
-            //alertify.error('An error happened when loading this modal, please try again.');
           }
         }
     })
@@ -440,7 +440,7 @@ function wordUpdate(){
             }, delayInMilliseconds);
         },error: function(error_data){
             alertify.error('An error happened updating the word.');
-            console.log("An error happened updating the word.")
+            //console.log("An error happened updating the word.")
             //console.log(error_data)
         }
     })

@@ -100,7 +100,7 @@ class CustomDictionaryView(View):
 				_customdictionary = CustomDictionaryViewSet()
 				_customdictionary.custom_dictionary_polarity_get(
 					request,word=request.GET['word_id'])
-				self.response_data['data'] = _customdictionary.response_data['data']
+				self.response_data['data'] = _customdictionary.response_data['data'][0]
 				self.code = _customdictionary.code
 				self.response_data['data']['code'] = self.code
 				return JsonResponse(self.response_data)
@@ -109,9 +109,9 @@ class CustomDictionaryView(View):
 			else:
 				_customdictionary = CustomDictionaryViewSet()
 				_customdictionary.custom_dictionary_kpi(request,language=1,user=1)
-				self.response_data['data'] = _customdictionary.response_data['data']
+				self.response_data['data'] = _customdictionary.response_data['data'][0]
 				_customdictionary.user_custom_dictionary(request,language=1,user=1)
-				self.response_data['data'] = _customdictionary.response_data['data']
+				self.response_data['data'] = _customdictionary.response_data['data'][0]
 				self.code = _customdictionary.code
 				return render(request,template_name='web/dictionary_get.html',status=self.code,context=self.response_data)
 
@@ -136,7 +136,7 @@ class CustomDictionaryView(View):
 				_customdictionary = CustomDictionaryViewSet()
 				_customdictionary.create(request,word=request.POST['word'],
 					polarity=new_polarity,language=1,user=1)
-				self.response_data['data'] = _customdictionary.response_data['data']
+				self.response_data['data'] = _customdictionary.response_data['data'][0]
 				self.code = _customdictionary.code
 				self.response_data['data']['code'] = self.code
 
@@ -160,10 +160,9 @@ class CustomDictionaryView(View):
 				# In the modal of "Ver Mi Diccionario" section,
 				# when edit the polarity of a word, save the changes
 				_customdictionary = CustomDictionaryViewSet()
-				_customdictionary.update(request,word=request.GET['word_id'],
-					polarity=new_polarity)
+				_customdictionary.update(request,pk=request.GET['word_id'],polarity=new_polarity)
 				self.code = _customdictionary.code
-				self.response_data['data'] = _customdictionary.response_data['data']
+				self.response_data['data'] = _customdictionary.response_data['data'][0]
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + str(e))
@@ -180,7 +179,7 @@ class CustomDictionaryView(View):
 				delete = QueryDict(request.body)
 				word_id = delete.get('word_id')
 				_customdictionary.destroy(request,word=word_id)
-				self.response_data['data'] = _customdictionary.response_data['data']
+				self.response_data['data'] = _customdictionary.response_data['data'][0]
 				self.code = _customdictionary.code
 				self.response_data['data']['code'] = self.code
 
