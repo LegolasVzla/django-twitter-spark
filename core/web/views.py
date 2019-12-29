@@ -213,9 +213,9 @@ class RecentSearchTwitterView(View):
 		try:
 			_recent_search = SearchViewSet()
 			_recent_search.recent_search_kpi(request,social_network=1,user=1)
-			self.response_data['data'] = _recent_search.response_data['data']
+			self.response_data['data'] = _recent_search.response_data['data'][0]
 			_recent_search.recent_search(request,social_network=1,user=1)
-			self.response_data['data'] = _recent_search.response_data['data']
+			self.response_data['data'] = _recent_search.response_data['data'][0]
 			self.code = _recent_search.code
 			
 		except Exception as e:
@@ -235,7 +235,7 @@ class TimelineSearchTwitterView(View):
 			_recent_search = SearchViewSet()
 			_recent_search.word_details(request,social_network=1,
 				word=request.GET.get('word',None),user=1)
-			self.response_data['data'] = _recent_search.response_data['data']
+			self.response_data['data'] = _recent_search.response_data['data'][0]
 			self.code = _recent_search.code
 			self.response_data['data']['code'] = self.code
 			#import pdb;pdb.set_trace()
