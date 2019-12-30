@@ -68,7 +68,7 @@ def validate_type_of_request(f):
 		return f(*args,**kwargs)
 	return decorator
 
-class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
+class WordCloudViewSet(viewsets.ViewSet):
 	'''
 	Class for word cloud generation. It allows to generate a word cloud with 
 	trending tweets
@@ -79,7 +79,6 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
 		self.code = 0
-		self.error_message = ''
 
 	@validate_type_of_request
 	def create(self, request, *args, **kwargs):
@@ -97,65 +96,66 @@ class WordCloudViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 		authenticated = False
 		colors_array = ['viridis', 'inferno', 'plasma', 'magma','Blues', 'BuGn', 'BuPu','GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd','PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu','Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd','afmhot', 'autumn', 'bone', 'cool','copper', 'gist_heat', 'gray', 'hot','pink', 'spring', 'summer', 'winter','BrBG', 'bwr', 'coolwarm', 'PiYG', 'PRGn', 'PuOr','RdBu', 'RdGy', 'RdYlBu', 'RdYlGn', 'Spectral','seismic','Accent', 'Dark2', 'Paired', 'Pastel1','Pastel2', 'Set1', 'Set2', 'Set3', 'Vega20', 'Vega20b', 'Vega20c','gist_earth', 'terrain', 'ocean', 'gist_stern','brg', 'CMRmap', 'cubehelix','gnuplot', 'gnuplot2', 'gist_ncar','nipy_spectral', 'jet', 'rainbow','gist_rainbow', 'hsv', 'flag', 'prism']
 		try:
-			user_id = kwargs['data']['user']
-			colors = random.randint(0, 74)
-			
-			print("Generating the wordcloud image...")
+			serializer = WordCloudAPISerializer(data=kwargs)
+			if serializer.is_valid():
 
-			# If user is authenticated
-			if (kwargs['data']['user']):
-				authenticated = True
+				print("Generating the wordcloud image...")
+
 				user_id = kwargs['data']['user']
-				image = random.randint(0, 9)
+				colors = random.randint(0, 74)
 
-				# Generating the custom random word cloud
-				wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap=colors_array[colors],mask=imageio.imread(BASE_DIR + '/static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(kwargs['data']['comments'])
-			else:
-				# Generating the word cloud				
-				wordcloud = WordCloud(background_color='white',width=1600,height=1200).generate(kwargs['data']['comments'])
-			
-			plt.imshow(wordcloud, interpolation='bilinear')
-			plt.axis("off")
+				# If user is authenticated
+				if (kwargs['data']['user']):
+					authenticated = True
+					user_id = kwargs['data']['user']
+					image = random.randint(0, 9)
 
-			# Set the path folder to generate the word cloud
-			if (os.path.exists(BASE_DIR + "/static/images/word_clouds")):
-				os.chdir(BASE_DIR + "/static/images/word_clouds")
-			else:
-				os.mkdir(BASE_DIR + "/static/images/word_clouds")
-				os.chdir(BASE_DIR + "/static/images/word_clouds")
-
-			# If user is authenticated
-			if user_id:
-				if (os.path.exists(BASE_DIR + "/static/images/word_clouds/" + str(user_id))):
-					os.chdir(BASE_DIR + "/static/images/word_clouds/" + str(user_id))
+					# Generating the custom random word cloud
+					wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap=colors_array[colors],mask=imageio.imread(BASE_DIR + '/static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(kwargs['data']['comments'])
 				else:
-					os.mkdir(BASE_DIR + "/static/images/word_clouds/" + str(user_id))
-					os.chdir(BASE_DIR + "/static/images/word_clouds/" + str(user_id))
+					# Generating the word cloud				
+					wordcloud = WordCloud(background_color='white',width=1600,height=1200).generate(kwargs['data']['comments'])
+				
+				plt.imshow(wordcloud, interpolation='bilinear')
+				plt.axis("off")
 
-			plt.savefig('./wordcloud.png', dpi=800,transparent = True, bbox_inches='tight', pad_inches=0)
+				# Set the path folder to generate the word cloud
+				if (os.path.exists(BASE_DIR + "/static/images/word_clouds")):
+					os.chdir(BASE_DIR + "/static/images/word_clouds")
+				else:
+					os.mkdir(BASE_DIR + "/static/images/word_clouds")
+					os.chdir(BASE_DIR + "/static/images/word_clouds")
 
-			# Getting the url of the word cloud image generated
-			if authenticated:
-				url = 'images/word_clouds/' + str(user_id) + '/' + os.listdir(os.getcwd())[0]
+				# If user is authenticated
+				if user_id:
+					if (os.path.exists(BASE_DIR + "/static/images/word_clouds/" + str(user_id))):
+						os.chdir(BASE_DIR + "/static/images/word_clouds/" + str(user_id))
+					else:
+						os.mkdir(BASE_DIR + "/static/images/word_clouds/" + str(user_id))
+						os.chdir(BASE_DIR + "/static/images/word_clouds/" + str(user_id))
+
+				plt.savefig('./wordcloud.png', dpi=800,transparent = True, bbox_inches='tight', pad_inches=0)
+
+				# Getting the url of the word cloud image generated
+				if authenticated:
+					url = 'images/word_clouds/' + str(user_id) + '/' + os.listdir(os.getcwd())[0]
+				else:
+					url = 'images/word_clouds/' + os.listdir(os.getcwd())[0]
+
+				os.chdir(BASE_DIR)
+				self.code = status.HTTP_200_OK
+				self.data['url'] = url
+				self.data['authenticated'] = authenticated
+				self.response_data['data'].append(self.data)
+
 			else:
-				url = 'images/word_clouds/' + os.listdir(os.getcwd())[0]
-
-			os.chdir(BASE_DIR)
-			self.code = status.HTTP_200_OK
-			self.data['url'] = url
-			self.data['authenticated'] = authenticated
-			self.response_data['data'].append(self.data)
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 		except Exception as e:
-			if not kwargs['data']['comments']:
-				self.error_message = 'Comments can"t be empty. '
-			else:
-				self.error_message = 'word_cloud_data format must be like: {"data": {"comments": ["twitter comments list"],"user": '' }} where user can be empty. '
-			logging.getLogger('error_logger').exception("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
+			self.data['url'] = '/images/word_cloud_masks/cloud500.png'			
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[API - WordCloudViewSet] - Error: " + self.error_message + str(e))
-			self.data['url'] = '/images/word_cloud_masks/cloud500.png'
-			self.response_data['data'].append(self.data)
+			logging.getLogger('error_logger').exception("[API - WordCloudViewSet] - Error: " + str(e))
+			self.response_data['error'].append("[API - WordCloudViewSet] - Error: " + str(e))
 
 		return Response(self.response_data,status=self.code)
 
@@ -206,7 +206,6 @@ class TwitterViewSet(viewsets.ViewSet):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
 		self.code = 0
-		self.error_message = ''
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
@@ -275,7 +274,7 @@ class UserViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0
+		self.code = 0		
 
 	def get_serializer_class(self):
 		if self.action in ['user_details']:
@@ -361,7 +360,7 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0
+		self.code = 0		
 
 	def get_serializer_class(self):
 		if self.action in ['dictionary_by_polarity']:
@@ -413,7 +412,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0
+		self.code = 0		
 
 	def get_serializer_class(self):
 		if self.action in ['custom_dictionary_kpi','user_custom_dictionary']:
@@ -455,16 +454,6 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			self.response_data['data'].append(self.data)
 			self.code = status.HTTP_200_OK
 		except Exception as e:
-			'''This kind of format data validation, will be improvement
-			coming soon
-			if not self.response_data['data']['user']:
-				self.response_data['data']['error'].append('User can"t be empty')
-			elif not self.response_data['data']['language']:
-				self.response_data['data']['error'].append('Language can"t be empty')
-			else:
-				self.response_data['data']['error'].append('Data format must be like: {"data": {"user": <user_id>, "language": <language_id> }}')
-			logging.getLogger('error_logger').exception("[CustomDictionaryView] - Error: " + self.response_data['error'] + str(e))
-			'''
 			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))			
@@ -642,7 +631,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}		
-		self.code = 0
+		self.code = 0		
 
 	def get_serializer_class(self):
 		if self.action in ['recent_search_kpi','recent_search']:
@@ -842,7 +831,7 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0
+		self.code = 0		
 
 	def get_serializer_class(self):
 		if self.action in ['accounts_by_social_network']:

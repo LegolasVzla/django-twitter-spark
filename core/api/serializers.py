@@ -1,5 +1,6 @@
 from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
+from rest_framework.serializers import ValidationError
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -39,8 +40,8 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
                 self.fields[field_name].required = True
 
 class WordCloudAPISerializer(serializers.ModelSerializer):
-	comments = serializers.CharField(allow_blank=False, max_length=100)
-	user = serializers.IntegerField(source='id')
+	comments = serializers.CharField(required=True)
+	user = serializers.IntegerField(source='id',required=False)
 	class Meta:
 		model = User
 		fields = ('comments','user')
@@ -52,8 +53,8 @@ class UserSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 		model = User
 		fields = ('__all__')
 
-class UserDetailsAPISerializer(serializers.ModelSerializer):
-	user = serializers.Field()
+class UserDetailsAPISerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
+	user = serializers.IntegerField()
 	class Meta:
 		model = User
 		fields = ('user',)
