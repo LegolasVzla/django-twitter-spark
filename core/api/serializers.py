@@ -1,6 +1,6 @@
 from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
-from rest_framework.serializers import ValidationError
+#from rest_framework.serializers import ValidationError
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -45,6 +45,20 @@ class WordCloudAPISerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
 		fields = ('comments','user')
+
+	def to_internal_value(self, data):
+		missing = []
+		for k in ['comments']:
+			try:
+				# Is the k field in the data and it's not empty?
+				if data[k] == '':
+					missing.append(k)
+			except Exception as e:
+				missing.append(k)
+			if len(missing):
+				raise ValueError("The following fields are required: %s" % ','.join(missing))
+				#raise serializers.ValidationError("The following fields are required: comments")
+		return data
 
 class UserSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	first_name = serializers.CharField(allow_blank=False, max_length=100)
