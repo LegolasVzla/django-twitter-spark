@@ -214,42 +214,48 @@ class TwitterViewSet(viewsets.ViewSet):
 		'''
 		twitter_accounts_data = {}
 		try:
-			# Get twtter accounts stored in SocialNetworkAccounts model 
-			_socialnetworkaccounts = SocialNetworkAccountsViewSet()
-			_socialnetworkaccounts.accounts_by_social_network(
-				social_network=kwargs['data']['social_network'])
+			serializer = SocialNetworkAccountsAPISerializer(data=kwargs['data'])
+			if serializer.is_valid():
 
-			# If request is success, connect with Tweepy
-			if _socialnetworkaccounts.code == 200:
-				twitter_accounts_data = _socialnetworkaccounts.response_data['data'][0]['accounts_by_social_network']
-				
-				_socialnetworksapiconnections = SocialNetworksApiConnections(self)
-				tweepy_api_client =_socialnetworksapiconnections.tweepy_connection()
+				# Get twtter accounts stored in SocialNetworkAccounts model 
+				_socialnetworkaccounts = SocialNetworkAccountsViewSet()
+				_socialnetworkaccounts.accounts_by_social_network(
+					social_network=kwargs['data']['social_network'])
 
-				# Iterate on each twitter accounts
-				for twitter_account_index, twitter_account_data in enumerate(twitter_accounts_data):
-
-					# Make the request to get tweets of the current twitter account
-					all_twitter_timeline_data = tweepy_api_client.user_timeline(
-						screen_name = twitter_account_data['name'], 
-						count=twitter_account_data['quantity_by_request'])
+				# If request is success, connect with Tweepy
+				if _socialnetworkaccounts.code == 200:
+					twitter_accounts_data = _socialnetworkaccounts.response_data['data'][0]['accounts_by_social_network']
 					
-					# Get twitter account name from the current twitter account
-					self.data['account_name'] = twitter_account_data['name']
-					self.data['tweet'] = []
+					_socialnetworksapiconnections = SocialNetworksApiConnections(self)
+					tweepy_api_client =_socialnetworksapiconnections.tweepy_connection()
 
-					# Iterate on each of the tweet data, extracted from the current twitter account
-					for tweet_data_index,tweet_data in enumerate(all_twitter_timeline_data):
-						tweet_element_data = {}
-						tweet_element_data['id'] = tweet_data['id']
-						tweet_element_data['text'] = tweet_data['text']
-						tweet_element_data['retweet_count'] = tweet_data['retweet_count']
-						tweet_element_data['favorite_count'] = tweet_data['favorite_count']
-						tweet_element_data['created_at'] = tweet_data['created_at']
-						self.data['tweet'].append(copy.deepcopy(tweet_element_data))
-					self.response_data['data'].append(copy.deepcopy(self.data))
+					# Iterate on each twitter accounts
+					for twitter_account_index, twitter_account_data in enumerate(twitter_accounts_data):
 
-				self.code = status.HTTP_200_OK
+						# Make the request to get tweets of the current twitter account
+						all_twitter_timeline_data = tweepy_api_client.user_timeline(
+							screen_name = twitter_account_data['name'], 
+							count=twitter_account_data['quantity_by_request'])
+						
+						# Get twitter account name from the current twitter account
+						self.data['account_name'] = twitter_account_data['name']
+						self.data['tweet'] = []
+
+						# Iterate on each of the tweet data, extracted from the current twitter account
+						for tweet_data_index,tweet_data in enumerate(all_twitter_timeline_data):
+							tweet_element_data = {}
+							tweet_element_data['id'] = tweet_data['id']
+							tweet_element_data['text'] = tweet_data['text']
+							tweet_element_data['retweet_count'] = tweet_data['retweet_count']
+							tweet_element_data['favorite_count'] = tweet_data['favorite_count']
+							tweet_element_data['created_at'] = tweet_data['created_at']
+							self.data['tweet'].append(copy.deepcopy(tweet_element_data))
+						self.response_data['data'].append(copy.deepcopy(self.data))
+
+					self.code = status.HTTP_200_OK
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - TwitterViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
