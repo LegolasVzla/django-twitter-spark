@@ -100,14 +100,12 @@ class WordCloudViewSet(viewsets.ViewSet):
 			if serializer.is_valid():
 
 				print("Generating the wordcloud image...")
-
 				user_id = kwargs['data']['user']
 				colors = random.randint(0, 74)
 
 				# If user is authenticated
-				if (kwargs['data']['user']):
+				if (user_id):
 					authenticated = True
-					user_id = kwargs['data']['user']
 					image = random.randint(0, 9)
 
 					# Generating the custom random word cloud

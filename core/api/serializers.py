@@ -47,17 +47,30 @@ class WordCloudAPISerializer(serializers.ModelSerializer):
 		fields = ('comments','user')
 
 	def to_internal_value(self, data):
-		missing = []
+		required = []
+		optionals = []
 		for k in ['comments']:
-			try:
-				# Is the k field in the data and it's not empty?
-				if data[k] == '':
-					missing.append(k)
-			except Exception as e:
-				missing.append(k)
-			if len(missing):
-				raise ValueError("The following fields are required: %s" % ','.join(missing))
-				#raise serializers.ValidationError("The following fields are required: comments")
+			'''
+			- Case 1: Is the k field in the data and it's empty?
+			- Case 2: Is not the k field in the data?
+			'''
+			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
+				required.append(k)
+
+		for k in ['user']:
+			# Is not the k field in the data?
+			if not data.keys().__contains__(k):
+				optionals.append(k)
+
+		if len(required) > 0 and len(optionals) > 0:
+			raise ValueError("The following fields are required: %s" % ','.join(required) + " and the following fields are needed but can be empty: %s" % ','.join(optionals))
+
+		elif len(required) > 0 and len(optionals) == 0:
+			raise ValueError("The following fields are required: %s" % ','.join(required))
+
+		elif len(required) == 0 and len(optionals) > 0:
+			raise ValueError("The following fields are needed but can be empty: %s" % ','.join(optionals))
+
 		return data
 
 class UserSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
