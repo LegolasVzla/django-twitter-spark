@@ -701,63 +701,70 @@ class SearchViewSet(viewsets.ModelViewSet):
 		- Mandatory: user, social_network_id
 		'''
 		try:
-			# 1. Get the total of search of the current user
-			total_search = Search.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user']
-			).count()
+			serializer = RecentSearchAPISerializer(data=kwargs['data'])
+			if serializer.is_valid():
+			
+				# 1. Get the total of search of the current user
+				total_search = Search.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network=kwargs['data']['social_network'],
+					user_id=kwargs['data']['user']
+				).count()
 
-			# Then, calculate the % of the positive and negative search done 
-			# by the current user
-			self.data['weighted_group'] = Search.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user']
-			).values('polarity').annotate(
-				weighted_group=Count('polarity')*100/total_search)
+				# Then, calculate the % of the positive and negative search done 
+				# by the current user
+				self.data['weighted_group'] = Search.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network=kwargs['data']['social_network'],
+					user_id=kwargs['data']['user']
+				).values('polarity').annotate(
+					weighted_group=Count('polarity')*100/total_search)
 
-			# 2. Get the total of the positive search
-			total_positive_search = Search.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user'],
-				polarity='P'
-			).count()
+				# 2. Get the total of the positive search
+				total_positive_search = Search.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network=kwargs['data']['social_network'],
+					user_id=kwargs['data']['user'],
+					polarity='P'
+				).count()
 
-			# Then, get the top five positive most wanted words of the 
-			# current user 
-			self.data['top_positive_search'] = Search.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user'],
-				polarity='P'
-			).values('word').order_by('-count').annotate(count=Count('word')*100/total_positive_search)[:5]
+				# Then, get the top five positive most wanted words of the 
+				# current user 
+				self.data['top_positive_search'] = Search.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network=kwargs['data']['social_network'],
+					user_id=kwargs['data']['user'],
+					polarity='P'
+				).values('word').order_by('-count').annotate(count=Count('word')*100/total_positive_search)[:5]
 
-			# 3. Get the total of the negative search
-			total_negative_search = Search.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user'],
-				polarity='N'
-			).count()
+				# 3. Get the total of the negative search
+				total_negative_search = Search.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network=kwargs['data']['social_network'],
+					user_id=kwargs['data']['user'],
+					polarity='N'
+				).count()
 
-			# Then, get the top negative positive most wanted words of the 
-			# current user
-			self.data['top_negative_search'] = Search.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user'],
-				polarity='N'
-			).values('word').order_by('-count').annotate(count=Count('word')*100/total_negative_search)[:5]
-			self.response_data['data'].append(self.data)
-			self.code = status.HTTP_200_OK
+				# Then, get the top negative positive most wanted words of the 
+				# current user
+				self.data['top_negative_search'] = Search.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network=kwargs['data']['social_network'],
+					user_id=kwargs['data']['user'],
+					polarity='N'
+				).values('word').order_by('-count').annotate(count=Count('word')*100/total_negative_search)[:5]
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - RecentSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -772,18 +779,25 @@ class SearchViewSet(viewsets.ModelViewSet):
 		- Mandatory: user, social_network_id
 		'''
 		try:
-			queryset = Search.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user']).order_by('id').reverse()
+			serializer = RecentSearchAPISerializer(data=kwargs['data'])
+			if serializer.is_valid():
 
-			# Get the recently search of the current user
-			serializer = SearchSerializer(queryset, many=True, fields=(
-				'id','word','polarity','liked','shared','searched_date'))
-			self.data['recently_search'] = json.loads(json.dumps(serializer.data))
-			self.code = status.HTTP_200_OK
-			self.response_data['data'].append(self.data)
+				queryset = Search.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network=kwargs['data']['social_network'],
+					user_id=kwargs['data']['user']).order_by('id').reverse()
+
+				# Get the recently search of the current user
+				serializer = SearchSerializer(queryset, many=True, fields=(
+					'id','word','polarity','liked','shared','searched_date'))
+				self.data['recently_search'] = json.loads(json.dumps(serializer.data))
+				self.code = status.HTTP_200_OK
+				self.response_data['data'].append(self.data)
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - RecentSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -800,54 +814,59 @@ class SearchViewSet(viewsets.ModelViewSet):
 		- Mandatory: social_network_id, word, user_id
 		'''
 		try:
-			self.data['word'] = kwargs['data']['word']
-			# 1. Get the information related with the timeline of the word 
-			# on Twitter in function of polarity
-			queryset = Search.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user'],
-				word=kwargs['data']['word']
-			).values('polarity','sentiment_analysis_percentage','searched_date').order_by('id')
+			serializer = WordDetailsAPISerializer(data=kwargs['data'])
+			if serializer.is_valid():
 
-			serializer = SearchSerializer(queryset, many=True, fields=('liked','searched_date'))
-			self.data['timeline_word_twitter_polarity'] = json.loads(json.dumps(serializer.data))
+				self.data['word'] = kwargs['data']['word']
+				# 1. Get the information related with the timeline of the word 
+				# on Twitter in function of polarity
+				queryset = Search.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network=kwargs['data']['social_network'],
+					user_id=kwargs['data']['user'],
+					word=kwargs['data']['word']
+				).values('polarity','sentiment_analysis_percentage','searched_date').order_by('id')
 
-			# 2. Get the information related with the timeline of the word
-			# on Twitter in function of likes
-			queryset = Search.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user'],
-				word=kwargs['data']['word']
-			).values('liked','searched_date').order_by('id')
+				serializer = SearchSerializer(queryset, many=True, fields=('liked','searched_date'))
+				self.data['timeline_word_twitter_polarity'] = json.loads(json.dumps(serializer.data))
 
-			serializer = SearchSerializer(queryset, many=True, fields=('liked','searched_date'))
-			self.data['timeline_word_twitter_likes'] = json.loads(json.dumps(serializer.data))
+				# 2. Get the information related with the timeline of the word
+				# on Twitter in function of likes
+				queryset = Search.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network=kwargs['data']['social_network'],
+					user_id=kwargs['data']['user'],
+					word=kwargs['data']['word']
+				).values('liked','searched_date').order_by('id')
 
-			# 3. Get the information related with the timeline of the word
-			# on Twitter in function of retweets
-			queryset = Search.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network=kwargs['data']['social_network'],
-				user_id=kwargs['data']['user'],
-				word=kwargs['data']['word']
-			).values('shared','searched_date').order_by('id')
+				serializer = SearchSerializer(queryset, many=True, fields=('liked','searched_date'))
+				self.data['timeline_word_twitter_likes'] = json.loads(json.dumps(serializer.data))
 
-			serializer = SearchSerializer(queryset, many=True, fields=('shared','searched_date'))
-			self.data['timeline_word_twitter_shared'] = json.loads(json.dumps(serializer.data))
-			self.response_data['data'].append(self.data)
-			self.code = status.HTTP_200_OK
-			return Response(self.response_data,status=self.code)
+				# 3. Get the information related with the timeline of the word
+				# on Twitter in function of retweets
+				queryset = Search.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network=kwargs['data']['social_network'],
+					user_id=kwargs['data']['user'],
+					word=kwargs['data']['word']
+				).values('shared','searched_date').order_by('id')
+
+				serializer = SearchSerializer(queryset, many=True, fields=('shared','searched_date'))
+				self.data['timeline_word_twitter_shared'] = json.loads(json.dumps(serializer.data))
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - RecentSearchTwitterView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[API - RecentSearchTwitterView] - Error: " + str(e))
-			return Response(self.response_data,status=self.code)
+		return Response(self.response_data,status=self.code)
 
 class WordRootViewSet(viewsets.ModelViewSet):
 	'''

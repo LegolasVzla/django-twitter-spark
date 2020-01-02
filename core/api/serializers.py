@@ -217,12 +217,42 @@ class RecentSearchAPISerializer(serializers.ModelSerializer):
 		model = Search
 		fields = ('user','social_network','searched_date')
 
+	def to_internal_value(self, data):
+		required = []
+		for k in ['user','social_network']:
+			'''
+			- Case 1: Is the k field in the data and it's empty?
+			- Case 2: Is not the k field in the data?
+			'''
+			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
+				required.append(k)
+
+		if len(required):
+			raise ValueError("The following fields are required: %s" % ','.join(required))
+
+		return data
+
 class WordDetailsAPISerializer(serializers.ModelSerializer):
 	searched_date = serializers.DateTimeField(format="%d-%m-%Y")
 	#user = serializers.IntegerField(source='user_id')
 	class Meta:
 		model = Search
 		fields = ('user','social_network','word','searched_date')
+
+	def to_internal_value(self, data):
+		required = []
+		for k in ['user','social_network','word']:
+			'''
+			- Case 1: Is the k field in the data and it's empty?
+			- Case 2: Is not the k field in the data?
+			'''
+			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
+				required.append(k)
+
+		if len(required):
+			raise ValueError("The following fields are required: %s" % ','.join(required))
+
+		return data
 
 class WordRootSerializer(serializers.ModelSerializer):
 	class Meta:
