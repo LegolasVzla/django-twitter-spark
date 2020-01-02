@@ -211,6 +211,7 @@ class TwitterViewSet(viewsets.ViewSet):
 		'''
 		- POST method (tweets_get): get twitter data from 
 		SocialNetworkAccounts Model using Tweepy
+		- Mandatory: social_network
 		'''
 		twitter_accounts_data = {}
 		try:
@@ -293,19 +294,25 @@ class UserViewSet(viewsets.ModelViewSet):
 		'''
 		- POST method (user_details): get specific fields of the user
 		(id,first_name,last_name,email)
-		comments.
 		- Mandatory: user
 		'''
 		try:
-			queryset = get_object_or_404(
-				User.objects.filter(
-					id=kwargs['data']['user'],
-					is_active=True,
-					is_deleted=False
-				).values('id','first_name','last_name','email'))
-			self.data = queryset
-			self.response_data['data'].append(self.data)
-			self.code = status.HTTP_200_OK
+			serializer = UserDetailsAPISerializer(data=kwargs['data'])
+			if serializer.is_valid():
+
+				queryset = get_object_or_404(
+					User.objects.filter(
+						id=kwargs['data']['user'],
+						is_active=True,
+						is_deleted=False
+					).values('id','first_name','last_name','email'))
+				self.data = queryset
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - UserView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -319,28 +326,60 @@ class UserViewSet(viewsets.ModelViewSet):
 		- PUT method (profile_update): updated user from email input
 		comments.
 		- Mandatory: email
+		- Optionals: first_name, last_name
 		'''
 		try:
-			# Get the instance of the user requested to edit
-			instance = User.objects.get(email=kwargs['data']['email'])
-
-			if not kwargs['data']['first_name']:
-				serializer = UserSerializer(instance, data=kwargs['data'], partial=True, fields=('email','first_name','last_name'), required_fields=['email'],excluded_fields=['first_name'])
-			elif not kwargs['data']['last_name']:
-				serializer = UserSerializer(instance, data=kwargs['data'], partial=True, fields=('email','first_name','last_name'), required_fields=['email'],excluded_fields=['last_name'])
-			else:
-				serializer = UserSerializer(instance, data=kwargs['data'], partial=True, fields=('email','first_name','last_name'), required_fields=['email'])
-
+			serializer = UserProfileUpdateAPISerializer(data=kwargs['data'])
 			if serializer.is_valid():
-				serializer.save()
-				self.data['id'] = instance.id
-				self.data['first_name'] = instance.first_name
-				self.data['last_name'] = instance.last_name
-				self.response_data['data'].append(self.data)
-				self.code = status.HTTP_200_OK
+
+				# Get the instance of the user requested to edit
+				instance = User.objects.get(email=kwargs['data']['email'])
+
+				if not kwargs['data']['first_name'] and not kwargs['data']['last_name']:
+					serializer = UserSerializer(instance,
+						data=kwargs['data'],
+						partial=True,
+						fields=('email','first_name','last_name'),
+						required_fields=['email'],
+						excluded_fields=['first_name','last_name']
+					)
+
+				elif not kwargs['data']['first_name']:
+					serializer = UserSerializer(instance,
+						data=kwargs['data'],
+						partial=True,
+						fields=('email','first_name','last_name'),
+						required_fields=['email'],
+						excluded_fields=['first_name'])
+
+				elif not kwargs['data']['last_name']:
+					serializer = UserSerializer(instance,
+						data=kwargs['data'],
+						partial=True,
+						fields=('email','first_name','last_name'),
+						required_fields=['email'],
+						excluded_fields=['last_name'])
+				else:
+					serializer = UserSerializer(instance,
+						data=kwargs['data'],
+						partial=True,
+						fields=('email','first_name','last_name'),
+						required_fields=['email'])
+
+				if serializer.is_valid():
+					serializer.save()
+					self.data['id'] = instance.id
+					self.data['first_name'] = instance.first_name
+					self.data['last_name'] = instance.last_name
+					self.response_data['data'].append(self.data)
+					self.code = status.HTTP_200_OK
+				else:
+					self.response_data['error'].append("[API - UserView] - Error: " + serializer.errors)
+					self.code = status.HTTP_400_BAD_REQUEST
+
 			else:
-				self.response_data['error'].append("[API - UserView] - Error: " + serializer.errors)
-				self.code = status.HTTP_400_BAD_REQUEST
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - UserView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR

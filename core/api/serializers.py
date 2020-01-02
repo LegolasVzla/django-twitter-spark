@@ -86,6 +86,21 @@ class UserDetailsAPISerializer(DynamicFieldsModelSerializer,serializers.ModelSer
 		model = User
 		fields = ('user',)
 
+	def to_internal_value(self, data):
+		required = []
+		for k in ['user']:
+			'''
+			- Case 1: Is the k field in the data and it's empty?
+			- Case 2: Is not the k field in the data?
+			'''
+			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
+				required.append(k)
+
+		if len(required):
+			raise ValueError("The following fields are required: %s" % ','.join(required))
+
+		return data
+
 class UserProfileUpdateAPISerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	class Meta:
 		model = User
@@ -96,6 +111,33 @@ class UserProfileUpdateAPISerializer(DynamicFieldsModelSerializer,serializers.Mo
 		instance.last_name = data.get("last_name")
 		instance.save()
 		return instance
+
+	def to_internal_value(self, data):
+		required = []
+		optionals = []
+		for k in ['email']:
+			'''
+			- Case 1: Is the k field in the data and it's empty?
+			- Case 2: Is not the k field in the data?
+			'''
+			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
+				required.append(k)
+
+		for k in ['first_name','last_name']:
+			# Is not the k field in the data?
+			if not data.keys().__contains__(k):
+				optionals.append(k)
+
+		if len(required) > 0 and len(optionals) > 0:
+			raise ValueError("The following fields are required: %s" % ','.join(required) + " and the following fields are needed but can be empty: %s" % ','.join(optionals))
+
+		elif len(required) > 0 and len(optionals) == 0:
+			raise ValueError("The following fields are required: %s" % ','.join(required))
+
+		elif len(required) == 0 and len(optionals) > 0:
+			raise ValueError("The following fields are needed but can be empty: %s" % ','.join(optionals))
+
+		return data
 
 class DictionarySerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	class Meta:
