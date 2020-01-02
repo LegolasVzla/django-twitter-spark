@@ -419,19 +419,27 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 		- Mandatory: polarity, language_id
 		'''
 		try:
-			queryset = Dictionary.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				polarity=kwargs['data']['polarity'],
-				language_id=kwargs['data']['language']
-				).order_by('id')
-			# Missing language field in required_fields parameter...
-			serializer = DictionarySerializer(queryset,many=True,
-				required_fields=['polarity'],
-				fields=('id','word','polarity'))
-			self.data['words']=json.loads(json.dumps(serializer.data))
-			self.response_data['data'].append(self.data)
-			self.code = status.HTTP_200_OK
+			serializer = DictionaryPolarityAPISerializer(data=kwargs['data'])
+
+			if serializer.is_valid():
+
+				queryset = Dictionary.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					polarity=kwargs['data']['polarity'],
+					language_id=kwargs['data']['language']
+					).order_by('id')
+				# Missing language field in required_fields parameter...
+				serializer = DictionarySerializer(queryset,many=True,
+					required_fields=['polarity'],
+					fields=('id','word','polarity'))
+				self.data['words']=json.loads(json.dumps(serializer.data))
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - DictionaryViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -891,7 +899,7 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 		'''
 		try:
 			serializer = SocialNetworkAccountsSerializer(data=kwargs['data'])
-			
+
 			if serializer.is_valid():
 
 				queryset = SocialNetworkAccounts.objects.filter(
