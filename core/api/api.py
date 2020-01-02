@@ -890,16 +890,24 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 		- Mandatory: social network account
 		'''
 		try:
-			queryset = SocialNetworkAccounts.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				social_network_id=kwargs['data']['social_network']).order_by('id')
-			serializer = SocialNetworkAccountsSerializer(queryset,many=True,
-				required_fields=['social_network'],
-				fields=('id','name','social_network','quantity_by_request'))
-			self.data['accounts_by_social_network']=json.loads(json.dumps(serializer.data))
-			self.response_data['data'].append(self.data)
-			self.code = status.HTTP_200_OK
+			serializer = SocialNetworkAccountsSerializer(data=kwargs['data'])
+			
+			if serializer.is_valid():
+
+				queryset = SocialNetworkAccounts.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					social_network_id=kwargs['data']['social_network']).order_by('id')
+				serializer = SocialNetworkAccountsSerializer(queryset,many=True,
+					required_fields=['social_network'],
+					fields=('id','name','social_network','quantity_by_request'))
+				self.data['accounts_by_social_network']=json.loads(json.dumps(serializer.data))
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - SocialNetworkAccountsViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
