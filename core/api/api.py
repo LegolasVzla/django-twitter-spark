@@ -482,28 +482,35 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		- Mandatory: user, language
 		'''
 		try:
-			self.data['total_words'] = CustomDictionary.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				language_id=kwargs['data']['language'],
-				user_id=kwargs['data']['user']
-			).count()			
-			self.data['total_positive_words'] = CustomDictionary.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				language_id=kwargs['data']['language'],
-				user_id=kwargs['data']['user'],
-				polarity='P'
-			).count()
-			self.data['total_negative_words'] = CustomDictionary.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				language_id=kwargs['data']['language'],
-				user_id=kwargs['data']['user'],
-				polarity='N'
-			).count()
-			self.response_data['data'].append(self.data)
-			self.code = status.HTTP_200_OK
+			serializer = CustomDictionaryKpiAPISerializer(data=kwargs['data'])
+			if serializer.is_valid():
+
+				self.data['total_words'] = CustomDictionary.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					language_id=kwargs['data']['language'],
+					user_id=kwargs['data']['user']
+				).count()			
+				self.data['total_positive_words'] = CustomDictionary.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					language_id=kwargs['data']['language'],
+					user_id=kwargs['data']['user'],
+					polarity='P'
+				).count()
+				self.data['total_negative_words'] = CustomDictionary.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					language_id=kwargs['data']['language'],
+					user_id=kwargs['data']['user'],
+					polarity='N'
+				).count()
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -518,18 +525,25 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		- Mandatory: user, language
 		'''
 		try:
-			self.data['custom_dictionary'] = CustomDictionary.objects.filter(
-				is_active=True,
-				is_deleted=False,
-				language_id=kwargs['data']['language'],
-				user_id=kwargs['data']['user']
-			).order_by('id').values(
-				'id','word','polarity','created_date','updated_date')
-			#content = JSONRenderer().render(serializer.data)
-			#stream = io.BytesIO(content)
-			#self.response_data['data']['custom_dictionary'] = JSONParser().parse(stream)
-			self.response_data['data'].append(self.data)
-			self.code = status.HTTP_200_OK
+			serializer = CustomDictionaryKpiAPISerializer(data=kwargs['data'])
+			if serializer.is_valid():
+
+				self.data['custom_dictionary'] = CustomDictionary.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					language_id=kwargs['data']['language'],
+					user_id=kwargs['data']['user']
+				).order_by('id').values(
+					'id','word','polarity','created_date','updated_date')
+				#content = JSONRenderer().render(serializer.data)
+				#stream = io.BytesIO(content)
+				#self.response_data['data']['custom_dictionary'] = JSONParser().parse(stream)
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -544,6 +558,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		- Mandatory: user, word
 		'''
 		try:
+
 			# The request comes from the web app
 			queryset = CustomDictionary.objects.filter(
 				id=kwargs['data']['word'],
@@ -553,10 +568,15 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			self.data = queryset[0]
 			self.response_data['data'].append(self.data)
 			self.code = status.HTTP_200_OK
+
 		except Exception as e:
+
 			try:
-				# The request comes from DRF Api View
-				if kwargs['data'].dict():
+
+				# The request comes from DRF API View, Swagger, Postman...
+				serializer = CustomDictionaryWordAPISerializer(data=kwargs['data'])
+				if serializer.is_valid():
+
 					# Get the instance of the requested word to edit
 					queryset = get_object_or_404(
 						CustomDictionary.objects.filter(
@@ -569,6 +589,10 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 					self.data['custom_dictionary']=queryset
 					self.response_data['data'].append(self.data)
 					self.code = status.HTTP_200_OK
+
+				else:
+					return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 			except Exception as e:
 				logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
 				self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -584,13 +608,14 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		try:
 			serializer = CustomDictionarySerializer(data=kwargs['data'])
 			if serializer.is_valid():
+
 				serializer.save()
 				self.data['word'] = kwargs['data']['word']
 				self.response_data['data'].append(self.data)
 				self.code = status.HTTP_200_OK
 			else:
-				self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + serializer.errors)
-				self.code = status.HTTP_400_BAD_REQUEST
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
