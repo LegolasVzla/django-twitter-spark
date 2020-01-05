@@ -482,7 +482,11 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		- Mandatory: user, language
 		'''
 		try:
-			serializer = CustomDictionaryKpiAPISerializer(data=kwargs['data'])
+			serializer = CustomDictionarySerializer(
+				data=kwargs['data'],
+				fields=('language','user'),
+				required_fields=['language','user'])
+
 			if serializer.is_valid():
 
 				self.data['total_words'] = CustomDictionary.objects.filter(
@@ -525,7 +529,12 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		- Mandatory: user, language
 		'''
 		try:
-			serializer = CustomDictionaryKpiAPISerializer(data=kwargs['data'])
+
+			serializer = CustomDictionarySerializer(
+				data=kwargs['data'],
+				fields=('language','user'),
+				required_fields=['language','user'])
+
 			if serializer.is_valid():
 
 				self.data['custom_dictionary'] = CustomDictionary.objects.filter(
@@ -574,7 +583,11 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 			try:
 
 				# The request comes from DRF API View, Swagger, Postman...
-				serializer = CustomDictionaryWordAPISerializer(data=kwargs['data'])
+				serializer = CustomDictionarySerializer(
+					data=kwargs['data'],
+					fields=('word','user'),
+					required_fields=['word','user'])
+
 				if serializer.is_valid():
 
 					# Get the instance of the requested word to edit
@@ -613,6 +626,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 				self.data['word'] = kwargs['data']['word']
 				self.response_data['data'].append(self.data)
 				self.code = status.HTTP_200_OK
+
 			else:
 				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 

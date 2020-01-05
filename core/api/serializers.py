@@ -169,49 +169,19 @@ class DictionaryPolarityAPISerializer(DynamicFieldsModelSerializer,serializers.M
 		return data
 
 class CustomDictionarySerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
-	class Meta:
-		model = CustomDictionary
-		fields = ('__all__')
+    class Meta:
+        model = CustomDictionary
+        fields = ('__all__')
 
 class CustomDictionaryKpiAPISerializer(serializers.ModelSerializer):
 	class Meta:
 		model = CustomDictionary
 		fields = ('user','language')
 
-	def to_internal_value(self, data):
-		required = []
-		for k in ['user','language']:
-			'''
-			- Case 1: Is the k field in the data and it's empty?
-			- Case 2: Is not the k field in the data?
-			'''
-			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
-				required.append(k)
-
-		if len(required):
-			raise ValueError("The following fields are required: %s" % ','.join(required))
-
-		return data
-
 class CustomDictionaryWordAPISerializer(serializers.ModelSerializer):
 	class Meta:
 		model = CustomDictionary
 		fields = ('user','word')
-
-	def to_internal_value(self, data):
-		required = []
-		for k in ['user','word']:
-			'''
-			- Case 1: Is the k field in the data and it's empty?
-			- Case 2: Is not the k field in the data?
-			'''
-			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
-				required.append(k)
-
-		if len(required):
-			raise ValueError("The following fields are required: %s" % ','.join(required))
-
-		return data
 
 class CustomDictionaryPolaritySerializer(serializers.ModelSerializer):
 	class Meta:
