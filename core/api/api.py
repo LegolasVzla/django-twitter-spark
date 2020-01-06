@@ -994,7 +994,9 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 		- Mandatory: social network account
 		'''
 		try:
-			serializer = SocialNetworkAccountsSerializer(data=kwargs['data'])
+			serializer = SocialNetworkAccountsSerializer(
+				data=kwargs['data'],
+				fields=['social_network'])
 
 			if serializer.is_valid():
 

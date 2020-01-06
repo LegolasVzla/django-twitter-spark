@@ -208,37 +208,7 @@ class SocialNetworkAccountsSerializer(DynamicFieldsModelSerializer,serializers.M
 		model = SocialNetworkAccounts
 		fields = ('__all__')
 
-	def to_internal_value(self, data):
-		required = []
-		for k in ['social_network']:
-			'''
-			- Case 1: Is the k field in the data and it's empty?
-			- Case 2: Is not the k field in the data?
-			'''
-			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
-				required.append(k)
-
-		if len(required):
-			raise ValueError("The following fields are required: %s" % ','.join(required))
-
-		return data
-
 class SocialNetworkAccountsAPISerializer(serializers.ModelSerializer):
 	class Meta:
 		model = SocialNetworkAccounts
 		fields = ('social_network',)
-
-	def to_internal_value(self, data):
-		required = []
-		for k in ['social_network']:
-			'''
-			- Case 1: Is the k field in the data and it's empty?
-			- Case 2: Is not the k field in the data?
-			'''
-			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
-				required.append(k)
-
-		if len(required):
-			raise ValueError("The following fields are required: %s" % ','.join(required))
-
-		return data
