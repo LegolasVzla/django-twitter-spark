@@ -149,25 +149,6 @@ class DictionaryPolarityAPISerializer(DynamicFieldsModelSerializer,serializers.M
 		model = Dictionary
 		fields = ('polarity','language')
 
-	def to_internal_value(self, data):
-		required = []
-
-		if not data['polarity'] in ['P','N']:
-			raise ValueError("Polarity value must be 'P' (Positive) or 'N' (Negative)")
-
-		for k in ['polarity','language']:
-			'''
-			- Case 1: Is the k field in the data and it's empty?
-			- Case 2: Is not the k field in the data?
-			'''
-			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
-				required.append(k)
-
-		if len(required):
-			raise ValueError("The following fields are required: %s" % ','.join(required))
-
-		return data
-
 class CustomDictionarySerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	class Meta:
 		model = CustomDictionary

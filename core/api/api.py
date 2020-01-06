@@ -419,7 +419,9 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 		- Mandatory: polarity, language_id
 		'''
 		try:
-			serializer = DictionaryPolarityAPISerializer(data=kwargs['data'])
+			serializer = DictionarySerializer(
+				data=kwargs['data'],
+				fields=['polarity','language'])
 
 			if serializer.is_valid():
 
@@ -428,16 +430,25 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 					is_deleted=False,
 					polarity=kwargs['data']['polarity'],
 					language_id=kwargs['data']['language']
-					).order_by('id')
-				# Missing language field in required_fields parameter...
-				serializer = DictionarySerializer(queryset,many=True,
-					required_fields=['polarity'],
-					fields=('id','word','polarity'))
+				).order_by('id')
+				page = self.paginate_queryset(queryset)
+
+				if page is not None:
+
+					serializer = DictionarySerializer(page,many=True,required_fields=['polarity'],fields=('id','word','polarity'))
+					self.data['words']=json.loads(json.dumps(serializer.data))
+					self.response_data['data'].append(self.data)
+					self.code = status.HTTP_200_OK
+					return self.get_paginated_response(serializer.data)
+
+				serializer = DictionarySerializer(queryset,many=True,required_fields=['polarity'],fields=('id','word','polarity'))
 				self.data['words']=json.loads(json.dumps(serializer.data))
 				self.response_data['data'].append(self.data)
-				self.code = status.HTTP_200_OK
+				self.code = status.HTTP_200_OK              
+				return Response(serializer.data)
 
 			else:
+
 				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 		except Exception as e:
