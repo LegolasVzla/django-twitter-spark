@@ -861,6 +861,17 @@ class SearchViewSet(viewsets.ModelViewSet):
 					is_deleted=False,
 					social_network=kwargs['data']['social_network'],
 					user_id=kwargs['data']['user']).order_by('id').reverse()
+				page = self.paginate_queryset(queryset)
+
+				if page is not None:
+
+					# Get the recently search of the current user
+					serializer = SearchSerializer(page, many=True, fields=(
+						'id','word','polarity','liked','shared','searched_date'))
+					self.data['recently_search'] = json.loads(json.dumps(serializer.data))
+					self.code = status.HTTP_200_OK
+					self.response_data['data'].append(self.data)
+					return self.get_paginated_response(serializer.data)					
 
 				# Get the recently search of the current user
 				serializer = SearchSerializer(queryset, many=True, fields=(
