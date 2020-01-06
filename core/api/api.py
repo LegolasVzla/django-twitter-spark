@@ -769,7 +769,10 @@ class SearchViewSet(viewsets.ModelViewSet):
 		- Mandatory: user, social_network_id
 		'''
 		try:
-			serializer = RecentSearchAPISerializer(data=kwargs['data'])
+			serializer = SearchSerializer(
+				data=kwargs['data'],
+				fields=['social_network','user'])
+
 			if serializer.is_valid():
 			
 				# 1. Get the total of search of the current user
@@ -847,7 +850,10 @@ class SearchViewSet(viewsets.ModelViewSet):
 		- Mandatory: user, social_network_id
 		'''
 		try:
-			serializer = RecentSearchAPISerializer(data=kwargs['data'])
+			serializer = SearchSerializer(
+				data=kwargs['data'],
+				fields=['social_network','user'])
+
 			if serializer.is_valid():
 
 				queryset = Search.objects.filter(
@@ -882,7 +888,10 @@ class SearchViewSet(viewsets.ModelViewSet):
 		- Mandatory: social_network_id, word, user_id
 		'''
 		try:
-			serializer = WordDetailsAPISerializer(data=kwargs['data'])
+			serializer = SearchSerializer(
+				data=kwargs['data'],
+				fields=['social_network','user','word'])
+
 			if serializer.is_valid():
 
 				self.data['word'] = kwargs['data']['word']
