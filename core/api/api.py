@@ -643,22 +643,40 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		- Mandatory: word_id, polarity
 		'''
 		try:
-			# Get the instance of the requested word to edit
-			instance = CustomDictionary.objects.get(id=kwargs['pk'])
+			data = None
+			custom_dictionary_id = None
 
-			serializer = CustomDictionaryPolaritySerializer(instance, 
-				data=kwargs['data'], partial=True)
-			#serializer = CustomDictionarySerializer(instance, data=kwargs['data'],required_fields=['polarity'],partial=True)
+			# The request comes from DRF API View          
+			if kwargs.keys().__contains__('pk'):
+				data = request.data
+				custom_dictionary_id = kwargs['pk']
+			else:
+				# The request comes from Web App, Swagger, Postman
+				data = kwargs['data']
+				custom_dictionary_id = kwargs['data']['id']
+
+			serializer = CustomDictionarySerializer(data=data,
+				fields=('id','polarity'),
+				required_fields=['id','polarity'])
 
 			if serializer.is_valid():
-				serializer.save()
-				self.data['id'] = instance.id
-				self.data['word'] = instance.word
-				self.response_data['data'].append(self.data)
-				self.code = status.HTTP_200_OK
+
+				# Get the instance of the requested word to edit
+				instance = CustomDictionary.objects.get(id=custom_dictionary_id)
+				serializer = CustomDictionaryPolaritySerializer(instance,
+					data=data,partial=True)
+
+				if serializer.is_valid():
+					serializer.save()
+					self.data['id'] = instance.id
+					self.data['word'] = instance.word
+					self.response_data['data'].append(self.data)
+					self.code = status.HTTP_200_OK
+				else:
+					return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 			else:
-				self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + serializer.errors)
-				self.code = status.HTTP_400_BAD_REQUEST
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR

@@ -160,7 +160,7 @@ class CustomDictionaryView(View):
 				# In the modal of "Ver Mi Diccionario" section,
 				# when edit the polarity of a word, save the changes
 				_customdictionary = CustomDictionaryViewSet()
-				_customdictionary.update(request,pk=request.GET['word_id'],polarity=new_polarity)
+				_customdictionary.update(request,id=request.GET['word_id'],polarity=new_polarity)
 				self.code = _customdictionary.code
 				self.response_data['data'] = _customdictionary.response_data['data'][0]
 

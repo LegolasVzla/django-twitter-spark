@@ -169,9 +169,9 @@ class DictionaryPolarityAPISerializer(DynamicFieldsModelSerializer,serializers.M
 		return data
 
 class CustomDictionarySerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
-    class Meta:
-        model = CustomDictionary
-        fields = ('__all__')
+	class Meta:
+		model = CustomDictionary
+		fields = ('__all__')
 
 class CustomDictionaryKpiAPISerializer(serializers.ModelSerializer):
 	class Meta:
