@@ -233,10 +233,19 @@ class TimelineSearchTwitterView(View):
 	def get(self, request, *args, **kwargs):
 		try:
 			_recent_search = SearchViewSet()
-			_recent_search.word_details(request,social_network=1,
+			_recent_search.twitter_timeline_polarity(request,social_network=1,
 				word=request.GET.get('word',None),user=1)
 			self.response_data['data'] = _recent_search.response_data['data'][0]
-			self.code = _recent_search.code
+
+			_recent_search.twitter_timeline_likes(request,social_network=1,
+				word=request.GET.get('word',None),user=1)
+			self.response_data['data'] = _recent_search.response_data['data'][0]
+
+			_recent_search.twitter_timeline_shared(request,social_network=1,
+				word=request.GET.get('word',None),user=1)
+			self.response_data['data'] = _recent_search.response_data['data'][0]
+
+			self.code = status.HTTP_200_OK
 			self.response_data['data']['code'] = self.code
 			#import pdb;pdb.set_trace()
 

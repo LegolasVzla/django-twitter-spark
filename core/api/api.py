@@ -215,7 +215,10 @@ class TwitterViewSet(viewsets.ViewSet):
 		'''
 		twitter_accounts_data = {}
 		try:
-			serializer = SocialNetworkAccountsAPISerializer(data=kwargs['data'])
+			serializer = SocialNetworkAccountsSerializer(
+				data=kwargs['data'],
+				fields=['social_network'])
+
 			if serializer.is_valid():
 
 				# Get twtter accounts stored in SocialNetworkAccounts model 
@@ -755,7 +758,8 @@ class SearchViewSet(viewsets.ModelViewSet):
 	def get_serializer_class(self):
 		if self.action in ['recent_search_kpi','recent_search']:
 			return RecentSearchAPISerializer
-		if self.action in ['word_details']:
+		if self.action in ['twitter_timeline_polarity',
+			'twitter_timeline_likes','twitter_timeline_shared']:
 			return WordDetailsAPISerializer
 		return SearchSerializer
 
@@ -880,11 +884,11 @@ class SearchViewSet(viewsets.ModelViewSet):
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
-	def word_details(self, request, *args, **kwargs):
+	def twitter_timeline_polarity(self, request, *args, **kwargs):
 		'''
 		- POST method (word_details): get an user timeline of a word 
-		searched (timeline_word_twitter_shared,timeline_word_twitter_likes,
-		timeline_word_twitter_polarity)
+		searched (twitter_timeline_shared,twitter_timeline_likes,
+		twitter_timeline_polarity)
 		- Mandatory: social_network_id, word, user_id
 		'''
 		try:
@@ -894,8 +898,9 @@ class SearchViewSet(viewsets.ModelViewSet):
 
 			if serializer.is_valid():
 
-				self.data['word'] = kwargs['data']['word']
-				# 1. Get the information related with the timeline of the word 
+				#self.data['word'] = kwargs['data']['word']
+
+				# Get the information related with the timeline of the word 
 				# on Twitter in function of polarity
 				queryset = Search.objects.filter(
 					is_active=True,
@@ -903,12 +908,42 @@ class SearchViewSet(viewsets.ModelViewSet):
 					social_network=kwargs['data']['social_network'],
 					user_id=kwargs['data']['user'],
 					word=kwargs['data']['word']
-				).values('polarity','sentiment_analysis_percentage','searched_date').order_by('id')
+				).values('sentiment_analysis_percentage','searched_date').order_by('id')
 
-				serializer = SearchSerializer(queryset, many=True, fields=('liked','searched_date'))
-				self.data['timeline_word_twitter_polarity'] = json.loads(json.dumps(serializer.data))
+				serializer = SearchSerializer(queryset,many=True,
+					fields=('sentiment_analysis_percentage','searched_date'))
+				self.data['twitter_timeline_polarity'] = json.loads(json.dumps(serializer.data))
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
 
-				# 2. Get the information related with the timeline of the word
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - RecentSearchTwitterView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - RecentSearchTwitterView] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def twitter_timeline_likes(self, request, *args, **kwargs):
+		'''
+		- POST method (word_details): get an user timeline of a word 
+		searched (twitter_timeline_shared,twitter_timeline_likes,
+		twitter_timeline_polarity)
+		- Mandatory: social_network_id, word, user_id
+		'''
+		try:
+			serializer = SearchSerializer(
+				data=kwargs['data'],
+				fields=['social_network','user','word'])
+
+			if serializer.is_valid():
+
+				#self.data['word'] = kwargs['data']['word']
+
+				# Get the information related with the timeline of the word
 				# on Twitter in function of likes
 				queryset = Search.objects.filter(
 					is_active=True,
@@ -919,9 +954,38 @@ class SearchViewSet(viewsets.ModelViewSet):
 				).values('liked','searched_date').order_by('id')
 
 				serializer = SearchSerializer(queryset, many=True, fields=('liked','searched_date'))
-				self.data['timeline_word_twitter_likes'] = json.loads(json.dumps(serializer.data))
+				self.data['twitter_timeline_likes'] = json.loads(json.dumps(serializer.data))
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
 
-				# 3. Get the information related with the timeline of the word
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - RecentSearchTwitterView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - RecentSearchTwitterView] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def twitter_timeline_shared(self, request, *args, **kwargs):
+		'''
+		- POST method (word_details): get an user timeline of a word 
+		searched (twitter_timeline_shared,twitter_timeline_likes,
+		twitter_timeline_polarity)
+		- Mandatory: social_network_id, word, user_id
+		'''
+		try:
+			serializer = SearchSerializer(
+				data=kwargs['data'],
+				fields=['social_network','user','word'])
+
+			if serializer.is_valid():
+
+				#self.data['word'] = kwargs['data']['word']
+
+				# Get the information related with the timeline of the word
 				# on Twitter in function of retweets
 				queryset = Search.objects.filter(
 					is_active=True,
@@ -932,7 +996,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 				).values('shared','searched_date').order_by('id')
 
 				serializer = SearchSerializer(queryset, many=True, fields=('shared','searched_date'))
-				self.data['timeline_word_twitter_shared'] = json.loads(json.dumps(serializer.data))
+				self.data['twitter_timeline_shared'] = json.loads(json.dumps(serializer.data))
 				self.response_data['data'].append(self.data)
 				self.code = status.HTTP_200_OK
 

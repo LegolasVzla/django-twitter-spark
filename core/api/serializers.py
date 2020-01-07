@@ -80,26 +80,11 @@ class UserSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 		model = User
 		fields = ('__all__')
 
-class UserDetailsAPISerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
+class UserDetailsAPISerializer(serializers.ModelSerializer):
 	user = serializers.IntegerField()
 	class Meta:
 		model = User
 		fields = ('user',)
-
-	def to_internal_value(self, data):
-		required = []
-		for k in ['user']:
-			'''
-			- Case 1: Is the k field in the data and it's empty?
-			- Case 2: Is not the k field in the data?
-			'''
-			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
-				required.append(k)
-
-		if len(required):
-			raise ValueError("The following fields are required: %s" % ','.join(required))
-
-		return data
 
 class UserProfileUpdateAPISerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	class Meta:
@@ -144,7 +129,7 @@ class DictionarySerializer(DynamicFieldsModelSerializer,serializers.ModelSeriali
 		model = Dictionary
 		fields = ('__all__')
 
-class DictionaryPolarityAPISerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
+class DictionaryPolarityAPISerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Dictionary
 		fields = ('polarity','language')
