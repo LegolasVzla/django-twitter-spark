@@ -7,7 +7,7 @@ from api.serializers import (UserSerializer,DictionarySerializer,
 	WordRootSerializer,SocialNetworkAccounts)
 from api.api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
 	TopicViewSet,SearchViewSet,WordRootViewSet,SocialNetworkAccountsViewSet,
-	WordCloudViewSet)
+	WordCloudViewSet,TwitterViewSet)
 
 from django.shortcuts import render
 from django.core.serializers.json import DjangoJSONEncoder
@@ -37,10 +37,23 @@ class IndexView(View):
 
 	def get(self, request, *args, **kwargs):
 		try:
-			_wordcloud = WordCloudViewSet()
-			_wordcloud.create(request,user=1,comments="Ea excepteur dolor velit sed qui non ad mollit minim incididunt laborum sunt laborum elit consequat eiusmod consequat ut deserunt est nostrud adipisicing officia cupidatat anim deserunt qui do eu veniam pariatur duis in non dolore incididunt cupidatat esse ut fugiat velit dolor consequat deserunt esse excepteur voluptate sit cillum in officia incididunt ad aute laboris in dolor mollit pariatur officia dolor do ad labore culpa sed sint duis esse labore sed adipisicing adipisicing ut laborum nostrud id do mollit anim qui ut irure cupidatat dolor magna occaecat in amet dolore sint aliquip ullamco eiusmod irure enim qui consequat sit nulla aliquip esse laboris incididunt dolore tempor aute velit deserunt eiusmod aliquip incididunt in pariatur labore dolor ut consequat velit elit mollit duis laboris ex amet dolore eu dolor proident tempor elit laboris quis laboris elit ut minim cupidatat reprehenderit nulla reprehenderit magna enim voluptate laborum ut occaecat esse sint consequat reprehenderit do deserunt ea enim deserunt officia officia minim dolor aliqua dolore esse veniam ut enim dolor incididunt elit dolor magna laborum ut anim exercitation esse dolore irure aute dolor elit officia velit ut reprehenderit minim nisi irure dolore fugiat dolore dolore cupidatat.")
-			self.response_data['data'] = _wordcloud.response_data['data'][0]
-			self.code = _wordcloud.code
+			tweets_data = ''
+			_twitter = TwitterViewSet()
+			_twitter.tweets_get(request,social_network=1)
+			self.response_data['data'] = _twitter.response_data['data']
+			if _twitter.code == 200:
+				
+				# Iterate on each twitter accounts data returned
+				for twitter_accounts_index,twitter_accounts_data in enumerate(self.response_data['data']):
+
+					# Iterate on each tweets data returned of the current twitter account data
+					for tweet_index,tweet_elem in enumerate(twitter_accounts_data['tweet']):
+						tweets_data+=tweet_elem['text'] + ' '
+
+				_wordcloud = WordCloudViewSet()
+				_wordcloud.create(request,user=1,comments=tweets_data)
+				self.response_data['data'] = _wordcloud.response_data['data'][0]
+				self.code = _wordcloud.code
 			
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[IndexView] - Error: " + str(e))
