@@ -121,7 +121,7 @@ Endpoint |HTTP Method | CRUD Method | Result
 
 Endpoint |HTTP Method | CRUD Method | Result
 -- | -- |-- |--
-`api/word_cloud/create` | POST | CREATE | To generate Twitter word cloud images.
+`api/word_cloud/comments/<string:comments>/user_id/<int:user_id>` | POST | CREATE | To generate Twitter word cloud images.
 
 Parameters:
 - Mandatory: comments
