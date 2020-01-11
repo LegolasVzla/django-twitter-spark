@@ -92,7 +92,7 @@
         <div class="x_content">
           {% load static %}
           <center>
-              <img src="{% static data.url %}" alt="img" width="650" height="350"/>
+              <img src="{% static data.wordcloud.url %}" alt="img" width="650" height="350"/>
           </center>
         </div>
       </div>
@@ -136,24 +136,25 @@
                 </tr>
             </thead>
             <tbody>
+              {% for key in data.twitter_timeline_table %}
                 <tr>
-                  <td>1</td>
-                  <td>Usuario</td>
-                  <td>Tweet</td>
-                  <td>Tópico</td>
-                  <td>Polaridad</td>
-                  <td>Porcentaje</td>
-                  <td>Fecha</td>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{key.user}}}</td>
+                  <td>{{key.tweet}}}</td>
+                  <td>{{key.topic}}}</td>
+                  {% ifequal key.polarity 'NU' %}
+                    <td><span class="badge-grey">Neutral</span>
+                  {% endifequal %}                  
+                  {% ifequal key.polarity 'N' %}
+                    <td><span class="badge-red">Negativa</span></td>
+                  {% endifequal %}
+                  {% ifequal key.polarity 'P' %}
+                    <td><span class="badge-green">Positiva</span></td>
+                  {% endifequal %}
+                  <td><center>{{key.percentage}}%</center></td>
+                  <td>{{key.date}}</td>
                 </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Usuario</td>
-                  <td>Tweet</td>
-                  <td>Tópico</td>
-                  <td>Polaridad</td>
-                  <td>Porcentaje</td>
-                  <td>Fecha</td>
-                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>

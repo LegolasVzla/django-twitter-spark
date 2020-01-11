@@ -37,24 +37,29 @@ class IndexView(View):
 
 	def get(self, request, *args, **kwargs):
 		try:
-			tweets_data = ''
+			word_cloud_tweets_data = ''
+			self.response_data['data']['wordcloud'] = {}
+
+			'''This will be another Class and endpoint that returns 
+			tweets cleaned by NLTK, categorized with sentiment analysis by 
+			Apache Spark processing coming soon'''
 			_twitter = TwitterViewSet()
 			_twitter.tweets_get(request,social_network=1)
-			self.response_data['data'] = _twitter.response_data['data']
 			if _twitter.code == 200:
-				
-				# Iterate on each twitter accounts data returned
-				for twitter_accounts_index,twitter_accounts_data in enumerate(self.response_data['data']):
 
-					# Iterate on each tweets data returned of the current twitter account data
+				# Iterate on each twitter accounts data returned
+				for twitter_accounts_index,twitter_accounts_data in enumerate(_twitter.response_data['data']):
+
 					for tweet_index,tweet_elem in enumerate(twitter_accounts_data['tweet']):
-						tweets_data+=tweet_elem['text'] + ' '
+						# To populate word cloud:
+						# Iterate on each tweets data returned of the current twitter account data
+						word_cloud_tweets_data+=tweet_elem['text'] + ' '
 
 				_wordcloud = WordCloudViewSet()
-				_wordcloud.create(request,user=1,comments=tweets_data)
-				self.response_data['data'] = _wordcloud.response_data['data'][0]
+				_wordcloud.create(request,user=1,comments=word_cloud_tweets_data)
+				self.response_data['data']['wordcloud'] = _wordcloud.response_data['data'][0]
 				self.code = _wordcloud.code
-			
+
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[IndexView] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
