@@ -115,15 +115,15 @@
   {{ block.super}}
 	<script src="{% static 'vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
 	<script type="text/javascript">
-		var twitter_word_timelime_polarity_data = {{ data.timeline_word_twitter_polarity|safe }}
+		var twitter_word_timelime_polarity_data = {{ data.twitter_timeline_polarity|safe }}
 		var twitter_word_timelime_polarity_date = []
 		var twitter_word_timelime_polarity = []
 
-		var twitter_word_timelime_likes_data = {{ data.timeline_word_twitter_likes|safe }}
+		var twitter_word_timelime_likes_data = {{ data.twitter_timeline_likes|safe }}
 		var twitter_word_timelime_likes_date = []
 		var twitter_word_timelime_likes = []
 
-		var twitter_word_timelime_shared_data = {{ data.timeline_word_twitter_shared|safe }}
+		var twitter_word_timelime_shared_data = {{ data.twitter_timeline_shared|safe }}
 		var twitter_word_timelime_shared_date = []
 		var twitter_word_timelime_shared = []
 

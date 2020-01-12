@@ -184,15 +184,17 @@ if ($(".progress .progress-bar")[0]) {
 }
 // /Progressbar
 
-function init_chart_doughnut() {
-
-    console.log('----------1------------');
-    /*
-    $.ajax({
-        url:'/socialanalyzer/recent_search_twitter/recent_search',
-        type: 'GET',success: function showAnswer(data) {
+function userRecentSearch(socialNetworkId,userId) {
+    //console.log('----------------------',socialNetworkId,userId);
+    /*$.ajax({
+        url:'/socialanalyzer/recent_search_twitter/',
+        type: 'GET',
+        data: {
+          'social_network_id': socialNetworkId,
+          'user_id': userId
+        },success: function showAnswer(data) {
             //console.log("-------success 1-------",data);
-            if (data.code==200) {
+            if (data.data.code==200) {
                 console.log("-------success-------",data);
                 var delayInMilliseconds = 3000; // 3 second
                 setTimeout(function() {
@@ -202,13 +204,13 @@ function init_chart_doughnut() {
                 console.log('Error, status:',data.code);
             }
         }
-    })
-    */
+    })*/
+
     if (typeof(Chart) === 'undefined') {
         return;
     }
 
-    console.log('init_chart_doughnut');
+    console.log('userRecentSearch');
 
     if ($('.recently_search').length) {
 
@@ -508,7 +510,7 @@ $(document).ready(function() {
     init_validator();
     init_DataTables();
 */    
-    init_chart_doughnut();
+    userRecentSearch();
 /*
     init_gauge();
     init_PNotify();

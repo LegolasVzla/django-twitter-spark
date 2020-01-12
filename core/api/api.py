@@ -1,5 +1,9 @@
 from .models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
+from django.db.models import Count
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
+
 from .serializers import (UserSerializer,UserDetailsAPISerializer,
 	UserProfileUpdateAPISerializer,DictionarySerializer,
 	DictionaryPolarityAPISerializer,CustomDictionarySerializer,
@@ -8,25 +12,13 @@ from .serializers import (UserSerializer,UserDetailsAPISerializer,
 	WordRootSerializer,SocialNetworkAccountsSerializer,
 	SocialNetworkAccountsAPISerializer,CustomDictionaryKpiAPISerializer,
 	CustomDictionaryPolaritySerializer,CustomDictionaryWordAPISerializer)
-from django.db.models import Count
-from django.shortcuts import get_object_or_404
-from django.contrib.auth import get_user_model
-
 from rest_framework import viewsets, permissions
-from rest_framework import views
 from rest_framework import status
-from rest_framework import serializers
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from rest_framework import exceptions
-#from rest_framework.renderers import JSONRenderer
-#from rest_framework.parsers import JSONParser
-#from rest_framework.views import APIView
-#from rest_framework.decorators  import list_route
-#from rest_framework.viewsets import GenericViewSet
-#from rest_framework import serializers, validators
 
+import logging
 import json
 import copy
 import os
@@ -36,19 +28,17 @@ import random
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
 import imageio
-#import io
+
+import re
+import string
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 
 from core.settings import BASE_DIR 
 from api.social_networks_api_connections import *
-import logging
 from functools import wraps
 
 User = get_user_model()
-
-class StandardResultsSetPagination(PageNumberPagination):
-	page_size = 10
-	#page_size_query_param = 'page'
-	#max_page_size = 1000
 
 def validate_type_of_request(f):
 	'''
@@ -67,6 +57,58 @@ def validate_type_of_request(f):
 			kwargs['data'] = args[1].query_params.dict()
 		return f(*args,**kwargs)
 	return decorator
+
+class StandardResultsSetPagination(PageNumberPagination):
+	page_size = 10
+	#page_size_query_param = 'page'
+	#max_page_size = 1000
+
+class TextMiningMethods(object):
+	"""docstring for TextMiningMethods"""
+	def __init__(self, arg):
+		super(TextMiningMethods, self).__init__()
+		self.arg = arg
+		
+	def remove_punctuation(tweet):
+		'''
+		Method to clean a tweet
+		'''
+		# Define regex
+		url_regex = re.compile('https?://(www.)?\w+\.\w+(/\w+)*/?')
+		punctuation_regex = re.compile("[^0-9a-zA-Z]")
+		punctuation_aux_regex = re.compile('[%s]' % re.escape(string.punctuation))
+		numeric_regex = re.compile('(\\d+)')
+		mentions_regex = re.compile('@(\w+)')
+		alpha_num_regex = re.compile("^[a-z0-9_.]+$")
+
+		# Remove Hiperlinks
+		tweet = url_regex.sub(' ', tweet)
+		# Remove @mentions
+		tweet = mentions_regex.sub(' ', tweet)
+		# Remove punctuations
+		tweet = punctuation_regex.sub(' ', tweet)
+		# Remove more punctuations
+		tweet = punctuation_aux_regex.sub(' ', tweet)
+		# Remove numerics
+		tweet = numeric_regex.sub(' ', tweet)
+		# Convert to lowercase
+		tweet = tweet.lower()
+
+		list_position = 0
+		tweet_cleaned = ''
+		for word in tweet.split():
+			if (list_position==0):
+				if alpha_num_regex.match(word) and len(word) > 2:
+					tweet_cleaned = word
+				else:
+					tweet_cleaned = ' '
+			else:
+				if alpha_num_regex.match(word) and len(word) > 2:
+					tweet_cleaned = tweet_cleaned + ' ' + word
+				else:
+					tweet_cleaned += ' '
+			list_position += 1
+		return tweet_cleaned
 
 class WordCloudViewSet(viewsets.ViewSet):
 	'''

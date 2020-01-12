@@ -18,15 +18,7 @@ from django.http import JsonResponse
 from django.http import QueryDict
 
 from rest_framework import status
-from rest_framework.response import Response
-#from rest_framework import views
-#from rest_framework.decorators import api_view
-#from rest_framework import generics
-#from django.core.exceptions import ObjectDoesNotExist
-#from rest_framework.permissions import IsAuthenticated
 
-import json
-import requests
 import logging
 
 class IndexView(View):
@@ -272,7 +264,8 @@ class TimelineSearchTwitterView(View):
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[TimelineSearchTwitterView] - Error: " + str(e))
 		#return render(request,'web/word_searched_details_twitter.html',self.response_data)
-		return JsonResponse(self.response_data)
+		return render(request,template_name='web/word_searched_details_twitter.html',status=self.code,context=self.response_data)
+		#return JsonResponse(self.response_data)
 		#return HttpResponse(json.dumps(data, cls=DjangoJSONEncoder), content_type='application/json')
 		#return HttpResponseRedirect('web/word_searched_details_twitter.html',self.response_data)
 		#return JsonResponse({'code':self.code,'url':'web/word_searched_details_twitter.html','data':self.response_data['data']})
