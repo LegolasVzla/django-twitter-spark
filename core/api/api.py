@@ -71,7 +71,7 @@ class TextMiningMethods(object):
 		
 	def remove_punctuation(tweet):
 		'''
-		Method to clean a tweet
+		Method to clean tweets using regex
 		'''
 		# Define regex
 		url_regex = re.compile('https?://(www.)?\w+\.\w+(/\w+)*/?')
@@ -108,6 +108,21 @@ class TextMiningMethods(object):
 				else:
 					tweet_cleaned += ' '
 			list_position += 1
+		return tweet_cleaned
+
+	def remove_stops(tweet):
+		'''
+		Method to remove stop words using nltk
+		'''		
+		list_position = 0
+		tweet_cleaned = ''
+		for word in tweet.split():
+			if word not in set(stopwords.words("spanish")):
+				if list_position == 0:
+					tweet_cleaned = word
+				else:
+					tweet_cleaned = tweet_cleaned + ' ' + word
+				list_position += 1
 		return tweet_cleaned
 
 class WordCloudViewSet(viewsets.ViewSet):
