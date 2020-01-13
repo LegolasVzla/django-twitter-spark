@@ -14,7 +14,7 @@ router.register('api/user', UserViewSet, 'user')
 router.register('api/dictionary', DictionaryViewSet, 'dictionary')
 router.register('api/customdictionary', CustomDictionaryViewSet, 'customdictionary')
 router.register('api/topic', TopicViewSet, 'topic')
-router.register('api/wordroot', WordRootViewSet, 'wordroot')
+router.register('api/word_root', WordRootViewSet, 'word_root')
 router.register('api/search', SearchViewSet, 'search')
 router.register('api/social_network_accounts', SocialNetworkAccountsViewSet, 'social_network_accounts')
 #router.register('api/word_cloud', WordCloudViewSet, 'word_cloud')
@@ -42,7 +42,8 @@ urlpatterns = [
     url(r'^api/search/twitter_timeline_likes/user/<int:user_id>/social_network/<int:social_network_id>/word/<string:word>', SearchViewSet.as_view({'post': 'twitter_timeline_likes'}), name='twitter_timeline_likes'),
     url(r'^api/search/twitter_timeline_shared/user/<int:user_id>/social_network/<int:social_network_id>/word/<string:word>', SearchViewSet.as_view({'post': 'twitter_timeline_shared'}), name='twitter_timeline_shared'),
     url(r'^api/social_network_accounts/accounts_by_social_network/social_network/<int:social_network_id>', SocialNetworkAccountsViewSet.as_view({'post': 'accounts_by_social_network'}), name='accounts_by_social_network'),
-    url(r'^api/twitter_analytics/', TwitterViewSet.as_view({'post':'tweets_get'}), name='twitter_analytics')
+    url(r'^api/twitter_analytics/', TwitterViewSet.as_view({'post':'tweets_get'}), name='twitter_analytics'),
+    url(r'^api/word_root/word_roots_by_topic', WordRootViewSet.as_view({'get':'word_roots_by_topic'}), name='word_roots_by_topic')
 ]
 
 urlpatterns += router.urls
