@@ -38,6 +38,11 @@ from wordcloud import WordCloud, STOPWORDS
 import imageio
 #import io
 
+import re
+import string
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
 from core.settings import BASE_DIR 
 from api.social_networks_api_connections import *
 import logging
@@ -67,6 +72,68 @@ def validate_type_of_request(f):
 			kwargs['data'] = args[1].query_params.dict()
 		return f(*args,**kwargs)
 	return decorator
+
+class TextMiningMethods(object):
+	"""docstring for TextMiningMethods"""
+	def __init__(self, arg):
+		super(TextMiningMethods, self).__init__()
+		self.arg = arg
+
+	def remove_punctuation(tweet):
+		'''
+		Method to clean tweets using regex
+		'''
+		# Define regex
+		url_regex = re.compile('https?://(www.)?\w+\.\w+(/\w+)*/?')
+		punctuation_regex = re.compile("[^0-9a-zA-Z]")
+		punctuation_aux_regex = re.compile('[%s]' % re.escape(string.punctuation))
+		numeric_regex = re.compile('(\\d+)')
+		mentions_regex = re.compile('@(\w+)')
+		alpha_num_regex = re.compile("^[a-z0-9_.]+$")
+
+		# Remove Hiperlinks
+		tweet = url_regex.sub(' ', tweet)
+		# Remove @mentions
+		tweet = mentions_regex.sub(' ', tweet)
+		# Remove punctuations
+		tweet = punctuation_regex.sub(' ', tweet)
+		# Remove more punctuations
+		tweet = punctuation_aux_regex.sub(' ', tweet)
+		# Remove numerics
+		tweet = numeric_regex.sub(' ', tweet)
+		# Convert to lowercase
+		tweet = tweet.lower()
+
+		list_position = 0
+		tweet_cleaned = ''
+		for word in tweet.split():
+			if (list_position==0):
+				if alpha_num_regex.match(word) and len(word) > 2:
+					tweet_cleaned = word
+				else:
+					tweet_cleaned = ' '
+			else:
+				if alpha_num_regex.match(word) and len(word) > 2:
+					tweet_cleaned = tweet_cleaned + ' ' + word
+				else:
+					tweet_cleaned += ' '
+			list_position += 1
+		return tweet_cleaned
+
+	def remove_stops(tweet):
+		'''
+		Method to remove stop words using nltk
+		'''		
+		list_position = 0
+		tweet_cleaned = ''
+		for word in tweet.split():
+			if word not in set(stopwords.words("spanish")):
+				if list_position == 0:
+					tweet_cleaned = word
+				else:
+					tweet_cleaned = tweet_cleaned + ' ' + word
+				list_position += 1
+		return tweet_cleaned
 
 class WordCloudViewSet(viewsets.ViewSet):
 	'''
