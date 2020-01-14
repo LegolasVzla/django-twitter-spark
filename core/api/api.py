@@ -7,7 +7,8 @@ from .serializers import (UserSerializer,UserDetailsAPISerializer,
 	RecentSearchAPISerializer,WordDetailsAPISerializer,
 	WordRootSerializer,SocialNetworkAccountsSerializer,
 	SocialNetworkAccountsAPISerializer,CustomDictionaryKpiAPISerializer,
-	CustomDictionaryPolaritySerializer,CustomDictionaryWordAPISerializer)
+	CustomDictionaryPolaritySerializer,CustomDictionaryWordAPISerializer,
+	TweetTopicClassificationAPISerializer)
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
@@ -42,6 +43,8 @@ import re
 import string
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+import Stemmer
+from collections import Counter
 
 from core.settings import BASE_DIR 
 from api.social_networks_api_connections import *
@@ -134,6 +137,121 @@ class TextMiningMethods(object):
 					tweet_cleaned = tweet_cleaned + ' ' + word
 				list_position += 1
 		return tweet_cleaned
+
+class MachineLearningViewSet(viewsets.ViewSet):
+	'''
+	Class for machine learning endpoints: Topic classification of Tweet, Topic classification...
+	'''
+	serializer_class = TweetTopicClassificationAPISerializer
+
+	def __init__(self):
+		self.response_data = {'error': [], 'data': []}
+		self.data = {}
+		self.code = 0
+
+	def __topic(self):
+		self.value = 0
+		self.topic = ""
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def tweet_topic_classification(self, request, *args, **kwargs):
+		'''
+		- POST method (tweet_topic_classification): get topic of a tweet based on Topic Model.
+		- Mandatory: text
+		'''
+		try:
+			serializer = TweetTopicClassificationAPISerializer(data=kwargs['data'])
+
+			if serializer.is_valid():
+
+				# Get twitter topics stored in Topic model
+				_word_roots_by_topic_list = WordRootViewSet()
+				_word_roots_by_topic_list.word_roots_by_topic(request)
+
+				if _word_roots_by_topic_list.code == 200:
+					topic_list = _word_roots_by_topic_list.response_data['data']
+
+					# Set word roots by topics					
+					entertainment = topic_list[0]
+					religion = topic_list[1]
+					sports = topic_list[2]
+					education = topic_list[3]
+					technology = topic_list[4]
+					economy = topic_list[5]
+					health = topic_list[6]
+					politica = topic_list[7]
+					social = topic_list[8]
+
+					# Tokenize tweets
+					tokens = word_tokenize(kwargs['data']['text'])
+
+					# Define Stemmer for Spanish Language
+					stemmer = Stemmer.Stemmer('spanish')
+
+					# Search for coincidences between tokens from the tweet 
+					# and the word roots by topics
+					entertainment_coincidences = map(lambda x : x in entertainment['word_roots'],stemmer.stemWords(tokens))
+					religion_coincidences = map(lambda x : x in religion['word_roots'],stemmer.stemWords(tokens))
+					sports_coincidences = map(lambda x : x in sports['word_roots'],stemmer.stemWords(tokens))
+					education_coincidences = map(lambda x : x in education['word_roots'],stemmer.stemWords(tokens))
+					technology_coincidences = map(lambda x : x in technology['word_roots'],stemmer.stemWords(tokens))
+					economy_coincidences = map(lambda x : x in economy['word_roots'],stemmer.stemWords(tokens))
+					health_coincidences = map(lambda x : x in health['word_roots'],stemmer.stemWords(tokens))
+					politica_coincidences = map(lambda x : x in politica['word_roots'],stemmer.stemWords(tokens))
+					social_coincidences = map(lambda x : x in social['word_roots'],stemmer.stemWords(tokens))
+					
+					#import pdb;pdb.set_trace()
+					# Count coincidences by topic
+					obj_entertainment = MachineLearningViewSet()
+					obj_entertainment.value=Counter(entertainment_coincidences)[True]
+					obj_entertainment.topic="Entretenimiento"
+					obj_religion = MachineLearningViewSet()
+					obj_religion.value=Counter(religion_coincidences)[True]
+					obj_religion.topic="Religion"
+					obj_sports = MachineLearningViewSet()
+					obj_sports.value=Counter(sports_coincidences)[True]
+					obj_sports.topic="Deporte"
+					obj_education = MachineLearningViewSet()
+					obj_education.value=Counter(education_coincidences)[True]
+					obj_education.topic="Educacion"
+					obj_techcnology = MachineLearningViewSet()
+					obj_techcnology.value=Counter(technology_coincidences)[True]
+					obj_techcnology.topic="Tecnologia"
+					obj_economy = MachineLearningViewSet()
+					obj_economy.value=Counter(economy_coincidences)[True]
+					obj_economy.topic="Economia"
+					obj_health = MachineLearningViewSet()
+					obj_health.value=Counter(health_coincidences)[True]
+					obj_health.topic="Salud"
+					obj_politica = MachineLearningViewSet()
+					obj_politica.value=Counter(politica_coincidences)[True]
+					obj_politica.topic="Politica"
+					obj_social = MachineLearningViewSet()
+					obj_social.value=Counter(social_coincidences)[True]
+					obj_social.topic="Social"
+
+					# List of all topic objects
+					lista = [obj_entertainment,obj_religion,obj_sports,obj_education,obj_techcnology,obj_econom,obj_health,obj_politica,obj_social]
+
+					self.code = status.HTTP_200_OK
+
+					# sort the list by descending order
+					lista.sort(orden,reverse = True)
+					if (lista[0].valor==0):
+						self.response_data['topic'].append("Diverso")
+					if (lista[0].topic == lista[1].topic or lista[1].valor == 0):						
+						self.response_data['topic'].append(lista[0].topic)
+					else:
+						self.response_data['topic'].append(lista[0].topic+' - '+lista[1].topic)
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - MachineLearningViewSet] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - MachineLearningViewSet] - Error: " + str(e))			
+		return Response(self.response_data,status=self.code)
 
 class WordCloudViewSet(viewsets.ViewSet):
 	'''

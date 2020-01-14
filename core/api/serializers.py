@@ -73,6 +73,9 @@ class WordCloudAPISerializer(serializers.ModelSerializer):
 
 		return data
 
+class TweetTopicClassificationAPISerializer(serializers.Serializer):
+	text = serializers.CharField(required=True)
+	
 class UserSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	first_name = serializers.CharField(allow_blank=False, max_length=100)
 	last_name = serializers.CharField(allow_blank=False, max_length=100)
