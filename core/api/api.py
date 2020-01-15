@@ -200,8 +200,7 @@ class MachineLearningViewSet(viewsets.ViewSet):
 					health_coincidences = map(lambda x : x in health['word_roots'],stemmer.stemWords(tokens))
 					politica_coincidences = map(lambda x : x in politica['word_roots'],stemmer.stemWords(tokens))
 					social_coincidences = map(lambda x : x in social['word_roots'],stemmer.stemWords(tokens))
-					
-					#import pdb;pdb.set_trace()
+
 					# Count coincidences by topic
 					obj_entertainment = MachineLearningViewSet()
 					obj_entertainment.value=Counter(entertainment_coincidences)[True]
@@ -232,18 +231,21 @@ class MachineLearningViewSet(viewsets.ViewSet):
 					obj_social.topic="Social"
 
 					# List of all topic objects
-					lista = [obj_entertainment,obj_religion,obj_sports,obj_education,obj_techcnology,obj_econom,obj_health,obj_politica,obj_social]
+					topic_list = [obj_entertainment,obj_religion,obj_sports,obj_education,obj_techcnology,obj_economy,obj_health,obj_politica,obj_social]
 
-					self.code = status.HTTP_200_OK
-
-					# sort the list by descending order
-					lista.sort(orden,reverse = True)
-					if (lista[0].valor==0):
-						self.response_data['topic'].append("Diverso")
-					if (lista[0].topic == lista[1].topic or lista[1].valor == 0):						
-						self.response_data['topic'].append(lista[0].topic)
+					# Sort the list by value of each topic in descending order
+					topic_list.sort(key=lambda x: x.value, reverse=True)
+					
+					# Finally, determine the topic resulting with the most value
+					if (topic_list[0].value==0):
+						self.data['topic'] = "Diverso"
+					if (topic_list[0].topic == topic_list[1].topic or topic_list[1].value == 0):
+						self.data['topic'] = topic_list[0].topic
 					else:
-						self.response_data['topic'].append(lista[0].topic+' - '+lista[1].topic)
+						self.data['topic'] = topic_list[0].topic+' - '+topic_list[1].topic
+
+					self.response_data['data'].append(self.data)
+					self.code = status.HTTP_200_OK
 			else:
 				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
