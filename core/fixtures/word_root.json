@@ -21,7 +21,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "cine",
+            "word_root": "cin",
             "topic_id": 1,
             "is_active": true,
             "is_deleted": false,
@@ -91,7 +91,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "video",
+            "word_root": "vide",
             "topic_id": 1,
             "is_active": true,
             "is_deleted": false,
@@ -131,7 +131,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "artista",
+            "word_root": "artist",
             "topic_id": 1,
             "is_active": true,
             "is_deleted": false,
@@ -141,7 +141,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "cantante",
+            "word_root": "cantant",
             "topic_id": 1,
             "is_active": true,
             "is_deleted": false,
@@ -241,7 +241,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "pecado",
+            "word_root": "pec",
             "topic_id": 2,
             "is_active": true,
             "is_deleted": false,
@@ -251,7 +251,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "isis",
+            "word_root": "pap",
             "topic_id": 2,
             "is_active": true,
             "is_deleted": false,
@@ -281,7 +281,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "musulman",
+            "word_root": "musulm",
             "topic_id": 2,
             "is_active": true,
             "is_deleted": false,
@@ -301,7 +301,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "vatican",
+            "word_root": "vatic",
             "topic_id": 2,
             "is_active": true,
             "is_deleted": false,
@@ -331,7 +331,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "feligres",
+            "word_root": "feligr",
             "topic_id": 2,
             "is_active": true,
             "is_deleted": false,
@@ -351,7 +351,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "santer",
+            "word_root": "chaman",
             "topic_id": 2,
             "is_active": true,
             "is_deleted": false,
@@ -642,7 +642,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "recurso",
+            "word_root": "clas",
             "topic_id": 4,
             "is_active": true,
             "is_deleted": false,
@@ -662,7 +662,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "aula",
+            "word_root": "aul",
             "topic_id": 4,
             "is_active": true,
             "is_deleted": false,
@@ -672,7 +672,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "peda",
+            "word_root": "ped",
             "topic_id": 4,
             "is_active": true,
             "is_deleted": false,
@@ -773,6 +773,26 @@
     { "model": "api.wordroot",
         "fields": {
             "word_root": "graduacion",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "salon",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "alumn",
             "topic_id": 4,
             "is_active": true,
             "is_deleted": false,
@@ -912,7 +932,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "informatico",
+            "word_root": "dron",
             "topic_id": 5,
             "is_active": true,
             "is_deleted": false,
@@ -1092,7 +1112,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "dolar",
+            "word_root": "dol",
             "topic_id": 6,
             "is_active": true,
             "is_deleted": false,
@@ -1152,7 +1172,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "moned",
+            "word_root": "mon",
             "topic_id": 6,
             "is_active": true,
             "is_deleted": false,
@@ -1202,7 +1222,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "enfermedad",
+            "word_root": "enfermed",
             "topic_id": 7,
             "is_active": true,
             "is_deleted": false,
@@ -1352,7 +1372,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "paramed",
+            "word_root": "param",
             "topic_id": 7,
             "is_active": true,
             "is_deleted": false,
@@ -1432,7 +1452,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "alcaldes",
+            "word_root": "candidat",
             "topic_id": 8,
             "is_active": true,
             "is_deleted": false,
@@ -1462,7 +1482,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "milician",
+            "word_root": "milici",
             "topic_id": 8,
             "is_active": true,
             "is_deleted": false,
@@ -1549,10 +1569,40 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },            
+    },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "social",
+            "word_root": "sufrag",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "asambl",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "nacion",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "soci",
             "topic_id": 9,
             "is_active": true,
             "is_deleted": false,
@@ -1642,7 +1692,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "derecho",
+            "word_root": "derech",
             "topic_id": 9,
             "is_active": true,
             "is_deleted": false,
@@ -1672,7 +1722,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "comuna",
+            "word_root": "comun",
             "topic_id": 9,
             "is_active": true,
             "is_deleted": false,
@@ -1702,7 +1752,7 @@
     },            
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "huelga",
+            "word_root": "huelg",
             "topic_id": 9,
             "is_active": true,
             "is_deleted": false,
