@@ -184,7 +184,7 @@ class MachineLearningViewSet(viewsets.ViewSet):
 					social = topic_list[8]
 
 					# Tokenize tweets
-					tokens = word_tokenize(kwargs['data']['text'])
+					tokens = word_tokenize(kwargs['data']['text'].lower())
 
 					# Define Stemmer for Spanish Language
 					stemmer = Stemmer.Stemmer('spanish')
@@ -235,11 +235,11 @@ class MachineLearningViewSet(viewsets.ViewSet):
 
 					# Sort the list by value of each topic in descending order
 					topic_list.sort(key=lambda x: x.value, reverse=True)
-					
+
 					# Finally, determine the topic resulting with the most value
 					if (topic_list[0].value==0):
 						self.data['topic'] = "Diverso"
-					if (topic_list[0].topic == topic_list[1].topic or topic_list[1].value == 0):
+					elif (topic_list[0].value > topic_list[1].value):
 						self.data['topic'] = topic_list[0].topic
 					else:
 						self.data['topic'] = topic_list[0].topic+' - '+topic_list[1].topic
