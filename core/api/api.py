@@ -153,6 +153,16 @@ class MachineLearningViewSet(viewsets.ViewSet):
 		self.value = 0
 		self.topic = ""
 
+	def __most_common_key(text):
+		# Calculate the frequency distribution of tokens, getting most common word
+		freq=nltk.FreqDist(tokens)
+		return freq.most_common(1)[0][0]
+
+	def __most_common_value(text):
+		# Calculate the frequency distribution of tokens, getting most common word's value
+		freq=nltk.FreqDist(tokens)
+		return freq.most_common(1)[0][1]
+
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def tweet_topic_classification(self, request, *args, **kwargs):
