@@ -28,25 +28,14 @@ What would happen if we integrate this technologies?...Let's check it!
 
 ## Requirements
 - Ubuntu 16 or higher
-- Install PostgreSQL:
-```
-  sudo apt-get update
-  sudo apt install python3-dev postgresql postgresql-contrib python3-psycopg2 libpq-dev
-```
+
 ## Installation
 
-Create your virtualenv and install the requirements:
+```Makefile``` will help you with all the installation. First of all, in "django-twitter-spark/core/" path, execute:
 
-	virtualenv env --python=python3
-	source env/bin/activate
+	make setup
 
-	pip install -r requirements.txt
-
-In "django-twitter-spark/core/" path, create logs folder:
-
-	mkdir logs
-
-In "django-twitter-spark/core/" path, create a **settings.ini** file, with the structure as below:
+This will install PostgreSQL and pip on your system. After that, you need to fill **settings.ini** file, with the structure as below:
 
 	[postgresdbConf]
 	DB_ENGINE=django.db.backends.postgresql
@@ -64,21 +53,21 @@ In "django-twitter-spark/core/" path, create a **settings.ini** file, with the s
 
 - postgresdbConf section: fill in with your own PostgreSQL credentials. By default, DB_HOST and DB_PORT in PostgreSQL are localhost/5432.
 
-Default credentials for admin superuser are: admin@admin.com / admin. Then run the migrations:
-
-	python manage.py makemigrations
-
-	python manage.py migrate
-
 - tweepyConf section: register a [Tweepy account](https://developer.twitter.com/en/apply-for-access) and fill in with your own credentials.
 
-Generate default data with the fixtures:
+Then, activate your virtualenv already installed (by default, is called ```env``` in the ```Makefile```):
 
-	python3 fixtures_load.py
+	source env/bin/activate
 
-Run the server:
+And execute:
 
-	python manage.py runserver
+	Make install
+
+This will generate the database with default data and also it will install python requirements and nltk resources. Default credentials for admin superuser are: admin@admin.com / admin. 
+
+Finally, run the server (by default, host and port are set as 127.0.0.1 and 8000 respectively in the ```Makefile```):
+
+	make execute
 
 You could see the home page in:
 
@@ -145,8 +134,14 @@ Endpoint |HTTP Method | CRUD Method | Result
 -- | -- |-- |--
 `api/twitter_analytics/tweets_get` | POST | CREATE | To get a list with trending tweets
 
+* Machine Learning Layer: `api/ml_layer/`
+
+Endpoint |HTTP Method | CRUD Method | Result
+-- | -- |-- |--
+`api/ml_layer/tweet_topic_classification` | POST | CREATE | Given a tweet, this will determine the topic of the tweet
+
 Parameters:
-- Mandatory: social_network_account
+- Mandatory: text (a tweet)
 
 ## Contributions
 ------------------------
