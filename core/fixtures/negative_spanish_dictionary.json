@@ -56,7 +56,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "abominación",
+	        "word": "abominacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -166,7 +166,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "distraído",
+	        "word": "distraido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -342,7 +342,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "acusación",
+	        "word": "acusacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -452,7 +452,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "dolían",
+	        "word": "dolian",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -661,7 +661,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "amonestación",
+	        "word": "amonestacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -672,7 +672,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "admonición",
+	        "word": "admonicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -705,7 +705,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "adulteración",
+	        "word": "adulteracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -782,7 +782,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "aflicción",
+	        "word": "afliccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -848,7 +848,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "agravación",
+	        "word": "agravacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -859,7 +859,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "agresión",
+	        "word": "agresion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -947,7 +947,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "agonías",
+	        "word": "agonias",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -980,7 +980,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "agónicamente",
+	        "word": "agonicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -991,7 +991,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "agonía",
+	        "word": "agonia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1123,7 +1123,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "alienación",
+	        "word": "alienacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1134,7 +1134,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "alegación",
+	        "word": "alegacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1167,7 +1167,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "alérgico",
+	        "word": "alergico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1332,7 +1332,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "anarquía",
+	        "word": "anarquia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1343,7 +1343,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "anémico",
+	        "word": "anemico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1354,7 +1354,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cólera",
+	        "word": "colera",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1431,7 +1431,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "aniquilación",
+	        "word": "aniquilacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1519,7 +1519,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "anómalo",
+	        "word": "anomalo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1530,7 +1530,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "anomalía",
+	        "word": "anomalia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1563,7 +1563,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "antagónico",
+	        "word": "antagonico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1607,7 +1607,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "anti-israelí",
+	        "word": "anti-israeli",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1618,7 +1618,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "contra la ocupación",
+	        "word": "contra la ocupacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1629,7 +1629,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "anti-proliferación",
+	        "word": "anti-proliferacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1684,7 +1684,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "antipatía",
+	        "word": "antipatia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1706,7 +1706,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "antitético",
+	        "word": "antitetico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1772,7 +1772,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "apático",
+	        "word": "apatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1783,7 +1783,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "apáticamente",
+	        "word": "apaticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1794,7 +1794,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "apatía",
+	        "word": "apatia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1816,7 +1816,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "apocalíptico",
+	        "word": "apocaliptico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1904,7 +1904,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "aprensión",
+	        "word": "aprension",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -1937,7 +1937,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "aprensión",
+	        "word": "aprension",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2113,7 +2113,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "aspersión",
+	        "word": "aspersion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2355,7 +2355,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "autócrata",
+	        "word": "autocrata",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2366,7 +2366,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "autocrático",
+	        "word": "autocratico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2443,7 +2443,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "aversión",
+	        "word": "aversion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2619,7 +2619,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "murmuración",
+	        "word": "murmuracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2630,7 +2630,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hacia atrás",
+	        "word": "hacia atras",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2663,7 +2663,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rústico",
+	        "word": "rustico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2751,7 +2751,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "obstáculo",
+	        "word": "obstaculo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2784,7 +2784,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "perdición",
+	        "word": "perdicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2828,7 +2828,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "bárbaro",
+	        "word": "barbaro",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2839,7 +2839,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "bárbaro",
+	        "word": "barbaro",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2850,7 +2850,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "bárbaramente",
+	        "word": "barbaramente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2872,7 +2872,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "bárbaro",
+	        "word": "barbaro",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2883,7 +2883,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "bárbaramente",
+	        "word": "barbaramente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2894,7 +2894,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "estéril",
+	        "word": "esteril",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -2938,7 +2938,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tímido",
+	        "word": "timido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -3136,7 +3136,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tardío",
+	        "word": "tardio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -3411,7 +3411,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "traición",
+	        "word": "traicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -3609,7 +3609,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "manipulación de las licitaciones",
+	        "word": "manipulacion de las licitaciones",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -3884,7 +3884,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "decir tonterías",
+	        "word": "decir tonterias",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -3917,7 +3917,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desolación",
+	        "word": "desolacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -3939,7 +3939,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sangría",
+	        "word": "sangria",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -4291,7 +4291,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ebullición",
+	        "word": "ebullicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -4434,7 +4434,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "chapucería",
+	        "word": "chapuceria",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -4522,7 +4522,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fanfarrón",
+	        "word": "fanfarron",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -4544,7 +4544,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "estúpido",
+	        "word": "estupido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -4577,7 +4577,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rondón",
+	        "word": "rondon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -4786,7 +4786,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frágil",
+	        "word": "fragil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -4797,7 +4797,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rompió",
+	        "word": "rompio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -4819,7 +4819,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "con el corazón destrozado",
+	        "word": "con el corazon destrozado",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -4830,7 +4830,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cría",
+	        "word": "cria",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -4852,7 +4852,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "contusión",
+	        "word": "contusion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5072,7 +5072,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más voluminoso",
+	        "word": "mas voluminoso",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5171,7 +5171,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "matón",
+	        "word": "maton",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5215,7 +5215,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "chichón",
+	        "word": "chichon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5226,7 +5226,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "chocó",
+	        "word": "choco",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5446,7 +5446,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "carnicería",
+	        "word": "carniceria",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5611,7 +5611,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cáncer",
+	        "word": "cancer",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5633,7 +5633,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "caníbal",
+	        "word": "canibal",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5743,7 +5743,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "carnicería",
+	        "word": "carniceria",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5809,7 +5809,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "víctima",
+	        "word": "victima",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5842,7 +5842,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cataclísmica",
+	        "word": "cataclismica",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5853,7 +5853,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cataclísmicamente",
+	        "word": "cataclismicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5864,7 +5864,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "catástrofe",
+	        "word": "catastrofe",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5875,7 +5875,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "catástrofes",
+	        "word": "catastrofes",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5886,7 +5886,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "catastrófico",
+	        "word": "catastrofico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5897,7 +5897,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "catastróficamente",
+	        "word": "catastroficamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5908,7 +5908,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "catástrofes",
+	        "word": "catastrofes",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5919,7 +5919,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cáustico",
+	        "word": "caustico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -5930,7 +5930,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cáusticamente",
+	        "word": "causticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6029,7 +6029,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "caótico",
+	        "word": "caotico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6084,7 +6084,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "parlanchín",
+	        "word": "parlanchin",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6238,7 +6238,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "escalofrío",
+	        "word": "escalofrio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6249,7 +6249,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frío",
+	        "word": "frio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6271,7 +6271,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "estrangulación",
+	        "word": "estrangulacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6282,7 +6282,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "colérico",
+	        "word": "colerico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6315,7 +6315,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "crónico",
+	        "word": "cronico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6370,7 +6370,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cliché",
+	        "word": "cliche",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6535,7 +6535,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "coerción",
+	        "word": "coercion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6557,7 +6557,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frío",
+	        "word": "frio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6568,7 +6568,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fríamente",
+	        "word": "friamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6601,7 +6601,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "colusión",
+	        "word": "colusion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6623,7 +6623,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "combustión",
+	        "word": "combustion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6634,7 +6634,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cómico",
+	        "word": "comico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6667,7 +6667,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "conmoción",
+	        "word": "conmocion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6788,7 +6788,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "complicación",
+	        "word": "complicacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6799,7 +6799,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cómplices",
+	        "word": "complices",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6810,7 +6810,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "compulsión",
+	        "word": "compulsion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6865,7 +6865,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "engreído",
+	        "word": "engreido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6898,7 +6898,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "preocupación",
+	        "word": "preocupacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6931,7 +6931,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "concesión",
+	        "word": "concesion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -6975,7 +6975,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "condenación",
+	        "word": "condenacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7063,7 +7063,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "confesión",
+	        "word": "confesion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7162,7 +7162,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "confusión",
+	        "word": "confusion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7184,7 +7184,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "confrontación",
+	        "word": "confrontacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7250,7 +7250,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "confusión",
+	        "word": "confusion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7283,7 +7283,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "congestión",
+	        "word": "congestion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7360,7 +7360,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "conspiración",
+	        "word": "conspiracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7404,7 +7404,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "consternación",
+	        "word": "consternacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7470,7 +7470,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "contaminación",
+	        "word": "contaminacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7536,7 +7536,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "contención",
+	        "word": "contencion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7591,7 +7591,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "contradicción",
+	        "word": "contradiccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7657,7 +7657,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "polémico",
+	        "word": "polemico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7701,7 +7701,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "corrosión",
+	        "word": "corrosion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7767,7 +7767,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "corrupción",
+	        "word": "corrupcion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -7800,7 +7800,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más costoso",
+	        "word": "mas costoso",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8119,7 +8119,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "manía",
+	        "word": "mania",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8196,7 +8196,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "crédulo",
+	        "word": "credulo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8251,7 +8251,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "se deslizó",
+	        "word": "se deslizo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8372,7 +8372,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "crítico",
+	        "word": "critico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8383,7 +8383,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "crítico",
+	        "word": "critico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8394,7 +8394,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "crítica",
+	        "word": "critica",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8405,7 +8405,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "las críticas",
+	        "word": "las criticas",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8449,7 +8449,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "críticos",
+	        "word": "criticos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8471,7 +8471,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ladrón",
+	        "word": "ladron",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8548,7 +8548,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más cruel",
+	        "word": "mas cruel",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8559,7 +8559,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más cruel",
+	        "word": "mas cruel",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8746,7 +8746,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "incómodo",
+	        "word": "incomodo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8790,7 +8790,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "maldición",
+	        "word": "maldicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8867,7 +8867,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cínico",
+	        "word": "cinico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -8977,7 +8977,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "condenación",
+	        "word": "condenacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9087,7 +9087,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más oscuro",
+	        "word": "mas oscuro",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9153,7 +9153,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "un auténtico desafío",
+	        "word": "un autentico desafio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9307,7 +9307,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "humillación",
+	        "word": "humillacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9604,7 +9604,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "disminución",
+	        "word": "disminucion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9648,7 +9648,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "decrépito",
+	        "word": "decrepito",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9681,7 +9681,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "difamación",
+	        "word": "difamacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9769,7 +9769,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desafío",
+	        "word": "desafio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9879,7 +9879,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "defraudación",
+	        "word": "defraudacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9934,7 +9934,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "degeneración",
+	        "word": "degeneracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9945,7 +9945,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "degradación",
+	        "word": "degradacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -9989,7 +9989,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "deshumanización",
+	        "word": "deshumanizacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -10286,7 +10286,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "demoníaco",
+	        "word": "demoniaco",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -10330,7 +10330,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "demonización",
+	        "word": "demonizacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -10374,7 +10374,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "negación",
+	        "word": "negacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -10682,7 +10682,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "depresión",
+	        "word": "depresion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -10748,7 +10748,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "burlón",
+	        "word": "burlon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -10814,7 +10814,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "deserción",
+	        "word": "desercion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -10891,7 +10891,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desesperación",
+	        "word": "desesperacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -10946,7 +10946,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desesperación",
+	        "word": "desesperacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11067,7 +11067,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "déspota",
+	        "word": "despota",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11078,7 +11078,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "despótico",
+	        "word": "despotico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11100,7 +11100,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desestabilización",
+	        "word": "desestabilizacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11166,7 +11166,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "destrucción",
+	        "word": "destruccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11353,7 +11353,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "detracción",
+	        "word": "detraccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11452,7 +11452,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "devastación",
+	        "word": "devastacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11474,7 +11474,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desviación",
+	        "word": "desviacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11496,7 +11496,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "diabólico",
+	        "word": "diabolico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11507,7 +11507,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "diabólicamente",
+	        "word": "diabolicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11562,7 +11562,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desviación",
+	        "word": "desviacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11573,7 +11573,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "vacío",
+	        "word": "vacio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11584,7 +11584,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "diabólico",
+	        "word": "diabolico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11595,7 +11595,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "diabólico",
+	        "word": "diabolico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11606,7 +11606,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "diabólicamente",
+	        "word": "diabolicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11705,7 +11705,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "acérrimo",
+	        "word": "acerrimo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -11738,7 +11738,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "difícil",
+	        "word": "dificil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12145,7 +12145,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "no está de acuerdo",
+	        "word": "no esta de acuerdo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12189,7 +12189,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "decepción",
+	        "word": "decepcion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12244,7 +12244,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "decepción",
+	        "word": "decepcion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12277,7 +12277,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desaprobación",
+	        "word": "desaprobacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12288,7 +12288,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desaprobación",
+	        "word": "desaprobacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12310,7 +12310,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desaprobación",
+	        "word": "desaprobacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12398,7 +12398,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desautorización",
+	        "word": "desautorizacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12431,7 +12431,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "incrédulo",
+	        "word": "incredulo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12739,7 +12739,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "descortés",
+	        "word": "descortes",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12750,7 +12750,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "descortesía",
+	        "word": "descortesia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12805,7 +12805,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "discriminación",
+	        "word": "discriminacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -12827,7 +12827,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desdén",
+	        "word": "desden",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -13124,7 +13124,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desilusión",
+	        "word": "desilusion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -13146,7 +13146,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desilusión",
+	        "word": "desilusion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -13168,7 +13168,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "aversión",
+	        "word": "aversion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -13245,7 +13245,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desintegración",
+	        "word": "desintegracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -13256,7 +13256,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desinterés",
+	        "word": "desinteres",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -13278,7 +13278,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "aversión",
+	        "word": "aversion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -13289,7 +13289,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "No me gustó",
+	        "word": "No me gusto",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -13388,7 +13388,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "consternación",
+	        "word": "consternacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -13641,7 +13641,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desánimo",
+	        "word": "desanimo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -13960,7 +13960,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desorganización",
+	        "word": "desorganizacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14026,7 +14026,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "insatisfacción",
+	        "word": "insatisfaccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14125,7 +14125,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "disensión",
+	        "word": "disension",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14257,7 +14257,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "disolución",
+	        "word": "disolucion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14389,7 +14389,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "distorsión",
+	        "word": "distorsion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14422,7 +14422,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "distracción",
+	        "word": "distraccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14433,7 +14433,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "distracción",
+	        "word": "distraccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14565,7 +14565,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "perturbación",
+	        "word": "perturbacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14609,7 +14609,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desunión",
+	        "word": "desunion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14752,7 +14752,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "dogmático",
+	        "word": "dogmatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14763,7 +14763,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "capa caída",
+	        "word": "capa caida",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14807,7 +14807,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "perdición",
+	        "word": "perdicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14829,7 +14829,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "Día del Juicio Final",
+	        "word": "Dia del Juicio Final",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14939,7 +14939,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "alicaído",
+	        "word": "alicaido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -14950,7 +14950,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "decepción",
+	        "word": "decepcion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15049,7 +15049,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "recesión",
+	        "word": "recesion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15071,7 +15071,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "monótono",
+	        "word": "monotono",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15137,7 +15137,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "dragón",
+	        "word": "dragon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15203,7 +15203,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "drástico",
+	        "word": "drastico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15214,7 +15214,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "drásticamente",
+	        "word": "drasticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15379,7 +15379,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "deserción",
+	        "word": "desercion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15401,7 +15401,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "deserción",
+	        "word": "desercion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15423,7 +15423,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sequía",
+	        "word": "sequia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15676,7 +15676,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "disminución",
+	        "word": "disminucion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15709,7 +15709,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "excéntrico",
+	        "word": "excentrico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15753,7 +15753,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "egocéntrico",
+	        "word": "egocentrico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15764,7 +15764,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "egomanía",
+	        "word": "egomania",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15786,7 +15786,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ególatra",
+	        "word": "egolatra",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15797,7 +15797,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "egoístamente",
+	        "word": "egoistamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15841,7 +15841,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "eliminación",
+	        "word": "eliminacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15973,7 +15973,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "enfático",
+	        "word": "enfatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15984,7 +15984,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "enfáticamente",
+	        "word": "enfaticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -15995,7 +15995,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "vacío",
+	        "word": "vacio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16017,7 +16017,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "invasión",
+	        "word": "invasion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16259,7 +16259,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "equívoco",
+	        "word": "equivoco",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16303,7 +16303,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "erosión",
+	        "word": "erosion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16336,7 +16336,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "errático",
+	        "word": "erratico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16347,7 +16347,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "erráticamente",
+	        "word": "erraticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16358,7 +16358,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "erróneo",
+	        "word": "erroneo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16369,7 +16369,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "erróneamente",
+	        "word": "erroneamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16457,7 +16457,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "evasión",
+	        "word": "evasion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16578,7 +16578,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "exageración",
+	        "word": "exageracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16633,7 +16633,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "exasperación",
+	        "word": "exasperacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16666,7 +16666,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "exclusión",
+	        "word": "exclusion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16688,7 +16688,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "agudísimo",
+	        "word": "agudisimo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16919,7 +16919,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "explotación",
+	        "word": "explotacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -16952,7 +16952,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "expropiación",
+	        "word": "expropiacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17029,7 +17029,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "extorsión",
+	        "word": "extorsion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17150,7 +17150,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fabricación",
+	        "word": "fabricacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17249,7 +17249,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "débil",
+	        "word": "debil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17260,7 +17260,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pusilánimes",
+	        "word": "pusilanimes",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17315,7 +17315,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "erróneo",
+	        "word": "erroneo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17359,7 +17359,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "caído",
+	        "word": "caido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17392,7 +17392,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "caídas",
+	        "word": "caidas",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17480,7 +17480,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "famélico",
+	        "word": "famelico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17491,7 +17491,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fanático",
+	        "word": "fanatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17502,7 +17502,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fanático",
+	        "word": "fanatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17513,7 +17513,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fanáticamente",
+	        "word": "fanaticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17535,7 +17535,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fanáticos",
+	        "word": "fanaticos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17557,7 +17557,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "traído por los pelos",
+	        "word": "traido por los pelos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17590,7 +17590,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "farsa-todavía-provocador",
+	        "word": "farsa-todavia-provocador",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17601,7 +17601,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ridículamente",
+	        "word": "ridiculamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17777,7 +17777,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fatídico",
+	        "word": "fatidico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -17788,7 +17788,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fatídicamente",
+	        "word": "fatidicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -18008,7 +18008,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "débil",
+	        "word": "debil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -18030,7 +18030,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "poco ánimo",
+	        "word": "poco animo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -18118,7 +18118,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fétido",
+	        "word": "fetido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -18206,7 +18206,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ficción",
+	        "word": "ficcion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -18272,7 +18272,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "diabólico",
+	        "word": "diabolico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -18448,7 +18448,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fuego antiaéreo",
+	        "word": "fuego antiaereo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -18492,7 +18492,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "descamación",
+	        "word": "descamacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -18723,7 +18723,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frívolo",
+	        "word": "frivolo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -18943,7 +18943,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "enérgico",
+	        "word": "energico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19119,7 +19119,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "díscolo",
+	        "word": "discolo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19152,7 +19152,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frágil",
+	        "word": "fragil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19174,7 +19174,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frágil",
+	        "word": "fragil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19185,7 +19185,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frenético",
+	        "word": "frenetico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19196,7 +19196,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frenéticamente",
+	        "word": "freneticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19207,7 +19207,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frenéticamente",
+	        "word": "freneticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19350,7 +19350,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "congelación",
+	        "word": "congelacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19361,7 +19361,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frenético",
+	        "word": "frenetico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19372,7 +19372,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frenéticamente",
+	        "word": "freneticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19383,7 +19383,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frenético",
+	        "word": "frenetico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19394,7 +19394,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frenesí",
+	        "word": "frenesi",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19438,7 +19438,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fricción",
+	        "word": "friccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19559,7 +19559,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frígido",
+	        "word": "frigido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19592,7 +19592,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "congeló",
+	        "word": "congelo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19691,7 +19691,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frustración",
+	        "word": "frustracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19735,7 +19735,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "dulce de azúcar",
+	        "word": "dulce de azucar",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19834,7 +19834,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cómicamente",
+	        "word": "comicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19944,7 +19944,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fútil",
+	        "word": "futil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19955,7 +19955,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inútilmente",
+	        "word": "inutilmente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -19988,7 +19988,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "algarabía",
+	        "word": "algarabia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -20087,7 +20087,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "gángster",
+	        "word": "gangster",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -20263,7 +20263,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "algarabía",
+	        "word": "algarabia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -20439,7 +20439,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "melancólico",
+	        "word": "melancolico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -20461,7 +20461,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sombrío",
+	        "word": "sombrio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -20494,7 +20494,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "aguijón",
+	        "word": "aguijon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -20549,7 +20549,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "matón",
+	        "word": "maton",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -20813,7 +20813,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cólicos",
+	        "word": "colicos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21066,7 +21066,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "gruñón",
+	        "word": "gruñon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21121,7 +21121,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "crédulo",
+	        "word": "credulo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21143,7 +21143,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "canalón",
+	        "word": "canalon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21198,7 +21198,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "caída del cabello",
+	        "word": "caida del cabello",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21242,7 +21242,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "alucinación",
+	        "word": "alucinacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21286,7 +21286,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "caída",
+	        "word": "caida",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21429,7 +21429,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "de línea dura",
+	        "word": "de linea dura",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21440,7 +21440,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "político de línea dura",
+	        "word": "politico de linea dura",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21506,7 +21506,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "línea dura",
+	        "word": "linea dura",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21517,7 +21517,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "la línea dura",
+	        "word": "la linea dura",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21528,7 +21528,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "privación",
+	        "word": "privacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21594,7 +21594,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "arpía",
+	        "word": "arpia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -21638,7 +21638,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "áspero",
+	        "word": "aspero",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22122,7 +22122,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "frenético",
+	        "word": "frenetico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22188,7 +22188,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hegemónica",
+	        "word": "hegemonica",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22199,7 +22199,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hegemonía",
+	        "word": "hegemonia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22298,7 +22298,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "herejía",
+	        "word": "herejia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22320,7 +22320,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "herético",
+	        "word": "heretico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22419,7 +22419,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "obstáculo",
+	        "word": "obstaculo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22441,7 +22441,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "siseó",
+	        "word": "siseo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22474,7 +22474,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "acumulación",
+	        "word": "acumulacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22584,7 +22584,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desesperación",
+	        "word": "desesperacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22716,7 +22716,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rehén",
+	        "word": "rehen",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22793,7 +22793,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "invernáculo",
+	        "word": "invernaculo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22837,7 +22837,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "húmedo",
+	        "word": "humedo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22870,7 +22870,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "humillación",
+	        "word": "humillacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22980,7 +22980,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hipocresía",
+	        "word": "hipocresia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -22991,7 +22991,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hipocresía",
+	        "word": "hipocresia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23002,7 +23002,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hipócrita",
+	        "word": "hipocrita",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23013,7 +23013,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hipócritas",
+	        "word": "hipocritas",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23024,7 +23024,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hipócrita",
+	        "word": "hipocrita",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23035,7 +23035,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hipócritamente",
+	        "word": "hipocritamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23057,7 +23057,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "histérico",
+	        "word": "histerico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23068,7 +23068,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "histérico",
+	        "word": "histerico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23079,7 +23079,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "histéricamente",
+	        "word": "histericamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23145,7 +23145,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "estúpidamente",
+	        "word": "estupidamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23343,7 +23343,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "malévolo",
+	        "word": "malevolo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23442,7 +23442,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ilegítimo",
+	        "word": "ilegitimo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23453,7 +23453,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ilícito",
+	        "word": "ilicito",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23486,7 +23486,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "falta de lógica",
+	        "word": "falta de logica",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23497,7 +23497,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ilógico",
+	        "word": "ilogico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23508,7 +23508,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ilógicamente",
+	        "word": "ilogicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23574,7 +23574,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "imbécil",
+	        "word": "imbecil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -23871,7 +23871,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "imperfección",
+	        "word": "imperfeccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24025,7 +24025,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "impío",
+	        "word": "impio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24047,7 +24047,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "increíble",
+	        "word": "increible",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24058,7 +24058,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inverosímilmente",
+	        "word": "inverosimilmente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24080,7 +24080,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "implicación",
+	        "word": "implicacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24102,7 +24102,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "descortés",
+	        "word": "descortes",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24113,7 +24113,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "con descortesía",
+	        "word": "con descortesia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24124,7 +24124,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "impolítico",
+	        "word": "impolitico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24190,7 +24190,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "imposición",
+	        "word": "imposicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24267,7 +24267,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "poco práctico",
+	        "word": "poco practico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24311,7 +24311,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "imprecisión",
+	        "word": "imprecision",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24454,7 +24454,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "impúdicamente",
+	        "word": "impudicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24586,7 +24586,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inacción",
+	        "word": "inaccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24696,7 +24696,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "estúpidamente",
+	        "word": "estupidamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -24872,7 +24872,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "incitación",
+	        "word": "incitacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -25081,7 +25081,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "incomprensión",
+	        "word": "incomprension",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -25345,7 +25345,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "incrédulo",
+	        "word": "incredulo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -25356,7 +25356,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "incrédulamente",
+	        "word": "incredulamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -25411,7 +25411,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "indecisión",
+	        "word": "indecision",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -25554,7 +25554,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "con indignación",
+	        "word": "con indignacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -25565,7 +25565,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "indignación",
+	        "word": "indignacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -25620,7 +25620,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "indiscreción",
+	        "word": "indiscrecion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -26214,7 +26214,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "infección",
+	        "word": "infeccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -26357,7 +26357,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inflamación",
+	        "word": "inflamacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -26434,7 +26434,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "infracción",
+	        "word": "infraccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -26456,7 +26456,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "infracción",
+	        "word": "infraccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -26566,7 +26566,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inhibición",
+	        "word": "inhibicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -26577,7 +26577,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inhóspito",
+	        "word": "inhospito",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -26709,7 +26709,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lesión",
+	        "word": "lesion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -26742,7 +26742,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "insinuación",
+	        "word": "insinuacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27017,7 +27017,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "insinuación",
+	        "word": "insinuacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27083,7 +27083,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "despreocupación",
+	        "word": "despreocupacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27347,7 +27347,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "insurrección",
+	        "word": "insurreccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27446,7 +27446,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "interrupción",
+	        "word": "interrupcion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27501,7 +27501,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "intimidación",
+	        "word": "intimidacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27600,7 +27600,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "intrusión",
+	        "word": "intrusion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27655,7 +27655,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inválido",
+	        "word": "invalido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27919,7 +27919,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "irónico",
+	        "word": "ironico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27930,7 +27930,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "irónico",
+	        "word": "ironico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27941,7 +27941,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "irónicamente",
+	        "word": "ironicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27952,7 +27952,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ironías",
+	        "word": "ironias",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -27963,7 +27963,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ironía",
+	        "word": "ironia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28348,7 +28348,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "irritación",
+	        "word": "irritacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28403,7 +28403,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cuestión",
+	        "word": "cuestion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28425,7 +28425,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "picazón",
+	        "word": "picazon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28436,7 +28436,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "picazón",
+	        "word": "picazon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28513,7 +28513,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ictérico",
+	        "word": "icterico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28634,7 +28634,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tirón",
+	        "word": "tiron",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28645,7 +28645,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "espasmódico",
+	        "word": "espasmodico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28744,7 +28744,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "vibración",
+	        "word": "vibracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28810,7 +28810,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "depósito de chatarra",
+	        "word": "deposito de chatarra",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28920,7 +28920,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "bribón",
+	        "word": "bribon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -28997,7 +28997,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lánguido",
+	        "word": "languido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29074,7 +29074,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lacónico",
+	        "word": "laconico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29228,7 +29228,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lánguido",
+	        "word": "languido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29261,7 +29261,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lánguido",
+	        "word": "languido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29272,7 +29272,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lánguidamente",
+	        "word": "languidamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29338,7 +29338,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "último recurso",
+	        "word": "ultimo recurso",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29360,7 +29360,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cómico",
+	        "word": "comico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29382,7 +29382,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hazmerreír",
+	        "word": "hazmerreir",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29404,7 +29404,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "infracción de la ley",
+	        "word": "infraccion de la ley",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29624,7 +29624,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "limón",
+	        "word": "limon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29690,7 +29690,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "letárgico",
+	        "word": "letargico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29888,7 +29888,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "límite",
+	        "word": "limite",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29899,7 +29899,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "limitación",
+	        "word": "limitacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29932,7 +29932,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "límites",
+	        "word": "limites",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29954,7 +29954,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "apático",
+	        "word": "apatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29987,7 +29987,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lívido",
+	        "word": "livido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -29998,7 +29998,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lívidamente",
+	        "word": "lividamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30207,7 +30207,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "botín",
+	        "word": "botin",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30284,7 +30284,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pérdida",
+	        "word": "perdida",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30295,7 +30295,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pérdidas",
+	        "word": "perdidas",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30328,7 +30328,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más fuerte",
+	        "word": "mas fuerte",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30372,7 +30372,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "baja calificación",
+	        "word": "baja calificacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30394,7 +30394,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ridículo",
+	        "word": "ridiculo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30405,7 +30405,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ridículamente",
+	        "word": "ridiculamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30416,7 +30416,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lúgubre",
+	        "word": "lugubre",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30460,7 +30460,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lunático",
+	        "word": "lunatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30658,7 +30658,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inadaptación",
+	        "word": "inadaptacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30735,7 +30735,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "malévolo",
+	        "word": "malevolo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30889,7 +30889,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "manía",
+	        "word": "mania",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30900,7 +30900,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "maníaco",
+	        "word": "maniaco",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30911,7 +30911,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "maníaco",
+	        "word": "maniaco",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30922,7 +30922,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "maníaco",
+	        "word": "maniaco",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -30944,7 +30944,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "manipulación",
+	        "word": "manipulacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31021,7 +31021,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "martirio búsqueda",
+	        "word": "martirio busqueda",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31032,7 +31032,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "puré",
+	        "word": "pure",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31098,7 +31098,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sensiblería",
+	        "word": "sensibleria",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31197,7 +31197,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "melancolía",
+	        "word": "melancolia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31208,7 +31208,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "melodramático",
+	        "word": "melodramatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31219,7 +31219,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "melodramáticamente",
+	        "word": "melodramaticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31329,7 +31329,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lío",
+	        "word": "lio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31351,7 +31351,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "líos",
+	        "word": "lios",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31527,7 +31527,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ilegítimo",
+	        "word": "ilegitimo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31571,7 +31571,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "cálculo erróneo",
+	        "word": "calculo erroneo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31615,7 +31615,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "picardía",
+	        "word": "picardia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31626,7 +31626,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "concepto erróneo",
+	        "word": "concepto erroneo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31637,7 +31637,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "conceptos erróneos",
+	        "word": "conceptos erroneos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31802,7 +31802,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "extravío",
+	        "word": "extravio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -31901,7 +31901,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "juicio erróneo",
+	        "word": "juicio erroneo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32011,7 +32011,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "mala interpretación",
+	        "word": "mala interpretacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32033,7 +32033,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tergiversación",
+	        "word": "tergiversacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32077,7 +32077,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "declaración falsa",
+	        "word": "declaracion falsa",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32121,7 +32121,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "erróneamente",
+	        "word": "erroneamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32275,7 +32275,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "gángster",
+	        "word": "gangster",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32330,7 +32330,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "burlón",
+	        "word": "burlon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32385,7 +32385,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "monótono",
+	        "word": "monotono",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32396,7 +32396,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "monotonía",
+	        "word": "monotonia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32484,7 +32484,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "melancólico",
+	        "word": "melancolico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32495,7 +32495,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "mórbido",
+	        "word": "morbido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32506,7 +32506,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "mórbida",
+	        "word": "morbida",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32561,7 +32561,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "imbécil",
+	        "word": "imbecil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32583,7 +32583,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "mortificación",
+	        "word": "mortificacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32627,7 +32627,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inmóvil",
+	        "word": "inmovil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32748,7 +32748,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "multipolarización",
+	        "word": "multipolarizacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32825,7 +32825,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "demostración de fuerza",
+	        "word": "demostracion de fuerza",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32913,7 +32913,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rocín",
+	        "word": "rocin",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -32957,7 +32957,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más estrecho",
+	        "word": "mas estrecho",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -33023,7 +33023,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "da náuseas",
+	        "word": "da nauseas",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -33155,7 +33155,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "negación",
+	        "word": "negacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -33320,7 +33320,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "neurótico",
+	        "word": "neurotico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -33331,7 +33331,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "neuróticamente",
+	        "word": "neuroticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -33441,7 +33441,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más ruidoso",
+	        "word": "mas ruidoso",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -33606,7 +33606,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "objeción",
+	        "word": "objecion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -33837,7 +33837,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "obstáculo",
+	        "word": "obstaculo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -33892,7 +33892,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "obstrucción",
+	        "word": "obstruccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -33903,7 +33903,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "obstrucción",
+	        "word": "obstruccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -33980,7 +33980,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "oclusión",
+	        "word": "oclusion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34189,7 +34189,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "omisión",
+	        "word": "omision",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34255,7 +34255,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "dogmático",
+	        "word": "dogmatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34299,7 +34299,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "oposición",
+	        "word": "oposicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34332,7 +34332,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "opresión",
+	        "word": "opresion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34365,7 +34365,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "opresión",
+	        "word": "opresion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34387,7 +34387,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ordalías",
+	        "word": "ordalias",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34398,7 +34398,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "huérfano",
+	        "word": "huerfano",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34431,7 +34431,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "explosión",
+	        "word": "explosion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34629,7 +34629,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sobrevaluación",
+	        "word": "sobrevaluacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34695,7 +34695,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "despótico",
+	        "word": "despotico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -34937,7 +34937,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "simplificación",
+	        "word": "simplificacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35003,7 +35003,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "exageración",
+	        "word": "exageracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35234,7 +35234,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pálido",
+	        "word": "palido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35322,7 +35322,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pánico",
+	        "word": "panico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35344,7 +35344,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pánico",
+	        "word": "panico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35355,7 +35355,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pánico",
+	        "word": "panico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35366,7 +35366,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lleno de pánico",
+	        "word": "lleno de panico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35377,7 +35377,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "paradójico",
+	        "word": "paradojico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35388,7 +35388,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "paradójicamente",
+	        "word": "paradojicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35443,7 +35443,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "parásito",
+	        "word": "parasito",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35542,7 +35542,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "patético",
+	        "word": "patetico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35553,7 +35553,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "patéticamente",
+	        "word": "pateticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35608,7 +35608,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "recuperación de la inversión",
+	        "word": "recuperacion de la inversion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35729,7 +35729,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pérfido",
+	        "word": "perfido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35872,7 +35872,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "persecución",
+	        "word": "persecucion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -35971,7 +35971,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "perversión",
+	        "word": "perversion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36059,7 +36059,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "parásito",
+	        "word": "parasito",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36070,7 +36070,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pestífero",
+	        "word": "pestifero",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36136,7 +36136,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fóbica",
+	        "word": "fobica",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36356,7 +36356,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lástima",
+	        "word": "lastima",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36411,7 +36411,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "súplica",
+	        "word": "suplica",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36422,7 +36422,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "súplicas",
+	        "word": "suplicas",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36444,7 +36444,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "situación",
+	        "word": "situacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36477,7 +36477,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "táctica",
+	        "word": "tactica",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36510,7 +36510,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inútil",
+	        "word": "inutil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36521,7 +36521,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inútilmente",
+	        "word": "inutilmente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36532,7 +36532,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tóxico",
+	        "word": "toxico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36587,7 +36587,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "polarización",
+	        "word": "polarizacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36642,7 +36642,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "contaminación",
+	        "word": "contaminacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36675,7 +36675,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más pobre",
+	        "word": "mas pobre",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36686,7 +36686,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más pobre",
+	        "word": "mas pobre",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36961,7 +36961,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pretensión",
+	        "word": "pretension",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -36983,7 +36983,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pretensión",
+	        "word": "pretension",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -37038,7 +37038,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más caro",
+	        "word": "mas caro",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -37115,7 +37115,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "prisión",
+	        "word": "prision",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -37148,7 +37148,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "problemático",
+	        "word": "problematico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -37192,7 +37192,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "dilación",
+	        "word": "dilacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -37357,7 +37357,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "provocación",
+	        "word": "provocacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -37511,7 +37511,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "títeres",
+	        "word": "titeres",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -37566,7 +37566,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "escrúpulo",
+	        "word": "escrupulo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -37665,7 +37665,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "maricón",
+	        "word": "maricon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -37786,7 +37786,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "radicalización",
+	        "word": "radicalizacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -37995,7 +37995,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "violación",
+	        "word": "violacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38028,7 +38028,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "bribón",
+	        "word": "bribon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38050,7 +38050,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "erupción",
+	        "word": "erupcion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38105,7 +38105,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desvarío",
+	        "word": "desvario",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38182,7 +38182,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "recesión",
+	        "word": "recesion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38336,7 +38336,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "refutación",
+	        "word": "refutacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38402,7 +38402,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "regresión",
+	        "word": "regresion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38501,7 +38501,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "lamentó",
+	        "word": "lamento",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38567,7 +38567,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "recaída",
+	        "word": "recaida",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38776,7 +38776,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "reprensión",
+	        "word": "reprension",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38809,7 +38809,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "represión",
+	        "word": "represion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -38875,7 +38875,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "con reprobación",
+	        "word": "con reprobacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39128,7 +39128,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "restricción",
+	        "word": "restriccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39381,7 +39381,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "revulsión",
+	        "word": "revulsion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39414,7 +39414,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "retórica",
+	        "word": "retorica",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39425,7 +39425,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "retórico",
+	        "word": "retorico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39447,7 +39447,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ridículo",
+	        "word": "ridiculo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39469,7 +39469,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ridículo",
+	        "word": "ridiculo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39480,7 +39480,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ridículamente",
+	        "word": "ridiculamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39524,7 +39524,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rígido",
+	        "word": "rigido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39579,7 +39579,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rasgón",
+	        "word": "rasgon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39678,7 +39678,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "obstáculos",
+	        "word": "obstaculos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39700,7 +39700,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "pícaro",
+	        "word": "picaro",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39744,7 +39744,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "áspero",
+	        "word": "aspero",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -39799,7 +39799,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rufián",
+	        "word": "rufian",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40140,7 +40140,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "se hundía",
+	        "word": "se hundia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40228,7 +40228,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sarcástico",
+	        "word": "sarcastico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40239,7 +40239,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sarcásticamente",
+	        "word": "sarcasticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40250,7 +40250,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sardónico",
+	        "word": "sardonico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40261,7 +40261,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sardónicamente",
+	        "word": "sardonicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40283,7 +40283,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "satírico",
+	        "word": "satirico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40382,7 +40382,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "escándalo",
+	        "word": "escandalo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40437,7 +40437,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "escándalos",
+	        "word": "escandalos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40646,7 +40646,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "escéptico",
+	        "word": "esceptico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40668,7 +40668,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "burlón",
+	        "word": "burlon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -40745,7 +40745,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "desdén",
+	        "word": "desden",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41064,7 +41064,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sórdido",
+	        "word": "sordido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41108,7 +41108,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "autocrítica",
+	        "word": "autocritica",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41141,7 +41141,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "auto-humillación",
+	        "word": "auto-humillacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41152,7 +41152,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "interés propio",
+	        "word": "interes propio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41163,7 +41163,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "egoísta",
+	        "word": "egoista",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41174,7 +41174,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "egoísta",
+	        "word": "egoista",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41185,7 +41185,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "egoístas que se escondían",
+	        "word": "egoistas que se escondian",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41196,7 +41196,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "egoísta",
+	        "word": "egoista",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41207,7 +41207,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "egoístamente",
+	        "word": "egoistamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41218,7 +41218,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "egoísmo",
+	        "word": "egoismo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41328,7 +41328,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "revés",
+	        "word": "reves",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41405,7 +41405,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sombrío",
+	        "word": "sombrio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41559,7 +41559,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tiburón",
+	        "word": "tiburon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41669,7 +41669,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "escalofrío",
+	        "word": "escalofrio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41735,7 +41735,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "efímero",
+	        "word": "efimero",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41812,7 +41812,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "miopía",
+	        "word": "miopia",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -41823,7 +41823,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "confrontación",
+	        "word": "confrontacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -42175,7 +42175,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "escéptico",
+	        "word": "esceptico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -42186,7 +42186,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "escéptico",
+	        "word": "esceptico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -42197,7 +42197,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "escépticamente",
+	        "word": "escepticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -42417,7 +42417,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sórdido",
+	        "word": "sordido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -42604,7 +42604,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más lento",
+	        "word": "mas lento",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -42615,7 +42615,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "el más lento",
+	        "word": "el mas lento",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -42692,7 +42692,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "depresión",
+	        "word": "depresion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -42703,7 +42703,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "caída",
+	        "word": "caida",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -42780,7 +42780,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más bien pequeño",
+	        "word": "mas bien pequeño",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -43022,7 +43022,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tizón",
+	        "word": "tizon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -43143,7 +43143,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sarcásticos",
+	        "word": "sarcasticos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -43374,7 +43374,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sombrío",
+	        "word": "sombrio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -43605,7 +43605,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "malévolo",
+	        "word": "malevolo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -43649,7 +43649,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "división",
+	        "word": "division",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -43660,7 +43660,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "división",
+	        "word": "division",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -43726,7 +43726,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "botín",
+	        "word": "botin",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -43748,7 +43748,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fantasmagóricos",
+	        "word": "fantasmagoricos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -43825,7 +43825,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "esporádico",
+	        "word": "esporadico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -43913,7 +43913,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "calabacín",
+	        "word": "calabacin",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -44155,7 +44155,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rígido",
+	        "word": "rigido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -44232,7 +44232,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "estático",
+	        "word": "estatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -44331,7 +44331,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "estereotípicamente",
+	        "word": "estereotipicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -44375,7 +44375,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rígido",
+	        "word": "rigido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -44562,7 +44562,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "títeres",
+	        "word": "titeres",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -44606,7 +44606,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tensión",
+	        "word": "tension",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -44672,7 +44672,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más extraño",
+	        "word": "mas extraño",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -44716,7 +44716,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "estrés",
+	        "word": "estres",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -44980,7 +44980,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tropezón",
+	        "word": "tropezon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45013,7 +45013,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "muñón",
+	        "word": "muñon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45079,7 +45079,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "estúpido",
+	        "word": "estupido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45090,7 +45090,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más estúpida",
+	        "word": "mas estupida",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45112,7 +45112,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "estúpidamente",
+	        "word": "estupidamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45167,7 +45167,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tartamudeó",
+	        "word": "tartamudeo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45255,7 +45255,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sujeción",
+	        "word": "sujecion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45277,7 +45277,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "subyugación",
+	        "word": "subyugacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45310,7 +45310,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "citación",
+	        "word": "citacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45376,7 +45376,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "subversión",
+	        "word": "subversion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45552,7 +45552,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "víctima",
+	        "word": "victima",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45772,7 +45772,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "superstición",
+	        "word": "supersticion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45805,7 +45805,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "supresión",
+	        "word": "supresion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45816,7 +45816,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "rendición",
+	        "word": "rendicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45937,7 +45937,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hinchazón",
+	        "word": "hinchazon",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45981,7 +45981,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "síntoma",
+	        "word": "sintoma",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -45992,7 +45992,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "síntomas",
+	        "word": "sintomas",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46003,7 +46003,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "síndrome",
+	        "word": "sindrome",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46014,7 +46014,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tabú",
+	        "word": "tabu",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46146,7 +46146,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tardío",
+	        "word": "tardio",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46366,7 +46366,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tentación",
+	        "word": "tentacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46399,7 +46399,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tensión",
+	        "word": "tension",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46509,7 +46509,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "terror génica",
+	        "word": "terror genica",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46542,7 +46542,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "irritación",
+	        "word": "irritacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46597,7 +46597,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más grueso",
+	        "word": "mas grueso",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46652,7 +46652,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "irreflexión",
+	        "word": "irreflexion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46784,7 +46784,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "matón",
+	        "word": "maton",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46839,7 +46839,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tímido",
+	        "word": "timido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -46861,7 +46861,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tímidamente",
+	        "word": "timidamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47180,7 +47180,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tóxico",
+	        "word": "toxico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47213,7 +47213,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "trágico",
+	        "word": "tragico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47224,7 +47224,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "trágicamente",
+	        "word": "tragicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47301,7 +47301,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "transgresión",
+	        "word": "transgresion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47389,7 +47389,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "traumático",
+	        "word": "traumatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47400,7 +47400,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "traumáticamente",
+	        "word": "traumaticamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47477,7 +47477,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "traición",
+	        "word": "traicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47488,7 +47488,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "traición",
+	        "word": "traicion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47532,7 +47532,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "superchería",
+	        "word": "supercheria",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47543,7 +47543,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "difícil",
+	        "word": "dificil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47686,7 +47686,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "caído",
+	        "word": "caido",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47730,7 +47730,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "confusión",
+	        "word": "confusion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47774,7 +47774,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "hipócrita",
+	        "word": "hipocrita",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47796,7 +47796,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tiránico",
+	        "word": "tiranico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47807,7 +47807,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tiránicamente",
+	        "word": "tiranicamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47818,7 +47818,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tiranía",
+	        "word": "tirania",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47851,7 +47851,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más feo",
+	        "word": "mas feo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47862,7 +47862,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más fea",
+	        "word": "mas fea",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47906,7 +47906,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ultimátum",
+	        "word": "ultimatum",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47917,7 +47917,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ultimátums",
+	        "word": "ultimatums",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -47928,7 +47928,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "ultra-línea dura",
+	        "word": "ultra-linea dura",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -48115,7 +48115,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "increíble",
+	        "word": "increible",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -48126,7 +48126,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "increíblemente",
+	        "word": "increiblemente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -48214,7 +48214,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "incómodo",
+	        "word": "incomodo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -48225,7 +48225,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "incómodamente",
+	        "word": "incomodamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -48434,7 +48434,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "subvaloración",
+	        "word": "subvaloracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -48687,7 +48687,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "antieconómico",
+	        "word": "antieconomico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -48720,7 +48720,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "poco ético",
+	        "word": "poco etico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -48951,7 +48951,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sin financiación",
+	        "word": "sin financiacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -49028,7 +49028,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "poco útil",
+	        "word": "poco util",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -50018,7 +50018,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "sin éxito",
+	        "word": "sin exito",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -50227,7 +50227,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "insólito",
+	        "word": "insolito",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -50425,7 +50425,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "convulsión",
+	        "word": "convulsion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -50447,7 +50447,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "escándalo",
+	        "word": "escandalo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -50579,7 +50579,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "inútil",
+	        "word": "inutil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -50821,7 +50821,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "vejación",
+	        "word": "vejacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -50898,7 +50898,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "vibración",
+	        "word": "vibracion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51096,7 +51096,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "espíritu de venganza",
+	        "word": "espiritu de venganza",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51118,7 +51118,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "violación",
+	        "word": "violacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51173,7 +51173,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "víbora",
+	        "word": "vibora",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51250,7 +51250,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "volátil",
+	        "word": "volatil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51272,7 +51272,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "vómito",
+	        "word": "vomito",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51294,7 +51294,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "vómitos",
+	        "word": "vomitos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51305,7 +51305,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "vómitos",
+	        "word": "vomitos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51536,7 +51536,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "antieconómico",
+	        "word": "antieconomico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51602,7 +51602,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "débil",
+	        "word": "debil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51624,7 +51624,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "debilitación",
+	        "word": "debilitacion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51635,7 +51635,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "más débil",
+	        "word": "mas debil",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51811,7 +51811,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "látigos",
+	        "word": "latigos",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51965,7 +51965,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "tambaleó",
+	        "word": "tambaleo",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -51987,7 +51987,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "aflicción",
+	        "word": "afliccion",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -52482,7 +52482,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "erróneamente",
+	        "word": "erroneamente",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
@@ -52548,7 +52548,7 @@
 	},
 	{ "model": "api.dictionary",
 	    "fields": {
-	        "word": "fanático",
+	        "word": "fanatico",
 	        "polarity": "N",
 	        "language_id": 1,
 	        "is_active": true,
