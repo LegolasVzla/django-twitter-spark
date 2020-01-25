@@ -24,6 +24,8 @@ setup:
 	# install pip
 	sudo apt-get install python-pip python-dev build-essential -y
 	sudo pip install --upgrade pip
+	# Install java for Apache Spark, you can comment this line if you already have it
+	sudo apt install openjdk-8-jdk
 
 install:
 	pip install -r requirements.txt

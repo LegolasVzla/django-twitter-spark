@@ -61,7 +61,7 @@ Then, activate your virtualenv already installed (by default, is called ```env``
 
 And execute:
 
-	Make install
+	make install
 
 This will generate the database with default data and also it will install python requirements and nltk resources. Default credentials for admin superuser are: admin@admin.com / admin. 
 
