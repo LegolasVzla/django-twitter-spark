@@ -65,13 +65,19 @@ And execute:
 
 This will generate the database with default data and also it will install python requirements and nltk resources. Default credentials for admin superuser are: admin@admin.com / admin. 
 
-Finally, run the server (by default, host and port are set as 127.0.0.1 and 8000 respectively in the ```Makefile```):
+Run django server (by default, host and port are set as 127.0.0.1 and 8000 respectively in the ```Makefile```):
 
 	make execute
 
 You could see the home page in:
 
 	http://127.0.0.1:8000/socialanalyzer/
+
+Finally, in another terminal start master worker of Apache Spark:
+
+	make start-spark
+
+By default port for master worker service to listen is 7077 (i.e: spark://192.xxx.xx.xxx:7077). You could open Apache Spark web UI in **http://localhost:8080/**
 
 ## Models
 

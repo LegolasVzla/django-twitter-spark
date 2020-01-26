@@ -13,6 +13,9 @@ help:
 execute:
 	python manage.py runserver ${HOST}:${PORT}
 
+start-spark:
+	spark-class org.apache.spark.deploy.master.Master
+
 setup:
 	# Install PostgreSQL
 	sudo apt-get update
