@@ -29,6 +29,8 @@ setup:
 	sudo pip install --upgrade pip
 	# Install java for Apache Spark, you can comment this line if you already have it
 	sudo apt install openjdk-8-jdk
+	# Install Zookeeper for high availability with Apache Spark
+	apt-get install zookeeperd -y
 
 install:
 	pip install -r requirements.txt
