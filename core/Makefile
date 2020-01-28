@@ -9,12 +9,19 @@ help:
 	@echo "	Install packages and some default things needed in your system."
 	@echo "make install"
 	@echo " By setting previously a virtual env, generate db with default data and install python requirements."
+	@echo "make start-spark"
+	@echo " Start master worker of Apache Spark."
+	@echo "make start-spark-ha"
+	@echo " Start master worker of Apache Spark for high availability with Zookeeper"
 
 execute:
 	python manage.py runserver ${HOST}:${PORT}
 
 start-spark:
 	spark-class org.apache.spark.deploy.master.Master
+
+start-spark-ha:
+	spark-class org.apache.spark.deploy.master.Master --properties-file $(CURDIR)/$(VENV_NAME)/lib/python3.5/site-packages/pyspark/bin/highavailability.conf
 
 setup:
 	# Install PostgreSQL

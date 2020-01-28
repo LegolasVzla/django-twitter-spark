@@ -18,6 +18,8 @@ Authors:
 
 - [Apache Spark](https://spark.apache.org/) is a unified analytics engine for large-scale data processing.
 
+- [Apache Zookeeper](https://zookeeper.apache.org/) is an effort to develop and maintain an open-source server which enables highly reliable distributed coordination.
+
 - [PostgreSQL](https://www.postgresql.org/) is the World's Most Advanced Open Source Relational Database.
 
 - [Tweepy](https://www.tweepy.org/) is an easy-to-use Python library for accessing the Twitter API.
@@ -78,6 +80,20 @@ Finally, in another terminal start master worker of Apache Spark:
 	make start-spark
 
 By default port for master worker service to listen is 7077 (i.e: spark://192.xxx.xx.xxx:7077). You could open Apache Spark web UI in **http://localhost:8080/**
+
+## Running Apache Spark for high availability with Zookeeper
+
+Zookeeper can provide [high availability](http://spark.apache.org/docs/latest/spark-standalone.html#high-availability) dealing with the single point of failure of Apache Spark. You can run spark with zookeeper as below:
+
+	make start-spark-ha
+
+**highavailability.conf** file specified in the ```Makefile``` command, needs a configuration with the below structure:
+
+	spark.deploy.recoveryMode=ZOOKEEPER
+	spark.deploy.zookeeper.url=localhost:2181
+	spark.deploy.zookeeper.dir=<path_of_your_virtualenv>/lib/python3.<your_python_version>/site-packages/pyspark
+
+By default, port for Zookeeper service to listen is 2181. Create that file and save it in ```pyspark``` folder, installed inside of your virtualenv. If you didn't install spark with pip, save the file in ```spark/conf``` path or edit default properties in ```conf/spark-defaults.conf```.
 
 ## Models
 
