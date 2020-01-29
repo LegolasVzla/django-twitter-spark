@@ -23,6 +23,9 @@ start-spark:
 start-spark-ha:
 	spark-class org.apache.spark.deploy.master.Master --properties-file $(CURDIR)/$(VENV_NAME)/lib/python3.5/site-packages/pyspark/bin/highavailability.conf
 
+start-zookeeper:
+	systemctl start zookeeper
+
 setup:
 	# Install PostgreSQL
 	sudo apt-get update
@@ -34,6 +37,11 @@ setup:
 	# install pip
 	sudo apt-get install python-pip python-dev build-essential -y
 	sudo pip install --upgrade pip
+	# install virtualenv
+	sudo apt-get install python-virtualenv virtualenv -y
+	pip install --upgrade virtualenv
+	#apt --fix-broken install
+	virtualenv $(VENV_NAME) --python=python3
 	# Install java for Apache Spark, you can comment this line if you already have it
 	sudo apt install openjdk-8-jdk
 	# Install Zookeeper for high availability with Apache Spark

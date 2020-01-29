@@ -18,7 +18,7 @@ Authors:
 
 - [Apache Spark](https://spark.apache.org/) is a unified analytics engine for large-scale data processing.
 
-- [Apache Zookeeper](https://zookeeper.apache.org/) is an effort to develop and maintain an open-source server which enables highly reliable distributed coordination.
+- [Apache ZooKeeper](https://zookeeper.apache.org/) is an effort to develop and maintain an open-source server which enables highly reliable distributed coordination.
 
 - [PostgreSQL](https://www.postgresql.org/) is the World's Most Advanced Open Source Relational Database.
 
@@ -33,7 +33,7 @@ What would happen if we integrate this technologies?...Let's check it!
 
 ## Installation
 
-```Makefile``` will help you with all the installation. First of all, in "django-twitter-spark/core/" path, execute:
+```Makefile``` will help you with all the installation. First of all, in ```django-twitter-spark/core/``` path, execute:
 
 	make setup
 
@@ -79,21 +79,58 @@ Finally, in another terminal start master worker of Apache Spark:
 
 	make start-spark
 
-By default port for master worker service to listen is 7077 (i.e: spark://192.xxx.xx.xxx:7077). You could open Apache Spark web UI in **http://localhost:8080/**
+It will display a message similar as below:
 
-## Running Apache Spark for high availability with Zookeeper
+	20/01/28 22:27:33 INFO Master: I have been elected leader! New state: ALIVE
 
-Zookeeper can provide [high availability](http://spark.apache.org/docs/latest/spark-standalone.html#high-availability) dealing with the single point of failure of Apache Spark. You can run spark with zookeeper as below:
+By default port for master worker service to listen is 7077 (i.e: spark://192.xxx.xx.xxx:7077). You could open Apache Spark web UI in **http://localhost:8080/** or in the host displayed in the terminal:
 
-	make start-spark-ha
+	20/01/28 22:27:33 INFO Utils: Successfully started service 'MasterUI' on port 8080.
+	20/01/28 22:27:33 INFO MasterWebUI: Bound MasterWebUI to 0.0.0.0, and started at http://192.xxx.xxx.xxx:8080
 
-**highavailability.conf** file specified in the ```Makefile``` command, needs a configuration with the below structure:
+## Running Apache Spark for high availability with ZooKeeper
+
+ZooKeeper can provide [high availability](http://spark.apache.org/docs/latest/spark-standalone.html#high-availability) dealing with the single point of failure of Apache Spark. ZooKeeper is installed with ```make setup``` command of the ```Makefile``` (```/usr/share/zookeeper/bin``` path in Ubuntu). **highavailability.conf** file specified in ```make start-spark-ha``` command of ```Makefile``` file, needs a configuration with the below structure:
 
 	spark.deploy.recoveryMode=ZOOKEEPER
 	spark.deploy.zookeeper.url=localhost:2181
 	spark.deploy.zookeeper.dir=<path_of_your_virtualenv>/lib/python3.<your_python_version>/site-packages/pyspark
 
-By default, port for Zookeeper service to listen is 2181. Create that file and save it in ```pyspark``` folder, installed inside of your virtualenv. If you didn't install spark with pip, save the file in ```spark/conf``` path or edit default properties in ```conf/spark-defaults.conf```.
+By default, port for ZooKeeper service to listen is 2181. Create that file and save it in ```pyspark``` folder, installed inside of your virtualenv. If you didn't install spark with pip, save the file in ```spark/conf``` path or edit default properties in ```conf/spark-defaults.conf```. 
+
+Run ZooKeeper:
+
+	make start-zookeeper
+
+This will start a ZooKeeper master. Also you can manage it with:
+
+	service zookeeper # {start|stop|status|restart|force-reload}
+
+Or just as below:
+
+	cd /usr/share/zookeeper/bin/
+	./zkServer.sh start
+	./zkServer.sh status
+
+Displaying the following information:
+
+	ZooKeeper JMX enabled by default
+	Using config: /etc/zookeeper/conf/zoo.cfg
+	Mode: standalone
+
+You can check the master ZooKeeper running in zooinspector:
+
+	cd /usr/bin
+	./zooinspector
+
+Finally, you can run Spark with ZooKeeper as below:
+
+	make start-spark-ha
+
+It will display a message similar as below:
+
+	20/01/28 22:25:54 INFO ZooKeeperLeaderElectionAgent: We have gained leadership
+	20/01/28 22:25:54 INFO Master: I have been elected leader! New state: ALIVE
 
 ## Models
 
