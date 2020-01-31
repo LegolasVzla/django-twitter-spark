@@ -125,12 +125,65 @@ You can check the master ZooKeeper running in zooinspector:
 
 Finally, you can run Spark with ZooKeeper as below:
 
-	make start-spark-ha
+	make WEBUIPORT=<webui_spark_worker_PORT_> start-spark-ha
+
+Where ```WEBUIPORT``` is an optional parameter (8080 by default) to see the Spark Web UI of that worker.
 
 It will display a message similar as below:
 
 	20/01/28 22:25:54 INFO ZooKeeperLeaderElectionAgent: We have gained leadership
 	20/01/28 22:25:54 INFO Master: I have been elected leader! New state: ALIVE
+
+## Launch multiple Masters in your cluster connected to the same ZooKeeper instance
+
+In a terminal (or a node), run:
+
+	make start-spark-ha
+
+In your browser, open [http://localhost:8080/](http://localhost:8080/) and the status of that worker shoul be:
+
+	Status: ALIVE
+
+In another terminal (or a node), run:
+
+	make WEBUIPORT=8081 start-spark-ha
+
+In your browser, open [http://localhost:8081/](http://localhost:8081/) and the status of that worker shoul be:
+
+	Status: STANDBY
+
+In your python code, you can start a slave worker as below:
+
+	from pyspark import SparkContext
+	from pyspark import SparkConf
+	conf = SparkConf()
+	conf.setAppName('task1')
+	conf.setMaster('spark://192.xxx.xxx.xxx:7077,192.xxx.xxx.xxx:7078')
+	sc = SparkContext.getOrCreate(conf)
+
+Now in the first master worker terminal, you should see:
+
+	20/01/30 23:14:15 INFO Master: Registering app task1
+	20/01/30 23:14:15 INFO Master: Registered app task1 with ID app-20200130231415-0000
+
+You could see your slave worker running in the web UI in **Running Applications**. Now, kill your first master worker terminal. In the second terminal, now you should see:
+
+	20/01/30 23:18:40 INFO ZooKeeperLeaderElectionAgent: We have gained leadership
+	20/01/30 23:18:40 INFO Master: I have been elected leader! New state: RECOVERING
+	20/01/30 23:18:40 INFO Master: Trying to recover app: app-20200130231415-0000
+	20/01/30 23:18:40 INFO TransportClientFactory: Successfully created connection to /192.xxx.xxx.xxx:39917 after 18 ms (0 ms spent in bootstraps)
+	20/01/30 23:18:40 INFO Master: Application has been re-registered: app-20200130231415-0000
+	20/01/30 23:18:40 INFO Master: Recovery complete - resuming operations!
+
+In second master worker web UI, the status should be changged:
+
+	Status: ALIVE
+
+Finally, stop existing context:
+
+	sc.stop()
+
+In the second master worker web UI your slave worker should be in **Completed Applications**
 
 ## Models
 
