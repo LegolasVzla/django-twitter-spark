@@ -46,6 +46,14 @@ from nltk.tokenize import word_tokenize
 import Stemmer
 from collections import Counter
 
+from pyspark import SparkConf
+from pyspark.sql import SparkSession
+from pyspark import SparkContext
+#from pyspark.sql.types import *
+#from pyspark.sql import SQLContext
+#from pyspark.sql.functions import udf
+#from pyspark.sql.types import StringType
+
 from core.settings import BASE_DIR 
 from api.social_networks_api_connections import *
 import logging

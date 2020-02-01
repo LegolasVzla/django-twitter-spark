@@ -53,9 +53,14 @@ This will install PostgreSQL and pip on your system. After that, you need to fil
 	ACCESS_TOKEN = <access_token>
 	ACCESS_TOKEN_SECRET = <access_token_secret>
 
+	[sparkConf]
+	SPARK_WORKERS = <host:port,...>
+
 - postgresdbConf section: fill in with your own PostgreSQL credentials. By default, DB_HOST and DB_PORT in PostgreSQL are localhost/5432.
 
 - tweepyConf section: register a [Tweepy account](https://developer.twitter.com/en/apply-for-access) and fill in with your own credentials.
+
+- sparkConf section: list of master workers to start spark.
 
 Then, activate your virtualenv already installed (by default, is called ```env``` in the ```Makefile```):
 
@@ -184,6 +189,8 @@ Finally, stop existing context:
 	sc.stop()
 
 In the second master worker web UI your slave worker should be in **Completed Applications**
+
+See full documentation of this flow [here](https://spark.apache.org/docs/latest/spark-standalone.html#standby-masters-with-zookeeper)
 
 ## Models
 

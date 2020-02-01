@@ -108,6 +108,12 @@ CONSUMER_SECRET = config.get('tweepyConf', 'CONSUMER_SECRET')
 ACCESS_TOKEN = config.get('tweepyConf', 'ACCESS_TOKEN') 
 ACCESS_TOKEN_SECRET = config.get('tweepyConf', 'ACCESS_TOKEN_SECRET') 
 
+###################################################################
+##### Spark CONFIG
+###################################################################
+
+SPARK_WORKERS = config.get('sparkConf', 'SPARK_WORKERS')
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
