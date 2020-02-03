@@ -2,6 +2,9 @@ VENV_NAME?=env
 HOST=127.0.0.1
 DPORT=8000
 WEBUIPORT=8080
+SLAVE_CORE=2
+SLAVE_MEMORY=2G
+SPARK_NODE=192.168.0.105:7077
 
 help:
 	@echo "make execute"
@@ -12,6 +15,8 @@ help:
 	@echo "	By setting previously a virtual env, generate db with default data and install python requirements."
 	@echo "make start-spark"
 	@echo "	Start master worker of Apache Spark."
+	@echo "make start-slave"
+	@echo "	Start slave worker of Apache Spark and connect it with the master node."	
 	@echo "make start-spark-ha (OPTIONAL PARAMETER: WEBUIPORT, i.e: make WEBUIPORT=8081 start-spark-ha)"
 	@echo "	Start master worker of Apache Spark for high availability with Zookeeper"
 
@@ -20,6 +25,9 @@ execute:
 
 start-spark:
 	spark-class org.apache.spark.deploy.master.Master
+
+start-slave:
+	./$(VENV_NAME)/lib/python3.5/site-packages/pyspark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://${SPARK_NODE} --cores ${SLAVE_CORE} --memory ${SLAVE_MEMORY}
 
 start-spark-ha WEBUIPORT:
 	spark-class org.apache.spark.deploy.master.Master --properties-file $(CURDIR)/$(VENV_NAME)/lib/python3.5/site-packages/pyspark/bin/highavailability.conf --webui-port $(WEBUIPORT)
