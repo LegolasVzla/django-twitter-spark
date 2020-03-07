@@ -49,10 +49,12 @@ from collections import Counter
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
 from pyspark import SparkContext
-#from pyspark.sql.types import *
-#from pyspark.sql import SQLContext
-#from pyspark.sql.functions import udf
-#from pyspark.sql.types import StringType
+from pyspark.sql.types import *
+from pyspark.sql import SQLContext
+from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType
+from pyspark.sql import Row
+from core.settings import SPARK_WORKERS
 
 from core.settings import BASE_DIR 
 from api.social_networks_api_connections import *
@@ -94,42 +96,33 @@ class TextMiningMethods(object):
 		'''
 		Method to clean tweets using regex
 		'''
-		# Define regex
-		url_regex = re.compile('https?://(www.)?\w+\.\w+(/\w+)*/?')
-		punctuation_regex = re.compile("[^0-9a-zA-Z]")
-		punctuation_aux_regex = re.compile('[%s]' % re.escape(string.punctuation))
+		# Define some regex rules
+		url_regex = re.compile(r'''(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))''')
 		numeric_regex = re.compile('(\\d+)')
-		mentions_regex = re.compile('@(\w+)')
-		alpha_num_regex = re.compile("^[a-z0-9_.]+$")
+		mentions_regex = re.compile("@[A-Za-z0-9]+")
 
 		# Remove Hiperlinks
 		tweet = url_regex.sub(' ', tweet)
+		
 		# Remove @mentions
 		tweet = mentions_regex.sub(' ', tweet)
+		
 		# Remove punctuations
-		tweet = punctuation_regex.sub(' ', tweet)
-		# Remove more punctuations
-		tweet = punctuation_aux_regex.sub(' ', tweet)
+		tweet = tweet.translate(str.maketrans(string.punctuation,32*' '))	# len(string.punctuation) = 32
+		
 		# Remove numerics
 		tweet = numeric_regex.sub(' ', tweet)
+		
+		# Remove white spaces
+		tweet = " ".join(tweet.split())
+		
+		# Remove accents
+		tweet = unidecode.unidecode(tweet)
+		
 		# Convert to lowercase
 		tweet = tweet.lower()
 
-		list_position = 0
-		tweet_cleaned = ''
-		for word in tweet.split():
-			if (list_position==0):
-				if alpha_num_regex.match(word) and len(word) > 2:
-					tweet_cleaned = word
-				else:
-					tweet_cleaned = ' '
-			else:
-				if alpha_num_regex.match(word) and len(word) > 2:
-					tweet_cleaned = tweet_cleaned + ' ' + word
-				else:
-					tweet_cleaned += ' '
-			list_position += 1
-		return tweet_cleaned
+		return tweet
 
 	def remove_stops(tweet):
 		'''
@@ -137,6 +130,7 @@ class TextMiningMethods(object):
 		'''		
 		list_position = 0
 		tweet_cleaned = ''
+
 		for word in tweet.split():
 			if word not in set(stopwords.words("spanish")):
 				if list_position == 0:
@@ -144,6 +138,7 @@ class TextMiningMethods(object):
 				else:
 					tweet_cleaned = tweet_cleaned + ' ' + word
 				list_position += 1
+
 		return tweet_cleaned
 
 class MachineLearningViewSet(viewsets.ViewSet):
@@ -271,6 +266,89 @@ class MachineLearningViewSet(viewsets.ViewSet):
 			logging.getLogger('error_logger').exception("[API - MachineLearningViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 			self.response_data['error'].append("[API - MachineLearningViewSet] - Error: " + str(e))			
+		return Response(self.response_data,status=self.code)
+
+class BigDataViewSet(viewsets.ViewSet):
+	'''
+	Class for big data endpoints: Word cloud with cleaned tweets,
+	sentiment analysis, topic classification of tweets (both of the)
+	using apache spark
+	'''
+	serializer_class = SocialNetworkAccountsAPISerializer
+
+	def __init__(self):
+		self.response_data = {'error': [], 'data': []}
+		self.data = {}
+		self.code = 0
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def word_cloud(self, request, *args, **kwargs):
+		'''
+		- POST method (word_cloud): get tweets from tweets_get endpoint
+		and then, cleaned all with TextMiningMethods.
+		- Mandatory: social network account
+		'''
+		try:
+			serializer = SocialNetworkAccountsAPISerializer(data=kwargs['data'])
+
+			if serializer.is_valid():
+
+				# Get twitter topics stored in Topic model
+				_tweets = TwitterViewSet()
+				_tweets.tweets_get(request,social_network=kwargs['data']['social_network'])
+
+				if _tweets.code == 200:
+					tweets_list = _tweets.response_data['data']
+
+					## Create SparkSession for word_cloud generation
+					spark=SparkSession \
+						.builder \
+						.master("spark://"+SPARK_WORKERS) \
+						.appName('word_cloud') \
+						.config("spark.executor.memory", '2g') \
+						.config('spark.executor.cores', '2') \
+						.config('spark.cores.max', '2') \
+						.config("spark.driver.memory",'2g') \
+						.getOrCreate()
+					# spark.sparkContext.getConf().getAll()
+
+					# Or with SparkContext
+					# conf = SparkConf(). \
+					# 	.setAppName('word_cloud') \
+					# 	.setMaster('spark://'+SPARK_WORKERS) \
+					# sc = SparkContext(conf=conf)
+					# SparkConf().getAll()
+
+					sqlContext = SQLContext(spark)
+
+					# Generate rdd of tweets
+					tweets_rdd=spark.sparkContext.parallelize(tweets_list)
+
+					# And then convert it to dataframe
+					df = sqlContext.read.json(tweets_rdd)
+
+					import pdb;pdb.set_trace()
+					# Create User Define Function
+					remove_punctuation_udf = udf(TextMiningMethods().remove_punctuation(tweets_list), StringType())
+					remove_stops_udf = udf(TextMiningMethods().remove_stops(tweets_list), StringType())
+
+					# Applying udf functions to new data frames
+					punctuation_text_df = df.withColumn(
+						"punctuation_text", remove_punctuation_udf(df["text"]))
+					stop_df = punctuation_text_df.withColumn(
+						"stop_words_text", remove_stops_udf(punctuation_text_df["punctuation_text"]))
+
+					sc.stop()
+					self.response_data['data'].append(self.data)
+					self.code = status.HTTP_200_OK
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - BigDataViewSet] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - BigDataViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
 class WordCloudViewSet(viewsets.ViewSet):
