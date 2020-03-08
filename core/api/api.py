@@ -92,9 +92,10 @@ class TextMiningMethods(object):
 		super(TextMiningMethods, self).__init__()
 		self.arg = arg
 
-	def remove_punctuation(tweet):
+	def clean_tweet(tweet):
 		'''
-		Method to clean tweets using regex
+		Method to clean tweets (with regex, translate, unidecode) 
+		and remove stop words (with nltk)
 		'''
 		# Define some regex rules
 		url_regex = re.compile(r'''(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))''')
@@ -122,12 +123,7 @@ class TextMiningMethods(object):
 		# Convert to lowercase
 		tweet = tweet.lower()
 
-		return tweet
-
-	def remove_stops(tweet):
-		'''
-		Method to remove stop words using nltk
-		'''		
+		# Remove stop words
 		list_position = 0
 		tweet_cleaned = ''
 
@@ -140,6 +136,26 @@ class TextMiningMethods(object):
 				list_position += 1
 
 		return tweet_cleaned
+
+def clean_tweet_list(tweets_list):
+	'''
+	Method to clean tweets list with clean_tweet()
+	'''
+	# Iterate on each tweet account	
+	for tweet_account_index,tweet_account_elem in enumerate(tweets_list):
+
+		# Iterate on each tweet of the current account
+		for tweet_data_index,tweet_data in enumerate(tweet_account_elem['tweet']):
+
+			tweet = ''
+
+			# Clean the current tweet
+			tweet = clean_tweet(tweet_data['text'])
+
+			# Update the current original tweet to the new cleaned tweet
+			tweets_list[tweet_account_index]['tweet'][tweet_data_index]['text'] = tweet
+
+	return tweets_list
 
 class MachineLearningViewSet(viewsets.ViewSet):
 	'''
@@ -329,15 +345,12 @@ class BigDataViewSet(viewsets.ViewSet):
 					df = sqlContext.read.json(tweets_rdd)
 
 					import pdb;pdb.set_trace()
-					# Create User Define Function
-					remove_punctuation_udf = udf(TextMiningMethods().remove_punctuation(tweets_list), StringType())
-					remove_stops_udf = udf(TextMiningMethods().remove_stops(tweets_list), StringType())
+					# Create User Define Function and clean tweets list
+					clean_tweet_list_udf = udf(TextMiningMethods().clean_tweet_list(tweets_list), StringType())
 
 					# Applying udf functions to new data frames
-					punctuation_text_df = df.withColumn(
-						"punctuation_text", remove_punctuation_udf(df["text"]))
-					stop_df = punctuation_text_df.withColumn(
-						"stop_words_text", remove_stops_udf(punctuation_text_df["punctuation_text"]))
+					clean_tweet_list_df = df.withColumn(
+						"clean_clean_tweet", clean_clean_tweet_list_udf(df["text"]))
 
 					sc.stop()
 					self.response_data['data'].append(self.data)
@@ -528,7 +541,7 @@ class TwitterViewSet(viewsets.ViewSet):
 						self.data['account_name'] = twitter_account_data['name']
 						self.data['tweet'] = []
 
-						# Iterate on each of the tweet data, extracted from the current twitter account
+						# Iterate on each tweet data, extracted from the current twitter account
 						for tweet_data_index,tweet_data in enumerate(all_twitter_timeline_data):
 							tweet_element_data = {}
 							tweet_element_data['id'] = tweet_data['id']
