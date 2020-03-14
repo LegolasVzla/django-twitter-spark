@@ -41,10 +41,12 @@ import imageio
 
 import re
 import string
+import unidecode
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import Stemmer
 from collections import Counter
+import pandas as pd
 
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
@@ -52,8 +54,8 @@ from pyspark import SparkContext
 from pyspark.sql.types import *
 from pyspark.sql import SQLContext
 from pyspark.sql.functions import udf
-from pyspark.sql.types import StringType
-from pyspark.sql import Row
+#from pyspark.sql.types import StringType, ArrayType
+#from pyspark.sql import Row
 from core.settings import SPARK_WORKERS
 
 from core.settings import BASE_DIR 
@@ -86,13 +88,9 @@ def validate_type_of_request(f):
 		return f(*args,**kwargs)
 	return decorator
 
-class TextMiningMethods(object):
+class TextMiningMethods():
 	"""docstring for TextMiningMethods"""
-	def __init__(self, arg):
-		super(TextMiningMethods, self).__init__()
-		self.arg = arg
-
-	def clean_tweet(tweet):
+	def clean_tweet(self,tweet):
 		'''
 		Method to clean tweets (with regex, translate, unidecode) 
 		and remove stop words (with nltk)
@@ -137,25 +135,26 @@ class TextMiningMethods(object):
 
 		return tweet_cleaned
 
-def clean_tweet_list(tweets_list):
-	'''
-	Method to clean tweets list with clean_tweet()
-	'''
-	# Iterate on each tweet account	
-	for tweet_account_index,tweet_account_elem in enumerate(tweets_list):
+	def clean_tweet_list(self,tweets_list):
+		'''
+		Method to clean tweets list with clean_tweet()
+		'''
+		# Iterate on each tweet account	
+		for tweet_account_index,tweet_account_elem in enumerate(tweets_list):
 
-		# Iterate on each tweet of the current account
-		for tweet_data_index,tweet_data in enumerate(tweet_account_elem['tweet']):
+			# Iterate on each tweet of the current account
+			for tweet_data_index,tweet_data in enumerate(tweet_account_elem['tweet']):
 
-			tweet = ''
+				tweet = ''
 
-			# Clean the current tweet
-			tweet = clean_tweet(tweet_data['text'])
+				# Clean the current tweet
+				import pdb;pdb.set_trace()
+				tweet = self.clean_tweet(tweet_data['text'])
 
-			# Update the current original tweet to the new cleaned tweet
-			tweets_list[tweet_account_index]['tweet'][tweet_data_index]['text'] = tweet
+				# Update the current original tweet to the new cleaned tweet
+				tweets_list[tweet_account_index]['tweet'][tweet_data_index]['text'] = tweet
 
-	return tweets_list
+		return tweets_list
 
 class MachineLearningViewSet(viewsets.ViewSet):
 	'''
@@ -344,8 +343,28 @@ class BigDataViewSet(viewsets.ViewSet):
 					# And then convert it to dataframe
 					df = sqlContext.read.json(tweets_rdd)
 
+					cols = ['account_name','text','favorite_count','id','retweet_count','created_at']
+					rows = []
+
+					for tweet_account_index, tweet_account_data in enumerate(tweets):
+					
+						# Extract tweets of the current tweet account into a new pandas dataframe
+						tweet_data_aux_pandas_df = pd.Series(tweet_account_data['tweet']).dropna()
+					
+						# Iterate on each tweet of the current tweet account
+						for tweet_index,tweet in enumerate(tweet_data_aux_pandas_df):
+							row = [tweet_account_data['account_name'],tweet['text'],tweet['favorite_count'],tweet['id'],tweet['retweet_count'],tweet['created_at']]
+							rows.append(row)
+					
+					# Create a Pandas Dataframe of tweets
+					tweet_data_pandas_df = pd.DataFrame(rows, columns = cols)
+
+					# Create a Spark DataFrame from a pandas DataFrame
+					df = spark.createDataFrame(tweet_data_pandas_df)
+
 					import pdb;pdb.set_trace()
-					# Create User Define Function and clean tweets list
+					
+					# Create User Defined Function and clean tweets list
 					clean_tweet_list_udf = udf(TextMiningMethods().clean_tweet_list(tweets_list), StringType())
 
 					# Applying udf functions to new data frames
