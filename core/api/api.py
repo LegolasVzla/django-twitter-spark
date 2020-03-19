@@ -148,7 +148,6 @@ class TextMiningMethods():
 				tweet = ''
 
 				# Clean the current tweet
-				import pdb;pdb.set_trace()
 				tweet = self.clean_tweet(tweet_data['text'])
 
 				# Update the current original tweet to the new cleaned tweet
@@ -283,7 +282,7 @@ class MachineLearningViewSet(viewsets.ViewSet):
 			self.response_data['error'].append("[API - MachineLearningViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
-class BigDataViewSet(viewsets.ViewSet):
+class BigDataViewSet(TextMiningMethods,viewsets.ViewSet):
 	'''
 	Class for big data endpoints: Word cloud with cleaned tweets,
 	sentiment analysis, topic classification of tweets (both of the)
@@ -337,16 +336,33 @@ class BigDataViewSet(viewsets.ViewSet):
 
 					sqlContext = SQLContext(spark)
 
-					# Generate rdd of tweets
+					'''
+					# Generate rdd of tweets list
 					tweets_rdd=spark.sparkContext.parallelize(tweets_list)
 
-					# And then convert it to dataframe
+					# And then convert it to a pyspark dataframe of tweets list
 					df = sqlContext.read.json(tweets_rdd)
+					'''
 
+					'''
+					But tweet column in the df, needs to be split
+					(Pdb) df.show()
+					+---------------+---------------+--------------------+
+					|_corrupt_record|   account_name|               tweet|
+					+---------------+---------------+--------------------+
+					|           null| CaraotaDigital|[[Wed Mar 18 05:2...|
+					|           null|  ElNacionalWeb|[[Wed Mar 18 05:3...|
+					|           null|    ElUniversal|[[Wed Mar 18 05:3...|
+					|           null|NoticiasVenezue|                  []|
+					+---------------+---------------+--------------------+
+					'''
+
+					# So define all columns name needed
 					cols = ['account_name','text','favorite_count','id','retweet_count','created_at']
 					rows = []
 
-					for tweet_account_index, tweet_account_data in enumerate(tweets):
+					# And iterate over all the tweet list
+					for tweet_account_index, tweet_account_data in enumerate(tweets_list):
 					
 						# Extract tweets of the current tweet account into a new pandas dataframe
 						tweet_data_aux_pandas_df = pd.Series(tweet_account_data['tweet']).dropna()
@@ -357,19 +373,26 @@ class BigDataViewSet(viewsets.ViewSet):
 							rows.append(row)
 					
 					# Create a Pandas Dataframe of tweets
-					tweet_data_pandas_df = pd.DataFrame(rows, columns = cols)
+					tweet_pandas_df = pd.DataFrame(rows, columns = cols)
 
 					# Create a Spark DataFrame from a pandas DataFrame
-					df = spark.createDataFrame(tweet_data_pandas_df)
+					# This data is not cleaned yet
+					df = spark.createDataFrame(tweet_pandas_df)
+
+
+					# Create User Defined Function to clean tweets
+					clean_tweet_list_udf = udf(TextMiningMethods().clean_tweet_list, StringType())
+
+					# Applying udf functions to new data frame
+					clean_tweet_list_df = df.withColumn("clean_tweet", clean_tweet_list_udf(df["text"]))
 
 					import pdb;pdb.set_trace()
-					
-					# Create User Defined Function and clean tweets list
-					clean_tweet_list_udf = udf(TextMiningMethods().clean_tweet_list(tweets_list), StringType())
 
-					# Applying udf functions to new data frames
-					clean_tweet_list_df = df.withColumn(
-						"clean_clean_tweet", clean_clean_tweet_list_udf(df["text"]))
+					# Converts Spark DataFrame into Pandas DataFrame
+					df_pd = clean_tweet_list_df.toPandas()
+
+					# Converts Pandas DataFrame to Json
+					self.response_data['data'].to_json(df_pd,orient="records",force_ascii=False)
 
 					sc.stop()
 					self.response_data['data'].append(self.data)

@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from .api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
 	TopicViewSet,SearchViewSet,WordRootViewSet,SocialNetworkAccountsViewSet,
-	WordCloudViewSet,TwitterViewSet,MachineLearningViewSet)
+	WordCloudViewSet,TwitterViewSet,MachineLearningViewSet,BigDataViewSet)
 from rest_framework_swagger.views import get_swagger_view
 from django.urls import path
 from rest_framework_simplejwt import views as jwt_views
@@ -44,7 +44,8 @@ urlpatterns = [
     url(r'^api/social_network_accounts/accounts_by_social_network/social_network/<int:social_network_id>', SocialNetworkAccountsViewSet.as_view({'post': 'accounts_by_social_network'}), name='accounts_by_social_network'),
     url(r'^api/twitter_analytics/', TwitterViewSet.as_view({'post':'tweets_get'}), name='twitter_analytics'),
     url(r'^api/word_root/word_roots_by_topic', WordRootViewSet.as_view({'get':'word_roots_by_topic'}), name='word_roots_by_topic'),
-    url(r'^api/ml_layer/', MachineLearningViewSet.as_view({'post':'tweet_topic_classification'}), name='ml_layer')    
+    url(r'^api/ml_layer/', MachineLearningViewSet.as_view({'post':'tweet_topic_classification'}), name='ml_layer'),
+    url(r'^api/big_data_layer/', BigDataViewSet.as_view({'post':'word_cloud'}), name='big_data_layer')
 ]
 
 urlpatterns += router.urls

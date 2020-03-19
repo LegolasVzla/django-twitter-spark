@@ -27,10 +27,10 @@ start-spark:
 	spark-class org.apache.spark.deploy.master.Master
 
 start-slave:
-	./$(VENV_NAME)/lib/python3.5/site-packages/pyspark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://${SPARK_NODE} --cores ${SLAVE_CORE} --memory ${SLAVE_MEMORY}
+	./$(VENV_NAME)/lib/python3.6/site-packages/pyspark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://${SPARK_NODE} --cores ${SLAVE_CORE} --memory ${SLAVE_MEMORY}
 
 start-spark-ha WEBUIPORT:
-	spark-class org.apache.spark.deploy.master.Master --properties-file $(CURDIR)/$(VENV_NAME)/lib/python3.5/site-packages/pyspark/bin/highavailability.conf --webui-port $(WEBUIPORT)
+	spark-class org.apache.spark.deploy.master.Master --properties-file $(CURDIR)/$(VENV_NAME)/lib/python3.6/site-packages/pyspark/bin/highavailability.conf --webui-port $(WEBUIPORT)
 
 start-zookeeper:
 	systemctl start zookeeper
@@ -38,7 +38,7 @@ start-zookeeper:
 setup:
 	# Install PostgreSQL
 	sudo apt-get update
-	sudo apt install python3-dev postgresql postgresql-contrib python3-psycopg2 libpq-dev
+	sudo apt install python3-dev postgresql postgresql-contrib python3-psycopg2 libpq-dev -y
 	# Generate log folder 
 	mkdir logs
 	# Generate config file for environment variables
@@ -54,10 +54,11 @@ setup:
 	# Install java for Apache Spark, you can comment this line if you already have it
 	sudo apt install openjdk-8-jdk
 	# Install Zookeeper for high availability with Apache Spark
-	apt-get install zookeeperd -y
+	sudo apt-get install zookeeperd -y
 
 install:
 	pip install -r requirements.txt
+	sudo apt-get install python3-tk
 	python manage.py makemigrations
 	python manage.py migrate
 	# load default system data
