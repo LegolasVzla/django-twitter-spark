@@ -56,13 +56,14 @@ from pyspark.sql import SQLContext
 from pyspark.sql.functions import udf
 #from pyspark.sql.types import StringType, ArrayType
 #from pyspark.sql import Row
-from core.settings import SPARK_WORKERS
+from core.settings import SPARK_WORKERS,SPARK_UDF_FILE
 
 from core.settings import BASE_DIR 
 from api.social_networks_api_connections import *
 import logging
 from functools import wraps
-
+from udf.pyspark_udf import TextMiningMethods
+		
 User = get_user_model()
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -87,73 +88,6 @@ def validate_type_of_request(f):
 			kwargs['data'] = args[1].query_params.dict()
 		return f(*args,**kwargs)
 	return decorator
-
-class TextMiningMethods():
-	"""docstring for TextMiningMethods"""
-	def clean_tweet(self,tweet):
-		'''
-		Method to clean tweets (with regex, translate, unidecode) 
-		and remove stop words (with nltk)
-		'''
-		# Define some regex rules
-		url_regex = re.compile(r'''(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))''')
-		numeric_regex = re.compile('(\\d+)')
-		mentions_regex = re.compile("@[A-Za-z0-9]+")
-
-		# Remove Hiperlinks
-		tweet = url_regex.sub(' ', tweet)
-		
-		# Remove @mentions
-		tweet = mentions_regex.sub(' ', tweet)
-		
-		# Remove punctuations
-		tweet = tweet.translate(str.maketrans(string.punctuation,32*' '))	# len(string.punctuation) = 32
-		
-		# Remove numerics
-		tweet = numeric_regex.sub(' ', tweet)
-		
-		# Remove white spaces
-		tweet = " ".join(tweet.split())
-		
-		# Remove accents
-		tweet = unidecode.unidecode(tweet)
-		
-		# Convert to lowercase
-		tweet = tweet.lower()
-
-		# Remove stop words
-		list_position = 0
-		tweet_cleaned = ''
-
-		for word in tweet.split():
-			if word not in set(stopwords.words("spanish")):
-				if list_position == 0:
-					tweet_cleaned = word
-				else:
-					tweet_cleaned = tweet_cleaned + ' ' + word
-				list_position += 1
-
-		return tweet_cleaned
-
-	def clean_tweet_list(self,tweets_list):
-		'''
-		Method to clean tweets list with clean_tweet()
-		'''
-		# Iterate on each tweet account	
-		for tweet_account_index,tweet_account_elem in enumerate(tweets_list):
-
-			# Iterate on each tweet of the current account
-			for tweet_data_index,tweet_data in enumerate(tweet_account_elem['tweet']):
-
-				tweet = ''
-
-				# Clean the current tweet
-				tweet = self.clean_tweet(tweet_data['text'])
-
-				# Update the current original tweet to the new cleaned tweet
-				tweets_list[tweet_account_index]['tweet'][tweet_data_index]['text'] = tweet
-
-		return tweets_list
 
 class MachineLearningViewSet(viewsets.ViewSet):
 	'''
@@ -258,7 +192,17 @@ class MachineLearningViewSet(viewsets.ViewSet):
 					obj_social.topic="Social"
 
 					# List of all topic objects
-					topic_list = [obj_entertainment,obj_religion,obj_sports,obj_education,obj_techcnology,obj_economy,obj_health,obj_politica,obj_social]
+					topic_list = [
+						obj_entertainment,
+						obj_religion,
+						obj_sports,
+						obj_education,
+						obj_techcnology,
+						obj_economy,
+						obj_health,
+						obj_politica,
+						obj_social
+					]
 
 					# Sort the list by value of each topic in descending order
 					topic_list.sort(key=lambda x: x.value, reverse=True)
@@ -282,7 +226,7 @@ class MachineLearningViewSet(viewsets.ViewSet):
 			self.response_data['error'].append("[API - MachineLearningViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
-class BigDataViewSet(TextMiningMethods,viewsets.ViewSet):
+class BigDataViewSet(viewsets.ViewSet):
 	'''
 	Class for big data endpoints: Word cloud with cleaned tweets,
 	sentiment analysis, topic classification of tweets (both of the)
@@ -303,6 +247,7 @@ class BigDataViewSet(TextMiningMethods,viewsets.ViewSet):
 		and then, cleaned all with TextMiningMethods.
 		- Mandatory: social network account
 		'''
+		
 		try:
 			serializer = SocialNetworkAccountsAPISerializer(data=kwargs['data'])
 
@@ -316,7 +261,7 @@ class BigDataViewSet(TextMiningMethods,viewsets.ViewSet):
 					tweets_list = _tweets.response_data['data']
 
 					## Create SparkSession for word_cloud generation
-					spark=SparkSession \
+					sc=SparkSession \
 						.builder \
 						.master("spark://"+SPARK_WORKERS) \
 						.appName('word_cloud') \
@@ -334,7 +279,7 @@ class BigDataViewSet(TextMiningMethods,viewsets.ViewSet):
 					# sc = SparkContext(conf=conf)
 					# SparkConf().getAll()
 
-					sqlContext = SQLContext(spark)
+					sc.sparkContext.addPyFile(SPARK_UDF_FILE)
 
 					'''
 					# Generate rdd of tweets list
@@ -357,7 +302,9 @@ class BigDataViewSet(TextMiningMethods,viewsets.ViewSet):
 					+---------------+---------------+--------------------+
 					'''
 
-					# So define all columns name needed
+					# Tweet column is inside of [[]], so better, do the lines below
+
+					# Define all columns name needed
 					cols = ['account_name','text','favorite_count','id','retweet_count','created_at']
 					rows = []
 
@@ -375,35 +322,55 @@ class BigDataViewSet(TextMiningMethods,viewsets.ViewSet):
 					# Create a Pandas Dataframe of tweets
 					tweet_pandas_df = pd.DataFrame(rows, columns = cols)
 
+					schema = StructType([
+					    StructField("account_name", StringType(),True),    
+					    StructField("text", StringType(),True),
+					    StructField("favorite_count", IntegerType(),True),
+					    StructField("id", LongType(),True),    
+					    StructField("retweet_count", IntegerType(),True),
+					    StructField("created_at", StringType(),True)
+					])
+
 					# Create a Spark DataFrame from a pandas DataFrame
 					# This data is not cleaned yet
-					df = spark.createDataFrame(tweet_pandas_df)
+					df = sc.createDataFrame(tweet_pandas_df,schema=schema)
 
-
-					# Create User Defined Function to clean tweets
-					clean_tweet_list_udf = udf(TextMiningMethods().clean_tweet_list, StringType())
+					# Create a pyspark User Defined Function to clean tweets
+					clean_tweet_udf = udf(TextMiningMethods().clean_tweet, StringType())
 
 					# Applying udf functions to new data frame
-					clean_tweet_list_df = df.withColumn("clean_tweet", clean_tweet_list_udf(df["text"]))
+					clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["text"]))
 
-					import pdb;pdb.set_trace()
-
-					# Converts Spark DataFrame into Pandas DataFrame
-					df_pd = clean_tweet_list_df.toPandas()
+					## Converts Spark DataFrame into Pandas DataFrame
+					#df_pd = clean_tweet_df.toPandas()
 
 					# Converts Pandas DataFrame to Json
-					self.response_data['data'].to_json(df_pd,orient="records",force_ascii=False)
+					#self.response_data['data']. df_pd.to_json(orient="records",force_ascii=False)
+
+					# Get clean_tweet column and converts to a list
+					clean_tweet_list = clean_tweet_df.select('clean_tweet').collect()
+					all_clean_tweet_ = ''
+
+					for i in clean_tweet_list:					
+						all_clean_tweet_ =  all_clean_tweet_ + i[0]
+
+					self.response_data['data'] = ''.join(all_clean_tweet_)
 
 					sc.stop()
-					self.response_data['data'].append(self.data)
 					self.code = status.HTTP_200_OK
+
+				else:
+					logging.getLogger('error_logger').exception("[API - BigDataViewSet] - Error: " + _tweets.response_data['error'][0])
+					self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+					self.response_data['error'].append("[API - BigDataViewSet] - Error: " + _tweets.response_data['error'][0])
+
 			else:
 				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - BigDataViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[API - BigDataViewSet] - Error: " + str(e))			
+			self.response_data['error'].append("[API - BigDataViewSet] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
 
 class WordCloudViewSet(viewsets.ViewSet):
@@ -576,9 +543,10 @@ class TwitterViewSet(viewsets.ViewSet):
 
 						# Make the request to get tweets of the current twitter account
 						all_twitter_timeline_data = tweepy_api_client.user_timeline(
-							screen_name = twitter_account_data['name'], 
-							count=twitter_account_data['quantity_by_request'])
-						
+							screen_name = twitter_account_data['name'],
+							count=twitter_account_data['quantity_by_request']
+						)
+
 						# Get twitter account name from the current twitter account
 						self.data['account_name'] = twitter_account_data['name']
 						self.data['tweet'] = []
@@ -595,13 +563,14 @@ class TwitterViewSet(viewsets.ViewSet):
 						self.response_data['data'].append(copy.deepcopy(self.data))
 
 					self.code = status.HTTP_200_OK
+
 			else:
 				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[API - TwitterViewSet] - Error: " + str(e))
 			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[API - TwitterViewSet] - Error: " + str(e))			
+			self.response_data['error'].append("[API - TwitterViewSet] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
 
 class UserViewSet(viewsets.ModelViewSet):

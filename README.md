@@ -55,12 +55,13 @@ This will install PostgreSQL and pip on your system. After that, you need to fil
 
 	[sparkConf]
 	SPARK_WORKERS = <host:port,...>
+	SPARK_UDF_FILE=/udf.zip
 
 - postgresdbConf section: fill in with your own PostgreSQL credentials. By default, DB_HOST and DB_PORT in PostgreSQL are localhost/5432.
 
 - tweepyConf section: register a [Tweepy account](https://developer.twitter.com/en/apply-for-access) and fill in with your own credentials.
 
-- sparkConf section: list of master workers to start spark.
+- sparkConf section: list of master workers to start spark and path where are defined pyspark udf (udf/pyspark_udf.py for this project)  
 
 Then, activate your virtualenv already installed (by default, is called ```env``` in the ```Makefile```):
 

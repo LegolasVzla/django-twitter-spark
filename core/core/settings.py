@@ -113,6 +113,7 @@ ACCESS_TOKEN_SECRET = config.get('tweepyConf', 'ACCESS_TOKEN_SECRET')
 ###################################################################
 
 SPARK_WORKERS = config.get('sparkConf', 'SPARK_WORKERS')
+SPARK_UDF_FILE = BASE_DIR + config.get('sparkConf', 'SPARK_UDF_FILE')
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
