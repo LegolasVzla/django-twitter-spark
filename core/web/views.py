@@ -7,7 +7,7 @@ from api.serializers import (UserSerializer,DictionarySerializer,
 	WordRootSerializer,SocialNetworkAccounts)
 from api.api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
 	TopicViewSet,SearchViewSet,WordRootViewSet,SocialNetworkAccountsViewSet,
-	WordCloudViewSet,TwitterViewSet)
+	WordCloudViewSet,TwitterViewSet,BigDataViewSet)
 
 from django.shortcuts import render
 from django.core.serializers.json import DjangoJSONEncoder
@@ -32,9 +32,9 @@ class IndexView(View):
 			word_cloud_tweets_data = ''
 			self.response_data['data']['wordcloud'] = {}
 
-			'''This will be another Class and endpoint that returns 
-			tweets cleaned by NLTK, categorized with sentiment analysis by 
-			Apache Spark processing coming soon'''
+			'''Old code that gets tweets and pass them to the WordCloudViewSet
+			to returns the wordcloud
+
 			_twitter = TwitterViewSet()
 			_twitter.tweets_get(request,social_network=1)
 			if _twitter.code == 200:
@@ -49,8 +49,19 @@ class IndexView(View):
 
 				_wordcloud = WordCloudViewSet()
 				_wordcloud.create(request,user=1,comments=word_cloud_tweets_data)
-				self.response_data['data']['wordcloud'] = _wordcloud.response_data['data'][0]
-				self.code = _wordcloud.code
+			'''
+
+			# Calling to Spark endpoint to get current tweets by text mining
+			# process with nltk 
+			_wordcloud = BigDataViewSet()
+			_wordcloud.word_cloud(request,social_network=1)
+			word_cloud_tweets_data = _wordcloud.response_data['data']
+			
+			# Generating word cloud with current tweets
+			_wordcloud = WordCloudViewSet()
+			_wordcloud.create(request,user=1,comments=word_cloud_tweets_data)
+			self.response_data['data']['wordcloud'] = _wordcloud.response_data['data'][0]
+			self.code = _wordcloud.code
 
 		except Exception as e:
 			logging.getLogger('error_logger').exception("[IndexView] - Error: " + str(e))
