@@ -241,10 +241,11 @@ class BigDataViewSet(viewsets.ViewSet):
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
-	def word_cloud(self, request, *args, **kwargs):
+	def tweets_processing(self, request, *args, **kwargs):
 		'''
-		- POST method (word_cloud): get tweets from tweets_get endpoint
-		and then, cleaned all with TextMiningMethods.
+		- POST method (tweets_processing): get tweets from tweets_get endpoint
+		for different goals: to clean all tweets with Text Mining Methods, 
+		to determine Topic and to To Determinate Sentiment Analysis
 		- Mandatory: social network account
 		'''
 		

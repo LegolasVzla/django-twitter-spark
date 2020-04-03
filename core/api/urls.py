@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'^api/twitter_analytics/', TwitterViewSet.as_view({'post':'tweets_get'}), name='twitter_analytics'),
     url(r'^api/word_root/word_roots_by_topic', WordRootViewSet.as_view({'get':'word_roots_by_topic'}), name='word_roots_by_topic'),
     url(r'^api/ml_layer/', MachineLearningViewSet.as_view({'post':'tweet_topic_classification'}), name='ml_layer'),
-    url(r'^api/big_data_layer/', BigDataViewSet.as_view({'post':'word_cloud'}), name='big_data_layer')
+    url(r'^api/big_data_layer/tweets_processing', BigDataViewSet.as_view({'post':'tweets_processing'}), name='big_data_layer')
 ]
 
 urlpatterns += router.urls

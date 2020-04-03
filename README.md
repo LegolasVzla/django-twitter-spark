@@ -263,6 +263,15 @@ Endpoint |HTTP Method | CRUD Method | Result
 Parameters:
 - Mandatory: text (a tweet)
 
+* Big Data Layer: `api/big_data_layer/`
+
+Endpoint |HTTP Method | CRUD Method | Result
+-- | -- |-- |--
+`api/big_data_layer/tweets_processing` | POST | CREATE | Given a social network account id (twitter), this endpoint will get current tweets, to process them with different goals: to determine the topic and sentiment analysys of all the tweets and also, returns cleaned tweets that you can use to generate a word cloud, for example.
+
+Parameters:
+- Mandatory: social network account id (twitter)
+
 ## Contributions
 ------------------------
 

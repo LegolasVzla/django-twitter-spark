@@ -53,9 +53,9 @@ class IndexView(View):
 
 			# Calling to Spark endpoint to get current tweets by text mining
 			# process with nltk 
-			_wordcloud = BigDataViewSet()
-			_wordcloud.word_cloud(request,social_network=1)
-			word_cloud_tweets_data = _wordcloud.response_data['data']
+			_bigData = BigDataViewSet()
+			_bigData.tweets_processing(request,social_network=1)
+			word_cloud_tweets_data = _bigData.response_data['data']
 			
 			# Generating word cloud with current tweets
 			_wordcloud = WordCloudViewSet()
