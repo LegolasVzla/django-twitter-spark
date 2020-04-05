@@ -54,9 +54,19 @@ class IndexView(View):
 			# Calling to Spark endpoint to get current tweets by text mining
 			# process with nltk 
 			_bigData = BigDataViewSet()
-			_bigData.tweets_processing(request,social_network=1)
-			word_cloud_tweets_data = _bigData.response_data['data']
+			_bigData.process_tweets(request,social_network=1)
+			tweets_processed = _bigData.response_data['data']
+
+			# To get all cleaned tweet list
+			for tweet_elem in tweets_processed:
+				word_cloud_tweets_data =  word_cloud_tweets_data + tweet_elem['clean_tweet']
+
+			# Remove cleaned tweet of response data
+			for tweet_elem in tweets_processed:
+				del tweet_elem['clean_tweet']
 			
+			self.response_data['data']['tweets_processed'] = tweets_processed
+
 			# Generating word cloud with current tweets
 			_wordcloud = WordCloudViewSet()
 			_wordcloud.create(request,user=1,comments=word_cloud_tweets_data)

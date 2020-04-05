@@ -241,9 +241,9 @@ class BigDataViewSet(viewsets.ViewSet):
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
-	def tweets_processing(self, request, *args, **kwargs):
+	def process_tweets(self, request, *args, **kwargs):
 		'''
-		- POST method (tweets_processing): get tweets from tweets_get endpoint
+		- POST method (process_tweets): get tweets from tweets_get endpoint
 		for different goals: to clean all tweets with Text Mining Methods, 
 		to determine Topic and to To Determinate Sentiment Analysis
 		- Mandatory: social network account
@@ -306,7 +306,14 @@ class BigDataViewSet(viewsets.ViewSet):
 					# Tweet column is inside of [[]], so better, do the lines below
 
 					# Define all columns name needed
-					cols = ['account_name','text','favorite_count','id','retweet_count','created_at']
+					cols = [
+						'account_name',
+						'text',
+						'favorite_count',
+						'id',
+						'retweet_count',
+						'created_at'
+					]
 					rows = []
 
 					# And iterate over all the tweet list
@@ -317,7 +324,14 @@ class BigDataViewSet(viewsets.ViewSet):
 					
 						# Iterate on each tweet of the current tweet account
 						for tweet_index,tweet in enumerate(tweet_data_aux_pandas_df):
-							row = [tweet_account_data['account_name'],tweet['text'],tweet['favorite_count'],tweet['id'],tweet['retweet_count'],tweet['created_at']]
+							row = [
+								tweet_account_data['account_name'],
+								tweet['text'],
+								tweet['favorite_count'],
+								tweet['id'],
+								tweet['retweet_count'],
+								tweet['created_at']
+							]
 							rows.append(row)
 					
 					# Create a Pandas Dataframe of tweets
@@ -337,10 +351,16 @@ class BigDataViewSet(viewsets.ViewSet):
 					df = sc.createDataFrame(tweet_pandas_df,schema=schema)
 
 					# Create a pyspark User Defined Function to clean tweets
-					clean_tweet_udf = udf(TextMiningMethods().clean_tweet, StringType())
+					clean_tweet_udf = udf(
+						TextMiningMethods().clean_tweet, 
+						StringType()
+					)
 
 					# Applying udf functions to new data frame
-					clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["text"]))
+					clean_tweet_df = df.withColumn(
+						"clean_tweet", 
+						clean_tweet_udf(df["text"])
+					)
 
 					## Converts Spark DataFrame into Pandas DataFrame
 					#df_pd = clean_tweet_df.toPandas()
@@ -349,13 +369,27 @@ class BigDataViewSet(viewsets.ViewSet):
 					#self.response_data['data']. df_pd.to_json(orient="records",force_ascii=False)
 
 					# Get clean_tweet column and converts to a list
-					clean_tweet_list = clean_tweet_df.select('clean_tweet').collect()
+					tweets_processed = clean_tweet_df.select(
+						'account_name',
+						'text',
+						'created_at',
+						'clean_tweet'
+					).toJSON().collect()
+
+					''' To get and return only clean_tweet of clean_tweet_df
+					This part was moved to frontend layer
+
 					all_clean_tweet_ = ''
 
 					for i in clean_tweet_list:					
 						all_clean_tweet_ =  all_clean_tweet_ + i[0]
 
 					self.response_data['data'] = ''.join(all_clean_tweet_)
+					'''
+
+					# Push and return the columns selected in json format 
+					for i in tweets_processed:					
+						self.response_data['data'].append(json.loads(i))
 
 					sc.stop()
 					self.code = status.HTTP_200_OK

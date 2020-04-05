@@ -129,18 +129,21 @@
                   <th>N°</th>
                   <th>Usuario</th>
                   <th>Tweet</th>
+<!--
                   <th>Tópico</th>
                   <th>Polaridad</th>
                   <th>Porcentaje</th>
+-->                  
                   <th>Fecha</th>
                 </tr>
             </thead>
             <tbody>
-              {% for key in data.twitter_timeline_table %}
+              {% for key in data.tweets_processed %}
                 <tr>
                   <td>{{forloop.counter}}</td>
-                  <td>{{key.user}}}</td>
-                  <td>{{key.tweet}}}</td>
+                  <td>{{key.account_name}}</td>
+                  <td>{{key.text}}</td>
+<!--
                   <td>{{key.topic}}}</td>
                   {% ifequal key.polarity 'NU' %}
                     <td><span class="badge-grey">Neutral</span>
@@ -152,7 +155,8 @@
                     <td><span class="badge-green">Positiva</span></td>
                   {% endifequal %}
                   <td><center>{{key.percentage}}%</center></td>
-                  <td>{{key.date}}</td>
+-->
+                  <td>{{key.created_at}}</td>
                 </tr>
               {% endfor %}
             </tbody>
