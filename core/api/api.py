@@ -62,8 +62,8 @@ from core.settings import BASE_DIR
 from api.social_networks_api_connections import *
 import logging
 from functools import wraps
-from udf.pyspark_udf import TextMiningMethods
-		
+from udf.pyspark_udf import (TextMiningMethods,MachineLearningMethods)
+
 User = get_user_model()
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -121,19 +121,27 @@ class MachineLearningViewSet(viewsets.ViewSet):
 		- POST method (tweet_topic_classification): get topic of a tweet based on Topic Model.
 		- Mandatory: text
 		'''
+		import requests
+
 		try:
 			serializer = TweetTopicClassificationAPISerializer(data=kwargs['data'])
 
 			if serializer.is_valid():
 
 				# Get twitter topics stored in Topic model
-				_word_roots_by_topic_list = WordRootViewSet()
-				_word_roots_by_topic_list.word_roots_by_topic(request)
+				#_word_roots_by_topic_list = WordRootViewSet()
+				#_word_roots_by_topic_list.word_roots_by_topic(request)
+				response = requests.get("http://localhost:8000/api/word_root/word_roots_by_topic")
 
-				if _word_roots_by_topic_list.code == 200:
-					topic_list = _word_roots_by_topic_list.response_data['data']
+				#if _word_roots_by_topic_list.code == 200:
+				if response.status_code == 200:
+	
+					#topic_list = _word_roots_by_topic_list.response_data['data']
+					response = response.content.decode('utf-8')
+					json_response = json.loads(response)
 
-					# Set word roots by topics					
+					# Set word roots by topics
+					'''
 					entertainment = topic_list[0]
 					religion = topic_list[1]
 					sports = topic_list[2]
@@ -143,6 +151,17 @@ class MachineLearningViewSet(viewsets.ViewSet):
 					health = topic_list[6]
 					politica = topic_list[7]
 					social = topic_list[8]
+					'''
+
+					entertainment = json_response['data'][0]
+					religion = json_response['data'][1]
+					sports = json_response['data'][2]
+					education = json_response['data'][3]
+					technology = json_response['data'][4]
+					economy = json_response['data'][5]
+					health = json_response['data'][6]
+					politica = json_response['data'][7]
+					social = json_response['data'][8]
 
 					# Tokenize tweets
 					tokens = word_tokenize(kwargs['data']['text'].lower())
@@ -229,7 +248,7 @@ class MachineLearningViewSet(viewsets.ViewSet):
 class BigDataViewSet(viewsets.ViewSet):
 	'''
 	Class for big data endpoints: Word cloud with cleaned tweets,
-	sentiment analysis, topic classification of tweets (both of the)
+	sentiment analysis, topic classification of tweets (both of them)
 	using apache spark
 	'''
 	serializer_class = SocialNetworkAccountsAPISerializer
@@ -250,6 +269,7 @@ class BigDataViewSet(viewsets.ViewSet):
 		'''
 		
 		try:
+
 			serializer = SocialNetworkAccountsAPISerializer(data=kwargs['data'])
 
 			if serializer.is_valid():
@@ -259,6 +279,7 @@ class BigDataViewSet(viewsets.ViewSet):
 				_tweets.tweets_get(request,social_network=kwargs['data']['social_network'])
 
 				if _tweets.code == 200:
+
 					tweets_list = _tweets.response_data['data']
 
 					## Create SparkSession for word_cloud generation
@@ -312,25 +333,30 @@ class BigDataViewSet(viewsets.ViewSet):
 						'favorite_count',
 						'id',
 						'retweet_count',
-						'created_at'
+						'created_at',
+						'clean_tweet',
+						'topic'
 					]
 					rows = []
 
 					# And iterate over all the tweet list
 					for tweet_account_index, tweet_account_data in enumerate(tweets_list):
-					
+
 						# Extract tweets of the current tweet account into a new pandas dataframe
 						tweet_data_aux_pandas_df = pd.Series(tweet_account_data['tweet']).dropna()
 					
 						# Iterate on each tweet of the current tweet account
 						for tweet_index,tweet in enumerate(tweet_data_aux_pandas_df):
+
 							row = [
 								tweet_account_data['account_name'],
 								tweet['text'],
 								tweet['favorite_count'],
 								tweet['id'],
 								tweet['retweet_count'],
-								tweet['created_at']
+								tweet['created_at'],
+								None,
+								None
 							]
 							rows.append(row)
 					
@@ -343,7 +369,9 @@ class BigDataViewSet(viewsets.ViewSet):
 					    StructField("favorite_count", IntegerType(),True),
 					    StructField("id", LongType(),True),    
 					    StructField("retweet_count", IntegerType(),True),
-					    StructField("created_at", StringType(),True)
+					    StructField("created_at", StringType(),True),
+					    StructField("clean_tweet", StringType(),True),
+					    StructField("topic", StringType(),True)					    
 					])
 
 					# Create a Spark DataFrame from a pandas DataFrame
@@ -362,6 +390,20 @@ class BigDataViewSet(viewsets.ViewSet):
 						clean_tweet_udf(df["text"])
 					)
 
+					# Create a pyspark udf to topic classification
+					tweet_topic_classification_udf = udf(
+						MachineLearningMethods().tweet_topic_classification, 
+						StringType()
+					)
+
+					# Applying udf functions to new data frame
+					topic_df = df.withColumn(
+						"topic",
+						tweet_topic_classification_udf(df["clean_tweet"])
+					)
+
+					#import pdb;pdb.set_trace()
+
 					## Converts Spark DataFrame into Pandas DataFrame
 					#df_pd = clean_tweet_df.toPandas()
 
@@ -372,8 +414,9 @@ class BigDataViewSet(viewsets.ViewSet):
 					tweets_processed = clean_tweet_df.select(
 						'account_name',
 						'text',
-						'created_at',
-						'clean_tweet'
+						'clean_tweet',
+						'topic',
+						'created_at'
 					).toJSON().collect()
 
 					''' To get and return only clean_tweet of clean_tweet_df
@@ -388,8 +431,8 @@ class BigDataViewSet(viewsets.ViewSet):
 					'''
 
 					# Push and return the columns selected in json format 
-					for i in tweets_processed:					
-						self.response_data['data'].append(json.loads(i))
+					for tweet_elem in tweets_processed:					
+						self.response_data['data'].append(json.loads(tweet_elem))
 
 					sc.stop()
 					self.code = status.HTTP_200_OK
