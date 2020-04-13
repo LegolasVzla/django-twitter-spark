@@ -76,20 +76,22 @@ class MachineLearningMethods():
 	'''
 	Class for machine learning endpoints: Topic classification of Tweet, Topic classification...
 	'''
+	def __topic(self):
+		self.value = 0
+		self.topic = ""
 
-	def __init__(self):
-		self.response_data = {'error': [], 'data': []}
-		self.data = {}
-		self.code = 0
-
-	def tweet_topic_classification(self, request, *args, **kwargs):
+	def tweet_topic_classification(self, clean_tweet):
 		'''
 		- POST method (tweet_topic_classification): get topic of a tweet based on Topic Model.
 		- Mandatory: text
 		'''
-		import requests
-		import logging
 		from rest_framework import status
+		from nltk.tokenize import word_tokenize
+		import Stemmer
+		from collections import Counter
+		import requests
+		#import logging
+		import json
 
 		try:
 
@@ -129,7 +131,8 @@ class MachineLearningMethods():
 				social = json_response['data'][8]
 
 				# Tokenize tweets
-				tokens = word_tokenize(kwargs['data']['text'].lower())
+				#tokens = word_tokenize(kwargs['data']['text'].lower())
+				tokens = word_tokenize(clean_tweet)
 
 				# Define Stemmer for Spanish Language
 				stemmer = Stemmer.Stemmer('spanish')
@@ -147,33 +150,33 @@ class MachineLearningMethods():
 				social_coincidences = map(lambda x : x in social['word_roots'],stemmer.stemWords(tokens))
 
 				# Count coincidences by topic
-				obj_entertainment = MachineLearningViewSet()
-				obj_entertainment.value=Counter(entertainment_coincidences)[True]
-				obj_entertainment.topic="Entretenimiento"
-				obj_religion = MachineLearningViewSet()
-				obj_religion.value=Counter(religion_coincidences)[True]
-				obj_religion.topic="Religion"
-				obj_sports = MachineLearningViewSet()
-				obj_sports.value=Counter(sports_coincidences)[True]
-				obj_sports.topic="Deporte"
-				obj_education = MachineLearningViewSet()
-				obj_education.value=Counter(education_coincidences)[True]
-				obj_education.topic="Educacion"
-				obj_techcnology = MachineLearningViewSet()
-				obj_techcnology.value=Counter(technology_coincidences)[True]
-				obj_techcnology.topic="Tecnologia"
-				obj_economy = MachineLearningViewSet()
-				obj_economy.value=Counter(economy_coincidences)[True]
-				obj_economy.topic="Economia"
-				obj_health = MachineLearningViewSet()
-				obj_health.value=Counter(health_coincidences)[True]
-				obj_health.topic="Salud"
-				obj_politica = MachineLearningViewSet()
-				obj_politica.value=Counter(politica_coincidences)[True]
-				obj_politica.topic="Politica"
-				obj_social = MachineLearningViewSet()
-				obj_social.value=Counter(social_coincidences)[True]
-				obj_social.topic="Social"
+				obj_entertainment = MachineLearningMethods()
+				obj_entertainment.value = Counter(entertainment_coincidences)[True]
+				obj_entertainment.topic = entertainment['topic']
+				obj_religion = MachineLearningMethods()
+				obj_religion.value = Counter(religion_coincidences)[True]
+				obj_religion.topic = religion['topic']
+				obj_sports = MachineLearningMethods()
+				obj_sports.value = Counter(sports_coincidences)[True]
+				obj_sports.topic = sports['topic']
+				obj_education = MachineLearningMethods()
+				obj_education.value = Counter(education_coincidences)[True]
+				obj_education.topic = education['topic']
+				obj_techcnology = MachineLearningMethods()
+				obj_techcnology.value = Counter(technology_coincidences)[True]
+				obj_techcnology.topic = technology['topic']
+				obj_economy = MachineLearningMethods()
+				obj_economy.value = Counter(economy_coincidences)[True]
+				obj_economy.topic = economy['topic']
+				obj_health = MachineLearningMethods()
+				obj_health.value = Counter(health_coincidences)[True]
+				obj_health.topic = health['topic']
+				obj_politica = MachineLearningMethods()
+				obj_politica.value = Counter(politica_coincidences)[True]
+				obj_politica.topic = politica['topic']
+				obj_social = MachineLearningMethods()
+				obj_social.value = Counter(social_coincidences)[True]
+				obj_social.topic = social['topic']
 
 				# List of all topic objects
 				topic_list = [
@@ -193,18 +196,18 @@ class MachineLearningMethods():
 
 				# Finally, determine the topic resulting with the most value
 				if (topic_list[0].value==0):
-					self.data['topic'] = "Diverso"
+					response_data = "Diverso"
 				elif (topic_list[0].value > topic_list[1].value):
-					self.data['topic'] = topic_list[0].topic
+					response_data = topic_list[0].topic
 				else:
-					self.data['topic'] = topic_list[0].topic+' - '+topic_list[1].topic
+					response_data = topic_list[0].topic+' - '+topic_list[1].topic
 
-				self.code = status.HTTP_200_OK
-				self.response_data['data'].append(self.data)
+				#self.response_data['data'].append(self.data)
 
 		except Exception as e:
-			logging.getLogger('error_logger').exception("[UDF - MachineLearningViewSet] - Error: " + str(e))
-			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[UDF - MachineLearningViewSet] - Error: " + str(e))
+			#logging.getLogger('error_logger').exception("[UDF - MachineLearningMethods] - Error: " + str(e))
+			#self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			#self.response_data['error'].append("[UDF - MachineLearningMethods] - Error: " + str(e))
+			response_data = str(e)
 
-		return self.response_data
+		return response_data

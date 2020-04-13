@@ -129,8 +129,8 @@
                   <th>N°</th>
                   <th>Usuario</th>
                   <th>Tweet</th>
-<!--
                   <th>Tópico</th>
+<!--
                   <th>Polaridad</th>
                   <th>Porcentaje</th>
 -->                  
@@ -143,8 +143,8 @@
                   <td>{{forloop.counter}}</td>
                   <td>{{key.account_name}}</td>
                   <td>{{key.text}}</td>
+                  <td>{{key.topic}}</td>
 <!--
-                  <td>{{key.topic}}}</td>
                   {% ifequal key.polarity 'NU' %}
                     <td><span class="badge-grey">Neutral</span>
                   {% endifequal %}                  

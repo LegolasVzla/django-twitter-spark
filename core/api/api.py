@@ -379,39 +379,19 @@ class BigDataViewSet(viewsets.ViewSet):
 					df = sc.createDataFrame(tweet_pandas_df,schema=schema)
 
 					# Create a pyspark User Defined Function to clean tweets
-					clean_tweet_udf = udf(
-						TextMiningMethods().clean_tweet, 
-						StringType()
-					)
+					clean_tweet_udf = udf(TextMiningMethods().clean_tweet, StringType())
 
-					# Applying udf functions to new data frame
-					clean_tweet_df = df.withColumn(
-						"clean_tweet", 
-						clean_tweet_udf(df["text"])
-					)
+					# Applying udf functions to a new dataframe
+					clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["text"]))
 
-					# Create a pyspark udf to topic classification
-					tweet_topic_classification_udf = udf(
-						MachineLearningMethods().tweet_topic_classification, 
-						StringType()
-					)
+					# Create a pyspark udf of topic classification
+					tweet_topic_classification_udf = udf(MachineLearningMethods().tweet_topic_classification, StringType())
 
-					# Applying udf functions to new data frame
-					topic_df = df.withColumn(
-						"topic",
-						tweet_topic_classification_udf(df["clean_tweet"])
-					)
+					# Applying udf functions to a new dataframe
+					topic_df = clean_tweet_df.withColumn("topic",tweet_topic_classification_udf(clean_tweet_df["clean_tweet"]))
 
-					#import pdb;pdb.set_trace()
-
-					## Converts Spark DataFrame into Pandas DataFrame
-					#df_pd = clean_tweet_df.toPandas()
-
-					# Converts Pandas DataFrame to Json
-					#self.response_data['data']. df_pd.to_json(orient="records",force_ascii=False)
-
-					# Get clean_tweet column and converts to a list
-					tweets_processed = clean_tweet_df.select(
+					# Get columns and converts to a list
+					tweets_processed = topic_df.select(
 						'account_name',
 						'text',
 						'clean_tweet',
