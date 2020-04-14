@@ -121,27 +121,20 @@ class MachineLearningViewSet(viewsets.ViewSet):
 		- POST method (tweet_topic_classification): get topic of a tweet based on Topic Model.
 		- Mandatory: text
 		'''
-		import requests
-
 		try:
 			serializer = TweetTopicClassificationAPISerializer(data=kwargs['data'])
 
 			if serializer.is_valid():
 
 				# Get twitter topics stored in Topic model
-				#_word_roots_by_topic_list = WordRootViewSet()
-				#_word_roots_by_topic_list.word_roots_by_topic(request)
+				_word_roots_by_topic_list = WordRootViewSet()
 				response = requests.get("http://localhost:8000/api/word_root/word_roots_by_topic")
 
-				#if _word_roots_by_topic_list.code == 200:
-				if response.status_code == 200:
+				if _word_roots_by_topic_list.code == 200:
 	
-					#topic_list = _word_roots_by_topic_list.response_data['data']
-					response = response.content.decode('utf-8')
-					json_response = json.loads(response)
+					topic_list = _word_roots_by_topic_list.response_data['data']
 
 					# Set word roots by topics
-					'''
 					entertainment = topic_list[0]
 					religion = topic_list[1]
 					sports = topic_list[2]
@@ -151,17 +144,6 @@ class MachineLearningViewSet(viewsets.ViewSet):
 					health = topic_list[6]
 					politica = topic_list[7]
 					social = topic_list[8]
-					'''
-
-					entertainment = json_response['data'][0]
-					religion = json_response['data'][1]
-					sports = json_response['data'][2]
-					education = json_response['data'][3]
-					technology = json_response['data'][4]
-					economy = json_response['data'][5]
-					health = json_response['data'][6]
-					politica = json_response['data'][7]
-					social = json_response['data'][8]
 
 					# Tokenize tweets
 					tokens = word_tokenize(kwargs['data']['text'].lower())
@@ -266,8 +248,7 @@ class BigDataViewSet(viewsets.ViewSet):
 		for different goals: to clean all tweets with Text Mining Methods, 
 		to determine Topic and to To Determinate Sentiment Analysis
 		- Mandatory: social network account
-		'''
-		
+		'''		
 		try:
 
 			serializer = SocialNetworkAccountsAPISerializer(data=kwargs['data'])
@@ -282,7 +263,7 @@ class BigDataViewSet(viewsets.ViewSet):
 
 					tweets_list = _tweets.response_data['data']
 
-					## Create SparkSession for word_cloud generation
+					# Create SparkSession for word_cloud generation
 					sc=SparkSession \
 						.builder \
 						.master("spark://"+SPARK_WORKERS) \

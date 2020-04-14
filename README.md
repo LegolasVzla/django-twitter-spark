@@ -26,7 +26,7 @@ Authors:
 
 - [NLTK (Natural Language Toolkit)](https://www.nltk.org/) is a leading platform for building Python programs to work with human language data.
 
-What would happen if we integrate this technologies?...Let's check it!
+What would happen if we integrate these technologies?...Let's check it!
 
 ## Requirements
 - Ubuntu 16 or higher
@@ -81,7 +81,7 @@ You could see the home page in:
 
 	http://127.0.0.1:8000/socialanalyzer/
 
-Finally, in another terminal start master worker of Apache Spark:
+Then, in another terminal start master worker of Apache Spark:
 
 	make start-spark
 
@@ -93,6 +93,10 @@ By default port for master worker service to listen is 7077 (i.e: spark://192.xx
 
 	20/01/28 22:27:33 INFO Utils: Successfully started service 'MasterUI' on port 8080.
 	20/01/28 22:27:33 INFO MasterWebUI: Bound MasterWebUI to 0.0.0.0, and started at http://192.xxx.xxx.xxx:8080
+
+Finally, start an Apache Spark slave:
+
+	make start-slave
 
 ## Running Apache Spark for high availability with ZooKeeper
 
@@ -129,7 +133,7 @@ You can check the master ZooKeeper running in zooinspector:
 	cd /usr/bin
 	./zooinspector
 
-Finally, you can run Spark with ZooKeeper as below:
+Finally, you can run Spark with ZooKeeper as below (instead of using ```make start-spark```):
 
 	make WEBUIPORT=<webui_spark_worker_PORT_> start-spark-ha
 

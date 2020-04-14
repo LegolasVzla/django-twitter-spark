@@ -114,20 +114,23 @@
         </div>
         <div class="x_content">
           <center>
-            <span class="label label-success">Entretenimiento</span>
-            <span class="label label-default">Religión</span>
-            <span class="label label-info">Economía</span>
-            <span class="label label-warning">Deporte</span>
-            <span class="label label-danger">Salud</span>
-            <span class="label label-primary">Política</span>
-            <span class="label label-soft-brown">Social</span>
+            <span class="label label-pink">Entretenimiento</span>
+            <span class="label label-warning">Religión</span>
+            <span class="label label-success">Economía</span>
+            <span class="label label-orange">Deporte</span>
+            <span class="label label-info">Salud</span>
+            <span class="label label-danger">Política</span>
+            <span class="label label-brown">Social</span>
+            <span class="label label-primary">Educación</span>
+            <span class="label label-black">Tecnología</span>
+            <span class="label label-grey">Diverso</span>
           </center><br>
 
           <table id="twitterTopicsTable" class="table table-striped table-bordered">
             <thead>
                 <tr>
                   <th>N°</th>
-                  <th>Usuario</th>
+                  <th>Cuenta</th>
                   <th>Tweet</th>
                   <th>Tópico</th>
 <!--
@@ -143,16 +146,272 @@
                   <td>{{forloop.counter}}</td>
                   <td>{{key.account_name}}</td>
                   <td>{{key.text}}</td>
-                  <td>{{key.topic}}</td>
+                  <!--  ---------------------------------------------------------------- -->                  
+                  {% ifequal key.topic 'Diverso' %}
+                    <td><span class="label label-grey">{{key.topic}}</span></td>
+                  {% endifequal %}
+                  <!--  ---------------------------------------------------------------- -->                  
+                  {% ifequal key.topic 'Entretenimiento' %}
+                    <td><span class="label label-pink">{{key.topic}}</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Entretenimiento - Religión' %}
+                    <td><span class="label label-pink">Entretenimiento</span> - <span class="label label-warning">Religión</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Entretenimiento - Economía' %}
+                    <td><span class="label label-pink">Entretenimiento</span> - <span class="label label-success">Economía</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Entretenimiento - Deporte' %}
+                    <td><span class="label label-pink">Entretenimiento</span> - <span class="label label-orange">Deporte</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Entretenimiento - Salud' %}
+                    <td><span class="label label-pink">Entretenimiento</span> - <span class="label label-info">Salud</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Entretenimiento - Política' %}
+                    <td><span class="label label-pink">Entretenimiento</span> - <span class="label label-danger">Política</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Entretenimiento - Social' %}
+                    <td><span class="label label-pink">Entretenimiento</span> - <span class="label label-brown">Social</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Entretenimiento - Tecnología' %}
+                    <td><span class="label label-pink">Entretenimiento</span> - <span class="label label-black">Tecnología</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Entretenimiento - Educación' %}
+                    <td><span class="label label-pink">Entretenimiento</span> - <span class="label label-primary">Educación</span></td>
+                  {% endifequal %}
+                  <!--  ---------------------------------------------------------------- -->
+                  {% ifequal key.topic 'Religión' %}
+                    <td><span class="label label-warning">{{key.topic}}</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Religión - Entretenimiento' %}
+                    <td><span class="label label-warning">Religión</span> - <span class="label label-pink">Entretenimiento</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Religión - Economía' %}
+                    <td><span class="label label-warning">Religión</span> - <span class="label label-warning">Economía</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Religión - Deporte' %}
+                    <td><span class="label label-warning">Religión</span> - <span class="label label-success">Deporte</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Religión - Salud' %}
+                    <td><span class="label label-warning">Religión</span> - <span class="label label-info">Salud</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Religión - Política' %}
+                    <td><span class="label label-warning">Religión</span> - <span class="label label-danger">Política</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Religión - Social' %}
+                    <td><span class="label label-warning">Religión</span> - <span class="label label-brown">Social</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Religión - Tecnología' %}
+                    <td><span class="label label-warning">Religión</span> - <span class="label label-black">Tecnología</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Religión - Educación' %}
+                    <td><span class="label label-warning">Religión</span> - <span class="label label-primary">Educación</span></td>
+                  {% endifequal %}                  
+                  <!--  ---------------------------------------------------------------- -->                  
+                  {% ifequal key.topic 'Economía' %}
+                    <td><span class="label label-success">{{key.topic}}</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Economía - Entretenimiento' %}
+                    <td><span class="label label-success">Economía</span> - <span class="label label-pink">Entretenimiento</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Economía - Religión' %}
+                    <td><span class="label label-success">Economía</span> - <span class="label label-warning">Religión</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Economía - Deporte' %}
+                    <td><span class="label label-success">Economía</span> - <span class="label label-orange">Deporte</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Economía - Salud' %}
+                    <td><span class="label label-success">Economía</span> - <span class="label label-info">Salud</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Economía - Política' %}
+                    <td><span class="label label-success">Economía</span> - <span class="label label-danger">Política</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Economía - Social' %}
+                    <td><span class="label label-success">Economía</span> - <span class="label label-brown">Social</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Economía - Tecnología' %}
+                    <td><span class="label label-success">Economía</span> - <span class="label label-black">Tecnología</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Economía - Educación' %}
+                    <td><span class="label label-success">Economía</span> - <span class="label label-primary">Educación</span></td>
+                  {% endifequal %}                  
+                  <!--  ---------------------------------------------------------------- -->
+                  {% ifequal key.topic 'Deporte' %}
+                    <td><span class="label label-orange">{{key.topic}}</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Deporte - Entretenimiento' %}
+                    <td><span class="label label-orange">Deporte</span> - <span class="label label-pink">Entretenimiento</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Deporte - Religión' %}
+                    <td><span class="label label-orange">Deporte</span> - <span class="label label-warning">Religión</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Deporte - Economía' %}
+                    <td><span class="label label-orange">Deporte</span> - <span class="label label-success">Economía</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Deporte - Salud' %}
+                    <td><span class="label label-orange">Deporte</span> - <span class="label label-info">Salud</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Deporte - Política' %}
+                    <td><span class="label label-orange">Deporte</span> - <span class="label label-danger">Política</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Deporte - Social' %}
+                    <td><span class="label label-orange">Deporte</span> - <span class="label label-brown">Social</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Deporte - Tecnología' %}
+                    <td><span class="label label-orange">Deporte</span> - <span class="label label-black">Tecnología</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Deporte - Educación' %}
+                    <td><span class="label label-orange">Deporte</span> - <span class="label label-primary">Educación</span></td>
+                  {% endifequal %}                  
+                  <!--  ---------------------------------------------------------------- -->
+                  {% ifequal key.topic 'Salud' %}
+                    <td><span class="label label-info">{{key.topic}}</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Salud - Entretenimiento' %}
+                    <td><span class="label label-info">Salud</span> - <span class="label label-pink">Entretenimiento</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Salud - Religión' %}
+                    <td><span class="label label-info">Salud</span> - <span class="label label-warning">Religión</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Salud - Economía' %}
+                    <td><span class="label label-info">Salud</span> - <span class="label label-success">Economía</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Salud - Deporte' %}
+                    <td><span class="label label-info">Salud</span> - <span class="label label-orange">Deporte</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Salud - Política' %}
+                    <td><span class="label label-info">Salud</span> - <span class="label label-danger">Política</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Salud - Social' %}
+                    <td><span class="label label-info">Salud</span> - <span class="label label-brown">Social</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Salud - Tecnología' %}
+                    <td><span class="label label-info">Salud</span> - <span class="label label-black">Tecnología</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Salud - Educación' %}
+                    <td><span class="label label-info">Salud</span> - <span class="label label-primary">Educación</span></td>
+                  {% endifequal %}                  
+                  <!--  ---------------------------------------------------------------- -->                  
+                  {% ifequal key.topic 'Política' %}
+                    <td><span class="label label-danger">{{key.topic}}</span></td>
+                  {% endifequal %}                  
+                  {% ifequal key.topic 'Política - Entretenimiento' %}
+                    <td><span class="label label-danger">Política</span> - <span class="label label-pink">Entretenimiento</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Política - Religión' %}
+                    <td><span class="label label-danger">Política</span> - <span class="label label-warning">Religión</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Política - Economía' %}
+                    <td><span class="label label-danger">Política</span> - <span class="label label-success">Economía</span></td>
+                  {% endifequal %}                  
+                  {% ifequal key.topic 'Política - Deporte' %}
+                    <td><span class="label label-danger">Política</span> - <span class="label label-orange">Deporte</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Política - Salud' %}
+                    <td><span class="label label-danger">Política</span> - <span class="label label-info">Salud</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Política - Social' %}
+                    <td><span class="label label-danger">Política</span> - <span class="label label-brown">Social</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Política - Tecnología' %}
+                    <td><span class="label label-danger">Política</span> - <span class="label label-black">Tecnología</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Política - Educación' %}
+                    <td><span class="label label-danger">Política</span> - <span class="label label-primary">Educación</span></td>
+                  {% endifequal %}                  
+                  <!--  ---------------------------------------------------------------- -->                  
+                  {% ifequal key.topic 'Social' %}
+                    <td><span class="label label-brown">{{key.topic}}</span></td>
+                  {% endifequal %}                  
+                  {% ifequal key.topic 'Social - Entretenimiento' %}
+                    <td><span class="label label-brown">Social</span> - <span class="label label-pink">Entretenimiento</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Social - Religión' %}
+                    <td><span class="label label-brown">Social</span> - <span class="label label-warning">Religión</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Social - Economía' %}
+                    <td><span class="label label-brown">Social</span> - <span class="label label-success">Economía</span></td>
+                  {% endifequal %}                  
+                  {% ifequal key.topic 'Social - Deporte' %}
+                    <td><span class="label label-brown">Social</span> - <span class="label label-orange">Deporte</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Social - Salud' %}
+                    <td><span class="label label-brown">Social</span> - <span class="label label-info">Salud</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Social - Política' %}
+                    <td><span class="label label-brown">Social</span> - <span class="label label-danger">Política</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Social - Tecnología' %}
+                    <td><span class="label label-brown">Social</span> - <span class="label label-black">Tecnología</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Social - Educación' %}
+                    <td><span class="label label-brown">Social</span> - <span class="label label-primary">Educación</span></td>
+                  {% endifequal %}                  
+                  <!--  ---------------------------------------------------------------- -->    
+                  {% ifequal key.topic 'Educación' %}
+                    <td><span class="label label-primary">{{key.topic}}</span></td>
+                  {% endifequal %}                  
+                  {% ifequal key.topic 'Educación - Entretenimiento' %}
+                    <td><span class="label label-primary">Educación</span> - <span class="label label-pink">Entretenimiento</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Educación - Religión' %}
+                    <td><span class="label label-primary">Educación</span> - <span class="label label-warning">Religión</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Educación - Economía' %}
+                    <td><span class="label label-primary">Educación</span> - <span class="label label-success">Economía</span></td>
+                  {% endifequal %}                  
+                  {% ifequal key.topic 'Educación - Deporte' %}
+                    <td><span class="label label-primary">Educación</span> - <span class="label label-orange">Deporte</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Educación - Salud' %}
+                    <td><span class="label label-primary">Educación</span> - <span class="label label-info">Salud</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Educación - Política' %}
+                    <td><span class="label label-primary">Educación</span> - <span class="label label-danger">Política</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Educación - Tecnología' %}
+                    <td><span class="label label-primary">Educación</span> - <span class="label label-black">Tecnología</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Educación - Social' %}
+                    <td><span class="label label-primary">Educación</span> - <span class="label label-brown">Social</span></td>
+                  {% endifequal %}                  
+                  <!--  ---------------------------------------------------------------- --> 
+                  {% ifequal key.topic 'Tecnología' %}
+                    <td><span class="label label-black">{{key.topic}}</span></td>
+                  {% endifequal %}                  
+                  {% ifequal key.topic 'Tecnología - Entretenimiento' %}
+                    <td><span class="label label-black">Tecnología</span> - <span class="label label-pink">Entretenimiento</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Tecnología - Religión' %}
+                    <td><span class="label label-black">Tecnología</span> - <span class="label label-warning">Religión</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Tecnología - Economía' %}
+                    <td><span class="label label-black">Tecnología</span> - <span class="label label-success">Economía</span></td>
+                  {% endifequal %}                  
+                  {% ifequal key.topic 'Tecnología - Deporte' %}
+                    <td><span class="label label-black">Tecnología</span> - <span class="label label-orange">Deporte</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Tecnología - Salud' %}
+                    <td><span class="label label-black">Tecnología</span> - <span class="label label-info">Salud</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Tecnología - Política' %}
+                    <td><span class="label label-black">Tecnología</span> - <span class="label label-danger">Política</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Tecnología - Social' %}
+                    <td><span class="label label-black">Tecnología</span> - <span class="label label-brown">Social</span></td>
+                  {% endifequal %}
+                  {% ifequal key.topic 'Tecnología - Educación' %}
+                    <td><span class="label label-black">Tecnología</span> - <span class="label label-primary">Educación</span></td>
+                  {% endifequal %}                  
+                  <!--  ---------------------------------------------------------------- -->                      
 <!--
                   {% ifequal key.polarity 'NU' %}
-                    <td><span class="badge-grey">Neutral</span>
-                  {% endifequal %}                  
+                    <td><span class="label label-grey">Neutral</span>
+                  {% endifequal %}
                   {% ifequal key.polarity 'N' %}
-                    <td><span class="badge-red">Negativa</span></td>
+                    <td><span class="label label-red">Negativa</span></td>
                   {% endifequal %}
                   {% ifequal key.polarity 'P' %}
-                    <td><span class="badge-green">Positiva</span></td>
+                    <td><span class="label label-green">Positiva</span></td>
                   {% endifequal %}
                   <td><center>{{key.percentage}}%</center></td>
 -->
