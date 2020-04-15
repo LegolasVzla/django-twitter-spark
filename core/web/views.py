@@ -32,25 +32,6 @@ class IndexView(View):
 			word_cloud_tweets_data = ''
 			self.response_data['data']['wordcloud'] = {}
 
-			'''Old code that gets tweets and pass them to the WordCloudViewSet
-			to returns the wordcloud
-
-			_twitter = TwitterViewSet()
-			_twitter.tweets_get(request,social_network=1)
-			if _twitter.code == 200:
-
-				# Iterate on each twitter accounts data returned
-				for twitter_accounts_index,twitter_accounts_data in enumerate(_twitter.response_data['data']):
-
-					for tweet_index,tweet_elem in enumerate(twitter_accounts_data['tweet']):
-						# To populate word cloud:
-						# Iterate on each tweets data returned of the current twitter account data
-						word_cloud_tweets_data+=tweet_elem['text'] + ' '
-
-				_wordcloud = WordCloudViewSet()
-				_wordcloud.create(request,user=1,comments=word_cloud_tweets_data)
-			'''
-
 			# Calling to Spark endpoint to get current tweets by text mining
 			# process with nltk 
 			_bigData = BigDataViewSet()
