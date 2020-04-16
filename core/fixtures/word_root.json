@@ -11,6 +11,86 @@
     },
     { "model": "api.wordroot",
         "fields": {
+            "word_root": "vers",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "trail",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "rock",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "mereng",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "pop",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "casin",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "bachat",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "certam",
+            "topic_id": 1,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
             "word_root": "arte",
             "topic_id": 1,
             "is_active": true,
@@ -218,7 +298,7 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },    
+    },
     { "model": "api.wordroot",
         "fields": {
             "word_root": "religion",
@@ -458,10 +538,40 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },    
+    },
     { "model": "api.wordroot",
         "fields": {
             "word_root": "deport",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "peloter",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "tenist",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "nadador",
             "topic_id": 3,
             "is_active": true,
             "is_deleted": false,
@@ -538,7 +648,7 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },    
+    },
     { "model": "api.wordroot",
         "fields": {
             "word_root": "fichaj",
@@ -708,7 +818,7 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },    
+    },
     { "model": "api.wordroot",
         "fields": {
             "word_root": "educ",
@@ -729,7 +839,6 @@
             "created_date": "2019-06-30"
         }
     },
-
     { "model": "api.wordroot",
         "fields": {
             "word_root": "aprend",
@@ -742,7 +851,87 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "activ",
+            "word_root": "bachillerat",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "pregr",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "diplom",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "postgr",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "escuel",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "guarderi",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "facult",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "decan",
+            "topic_id": 4,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "decanat",
             "topic_id": 4,
             "is_active": true,
             "is_deleted": false,
@@ -929,7 +1118,7 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },    
+    },
     { "model": "api.wordroot",
         "fields": {
             "word_root": "tecnolog",
@@ -999,7 +1188,7 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },    
+    },
     { "model": "api.wordroot",
         "fields": {
             "word_root": "cienci",
@@ -1139,7 +1328,7 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },    
+    },
     { "model": "api.wordroot",
         "fields": {
             "word_root": "comput",
@@ -1182,6 +1371,16 @@
     },
     { "model": "api.wordroot",
         "fields": {
+            "word_root": "electr",
+            "topic_id": 5,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
             "word_root": "hologram",
             "topic_id": 5,
             "is_active": true,
@@ -1189,7 +1388,7 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },    
+    },
     { "model": "api.wordroot",
         "fields": {
             "word_root": "econom",
@@ -1392,7 +1591,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "inflacion",
+            "word_root": "comerci",
             "topic_id": 6,
             "is_active": true,
             "is_deleted": false,
@@ -1493,6 +1692,16 @@
     { "model": "api.wordroot",
         "fields": {
             "word_root": "salud",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "sintom",
             "topic_id": 7,
             "is_active": true,
             "is_deleted": false,
@@ -1662,6 +1871,26 @@
     },
     { "model": "api.wordroot",
         "fields": {
+            "word_root": "desinfeccion",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "desinfect",
+            "topic_id": 7,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
             "word_root": "param",
             "topic_id": 7,
             "is_active": true,
@@ -1740,6 +1969,26 @@
             "created_date": "2019-06-30"
         }
     },
+   { "model": "api.wordroot",
+        "fields": {
+            "word_root": "president",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+   { "model": "api.wordroot",
+        "fields": {
+            "word_root": "misil",
+            "topic_id": 8,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },    
     { "model": "api.wordroot",
         "fields": {
             "word_root": "dictadur",
@@ -1799,7 +2048,7 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },    
+    },
     { "model": "api.wordroot",
         "fields": {
             "word_root": "candidat",
@@ -1992,6 +2241,36 @@
     },
     { "model": "api.wordroot",
         "fields": {
+            "word_root": "migrant",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "migracion",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "ciud",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },    
+    { "model": "api.wordroot",
+        "fields": {
             "word_root": "humanitari",
             "topic_id": 9,
             "is_active": true,
@@ -2009,7 +2288,7 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    },    
+    },
     { "model": "api.wordroot",
         "fields": {
             "word_root": "civil",
@@ -2189,6 +2468,16 @@
             "updated_date": "2019-06-30",
             "created_date": "2019-06-30"
         }
-    }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "vid",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    }    
 ]
 

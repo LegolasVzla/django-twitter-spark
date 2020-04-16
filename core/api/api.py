@@ -1409,7 +1409,7 @@ class WordRootViewSet(viewsets.ModelViewSet):
 					is_active=True,
 					is_deleted=False,
 					topic_id=topic['id']).values('word_root')
-
+				self.data['quantity'] = word_roots_by_topic.count()
 				self.data['word_roots'] = []
 
 				# Iterate on each word root group of the current topic
