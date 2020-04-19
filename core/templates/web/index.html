@@ -127,7 +127,7 @@
           </center><br>
 
           <table id="twitterTopicsTable" class="table table-striped table-bordered">
-            <thead>
+            <thead style="background-color:#2A3F54;color:white">
                 <tr>
                   <th>N°</th>
                   <th>Cuenta</th>
@@ -145,7 +145,7 @@
                 <tr>
                   <td>{{forloop.counter}}</td>
                   <td>{{key.account_name}}</td>
-                  <td>{{key.text}}</td>
+                  <td>{{key.text|urlize}}</td>
                   <!--  ---------------------------------------------------------------- -->                  
                   {% ifequal key.topic 'Diverso' %}
                     <td><span class="label label-grey">{{key.topic}}</span></td>
@@ -415,7 +415,7 @@
                   {% endifequal %}
                   <td><center>{{key.percentage}}%</center></td>
 -->
-                  <td>{{key.created_at}}</td>
+                  <td>{{ key.formated_date}}</td> <!-- naturaltime with load humanize tag doesn't work -->
                 </tr>
               {% endfor %}
             </tbody>

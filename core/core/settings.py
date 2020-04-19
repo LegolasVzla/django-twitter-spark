@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'web',
     'udf',
     'rest_framework',
-    'rest_framework_swagger'
+    'rest_framework_swagger',
+#    'django.contrib.humanize',
 ]
 
 

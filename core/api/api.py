@@ -38,6 +38,9 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
 import imageio
 #import io
+from datetime import datetime
+from email.utils import parsedate_tz, mktime_tz
+import tzlocal
 
 import re
 import string
@@ -315,6 +318,7 @@ class BigDataViewSet(viewsets.ViewSet):
 						'id',
 						'retweet_count',
 						'created_at',
+						'formated_date',
 						'clean_tweet',
 						'topic'
 					]
@@ -329,6 +333,10 @@ class BigDataViewSet(viewsets.ViewSet):
 						# Iterate on each tweet of the current tweet account
 						for tweet_index,tweet in enumerate(tweet_data_aux_pandas_df):
 
+							timestamp = mktime_tz(parsedate_tz(tweet['created_at']))
+							d=datetime.fromtimestamp(timestamp)
+							d.strftime('%d/%m/%Y')
+
 							row = [
 								tweet_account_data['account_name'],
 								tweet['text'],
@@ -336,6 +344,7 @@ class BigDataViewSet(viewsets.ViewSet):
 								tweet['id'],
 								tweet['retweet_count'],
 								tweet['created_at'],
+								d.strftime('%d %b %Y %X'),
 								None,
 								None
 							]
@@ -345,14 +354,15 @@ class BigDataViewSet(viewsets.ViewSet):
 					tweet_pandas_df = pd.DataFrame(rows, columns = cols)
 
 					schema = StructType([
-					    StructField("account_name", StringType(),True),    
+					    StructField("account_name", StringType(),True),
 					    StructField("text", StringType(),True),
 					    StructField("favorite_count", IntegerType(),True),
-					    StructField("id", LongType(),True),    
+					    StructField("id", LongType(),True),
 					    StructField("retweet_count", IntegerType(),True),
 					    StructField("created_at", StringType(),True),
+					    StructField("formated_date", StringType(),True),
 					    StructField("clean_tweet", StringType(),True),
-					    StructField("topic", StringType(),True)					    
+					    StructField("topic", StringType(),True)
 					])
 
 					# Create a Spark DataFrame from a pandas DataFrame
@@ -377,7 +387,8 @@ class BigDataViewSet(viewsets.ViewSet):
 						'text',
 						'clean_tweet',
 						'topic',
-						'created_at'
+						'created_at',
+						'formated_date',
 					).toJSON().collect()
 
 					''' To get and return only clean_tweet of clean_tweet_df
@@ -397,6 +408,7 @@ class BigDataViewSet(viewsets.ViewSet):
 
 					sc.stop()
 					self.code = status.HTTP_200_OK
+					#print (self.response_data['data'])
 
 				else:
 					logging.getLogger('error_logger').exception("[API - BigDataViewSet] - Error: " + _tweets.response_data['error'][0])

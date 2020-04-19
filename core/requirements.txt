@@ -40,6 +40,7 @@ simplejson==3.16.0
 six==1.12.0
 sqlparse==0.3.0
 tweepy==3.8.0
+tzlocal==2.0.0
 Unidecode==1.1.1
 uritemplate==3.0.0
 urllib3==1.25.3
