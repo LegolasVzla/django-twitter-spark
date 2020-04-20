@@ -241,7 +241,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "obra",
+            "word_root": "cant",
             "topic_id": 1,
             "is_active": true,
             "is_deleted": false,
@@ -251,7 +251,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "mod",
+            "word_root": "videojueg",
             "topic_id": 1,
             "is_active": true,
             "is_deleted": false,
@@ -621,7 +621,7 @@
     },
     { "model": "api.wordroot",
         "fields": {
-            "word_root": "part",
+            "word_root": "ciclism",
             "topic_id": 3,
             "is_active": true,
             "is_deleted": false,
@@ -629,6 +629,26 @@
             "created_date": "2019-06-30"
         }
     },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "ciclist",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "baloncest",
+            "topic_id": 3,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },    
     { "model": "api.wordroot",
         "fields": {
             "word_root": "tennis",
@@ -2242,6 +2262,26 @@
     { "model": "api.wordroot",
         "fields": {
             "word_root": "migrant",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "hamp",
+            "topic_id": 9,
+            "is_active": true,
+            "is_deleted": false,
+            "updated_date": "2019-06-30",
+            "created_date": "2019-06-30"
+        }
+    },
+    { "model": "api.wordroot",
+        "fields": {
+            "word_root": "rob",
             "topic_id": 9,
             "is_active": true,
             "is_deleted": false,

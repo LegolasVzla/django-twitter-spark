@@ -16,12 +16,18 @@ class TextMiningMethods():
 		url_regex = re.compile(r'''(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))''')
 		numeric_regex = re.compile('(\\d+)')
 		mentions_regex = re.compile("@[A-Za-z0-9]+")
+		brackets_regex = re.compile("\[[^)]*\]")
+		parenthesis_regex = re.compile   ("\([^)]*\)")
 
 		# Remove Hiperlinks
 		tweet = url_regex.sub(' ', tweet)
 		
 		# Remove @mentions
 		tweet = mentions_regex.sub(' ', tweet)
+
+		# Remove text between brackets and parenthesis, like [Video] or [Photos]
+		tweet = brackets_regex.sub('', tweet)
+		tweet = parenthesis_regex.sub('', tweet)
 		
 		# Remove punctuations
 		tweet = tweet.translate(str.maketrans(string.punctuation,32*' '))	# len(string.punctuation) = 32
