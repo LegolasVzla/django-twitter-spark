@@ -230,18 +230,50 @@ class MachineLearningViewSet(viewsets.ViewSet):
 			self.response_data['error'].append("[API - MachineLearningViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def twitter_sentiment_analysis(self, request, *args, **kwargs):
+		'''
+		- POST method (twitter_sentiment_analysis): get sentiment analysis of a tweet
+		- Mandatory: text
+		'''
+		try:
+			serializer = TweetTopicClassificationAPISerializer(data=kwargs['data'])
+
+			if serializer.is_valid():
+
+				self.data['sentiment'] = 'positive'
+				self.data['likes'] = 50
+				self.data['retweets'] = 100
+
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - MachineLearningViewSet] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - MachineLearningViewSet] - Error: " + str(e))			
+		return Response(self.response_data,status=self.code)
+
 class BigDataViewSet(viewsets.ViewSet):
 	'''
 	Class for big data endpoints: Word cloud with cleaned tweets,
 	sentiment analysis, topic classification of tweets (both of them)
 	using apache spark
 	'''
-	serializer_class = SocialNetworkAccountsAPISerializer
-
 	def __init__(self):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
 		self.code = 0
+
+	def get_serializer_class(self):
+		if self.action in ['process_tweets']:
+			return SocialNetworkAccountsAPISerializer
+		if self.action in ['twitter_search']:
+			return TweetTopicClassificationAPISerializer
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
@@ -414,6 +446,124 @@ class BigDataViewSet(viewsets.ViewSet):
 					logging.getLogger('error_logger').exception("[API - BigDataViewSet] - Error: " + _tweets.response_data['error'][0])
 					self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
 					self.response_data['error'].append("[API - BigDataViewSet] - Error: " + _tweets.response_data['error'][0])
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - BigDataViewSet] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - BigDataViewSet] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def twitter_search(self, request, *args, **kwargs):
+		'''
+		- POST method (twitter_search): receive a tweet to apply text mining,
+		for achieve sentiment analysis using spark
+		- Mandatory: tweet
+		'''		
+		try:
+
+			serializer = TweetTopicClassificationAPISerializer(data=kwargs['data'])
+
+			if serializer.is_valid():
+
+				# Create SparkSession
+				sc=SparkSession \
+					.builder \
+					.master("spark://"+SPARK_WORKERS) \
+					.appName('word_cloud') \
+					.config("spark.executor.memory", '2g') \
+					.config('spark.executor.cores', '2') \
+					.config('spark.cores.max', '2') \
+					.config("spark.driver.memory",'2g') \
+					.getOrCreate()
+
+				sc.sparkContext.addPyFile(SPARK_UDF_FILE)
+
+				# Define all columns name needed
+				cols = [
+					'account_name',
+					'text',
+					'favorite_count',
+					'id',
+					'retweet_count',
+					'created_at',
+					'formated_date',
+					'clean_tweet'
+				]
+				rows = []
+
+				# And iterate over all the tweet list
+				for tweet_account_index, tweet_account_data in enumerate(tweets_list):
+
+					# Extract tweets of the current tweet account into a new pandas dataframe
+					tweet_data_aux_pandas_df = pd.Series(tweet_account_data['tweet']).dropna()
+				
+					# Iterate on each tweet of the current tweet account
+					for tweet_index,tweet in enumerate(tweet_data_aux_pandas_df):
+
+						timestamp = mktime_tz(parsedate_tz(tweet['created_at']))
+						d=datetime.fromtimestamp(timestamp)
+						d.strftime('%d/%m/%Y')
+
+						row = [
+							tweet_account_data['account_name'],
+							tweet['text'],
+							tweet['favorite_count'],
+							tweet['id'],
+							tweet['retweet_count'],
+							tweet['created_at'],
+							d.strftime('%d %b %Y %X'),
+							None
+						]
+						rows.append(row)
+				
+				# Create a Pandas Dataframe of tweets
+				tweet_pandas_df = pd.DataFrame(rows, columns = cols)
+
+				schema = StructType([
+				    StructField("account_name", StringType(),True),
+				    StructField("text", StringType(),True),
+				    StructField("favorite_count", IntegerType(),True),
+				    StructField("id", LongType(),True),
+				    StructField("retweet_count", IntegerType(),True),
+				    StructField("created_at", StringType(),True),
+				    StructField("formated_date", StringType(),True),
+				    StructField("clean_tweet", StringType(),True)
+				])
+
+				# Create a Spark DataFrame from a pandas DataFrame
+				# This data is not cleaned yet
+				df = sc.createDataFrame(tweet_pandas_df,schema=schema)
+
+				# Create a pyspark User Defined Function to clean tweets
+				clean_tweet_udf = udf(TextMiningMethods().clean_tweet, StringType())
+
+				# Applying udf functions to a new dataframe
+				clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["text"]))
+
+				# Here could be the call to sentiment analysis udf
+				# Considerate case when user is or not authenticated
+
+				# Get columns and converts to a list
+				tweets_processed = clean_tweet_df.select(
+					'account_name',
+					'text',
+					'clean_tweet',
+					'created_at',
+					'formated_date',
+				).toJSON().collect()
+
+				# Push and return the columns selected in json format 
+				for tweet_elem in tweets_processed:					
+					self.response_data['data'].append(json.loads(tweet_elem))
+
+				sc.stop()
+				self.code = status.HTTP_200_OK
+				#print (self.response_data['data'])
 
 			else:
 				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
