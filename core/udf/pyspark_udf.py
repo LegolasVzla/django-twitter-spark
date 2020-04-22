@@ -10,6 +10,7 @@ class TextMiningMethods():
 		import re
 		import string
 		import unidecode
+
 		from nltk.corpus import stopwords
 
 		# Define some regex rules
@@ -80,24 +81,35 @@ class TextMiningMethods():
 
 class MachineLearningMethods():
 	'''
-	Class for machine learning endpoints: Topic classification of Tweet, Topic classification...
+	Class for machine learning udf
 	'''
-	def __topic(self):
-		self.value = 0
-		self.topic = ""
+	def most_common_words(tweet):
+		'''
+		Get the frequency distribution of tokens obtained from tweets, 
+		getting 100 most common words
+		'''
+		import nltk
+		from nltk.tokenize import word_tokenize
+
+		tokens = word_tokenize(tweet)
+		freq = nltk.FreqDist(tokens)
+		most_common_words = []
+		for i in freq.most_common(100):
+		    most_common_words.append(i[0])
+		return most_common_words
 
 	def tweet_topic_classification(self, clean_tweet):
 		'''
-		- POST method (tweet_topic_classification): get topic of a tweet based on Topic Model.
-		- Mandatory: text
+		- Get topic of a tweet based on Topic Model
 		'''
+		import json
+		#import logging
 		from rest_framework import status
+
 		from nltk.tokenize import word_tokenize
 		import Stemmer
 		from collections import Counter
 		import requests
-		#import logging
-		import json
 
 		try:
 

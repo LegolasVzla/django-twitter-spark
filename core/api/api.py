@@ -1,6 +1,6 @@
-from .models import (User,Dictionary,CustomDictionary,Topic,Search,
+from api.models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
-from .serializers import (UserSerializer,UserDetailsAPISerializer,
+from api.serializers import (UserSerializer,UserDetailsAPISerializer,
 	UserProfileUpdateAPISerializer,DictionarySerializer,
 	DictionaryPolarityAPISerializer,CustomDictionarySerializer,
 	TopicSerializer,WordCloudAPISerializer,SearchSerializer,
@@ -12,59 +12,44 @@ from .serializers import (UserSerializer,UserDetailsAPISerializer,
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
-
-from rest_framework import viewsets, permissions
-from rest_framework import views
-from rest_framework import status
-from rest_framework import serializers
+from rest_framework import (viewsets, permissions,views,status,
+	serializers,exceptions)
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from rest_framework import exceptions
-#from rest_framework.renderers import JSONRenderer
-#from rest_framework.parsers import JSONParser
-#from rest_framework.views import APIView
-#from rest_framework.decorators  import list_route
-#from rest_framework.viewsets import GenericViewSet
-#from rest_framework import serializers, validators
-
+from os import path
+from os.path import exists
 import json
 import copy
 import os
-from os import path
-from os.path import exists
-import random
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud, STOPWORDS
-import imageio
-#import io
-from datetime import datetime
-from email.utils import parsedate_tz, mktime_tz
-import tzlocal
-
 import re
 import string
+import random
+import matplotlib.pyplot as plt
+import logging
 import unidecode
+from datetime import datetime
+from email.utils import parsedate_tz, mktime_tz
+from functools import wraps
+import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import Stemmer
 from collections import Counter
 import pandas as pd
-
-from pyspark import SparkConf
-from pyspark.sql import SparkSession
-from pyspark import SparkContext
+from pyspark import SparkConf,SparkContext
+from pyspark.sql import SparkSession,SQLContext
 from pyspark.sql.types import *
-from pyspark.sql import SQLContext
 from pyspark.sql.functions import udf
-#from pyspark.sql.types import StringType, ArrayType
-#from pyspark.sql import Row
-from core.settings import SPARK_WORKERS,SPARK_UDF_FILE
+
+import imageio
+#import io
+from wordcloud import WordCloud, STOPWORDS
+import tzlocal
+import Stemmer
 
 from core.settings import BASE_DIR 
 from api.social_networks_api_connections import *
-import logging
-from functools import wraps
+from core.settings import SPARK_WORKERS,SPARK_UDF_FILE
 from udf.pyspark_udf import (TextMiningMethods,MachineLearningMethods)
 
 User = get_user_model()
@@ -102,20 +87,6 @@ class MachineLearningViewSet(viewsets.ViewSet):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
 		self.code = 0
-
-	def __topic(self):
-		self.value = 0
-		self.topic = ""
-
-	def __most_common_key(text):
-		# Calculate the frequency distribution of tokens, getting most common word
-		freq=nltk.FreqDist(tokens)
-		return freq.most_common(1)[0][0]
-
-	def __most_common_value(text):
-		# Calculate the frequency distribution of tokens, getting most common word's value
-		freq=nltk.FreqDist(tokens)
-		return freq.most_common(1)[0][1]
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
