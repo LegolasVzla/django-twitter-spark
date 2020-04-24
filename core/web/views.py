@@ -27,6 +27,13 @@ class IndexView(View):
 		self.code = 0
 
 	def get(self, request, *args, **kwargs):
+		'''
+		This action will call 2 endpoints, first will get tweets for 
+		timeline, second one for wordcloud generation. In the future, 
+		with a frontend framework, the first endpoint should be splitted
+		to make async calls. It's possible to also use Celery to achieve 
+		this behaviour. 
+		'''
 		try:
 			word_cloud_tweets_data = ''
 			self.response_data['data']['wordcloud'] = {}

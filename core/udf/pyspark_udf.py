@@ -83,20 +83,20 @@ class MachineLearningMethods():
 	'''
 	Class for machine learning udf
 	'''
-	def most_common_words(tweet):
+	def most_common_words(self,tweet_list):
 		'''
-		Get the frequency distribution of tokens obtained from tweets, 
+		Get the frequency distribution of tokens obtained from tweet_list, 
 		getting 100 most common words
 		'''
 		import nltk
 		from nltk.tokenize import word_tokenize
 
-		tokens = word_tokenize(tweet)
+		tokens = word_tokenize(tweet_list)
 		freq = nltk.FreqDist(tokens)
-		most_common_words = []
+		response_data = []
 		for i in freq.most_common(100):
-		    most_common_words.append(i[0])
-		return most_common_words
+		    response_data.append(i[0])
+		return response_data
 
 	def tweet_topic_classification(self, clean_tweet):
 		'''

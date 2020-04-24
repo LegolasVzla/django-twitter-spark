@@ -235,16 +235,20 @@ class BigDataViewSet(viewsets.ViewSet):
 	sentiment analysis, topic classification of tweets (both of them)
 	using apache spark
 	'''
+	serializer_class = SocialNetworkAccountsAPISerializer
+
 	def __init__(self):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
 		self.code = 0
 
+	'''
 	def get_serializer_class(self):
 		if self.action in ['process_tweets']:
 			return SocialNetworkAccountsAPISerializer
-		if self.action in ['twitter_search']:
+		elif self.action in ['twitter_search']:
 			return TweetTopicClassificationAPISerializer
+	'''
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
@@ -394,6 +398,9 @@ class BigDataViewSet(viewsets.ViewSet):
 						'formated_date',
 					).toJSON().collect()
 
+					# Create a pyspark udf of most_common_words
+					most_common_words_udf = udf(MachineLearningMethods().most_common_words, ArrayType(StringType()))
+
 					''' To get and return only clean_tweet of clean_tweet_df
 					This part was moved to frontend layer
 
@@ -405,9 +412,28 @@ class BigDataViewSet(viewsets.ViewSet):
 					self.response_data['data'] = ''.join(all_clean_tweet_)
 					'''
 
+					timeline = []
+					wordcloud = []
+					most_common_words = []
+
+					for tweet_elem in tweets_processed:
+						wordcloud+=json.loads(tweet_elem)['clean_tweet'].split(' ')
+
+					#import pdb;pdb.set_trace()
+					#most_common_words = most_common_words_udf.func(wordcloud)
+
+					'''
+					for tweet_elem in tweets_processed:
+						del tweet_elem['clean_tweet']
+					'''
+
 					# Push and return the columns selected in json format 
 					for tweet_elem in tweets_processed:					
+						#self.response_data['data']['timeline'].append(json.loads(tweet_elem))
 						self.response_data['data'].append(json.loads(tweet_elem))
+
+					#self.response_data['data'].append(timeline)
+					#self.response_data['data'].append(wordcloud)
 
 					sc.stop()
 					self.code = status.HTTP_200_OK
@@ -637,7 +663,7 @@ class WordCloudViewSet(viewsets.ViewSet):
 	def list(self, request, *args, **kwargs):
 		'''
 		- GET method (list): list word clouds user folders generated
-		'''		
+		'''
 		authenticated_word_clouds_list = []
 		unauthenticated_word_cloud = ''
 		aux_user_word_cloud_list = {}
@@ -650,7 +676,7 @@ class WordCloudViewSet(viewsets.ViewSet):
 					unauthenticated_word_cloud = os.listdir(os.getcwd())[0]
 
 				# Exist at least one word_cloud custom image generated
-				if(len(os.listdir(os.getcwd())) > 1):
+				if(len(os.listdir(os.getcwd())) >= 1):
 
 					# Get all the custom word_cloud folders name
 					for word_cloud_folder in os.listdir(os.getcwd()):
