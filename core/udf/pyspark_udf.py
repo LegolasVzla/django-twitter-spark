@@ -19,6 +19,7 @@ class TextMiningMethods():
 		mentions_regex = re.compile("@[A-Za-z0-9]+")
 		brackets_regex = re.compile("\[[^)]*\]")
 		parenthesis_regex = re.compile   ("\([^)]*\)")
+		consecutive_dots = re.compile(r'\.{3,}')
 
 		# Remove Hiperlinks
 		tweet = url_regex.sub(' ', tweet)
@@ -29,6 +30,9 @@ class TextMiningMethods():
 		# Remove text between brackets and parenthesis, like [Video] or [Photos]
 		tweet = brackets_regex.sub('', tweet)
 		tweet = parenthesis_regex.sub('', tweet)
+
+		# Remove consecutive dots
+		tweet = consecutive_dots.sub('', tweet)
 		
 		# Remove punctuations
 		tweet = tweet.translate(str.maketrans(string.punctuation,32*' '))	# len(string.punctuation) = 32
@@ -96,6 +100,16 @@ class MachineLearningMethods():
 		response_data = []
 		for i in freq.most_common(100):
 		    response_data.append(i[0])
+		return response_data
+
+	def remove_uncommon_words(self,clean_tweets,most_common_words_list):
+		'''
+		Remove uncommon words from clean tweets
+		'''
+		response_data = ''
+		for index,word in enumerate(clean_tweets.split(' ')):
+			if word in most_common_words_list:
+				response_data+= " " + word
 		return response_data
 
 	def tweet_topic_classification(self, clean_tweet):

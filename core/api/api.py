@@ -401,42 +401,39 @@ class BigDataViewSet(viewsets.ViewSet):
 					# Create a pyspark udf of most_common_words
 					most_common_words_udf = udf(MachineLearningMethods().most_common_words, ArrayType(StringType()))
 
-					''' To get and return only clean_tweet of clean_tweet_df
-					This part was moved to frontend layer
-
-					all_clean_tweet_ = ''
-
-					for i in clean_tweet_list:					
-						all_clean_tweet_ =  all_clean_tweet_ + i[0]
-
-					self.response_data['data'] = ''.join(all_clean_tweet_)
-					'''
-
-					timeline = []
-					wordcloud = []
-					most_common_words = []
+					clean_tweets = ''
+					most_common_words_list = []
 
 					for tweet_elem in tweets_processed:
-						wordcloud+=json.loads(tweet_elem)['clean_tweet'].split(' ')
+						clean_tweets+= " " + json.loads(tweet_elem)['clean_tweet']
+						#clean_tweets+=json.loads(tweet_elem)['clean_tweet'].split(' ')
 
-					#import pdb;pdb.set_trace()
-					#most_common_words = most_common_words_udf.func(wordcloud)
+					clean_tweets = clean_tweets.translate(str.maketrans(string.punctuation,32*' '))
+					
+					# Get 100 most common words of clean tweets
+					most_common_words_list = most_common_words_udf.func(clean_tweets)
+
+					# Remove uncommon words from clean tweets
+					remove_uncommon_words_udf = udf(MachineLearningMethods().remove_uncommon_words, ArrayType(StringType()))
+
+					self.data['wordcloud'] = remove_uncommon_words_udf.func(clean_tweets,most_common_words_list)
+
+					sc.stop()
 
 					'''
 					for tweet_elem in tweets_processed:
-						del tweet_elem['clean_tweet']
+						del json.loads(tweet_elem)['clean_tweet']
+
+					import pdb;pdb.set_trace()
 					'''
 
 					# Push and return the columns selected in json format 
 					for tweet_elem in tweets_processed:					
 						#self.response_data['data']['timeline'].append(json.loads(tweet_elem))
-						self.response_data['data'].append(json.loads(tweet_elem))
+						self.data['timeline'].append(json.loads(tweet_elem))
 
-					#self.response_data['data'].append(timeline)
-					#self.response_data['data'].append(wordcloud)
-
-					sc.stop()
 					self.code = status.HTTP_200_OK
+					self.response_data['data'].append(self.data)
 					#print (self.response_data['data'])
 
 				else:
@@ -612,7 +609,7 @@ class WordCloudViewSet(viewsets.ViewSet):
 					image = random.randint(0, 9)
 
 					# Generating the custom random word cloud
-					wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1600,height=1200,colormap=colors_array[colors],mask=imageio.imread(BASE_DIR + '/static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(kwargs['data']['comments'])
+					wordcloud = WordCloud(stopwords=STOPWORDS,background_color='white',width=1280,height=1024,colormap=colors_array[colors],mask=imageio.imread(BASE_DIR + '/static/images/word_cloud_masks/cloud'+ str(image) +'.png')).generate(kwargs['data']['comments'])
 				else:
 					# Generating the word cloud				
 					wordcloud = WordCloud(background_color='white',width=1600,height=1200).generate(kwargs['data']['comments'])
