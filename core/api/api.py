@@ -39,7 +39,7 @@ import pandas as pd
 from pyspark import SparkConf,SparkContext
 from pyspark.sql import SparkSession,SQLContext
 from pyspark.sql.types import *
-from pyspark.sql.functions import udf
+from pyspark.sql.functions import udf, col
 
 import imageio
 #import io
@@ -385,56 +385,75 @@ class BigDataViewSet(viewsets.ViewSet):
 					# Create a pyspark udf of topic classification
 					tweet_topic_classification_udf = udf(MachineLearningMethods().tweet_topic_classification, StringType())
 
-					# Applying udf functions to a new dataframe
-					topic_df = clean_tweet_df.withColumn("topic",tweet_topic_classification_udf(clean_tweet_df["clean_tweet"]))
+					# Get word roots stored in Word Root model
+					_word_roots = WordRootViewSet()
+					_word_roots.word_roots_by_topic(request)
 
-					# Get columns and converts to a list
-					tweets_processed = topic_df.select(
-						'account_name',
-						'text',
-						'clean_tweet',
-						'topic',
-						'created_at',
-						'formated_date',
-					).toJSON().collect()
+					# This shouldn't fail
+					if _word_roots.code == 200:
 
-					# Create a pyspark udf of most_common_words
-					most_common_words_udf = udf(MachineLearningMethods().most_common_words, ArrayType(StringType()))
+						word_roots_by_topic_list = _tweets.response_data['data']
 
-					clean_tweets = ''
-					most_common_words_list = []
+						#import pdb;pdb.set_trace()
 
-					for tweet_elem in tweets_processed:
-						clean_tweets+= " " + json.loads(tweet_elem)['clean_tweet']
-						#clean_tweets+=json.loads(tweet_elem)['clean_tweet'].split(' ')
+						# Applying udf functions to a new dataframe
+						topic_df = clean_tweet_df.withColumn("topic",tweet_topic_classification_udf(clean_tweet_df["clean_tweet"]))
 
-					clean_tweets = clean_tweets.translate(str.maketrans(string.punctuation,32*' '))
-					
-					# Get 100 most common words of clean tweets
-					most_common_words_list = most_common_words_udf.func(clean_tweets)
+						#topic_df = clean_tweet_df.withColumn("topic",MachineLearningMethods().udf_tweet_topic_classification(word_roots_by_topic_list,col("clean_tweet")))
 
-					# Remove uncommon words from clean tweets
-					remove_uncommon_words_udf = udf(MachineLearningMethods().remove_uncommon_words, ArrayType(StringType()))
+						#import pdb;pdb.set_trace()
 
-					self.data['wordcloud'] = remove_uncommon_words_udf.func(clean_tweets,most_common_words_list)
+						# Get columns and converts to a list
+						tweets_processed = topic_df.select(
+							'account_name',
+							'text',
+							'clean_tweet',
+							'topic',
+							'created_at',
+							'formated_date',
+						).toJSON().collect()
 
-					sc.stop()
+						# Create a pyspark udf of most_common_words
+						most_common_words_udf = udf(MachineLearningMethods().most_common_words, ArrayType(StringType()))
 
-					'''
-					for tweet_elem in tweets_processed:
-						del json.loads(tweet_elem)['clean_tweet']
+						clean_tweets = ''
+						most_common_words_list = []
 
-					import pdb;pdb.set_trace()
-					'''
+						for tweet_elem in tweets_processed:
+							clean_tweets+= " " + json.loads(tweet_elem)['clean_tweet']
+							#clean_tweets+=json.loads(tweet_elem)['clean_tweet'].split(' ')
 
-					# Push and return the columns selected in json format 
-					for tweet_elem in tweets_processed:					
-						#self.response_data['data']['timeline'].append(json.loads(tweet_elem))
-						self.data['timeline'].append(json.loads(tweet_elem))
+						#import pdb;pdb.set_trace()
+						clean_tweets = clean_tweets.translate(str.maketrans(string.punctuation,32*' '))
+						
+						# Get 100 most common words of clean tweets
+						most_common_words_list = most_common_words_udf.func(clean_tweets)
 
-					self.code = status.HTTP_200_OK
-					self.response_data['data'].append(self.data)
-					#print (self.response_data['data'])
+						# Remove uncommon words from clean tweets
+						remove_uncommon_words_udf = udf(MachineLearningMethods().remove_uncommon_words, ArrayType(StringType()))
+
+						self.data['wordcloud'] = remove_uncommon_words_udf.func(clean_tweets,most_common_words_list)
+
+						sc.stop()
+
+						'''
+						for tweet_elem in tweets_processed:
+							del json.loads(tweet_elem)['clean_tweet']
+						'''
+
+						# Push and return the columns selected in json format 
+						for tweet_elem in tweets_processed:					
+							#self.response_data['data']['timeline'].append(json.loads(tweet_elem))
+							self.data['timeline'].append(json.loads(tweet_elem))
+
+						self.code = status.HTTP_200_OK
+						self.response_data['data'].append(self.data)
+						#print (self.response_data['data'])
+
+					else:
+						logging.getLogger('error_logger').exception("[API - BigDataViewSet] - Error: " + _word_roots.response_data['error'][0])
+						self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+						self.response_data['error'].append("[API - BigDataViewSet] - Error: " + _word_roots.response_data['error'][0])
 
 				else:
 					logging.getLogger('error_logger').exception("[API - BigDataViewSet] - Error: " + _tweets.response_data['error'][0])

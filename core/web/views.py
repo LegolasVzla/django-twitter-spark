@@ -45,19 +45,11 @@ class IndexView(View):
 			tweets_processed = _bigData.response_data['data']
 			#tweets_processed= [{'account_name': 'CaraotaDigital', 'text': '#18Abr | El hampa no acata la cuarentena! varias escuelas han sido robadas por la ausencia de personal | Por:… https://t.co/IFj5n8Kc1C', 'clean_tweet': 'abr hampa acata cuarentena varias escuelas sido robadas ausencia personal ...', 'topic': 'Educación - Salud', 'created_at': 'Sat Apr 18 23:44:08 +0000 2020', 'formated_date': '18 Apr 2020 19:44:08'}, {'account_name': 'CaraotaDigital', 'text': 'Encuesta COVID-19: el 89,2% del territorio venezolano presenta fallas en el servicio eléctrico https://t.co/5b1apaMUae .*', 'clean_tweet': 'encuesta covid territorio venezolano presenta fallas servicio electrico', 'topic': 'Tecnología', 'created_at': 'Sat Apr 18 23:43:37 +0000 2020', 'formated_date': '18 Apr 2020 19:43:37'}]
 
-			# To get all cleaned tweet list
-			for tweet_elem in tweets_processed:
-				word_cloud_tweets_data =  word_cloud_tweets_data + tweet_elem['clean_tweet']
-
-			# Remove cleaned tweet of response data
-			for tweet_elem in tweets_processed:
-				del tweet_elem['clean_tweet']
-			
-			self.response_data['data']['tweets_processed'] = tweets_processed
+			self.response_data['data']['tweets_processed'] = tweets_processed[0]['timeline']
 
 			# Generating word cloud with current tweets
 			_wordcloud = WordCloudViewSet()
-			_wordcloud.create(request,user=1,comments=word_cloud_tweets_data)
+			_wordcloud.create(request,user=1,comments=tweets_processed[0]['wordcloud'])
 			self.response_data['data']['wordcloud'] = _wordcloud.response_data['data'][0]
 			self.code = _wordcloud.code
 

@@ -33,12 +33,12 @@ class TextMiningMethods():
 
 		# Remove consecutive dots
 		tweet = consecutive_dots.sub('', tweet)
-		
-		# Remove punctuations
-		tweet = tweet.translate(str.maketrans(string.punctuation,32*' '))	# len(string.punctuation) = 32
-		
+				
 		# Remove numerics
 		tweet = numeric_regex.sub(' ', tweet)
+
+		# Remove punctuations
+		tweet = tweet.translate(str.maketrans(string.punctuation,32*' '))	# len(string.punctuation) = 32
 		
 		# Remove white spaces
 		tweet = " ".join(tweet.split())
@@ -112,134 +112,109 @@ class MachineLearningMethods():
 				response_data+= " " + word
 		return response_data
 
-	def tweet_topic_classification(self, clean_tweet):
+	def tweet_topic_classification(self,word_roots_by_topic_list,clean_tweet):
 		'''
 		- Get topic of a tweet based on Topic Model
 		'''
-		import json
-		#import logging
 		from rest_framework import status
 
 		from nltk.tokenize import word_tokenize
 		import Stemmer
 		from collections import Counter
-		import requests
 
 		try:
 
-			# Get twitter topics stored in Topic model
-			#_word_roots_by_topic_list = WordRootViewSet()
-			#_word_roots_by_topic_list.word_roots_by_topic(request)
-			response = requests.get("http://localhost:8000/api/word_root/word_roots_by_topic")
+			# Set word roots by topics
+			entertainment = word_roots_by_topic_list[0]['word_roots']
+			religion = word_roots_by_topic_list[1]['word_roots']
+			sports = word_roots_by_topic_list[2]['word_roots']
+			education = word_roots_by_topic_list[3]['word_roots']
+			technology = word_roots_by_topic_list[4]['word_roots']
+			economy = word_roots_by_topic_list[5]['word_roots']
+			health = word_roots_by_topic_list[6]['word_roots']
+			politica = word_roots_by_topic_list[7]['word_roots']
+			social = word_roots_by_topic_list[8]['word_roots']
 
-			#if _word_roots_by_topic_list.code == 200:
-			if response.status_code == 200:
+			# Tokenize tweets
+			#tokens = word_tokenize(kwargs['data']['text'].lower())
+			tokens = word_tokenize(clean_tweet)
 
-				#topic_list = _word_roots_by_topic_list.response_data['data']
-				response = response.content.decode('utf-8')
-				json_response = json.loads(response)
+			# Define Stemmer for Spanish Language
+			stemmer = Stemmer.Stemmer('spanish')
 
-				# Set word roots by topics
-				'''
-				entertainment = topic_list[0]
-				religion = topic_list[1]
-				sports = topic_list[2]
-				education = topic_list[3]
-				technology = topic_list[4]
-				economy = topic_list[5]
-				health = topic_list[6]
-				politica = topic_list[7]
-				social = topic_list[8]
-				'''
+			# Search for coincidences between tokens from the tweet 
+			# and the word roots by topics
+			entertainment_coincidences = map(lambda x : x in entertainment,stemmer.stemWords(tokens))
+			religion_coincidences = map(lambda x : x in religion,stemmer.stemWords(tokens))
+			sports_coincidences = map(lambda x : x in sports,stemmer.stemWords(tokens))
+			education_coincidences = map(lambda x : x in education,stemmer.stemWords(tokens))
+			technology_coincidences = map(lambda x : x in technology,stemmer.stemWords(tokens))
+			economy_coincidences = map(lambda x : x in economy,stemmer.stemWords(tokens))
+			health_coincidences = map(lambda x : x in health,stemmer.stemWords(tokens))
+			politica_coincidences = map(lambda x : x in politica,stemmer.stemWords(tokens))
+			social_coincidences = map(lambda x : x in social,stemmer.stemWords(tokens))
 
-				entertainment = json_response['data'][0]
-				religion = json_response['data'][1]
-				sports = json_response['data'][2]
-				education = json_response['data'][3]
-				technology = json_response['data'][4]
-				economy = json_response['data'][5]
-				health = json_response['data'][6]
-				politica = json_response['data'][7]
-				social = json_response['data'][8]
+			# Count coincidences by topic
+			obj_entertainment = MachineLearningMethods()
+			obj_entertainment.value = Counter(entertainment_coincidences)[True]
+			obj_entertainment.topic = entertainment['topic']
+			obj_religion = MachineLearningMethods()
+			obj_religion.value = Counter(religion_coincidences)[True]
+			obj_religion.topic = religion['topic']
+			obj_sports = MachineLearningMethods()
+			obj_sports.value = Counter(sports_coincidences)[True]
+			obj_sports.topic = sports['topic']
+			obj_education = MachineLearningMethods()
+			obj_education.value = Counter(education_coincidences)[True]
+			obj_education.topic = education['topic']
+			obj_techcnology = MachineLearningMethods()
+			obj_techcnology.value = Counter(technology_coincidences)[True]
+			obj_techcnology.topic = technology['topic']
+			obj_economy = MachineLearningMethods()
+			obj_economy.value = Counter(economy_coincidences)[True]
+			obj_economy.topic = economy['topic']
+			obj_health = MachineLearningMethods()
+			obj_health.value = Counter(health_coincidences)[True]
+			obj_health.topic = health['topic']
+			obj_politica = MachineLearningMethods()
+			obj_politica.value = Counter(politica_coincidences)[True]
+			obj_politica.topic = politica['topic']
+			obj_social = MachineLearningMethods()
+			obj_social.value = Counter(social_coincidences)[True]
+			obj_social.topic = social['topic']
 
-				# Tokenize tweets
-				#tokens = word_tokenize(kwargs['data']['text'].lower())
-				tokens = word_tokenize(clean_tweet)
+			# List of all topic objects
+			topic_list = [
+				obj_entertainment,
+				obj_religion,
+				obj_sports,
+				obj_education,
+				obj_techcnology,
+				obj_economy,
+				obj_health,
+				obj_politica,
+				obj_social
+			]
 
-				# Define Stemmer for Spanish Language
-				stemmer = Stemmer.Stemmer('spanish')
+			# Sort the list by value of each topic in descending order
+			topic_list.sort(key=lambda x: x.value, reverse=True)
 
-				# Search for coincidences between tokens from the tweet 
-				# and the word roots by topics
-				entertainment_coincidences = map(lambda x : x in entertainment['word_roots'],stemmer.stemWords(tokens))
-				religion_coincidences = map(lambda x : x in religion['word_roots'],stemmer.stemWords(tokens))
-				sports_coincidences = map(lambda x : x in sports['word_roots'],stemmer.stemWords(tokens))
-				education_coincidences = map(lambda x : x in education['word_roots'],stemmer.stemWords(tokens))
-				technology_coincidences = map(lambda x : x in technology['word_roots'],stemmer.stemWords(tokens))
-				economy_coincidences = map(lambda x : x in economy['word_roots'],stemmer.stemWords(tokens))
-				health_coincidences = map(lambda x : x in health['word_roots'],stemmer.stemWords(tokens))
-				politica_coincidences = map(lambda x : x in politica['word_roots'],stemmer.stemWords(tokens))
-				social_coincidences = map(lambda x : x in social['word_roots'],stemmer.stemWords(tokens))
+			# Finally, determine the topic resulting with the most value
+			if (topic_list[0].value==0):
+				response_data = "Diverso"
+			elif (topic_list[0].value > topic_list[1].value):
+				response_data = topic_list[0].topic
+			else:
+				response_data = topic_list[0].topic+' - '+topic_list[1].topic
 
-				# Count coincidences by topic
-				obj_entertainment = MachineLearningMethods()
-				obj_entertainment.value = Counter(entertainment_coincidences)[True]
-				obj_entertainment.topic = entertainment['topic']
-				obj_religion = MachineLearningMethods()
-				obj_religion.value = Counter(religion_coincidences)[True]
-				obj_religion.topic = religion['topic']
-				obj_sports = MachineLearningMethods()
-				obj_sports.value = Counter(sports_coincidences)[True]
-				obj_sports.topic = sports['topic']
-				obj_education = MachineLearningMethods()
-				obj_education.value = Counter(education_coincidences)[True]
-				obj_education.topic = education['topic']
-				obj_techcnology = MachineLearningMethods()
-				obj_techcnology.value = Counter(technology_coincidences)[True]
-				obj_techcnology.topic = technology['topic']
-				obj_economy = MachineLearningMethods()
-				obj_economy.value = Counter(economy_coincidences)[True]
-				obj_economy.topic = economy['topic']
-				obj_health = MachineLearningMethods()
-				obj_health.value = Counter(health_coincidences)[True]
-				obj_health.topic = health['topic']
-				obj_politica = MachineLearningMethods()
-				obj_politica.value = Counter(politica_coincidences)[True]
-				obj_politica.topic = politica['topic']
-				obj_social = MachineLearningMethods()
-				obj_social.value = Counter(social_coincidences)[True]
-				obj_social.topic = social['topic']
-
-				# List of all topic objects
-				topic_list = [
-					obj_entertainment,
-					obj_religion,
-					obj_sports,
-					obj_education,
-					obj_techcnology,
-					obj_economy,
-					obj_health,
-					obj_politica,
-					obj_social
-				]
-
-				# Sort the list by value of each topic in descending order
-				topic_list.sort(key=lambda x: x.value, reverse=True)
-
-				# Finally, determine the topic resulting with the most value
-				if (topic_list[0].value==0):
-					response_data = "Diverso"
-				elif (topic_list[0].value > topic_list[1].value):
-					response_data = topic_list[0].topic
-				else:
-					response_data = topic_list[0].topic+' - '+topic_list[1].topic
-
-				#self.response_data['data'].append(self.data)
+			#self.response_data['data'].append(self.data)
 
 		except Exception as e:
-			#logging.getLogger('error_logger').exception("[UDF - MachineLearningMethods] - Error: " + str(e))
-			#self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			#self.response_data['error'].append("[UDF - MachineLearningMethods] - Error: " + str(e))
 			response_data = str(e)
 
 		return response_data
+
+	def udf_tweet_topic_classification(self,word_roots_by_topic_list,clean_tweet):
+		from pyspark.sql.functions import udf
+		from pyspark.sql.types import StringType
+		return udf(lambda x: MachineLearningMethods().tweet_topic_classification(word_roots_by_topic_list),StringType())

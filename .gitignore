@@ -106,3 +106,4 @@ settings.ini
 
 # Backend folders generated
 word_clouds/
+metastore_db/
