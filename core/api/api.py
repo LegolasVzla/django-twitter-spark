@@ -382,9 +382,6 @@ class BigDataViewSet(viewsets.ViewSet):
 					# Applying udf functions to a new dataframe
 					clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["text"]))
 
-					# Create a pyspark udf of topic classification
-					tweet_topic_classification_udf = udf(MachineLearningMethods().tweet_topic_classification, StringType())
-
 					# Get word roots stored in Word Root model
 					_word_roots = WordRootViewSet()
 					_word_roots.word_roots_by_topic(request)
@@ -392,16 +389,10 @@ class BigDataViewSet(viewsets.ViewSet):
 					# This shouldn't fail
 					if _word_roots.code == 200:
 
-						word_roots_by_topic_list = _tweets.response_data['data']
+						word_roots_by_topic_list = _word_roots.response_data['data']
 
-						#import pdb;pdb.set_trace()
-
-						# Applying udf functions to a new dataframe
-						topic_df = clean_tweet_df.withColumn("topic",tweet_topic_classification_udf(clean_tweet_df["clean_tweet"]))
-
-						#topic_df = clean_tweet_df.withColumn("topic",MachineLearningMethods().udf_tweet_topic_classification(word_roots_by_topic_list,col("clean_tweet")))
-
-						#import pdb;pdb.set_trace()
+						# Applying udf_tweet_topic_classification pyspark udf to a new dataframe
+						topic_df = clean_tweet_df.withColumn("topic",MachineLearningMethods().udf_tweet_topic_classification(word_roots_by_topic_list)(col("clean_tweet")))
 
 						# Get columns and converts to a list
 						tweets_processed = topic_df.select(
@@ -436,10 +427,7 @@ class BigDataViewSet(viewsets.ViewSet):
 
 						sc.stop()
 
-						'''
-						for tweet_elem in tweets_processed:
-							del json.loads(tweet_elem)['clean_tweet']
-						'''
+						self.data['timeline'] = []
 
 						# Push and return the columns selected in json format 
 						for tweet_elem in tweets_processed:					

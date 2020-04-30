@@ -125,15 +125,15 @@ class MachineLearningMethods():
 		try:
 
 			# Set word roots by topics
-			entertainment = word_roots_by_topic_list[0]['word_roots']
-			religion = word_roots_by_topic_list[1]['word_roots']
-			sports = word_roots_by_topic_list[2]['word_roots']
-			education = word_roots_by_topic_list[3]['word_roots']
-			technology = word_roots_by_topic_list[4]['word_roots']
-			economy = word_roots_by_topic_list[5]['word_roots']
-			health = word_roots_by_topic_list[6]['word_roots']
-			politica = word_roots_by_topic_list[7]['word_roots']
-			social = word_roots_by_topic_list[8]['word_roots']
+			entertainment = word_roots_by_topic_list[0]
+			religion = word_roots_by_topic_list[1]
+			sports = word_roots_by_topic_list[2]
+			education = word_roots_by_topic_list[3]
+			technology = word_roots_by_topic_list[4]
+			economy = word_roots_by_topic_list[5]
+			health = word_roots_by_topic_list[6]
+			politica = word_roots_by_topic_list[7]
+			social = word_roots_by_topic_list[8]
 
 			# Tokenize tweets
 			#tokens = word_tokenize(kwargs['data']['text'].lower())
@@ -144,15 +144,15 @@ class MachineLearningMethods():
 
 			# Search for coincidences between tokens from the tweet 
 			# and the word roots by topics
-			entertainment_coincidences = map(lambda x : x in entertainment,stemmer.stemWords(tokens))
-			religion_coincidences = map(lambda x : x in religion,stemmer.stemWords(tokens))
-			sports_coincidences = map(lambda x : x in sports,stemmer.stemWords(tokens))
-			education_coincidences = map(lambda x : x in education,stemmer.stemWords(tokens))
-			technology_coincidences = map(lambda x : x in technology,stemmer.stemWords(tokens))
-			economy_coincidences = map(lambda x : x in economy,stemmer.stemWords(tokens))
-			health_coincidences = map(lambda x : x in health,stemmer.stemWords(tokens))
-			politica_coincidences = map(lambda x : x in politica,stemmer.stemWords(tokens))
-			social_coincidences = map(lambda x : x in social,stemmer.stemWords(tokens))
+			entertainment_coincidences = map(lambda x : x in entertainment['word_roots'],stemmer.stemWords(tokens))
+			religion_coincidences = map(lambda x : x in religion['word_roots'],stemmer.stemWords(tokens))
+			sports_coincidences = map(lambda x : x in sports['word_roots'],stemmer.stemWords(tokens))
+			education_coincidences = map(lambda x : x in education['word_roots'],stemmer.stemWords(tokens))
+			technology_coincidences = map(lambda x : x in technology['word_roots'],stemmer.stemWords(tokens))
+			economy_coincidences = map(lambda x : x in economy['word_roots'],stemmer.stemWords(tokens))
+			health_coincidences = map(lambda x : x in health['word_roots'],stemmer.stemWords(tokens))
+			politica_coincidences = map(lambda x : x in politica['word_roots'],stemmer.stemWords(tokens))
+			social_coincidences = map(lambda x : x in social['word_roots'],stemmer.stemWords(tokens))
 
 			# Count coincidences by topic
 			obj_entertainment = MachineLearningMethods()
@@ -214,7 +214,7 @@ class MachineLearningMethods():
 
 		return response_data
 
-	def udf_tweet_topic_classification(self,word_roots_by_topic_list,clean_tweet):
+	def udf_tweet_topic_classification(self,word_roots_by_topic_list):
 		from pyspark.sql.functions import udf
 		from pyspark.sql.types import StringType
-		return udf(lambda x: MachineLearningMethods().tweet_topic_classification(word_roots_by_topic_list),StringType())
+		return udf(lambda x: MachineLearningMethods().tweet_topic_classification(word_roots_by_topic_list,x),StringType())
