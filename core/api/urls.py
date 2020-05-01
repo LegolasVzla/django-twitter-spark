@@ -4,10 +4,26 @@ from rest_framework import routers
 from .api import (UserViewSet,DictionaryViewSet,CustomDictionaryViewSet,
 	TopicViewSet,SearchViewSet,WordRootViewSet,SocialNetworkAccountsViewSet,
 	WordCloudViewSet,TwitterViewSet,MachineLearningViewSet,BigDataViewSet)
-from rest_framework_swagger.views import get_swagger_view
 from django.urls import path
 from rest_framework_simplejwt import views as jwt_views
+
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 #from api import views
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Swagger Topic Analyzer REST API Documentation",
+      default_version='v1',
+      description="Topic categorization and sentiment analysis on Twitter Swagger REST API",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@snippets.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
 
 router = routers.DefaultRouter()
 router.register('api/user', UserViewSet, 'user')
@@ -19,10 +35,10 @@ router.register('api/search', SearchViewSet, 'search')
 router.register('api/social_network_accounts', SocialNetworkAccountsViewSet, 'social_network_accounts')
 router.register('api/word_cloud', WordCloudViewSet, 'word_cloud')
 
-schema_view = get_swagger_view(title='Swagger Topic Analyzer REST API Documentation')
-
 urlpatterns = [
-    url(r'^swagger/$', schema_view),
+    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     url(r'^api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url(r'^api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 #    url(r'^index/', views.IndexView.as_view(), name='index')

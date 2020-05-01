@@ -5,12 +5,13 @@ coreapi==2.3.3
 coreschema==0.0.4
 cycler==0.10.0
 Django==3.0.4
-django-rest-swagger==2.2.0
 djangorestframework==3.11.0
 djangorestframework-simplejwt==4.3.0
+drf-yasg==1.17.1
 httpie==1.0.3
 idna==2.8
 imageio==2.5.0
+inflection==0.4.0
 itypes==1.1.0
 Jinja2==2.10.1
 kiwisolver==1.1.0
@@ -20,6 +21,7 @@ nltk==3.4.5
 numpy==1.17.1
 oauthlib==3.1.0
 openapi-codec==1.3.2
+packaging==20.3
 pandas==0.24.2
 Pillow==7.1.1
 pkg-resources==0.0.0
@@ -36,6 +38,8 @@ python-dateutil==2.8.0
 pytz==2019.1
 requests==2.22.0
 requests-oauthlib==1.3.0
+ruamel.yaml==0.16.10
+ruamel.yaml.clib==0.2.0
 simplejson==3.16.0
 six==1.12.0
 sqlparse==0.3.0

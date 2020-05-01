@@ -273,7 +273,7 @@ class BigDataViewSet(viewsets.ViewSet):
 
 					tweets_list = _tweets.response_data['data']
 
-					# Create SparkSession for word_cloud generation
+					# Create SparkSession
 					sc=SparkSession \
 						.builder \
 						.master("spark://"+SPARK_WORKERS) \
@@ -285,7 +285,7 @@ class BigDataViewSet(viewsets.ViewSet):
 						.getOrCreate()
 					# spark.sparkContext.getConf().getAll()
 
-					# Or with SparkContext
+					# Or with SparkContext (SparkSession is better option)
 					# conf = SparkConf(). \
 					# 	.setAppName('word_cloud') \
 					# 	.setMaster('spark://'+SPARK_WORKERS) \
