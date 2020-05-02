@@ -373,18 +373,17 @@ class BigDataViewSet(viewsets.ViewSet):
 					])
 
 					# Create a Spark DataFrame from a pandas DataFrame
-					# This data is not cleaned yet
 					df = sc.createDataFrame(tweet_pandas_df,schema=schema)
 
 					# Create a pyspark User Defined Function to clean tweets
 					clean_tweet_udf = udf(TextMiningMethods().clean_tweet, StringType())
 
 					# Applying udf functions to a new dataframe
-					clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["text"]))
+					clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["text"])).orderBy('created_at', ascending=False)
 
 					# Get word roots stored in Word Root model
 					_word_roots = WordRootViewSet()
-					_word_roots.word_roots_by_topic(request)
+					_word_roots.word_roots_by_topic(request,data=None)
 
 					# This shouldn't fail
 					if _word_roots.code == 200:
@@ -413,9 +412,6 @@ class BigDataViewSet(viewsets.ViewSet):
 						for tweet_elem in tweets_processed:
 							clean_tweets+= " " + json.loads(tweet_elem)['clean_tweet']
 							#clean_tweets+=json.loads(tweet_elem)['clean_tweet'].split(' ')
-
-						#import pdb;pdb.set_trace()
-						clean_tweets = clean_tweets.translate(str.maketrans(string.punctuation,32*' '))
 						
 						# Get 100 most common words of clean tweets
 						most_common_words_list = most_common_words_udf.func(clean_tweets)

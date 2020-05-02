@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+ #!/usr/bin/env python3
 
 class TextMiningMethods():
 	"""docstring for TextMiningMethods"""
@@ -8,7 +8,6 @@ class TextMiningMethods():
 		and remove stop words (with nltk)
 		'''
 		import re
-		import string
 		import unidecode
 
 		from nltk.corpus import stopwords
@@ -19,26 +18,23 @@ class TextMiningMethods():
 		mentions_regex = re.compile("@[A-Za-z0-9]+")
 		brackets_regex = re.compile("\[[^)]*\]")
 		parenthesis_regex = re.compile   ("\([^)]*\)")
-		consecutive_dots = re.compile(r'\.{3,}')
+		punctuation_signs = re.compile(r'[^\w\s]')
 
 		# Remove Hiperlinks
-		tweet = url_regex.sub(' ', tweet)
+		tweet = url_regex.sub('', tweet)
 		
 		# Remove @mentions
-		tweet = mentions_regex.sub(' ', tweet)
+		tweet = mentions_regex.sub('', tweet)
 
 		# Remove text between brackets and parenthesis, like [Video] or [Photos]
 		tweet = brackets_regex.sub('', tweet)
 		tweet = parenthesis_regex.sub('', tweet)
 
-		# Remove consecutive dots
-		tweet = consecutive_dots.sub('', tweet)
-				
-		# Remove numerics
-		tweet = numeric_regex.sub(' ', tweet)
+		# Remove punctuations
+		tweet = punctuation_signs.sub('', tweet)
 
 		# Remove punctuations
-		tweet = tweet.translate(str.maketrans(string.punctuation,32*' '))	# len(string.punctuation) = 32
+		tweet = numeric_regex.sub('', tweet)
 		
 		# Remove white spaces
 		tweet = " ".join(tweet.split())
