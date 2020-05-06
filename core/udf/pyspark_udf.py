@@ -138,6 +138,9 @@ class MachineLearningMethods():
 			# Define Stemmer for Spanish Language
 			stemmer = Stemmer.Stemmer('spanish')
 
+			# To apply stemmer to a word
+			# stemmer.stemWord('word')
+
 			# Search for coincidences between tokens from the tweet 
 			# and the word roots by topics
 			entertainment_coincidences = map(lambda x : x in entertainment['word_roots'],stemmer.stemWords(tokens))

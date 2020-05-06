@@ -229,34 +229,32 @@ class MachineLearningViewSet(viewsets.ViewSet):
 			self.response_data['error'].append("[API - MachineLearningViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
-class BigDataViewSet(viewsets.ViewSet):
+class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 	'''
 	Class for big data endpoints: Word cloud with cleaned tweets,
 	sentiment analysis, topic classification of tweets (both of them)
 	using apache spark
 	'''
-	serializer_class = SocialNetworkAccountsAPISerializer
+	#serializer_class = SocialNetworkAccountsAPISerializer
 
 	def __init__(self):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
 		self.code = 0
 
-	'''
 	def get_serializer_class(self):
 		if self.action in ['process_tweets']:
 			return SocialNetworkAccountsAPISerializer
 		elif self.action in ['twitter_search']:
 			return TweetTopicClassificationAPISerializer
-	'''
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
 	def process_tweets(self, request, *args, **kwargs):
 		'''
 		- POST method (process_tweets): get tweets from tweets_get endpoint
-		for different goals: to clean all tweets with Text Mining Methods, 
-		to determine Topic and to To Determinate Sentiment Analysis
+		to clean all tweets with Text Mining Methods, to determine the topic
+		of all the tweets
 		- Mandatory: social network account
 		'''		
 		try:
@@ -457,10 +455,10 @@ class BigDataViewSet(viewsets.ViewSet):
 	@action(methods=['post'], detail=False)
 	def twitter_search(self, request, *args, **kwargs):
 		'''
-		- POST method (twitter_search): receive a tweet to apply text mining,
-		for achieve sentiment analysis using spark
-		- Mandatory: tweet
-		'''		
+		- POST method (twitter_search): this method allows you to search
+		a word in Twitter, to know the feeling that word is getting 
+		- Mandatory: text
+		'''
 		try:
 
 			serializer = TweetTopicClassificationAPISerializer(data=kwargs['data'])
@@ -482,84 +480,96 @@ class BigDataViewSet(viewsets.ViewSet):
 
 				# Define all columns name needed
 				cols = [
-					'account_name',
-					'text',
-					'favorite_count',
 					'id',
+					'account_name',
+					'tweet',
+					'favorite_count',
 					'retweet_count',
 					'created_at',
 					'formated_date',
-					'clean_tweet'
+					'clean_tweet',
+					'sentiment'
 				]
 				rows = []
 
-				# And iterate over all the tweet list
-				for tweet_account_index, tweet_account_data in enumerate(tweets_list):
+				_socialnetworksapiconnections = SocialNetworksApiConnections(self)
+				tweepy_api_client =_socialnetworksapiconnections.tweepy_connection()
 
-					# Extract tweets of the current tweet account into a new pandas dataframe
-					tweet_data_aux_pandas_df = pd.Series(tweet_account_data['tweet']).dropna()
-				
-					# Iterate on each tweet of the current tweet account
-					for tweet_index,tweet in enumerate(tweet_data_aux_pandas_df):
+				# Search in twitter the text requested (mixed: popular and real time results)
+				query_result = tweepy_api_client.search(
+					q=kwargs['data']['text'],
+					result_type="mixed",
+					count=100,
+					tweet_mode='extended',
+					lang="es"
+				)
+
+				# Any result was found?
+				if query_result['search_metadata']['count'] > 0:
+
+					# And iterate over all the tweet list
+					for index,tweet in enumerate(query_result['statuses']):
+
+						# Extract tweets of the current tweet account into a new pandas dataframe
+						tweet_data_aux_pandas_df = pd.Series(tweet).dropna()
 
 						timestamp = mktime_tz(parsedate_tz(tweet['created_at']))
 						d=datetime.fromtimestamp(timestamp)
 						d.strftime('%d/%m/%Y')
 
 						row = [
-							tweet_account_data['account_name'],
-							tweet['text'],
-							tweet['favorite_count'],
 							tweet['id'],
+							tweet['user']['screen_name'],
+							tweet['full_text'],
+							tweet['favorite_count'],
 							tweet['retweet_count'],
 							tweet['created_at'],
 							d.strftime('%d %b %Y %X'),
+							None,
 							None
 						]
 						rows.append(row)
-				
-				# Create a Pandas Dataframe of tweets
-				tweet_pandas_df = pd.DataFrame(rows, columns = cols)
+					
+					# Create a Pandas Dataframe of tweets
+					tweet_pandas_df = pd.DataFrame(rows, columns = cols)
 
-				schema = StructType([
-				    StructField("account_name", StringType(),True),
-				    StructField("text", StringType(),True),
-				    StructField("favorite_count", IntegerType(),True),
-				    StructField("id", LongType(),True),
-				    StructField("retweet_count", IntegerType(),True),
-				    StructField("created_at", StringType(),True),
-				    StructField("formated_date", StringType(),True),
-				    StructField("clean_tweet", StringType(),True)
-				])
+					schema = StructType([
+					    StructField("id", LongType(),True),
+					    StructField("account_name", StringType(),True),
+					    StructField("tweet", StringType(),True),
+					    StructField("favorite_count", IntegerType(),True),
+					    StructField("retweet_count", IntegerType(),True),
+					    StructField("created_at", StringType(),True),
+					    StructField("formated_date", StringType(),True),
+					    StructField("clean_tweet", StringType(),True),
+					    StructField("clean_tweet", StringType(),True)			    
+					])
 
-				# Create a Spark DataFrame from a pandas DataFrame
-				# This data is not cleaned yet
-				df = sc.createDataFrame(tweet_pandas_df,schema=schema)
+					# Create a Spark DataFrame from a pandas DataFrame
+					df = sc.createDataFrame(tweet_pandas_df,schema=schema)
 
-				# Create a pyspark User Defined Function to clean tweets
-				clean_tweet_udf = udf(TextMiningMethods().clean_tweet, StringType())
+					# Create a pyspark User Defined Function to clean tweets
+					clean_tweet_udf = udf(TextMiningMethods().clean_tweet, StringType())
 
-				# Applying udf functions to a new dataframe
-				clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["text"]))
+					# Applying udf functions to a new dataframe
+					clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["tweet"]))
 
-				# Here could be the call to sentiment analysis udf
-				# Considerate case when user is or not authenticated
+					#import pdb;pdb.set_trace()
 
-				# Get columns and converts to a list
-				tweets_processed = clean_tweet_df.select(
-					'account_name',
-					'text',
-					'clean_tweet',
-					'created_at',
-					'formated_date',
-				).toJSON().collect()
+					sc.stop()
 
-				# Push and return the columns selected in json format 
-				for tweet_elem in tweets_processed:					
-					self.response_data['data'].append(json.loads(tweet_elem))
+				# Not found the text requested
+				else:
+					pass
 
-				sc.stop()
+				self.data['positive_sentiment_score'] = ""
+				self.data['negative_sentiment_score'] = ""
+				self.data['neutral_sentiment_score'] = ""
+				self.data['favorite_count_related'] = ""
+				self.data['retweet_count_related'] = ""
+
 				self.code = status.HTTP_200_OK
+				self.response_data['data'].append(self.data)
 				#print (self.response_data['data'])
 
 			else:
