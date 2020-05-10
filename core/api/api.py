@@ -554,6 +554,13 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					# Applying udf functions to a new dataframe
 					clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["tweet"]))
 
+					user_id = kwargs['data']['user']
+
+					# Get user custom dictionary 
+					_customdictionary = CustomDictionaryViewSet()
+					_customdictionary.user_custom_dictionary(request,language=1,user=1)
+					self.response_data['data'] = _customdictionary.response_data['data'][0]
+
 					#import pdb;pdb.set_trace()
 
 					sc.stop()

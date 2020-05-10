@@ -73,8 +73,39 @@ class WordCloudAPISerializer(serializers.ModelSerializer):
 
 		return data
 
-class TweetTopicClassificationAPISerializer(serializers.Serializer):
+class TweetTopicClassificationAPISerializer(DynamicFieldsModelSerializer,serializers.Serializer):
 	text = serializers.CharField(required=True)
+	user = serializers.IntegerField(source='id',required=False)
+	class Meta:
+		model = User
+		fields = ('text','user')
+
+	def to_internal_value(self, data):
+		required = []
+		optionals = []
+		for k in ['text']:
+			'''
+			- Case 1: Is the k field in the data and it's empty?
+			- Case 2: Is not the k field in the data?
+			'''
+			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
+				required.append(k)
+
+		for k in ['user']:
+			# Is not the k field in the data?
+			if not data.keys().__contains__(k):
+				optionals.append(k)
+
+		if len(required) > 0 and len(optionals) > 0:
+			raise ValueError("The following fields are required: %s" % ','.join(required) + " and the following fields are needed but can be empty: %s" % ','.join(optionals))
+
+		elif len(required) > 0 and len(optionals) == 0:
+			raise ValueError("The following fields are required: %s" % ','.join(required))
+
+		elif len(required) == 0 and len(optionals) > 0:
+			raise ValueError("The following fields are needed but can be empty: %s" % ','.join(optionals))
+
+		return data
 	
 class UserSerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	first_name = serializers.CharField(allow_blank=False, max_length=100)
