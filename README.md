@@ -210,7 +210,7 @@ See full documentation of this flow [here](https://spark.apache.org/docs/latest/
 
 [Swagger UI](https://swagger.io/tools/swagger-ui/) is a tool for API documentation. "Swagger UI allows anyone — be it your development team or your end consumers — to visualize and interact with the API’s resources without having any of the implementation logic in place. It’s automatically generated from your OpenAPI (formerly known as Swagger) Specification, with the visual documentation making it easy for back end implementation and client side consumption."
 
-This project uses [drf-yasg - Yet another Swagger generator](https://github.com/axnsan12/drf-yasg#validation)
+This project uses [drf-yasg - Yet another Swagger generator](https://github.com/axnsan12/drf-yasg)
 
 ## Endpoints Structure
 

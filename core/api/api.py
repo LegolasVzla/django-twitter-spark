@@ -1544,6 +1544,45 @@ class SearchViewSet(viewsets.ModelViewSet):
 			self.response_data['error'].append("[API - RecentSearchTwitterView] - Error: " + str(e))
 		return Response(self.response_data,status=self.code)
 
+	@validate_type_of_request
+	def create(self, request, *args, **kwargs):
+		'''
+		- POST method (create): register a new search done by the requested 
+		user_id and a new word for a custom dictionary
+		- Mandatory: word, polarity, liked, shared, social_network, 
+		topic, user, sentiment_analysis_percentage
+		'''
+		try:
+			serializer = SearchSerializer(
+				data=kwargs['data'],
+				fields=['word','polarity','liked','shared',
+				'social_network','topic','user',
+				'sentiment_analysis_percentage']
+			)
+
+			if serializer.is_valid():
+
+				serializer.save()
+				self.data['word'] = kwargs['data']['word']
+				self.data['polarity'] = kwargs['data']['polarity']
+				self.data['liked'] = kwargs['data']['liked']
+				self.data['shared'] = kwargs['data']['shared']
+				self.data['social_network'] = kwargs['data']['social_network']
+				self.data['topic'] = kwargs['data']['topic']
+				self.data['user'] = kwargs['data']['user']
+				self.data['sentiment_analysis_percentage'] = kwargs['data']['sentiment_analysis_percentage']
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
+
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - SearchViewSet] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - SearchViewSet] - Error: " + str(e))
+		return Response(self.response_data,status=self.code)
+
 class WordRootViewSet(viewsets.ModelViewSet):
 	'''
 	Class related with the WordRoot Model, that is a word or word part that
