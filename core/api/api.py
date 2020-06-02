@@ -201,34 +201,6 @@ class MachineLearningViewSet(viewsets.ViewSet):
 			self.response_data['error'].append("[API - MachineLearningViewSet] - Error: " + str(e))			
 		return Response(self.response_data,status=self.code)
 
-	@validate_type_of_request
-	@action(methods=['post'], detail=False)
-	def twitter_sentiment_analysis(self, request, *args, **kwargs):
-		'''
-		- POST method (twitter_sentiment_analysis): get sentiment analysis of a tweet
-		- Mandatory: text
-		'''
-		try:
-			serializer = TweetTopicClassificationAPISerializer(data=kwargs['data'])
-
-			if serializer.is_valid():
-
-				self.data['sentiment'] = 'positive'
-				self.data['likes'] = 50
-				self.data['retweets'] = 100
-
-				self.response_data['data'].append(self.data)
-				self.code = status.HTTP_200_OK
-
-			else:
-				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
-		except Exception as e:
-			logging.getLogger('error_logger').exception("[API - MachineLearningViewSet] - Error: " + str(e))
-			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
-			self.response_data['error'].append("[API - MachineLearningViewSet] - Error: " + str(e))			
-		return Response(self.response_data,status=self.code)
-
 class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 	'''
 	Class for big data endpoints: Word cloud with cleaned tweets,
@@ -542,7 +514,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					    StructField("created_at", StringType(),True),
 					    StructField("formated_date", StringType(),True),
 					    StructField("clean_tweet", StringType(),True),
-					    StructField("clean_tweet", StringType(),True)			    
+					    StructField("sentiment", StringType(),True)
 					])
 
 					# Create a Spark DataFrame from a pandas DataFrame
@@ -554,14 +526,45 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					# Applying udf functions to a new dataframe
 					clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["tweet"]))
 
-					user_id = kwargs['data']['user']
+					# Get custom user dictionary
+					queryset1 = CustomDictionary.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						language_id=kwargs['data']['language'],
+						user_id=kwargs['data']['user']
+					).values('id','word','polarity')
 
-					# Get user custom dictionary 
-					_customdictionary = CustomDictionaryViewSet()
-					_customdictionary.user_custom_dictionary(request,language=1,user=1)
-					self.response_data['data'] = _customdictionary.response_data['data'][0]
+					# Get system dictionary
+					queryset2 = Dictionary.objects.filter(
+						is_active=True,
+						is_deleted=False,
+						language_id=kwargs['data']['language']
+					).order_by('id')
+
+					queryset_union = queryset1.union(queryset2)
+
+					serializer = CustomDictionarySerializer(
+						queryset_union,
+						many=True,
+						required_fields=['id','word','polarity'],
+						fields=('id','word','polarity')
+					)
+					user_dictionary_unordered=json.loads(json.dumps(serializer.data))
+					#user_dictionary = sorted(user_dictionary_unordered, key=lambda k: k['polarity'])
+
+					user_dictionary = {"positive": [], "negative": []}
+
+					for item in user_dictionary_unordered:
+						if item['polarity'] == 'P':
+							user_dictionary['positive'].append(item)
+						elif item['polarity'] == 'N':
+							user_dictionary['negative'].append(item)
 
 					#import pdb;pdb.set_trace()
+					data = { 'user_dictionary': user_dictionary,'tweet': kwargs['data']['text']}
+
+					# Applying udf_twitter_sentiment_analysis pyspark udf to a new dataframe
+					topic_df = clean_tweet_df.withColumn("sentiment",MachineLearningMethods().udf_twitter_sentiment_analysis(data)(col("clean_tweet")))
 
 					sc.stop()
 
@@ -937,7 +940,7 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
-	def dictionary_by_polarity(self, *args, **kwargs):
+	def dictionary_by_polarity(self, request, *args, **kwargs):
 		'''
 		- POST method (post): get dictionary by polarity filtering (positive 
 		or negative words list)
@@ -946,10 +949,10 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 		try:
 			serializer = DictionarySerializer(
 				data=kwargs['data'],
-				fields=['polarity','language'])
+				fields=['language']
+			)
 
 			if serializer.is_valid():
-
 				queryset = Dictionary.objects.filter(
 					is_active=True,
 					is_deleted=False,
@@ -973,7 +976,6 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 				return Response(serializer.data)
 
 			else:
-
 				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 		except Exception as e:
@@ -1002,7 +1004,8 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 		self.code = 0		
 
 	def get_serializer_class(self):
-		if self.action in ['custom_dictionary_kpi','user_custom_dictionary']:
+		if self.action in ['custom_dictionary_kpi','user_custom_dictionary',
+			'user_dictionary']:
 			return CustomDictionaryKpiAPISerializer
 		if self.action in ['custom_dictionary_polarity_get']:
 			return CustomDictionaryWordAPISerializer
@@ -1059,7 +1062,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
-	def user_custom_dictionary(self, *args, **kwargs):
+	def user_custom_dictionary(self, request, *args, **kwargs):
 		'''
 		- POST method (user_custom_dictionary): get user custom dictionary
 		- Mandatory: user, language
@@ -1086,6 +1089,88 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 				self.response_data['data'].append(self.data)
 				self.code = status.HTTP_200_OK
 
+			else:
+				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[API - CustomDictionaryViewSet] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[API - CustomDictionaryViewSet] - Error: " + str(e))			
+		return Response(self.response_data,status=self.code)
+
+	@validate_type_of_request
+	@action(methods=['post'], detail=False)
+	def user_dictionary(self, *args, **kwargs):
+		'''
+		- POST method (user_custom_dictionary): get user custom dictionary
+		combined with the full system dictionary
+		- Mandatory: user, language
+		'''
+		try:
+			serializer = CustomDictionarySerializer(
+				data=kwargs['data'],
+				fields=('language','user'),
+				required_fields=['language','user']
+			)
+
+			if serializer.is_valid():
+
+				# Get custom user dictionary
+				queryset1 = CustomDictionary.objects.filter(
+					is_active=True,
+					is_deleted=False,
+					language_id=kwargs['data']['language'],
+					user_id=kwargs['data']['user']
+				).values('id','word','polarity')
+
+				# Get system dictionary
+				queryset2 = Dictionary.objects.filter(is_active=True,is_deleted=False,language_id=kwargs['data']['language']).order_by('id')
+
+				queryset_union = queryset1.union(queryset2)
+
+				page = self.paginate_queryset(queryset_union)
+
+				if page is not None:
+
+					serializer = CustomDictionarySerializer(page,many=True,required_fields=['id','word','polarity'],fields=('id','word','polarity'))
+					self.data['data']=json.loads(json.dumps(serializer.data))
+					self.response_data['data'].append(self.data)
+					self.code = status.HTTP_200_OK
+					return self.get_paginated_response(serializer.data)
+
+				'''
+				serializer = CustomDictionarySerializer(queryset1,many=True,required_fields=['id','word','polarity'],fields=('id','word','polarity'))
+				custom_dictionary = []
+				custom_dictionary=json.loads(json.dumps(serializer.data))
+
+				serializer = DictionarySerializer(queryset2,many=True,required_fields=['polarity'],fields=('id','word','polarity'))
+				system_dictionary = []
+				system_dictionary=json.loads(json.dumps(serializer.data))
+
+				self.data['positive'] = []
+				self.data['negative'] = []
+
+				# Split system dictionary in positive and negative words
+				for item in system_dictionary:
+
+					if item['polarity'] == 'P':
+						self.data['positive'].append(item)
+
+					elif item['polarity'] == 'N':
+						self.data['negative'].append(item)
+
+				# Split custom dictionary in positive and negative words
+				for item in custom_dictionary:
+
+					if item['polarity'] == 'P':
+						self.data['positive'].append(item)
+
+					elif item['polarity'] == 'N':
+						self.data['negative'].append(item)
+
+				self.response_data['data'].append(self.data)
+				self.code = status.HTTP_200_OK
+				'''
 			else:
 				return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
@@ -1617,7 +1702,7 @@ class WordRootViewSet(viewsets.ModelViewSet):
 				is_deleted=False).values('id','name')
 
 			# Iterate on each topic
-			for topic in topics_list:	
+			for topic in topics_list:
 
 				self.data['topic'] = topic['name']
 				word_roots_by_topic = WordRoot.objects.filter(

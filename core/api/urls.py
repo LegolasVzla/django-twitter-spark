@@ -34,6 +34,9 @@ router.register('api/word_root', WordRootViewSet, 'word_root')
 router.register('api/search', SearchViewSet, 'search')
 router.register('api/social_network_accounts', SocialNetworkAccountsViewSet, 'social_network_accounts')
 router.register('api/word_cloud', WordCloudViewSet, 'word_cloud')
+#router.register('api/twitter_analytics', TwitterViewSet, 'twitter_analytics')
+#router.register('api/ml_layer', MachineLearningViewSet, 'ml_layer')
+#router.register('api/big_data_layer', BigDataViewSet, 'big_data_layer')
 
 urlpatterns = [
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
@@ -46,8 +49,9 @@ urlpatterns = [
     url(r'^api/user/user_details/user/<int:user_id>', UserViewSet.as_view({'post': 'user_details'}), name='user_details'),
     url(r'^api/word_cloud/comments/<string:comments>/user_id/<int:user_id>', WordCloudViewSet.as_view({'post':'create'}), name='create'),
     url(r'^api/word_cloud/', WordCloudViewSet.as_view({'get': 'list'}), name='list'),
-    url(r'^api/dictionary/dictionary_by_polarity/polarity/<string:polarity>', CustomDictionaryViewSet.as_view({'post': 'dictionary_by_polarity'}), name='dictionary_by_polarity'),
+    #url(r'^api/dictionary/dictionary_by_polarity/polarity/<string:polarity>', CustomDictionaryViewSet.as_view({'post': 'dictionary_by_polarity'}), name='dictionary_by_polarity'),
     url(r'^api/customdictionary/custom_dictionary_kpi/user/<int:user_id>/language/<int:language_id>', CustomDictionaryViewSet.as_view({'post': 'custom_dictionary_kpi'}), name='custom_dictionary_kpi'),
+    url(r'^api/customdictionary/user_dictionary/user/<int:user_id>/language/<int:language_id>', CustomDictionaryViewSet.as_view({'post': 'user_dictionary'}), name='user_dictionary'),
     url(r'^api/customdictionary/user_custom_dictionary/user/<int:user_id>/language/<int:language_id>', CustomDictionaryViewSet.as_view({'post': 'user_custom_dictionary'}), name='user_custom_dictionary'),
     url(r'^api/customdictionary/custom_dictionary_polarity_get/word/<string:word>', CustomDictionaryViewSet.as_view({'post': 'custom_dictionary_polarity_get'}), name='custom_dictionary_polarity_get'),
     url(r'^api/customdictionary/custom_dictionary_polarity_create/user/<int:user_id>/language/<int:language_id>/word/<string:word>/polarity/<string:polarity>', CustomDictionaryViewSet.as_view({'post': 'create'}), name='custom_dictionary_polarity_create'),

@@ -217,3 +217,14 @@ class MachineLearningMethods():
 		from pyspark.sql.functions import udf
 		from pyspark.sql.types import StringType
 		return udf(lambda x: MachineLearningMethods().tweet_topic_classification(word_roots_by_topic_list,x),StringType())
+
+	def twitter_sentiment_analysis(self,custom_user_dictionary,clean_tweet):
+		'''
+		- Determinate sentiment analysis of tweets
+		'''
+		pass
+
+	def udf_twitter_sentiment_analysis(self,custom_user_dictionary):
+		from pyspark.sql.functions import udf
+		from pyspark.sql.types import StringType
+		return udf(lambda x: MachineLearningMethods().twitter_sentiment_analysis(custom_user_dictionary,x),StringType())
