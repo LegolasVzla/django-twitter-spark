@@ -220,9 +220,36 @@ class MachineLearningMethods():
 
 	def twitter_sentiment_analysis(self,custom_user_dictionary,clean_tweet):
 		'''
-		- Determinate sentiment analysis of tweets
+		- Determinate sentiment analysis of tweet
 		'''
-		pass
+		from nltk.tokenize import word_tokenize
+
+		from collections import Counter
+
+		tokens = word_tokenize(clean_tweet)
+		sentiment = []
+
+		# Compare receivet tweet with the positive and negative 
+		# user dictionary
+		positive = map(lambda x : x in custom_user_dictionary['positive'], tokens)
+		negative = map(lambda x : x in custom_user_dictionary['negative'], tokens)
+		total = Counter(positive)[True] + Counter(negative)[True]
+		
+		if total > 0:		
+			if Counter(positive)[True] == Counter(negative)[True]:
+				sentiment.append("NU") # Neutral
+				sentiment.append(0)
+			else:
+				if Counter(positive)[True] > Counter(negative)[True]:
+					sentiment.append("P")
+					sentiment.append((Counter(positive)[True]*100)/total)
+				else:
+					sentiment.append("N")
+					sentiment.append((Counter(negative)[True]*100)/total)
+		else:
+			sentiment.append("NU")
+			sentiment.append(0)
+		return sentiment
 
 	def udf_twitter_sentiment_analysis(self,custom_user_dictionary):
 		from pyspark.sql.functions import udf
