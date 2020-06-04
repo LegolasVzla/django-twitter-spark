@@ -1,4 +1,7 @@
  #!/usr/bin/env python3
+'''Run the following command from django-twitter-core/core path, 
+if this file needs to be updated:
+zip -r udf.zip udf'''
 
 class TextMiningMethods():
 	"""docstring for TextMiningMethods"""
@@ -218,40 +221,47 @@ class MachineLearningMethods():
 		from pyspark.sql.types import StringType
 		return udf(lambda x: MachineLearningMethods().tweet_topic_classification(word_roots_by_topic_list,x),StringType())
 
-	def twitter_sentiment_analysis(self,custom_user_dictionary,clean_tweet):
+	def twitter_sentiment_analysis(self,custom_user_dictionary_dict,clean_tweet):
 		'''
-		- Determinate sentiment analysis of tweet
+		- Determinate sentiment analysis (polarity) of tweet
 		'''
 		from nltk.tokenize import word_tokenize
 
 		from collections import Counter
 
-		tokens = word_tokenize(clean_tweet)
-		sentiment = []
+		try:
+			tokens = word_tokenize(clean_tweet)
+			response_data = []
 
-		# Compare receivet tweet with the positive and negative 
-		# user dictionary
-		positive = map(lambda x : x in custom_user_dictionary['positive'], tokens)
-		negative = map(lambda x : x in custom_user_dictionary['negative'], tokens)
-		total = Counter(positive)[True] + Counter(negative)[True]
-		
-		if total > 0:		
-			if Counter(positive)[True] == Counter(negative)[True]:
-				sentiment.append("NU") # Neutral
-				sentiment.append(0)
-			else:
-				if Counter(positive)[True] > Counter(negative)[True]:
-					sentiment.append("P")
-					sentiment.append((Counter(positive)[True]*100)/total)
+			# Compare receivet tweet with the positive and negative 
+			# user dictionary
+			positive = map(lambda x : x in custom_user_dictionary_dict['positive'], tokens)
+			negative = map(lambda x : x in custom_user_dictionary_dict['negative'], tokens)
+			pos = Counter(positive)[True]
+			neg = Counter(negative)[True]
+			total = pos + neg 
+
+			if total > 0:		
+				if pos == neg:
+					response_data.append("NU") # Neutral
+					response_data.append(0)
 				else:
-					sentiment.append("N")
-					sentiment.append((Counter(negative)[True]*100)/total)
-		else:
-			sentiment.append("NU")
-			sentiment.append(0)
-		return sentiment
+					if pos > neg:
+						response_data.append("P")
+						response_data.append((pos*100)/total)
+					else:
+						response_data.append("N")
+						response_data.append((neg*100)/total)
+			else:
+				response_data.append("NU")
+				response_data.append(0)
 
-	def udf_twitter_sentiment_analysis(self,custom_user_dictionary):
+		except Exception as e:
+			response_data = str(e)
+
+		return response_data
+
+	def udf_twitter_sentiment_analysis(self,custom_user_dictionary_dict):
 		from pyspark.sql.functions import udf
 		from pyspark.sql.types import StringType
-		return udf(lambda x: MachineLearningMethods().twitter_sentiment_analysis(custom_user_dictionary,x),StringType())
+		return udf(lambda x: MachineLearningMethods().twitter_sentiment_analysis(custom_user_dictionary_dict,x),StringType())
