@@ -569,6 +569,14 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 
 					topic_df_sql = sc.sql("SELECT sentiment, SUM(favorite_count) AS favorite, SUM(retweet_count) AS retweets FROM sentiment_table GROUP BY sentiment")
 
+					sentiment_resulting = topic_df_sql.select(
+						'sentiment',
+						'favorite',
+						'retweets',
+					).toJSON().collect()
+
+					sentiment_resulting_dict = json.loads(sentiment_resulting[0])
+
 					#import pdb;pdb.set_trace()
 
 					sc.stop()
@@ -580,8 +588,8 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 				self.data['positive_sentiment_score'] = ""
 				self.data['negative_sentiment_score'] = ""
 				self.data['neutral_sentiment_score'] = ""
-				self.data['favorite_count_related'] = ""
-				self.data['retweet_count_related'] = ""
+				self.data['favorite_count_related'] = sentiment_resulting_dict['favorite']
+				self.data['retweet_count_related'] = sentiment_resulting_dict['retweets']
 
 				self.code = status.HTTP_200_OK
 				self.response_data['data'].append(self.data)
