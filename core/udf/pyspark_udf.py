@@ -225,16 +225,17 @@ class MachineLearningMethods():
 		'''
 		- Determinate sentiment analysis (polarity) of tweet
 		'''
+		import json
 		from nltk.tokenize import word_tokenize
 
 		from collections import Counter
 
 		try:
 			tokens = word_tokenize(clean_tweet)
-			response_data = []
+			response_data = {}
 
-			# Compare receivet tweet with the positive and negative 
-			# user dictionary
+			# Compare received tweet with the positive and negative 
+			# custom user dictionary
 			positive = map(lambda x : x in custom_user_dictionary_dict['positive'], tokens)
 			negative = map(lambda x : x in custom_user_dictionary_dict['negative'], tokens)
 			pos = Counter(positive)[True]
@@ -243,23 +244,23 @@ class MachineLearningMethods():
 
 			if total > 0:		
 				if pos == neg:
-					response_data.append("NU") # Neutral
-					response_data.append(0)
+					response_data["polarity"] = "NU" # Neutral
+					response_data["sentiment"] = 0.0
 				else:
 					if pos > neg:
-						response_data.append("P")
-						response_data.append((pos*100)/total)
+						response_data["polarity"] = "P"
+						response_data["sentiment"] = (pos*100)/total
 					else:
-						response_data.append("N")
-						response_data.append((neg*100)/total)
+						response_data["polarity"] = "N"
+						response_data["sentiment"] = (neg*100)/total
 			else:
-				response_data.append("NU")
-				response_data.append(0)
+				response_data["polarity"] = "NU"
+				response_data["sentiment"] = 0.0
 
 		except Exception as e:
-			response_data = str(e)
+			response_data = { "polarity": None, "sentiment": None }
 
-		return response_data
+		return json.dumps(response_data)
 
 	def udf_twitter_sentiment_analysis(self,custom_user_dictionary_dict):
 		from pyspark.sql.functions import udf

@@ -476,6 +476,10 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					lang="es"
 				)
 
+				positive_score = 0.0
+				negative_score = 0.0
+				neutral_score = 0.0
+
 				# Any result was found?
 				if query_result['search_metadata']['count'] > 0:
 
@@ -505,6 +509,8 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					# Create a Pandas Dataframe of tweets
 					tweet_pandas_df = pd.DataFrame(rows, columns = cols)
 
+					#import pdb;pdb.set_trace()
+
 					schema = StructType([
 					    StructField("id", LongType(),True),
 					    StructField("account_name", StringType(),True),
@@ -514,9 +520,9 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					    StructField("created_at", StringType(),True),
 					    StructField("formated_date", StringType(),True),
 					    StructField("clean_tweet", StringType(),True),
-					    StructField("sentiment", StringType(),True)
+					    StructField("sentiment", ArrayType(StringType()))
 					])
-
+     
 					# Create a Spark DataFrame from a pandas DataFrame
 					df = sc.createDataFrame(tweet_pandas_df,schema=schema)
 
@@ -554,30 +560,40 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 
 					user_dictionary = {"positive": [], "negative": []}
 
+					stemmer = Stemmer.Stemmer('spanish')
+
 					for item in user_dictionary_unordered:
 						if item['polarity'] == 'P':
-							user_dictionary['positive'].append(item['word'])
+							user_dictionary['positive'].append(stemmer.stemWords(item['word']))
 						elif item['polarity'] == 'N':
-							user_dictionary['negative'].append(item['word'])
+							user_dictionary['negative'].append(stemmer.stemWords(item['word']))
 
 					# Applying udf_twitter_sentiment_analysis pyspark udf to a new dataframe
-					topic_df = clean_tweet_df.withColumn("sentiment",MachineLearningMethods().udf_twitter_sentiment_analysis(user_dictionary)(col("clean_tweet")))
+					sentiment_df = clean_tweet_df.withColumn("sentiment",MachineLearningMethods().udf_twitter_sentiment_analysis(user_dictionary)(col("clean_tweet")))
 
 					# Create a temp view to get the sentiment analysis of
 					# word requested, based on the tweets found 
-					topic_df.createOrReplaceTempView("sentiment_table")
+					sentiment_df.createOrReplaceTempView("sentiment_table")
 
-					topic_df_sql = sc.sql("SELECT sentiment, SUM(favorite_count) AS favorite, SUM(retweet_count) AS retweets FROM sentiment_table GROUP BY sentiment")
-
-					sentiment_resulting = topic_df_sql.select(
-						'sentiment',
-						'favorite',
-						'retweets',
-					).toJSON().collect()
-
-					sentiment_resulting_dict = json.loads(sentiment_resulting[0])
+					sentiment_df_sql = sc.sql("SELECT sentiment as sentimentAnalysis, SUM(favorite_count) AS favorite, SUM(retweet_count) AS retweets FROM sentiment_table GROUP BY sentiment")
 
 					#import pdb;pdb.set_trace()
+
+					sentiment_resulting_list = sentiment_df_sql.select(
+						'sentimentAnalysis','favorite','retweets',
+					).toJSON().collect()
+
+					sentiment_resulting_dict = json.loads(sentiment_resulting_list[0])
+
+					sentiment_analysis_resulting = json.loads(sentiment_resulting_dict['sentimentAnalysis'])
+
+					# Setting results of sentiment analysis
+					if sentiment_analysis_resulting['polarity'] == 'P':
+						positive_score = sentiment_analysis_resulting['sentiment']
+					elif sentiment_analysis_resulting['polarity'] == 'N':
+						negative_score = sentiment_analysis_resulting['sentiment']
+					elif sentiment_analysis_resulting['polarity'] == 'N':
+						neutral_score = sentiment_analysis_resulting['sentiment']
 
 					sc.stop()
 
@@ -585,9 +601,10 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 				else:
 					pass
 
-				self.data['positive_sentiment_score'] = ""
-				self.data['negative_sentiment_score'] = ""
-				self.data['neutral_sentiment_score'] = ""
+				self.data['positive_sentiment_score'] = positive_score
+				self.data['negative_sentiment_score'] = negative_score
+				self.data['neutral_sentiment_score'] = neutral_score
+				self.data['polarity'] = sentiment_analysis_resulting['polarity']				
 				self.data['favorite_count_related'] = sentiment_resulting_dict['favorite']
 				self.data['retweet_count_related'] = sentiment_resulting_dict['retweets']
 
