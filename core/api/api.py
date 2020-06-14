@@ -509,8 +509,6 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					# Create a Pandas Dataframe of tweets
 					tweet_pandas_df = pd.DataFrame(rows, columns = cols)
 
-					#import pdb;pdb.set_trace()
-
 					schema = StructType([
 					    StructField("id", LongType(),True),
 					    StructField("account_name", StringType(),True),
@@ -561,12 +559,18 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					user_dictionary = {"positive": [], "negative": []}
 
 					stemmer = Stemmer.Stemmer('spanish')
-
+					negative = []
+					positive = []
 					for item in user_dictionary_unordered:
 						if item['polarity'] == 'P':
-							user_dictionary['positive'].append(stemmer.stemWords(item['word']))
+							positive.append(stemmer.stemWord(item['word']))
 						elif item['polarity'] == 'N':
-							user_dictionary['negative'].append(stemmer.stemWords(item['word']))
+							negative.append(stemmer.stemWord(item['word']))
+
+					user_dictionary['positive'].append(positive)
+					user_dictionary['negative'].append(negative)
+
+					#import pdb;pdb.set_trace()
 
 					# Applying udf_twitter_sentiment_analysis pyspark udf to a new dataframe
 					sentiment_df = clean_tweet_df.withColumn("sentiment",MachineLearningMethods().udf_twitter_sentiment_analysis(user_dictionary)(col("clean_tweet")))
@@ -576,8 +580,6 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					sentiment_df.createOrReplaceTempView("sentiment_table")
 
 					sentiment_df_sql = sc.sql("SELECT sentiment as sentimentAnalysis, SUM(favorite_count) AS favorite, SUM(retweet_count) AS retweets FROM sentiment_table GROUP BY sentiment")
-
-					#import pdb;pdb.set_trace()
 
 					sentiment_resulting_list = sentiment_df_sql.select(
 						'sentimentAnalysis','favorite','retweets',
@@ -789,11 +791,15 @@ class TwitterViewSet(viewsets.ViewSet):
 					# Iterate on each twitter accounts
 					for twitter_account_index, twitter_account_data in enumerate(twitter_accounts_data):
 
-						# Make the request to get tweets of the current twitter account
-						all_twitter_timeline_data = tweepy_api_client.user_timeline(
-							screen_name = twitter_account_data['name'],
-							count=twitter_account_data['quantity_by_request']
-						)
+						# Considere if the current twitter account is disabled or suspended
+						try:
+							# Make the request to get tweets of the current twitter account
+							all_twitter_timeline_data = tweepy_api_client.user_timeline(
+								screen_name = twitter_account_data['name'],
+								count=twitter_account_data['quantity_by_request']
+							)
+						except:
+							continue
 
 						# Get twitter account name from the current twitter account
 						self.data['account_name'] = twitter_account_data['name']

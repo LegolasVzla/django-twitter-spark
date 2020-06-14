@@ -228,19 +228,23 @@ class MachineLearningMethods():
 		import json
 		from nltk.tokenize import word_tokenize
 
+		import Stemmer
 		from collections import Counter
 
 		try:
-			tokens = word_tokenize(clean_tweet)
 			response_data = {}
+			tokens = word_tokenize(clean_tweet)
+
+			# Define Stemmer for Spanish Language
+			stemmer = Stemmer.Stemmer('spanish')
 
 			# Compare received tweet with the positive and negative 
 			# custom user dictionary
-			positive = map(lambda x : x in custom_user_dictionary_dict['positive'], tokens)
-			negative = map(lambda x : x in custom_user_dictionary_dict['negative'], tokens)
+			positive = map(lambda x : x in custom_user_dictionary_dict['positive'], stemmer.stemWords(tokens))
+			negative = map(lambda x : x in custom_user_dictionary_dict['negative'], stemmer.stemWords(tokens))
 			pos = Counter(positive)[True]
 			neg = Counter(negative)[True]
-			total = pos + neg 
+			total = pos + neg
 
 			if total > 0:		
 				if pos == neg:
