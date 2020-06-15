@@ -558,14 +558,13 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 
 					user_dictionary = {"positive": [], "negative": []}
 
-					stemmer = Stemmer.Stemmer('spanish')
 					negative = []
 					positive = []
 					for item in user_dictionary_unordered:
 						if item['polarity'] == 'P':
-							positive.append(stemmer.stemWord(item['word']))
+							positive.append(item['word'])
 						elif item['polarity'] == 'N':
-							negative.append(stemmer.stemWord(item['word']))
+							negative.append(item['word'])
 
 					user_dictionary['positive'].append(positive)
 					user_dictionary['negative'].append(negative)

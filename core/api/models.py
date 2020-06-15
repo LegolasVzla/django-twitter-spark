@@ -24,6 +24,7 @@ class Dictionary(models.Model):
 	]
 	#__polarity_values=((1,_('Positive')),(2,_('Negative')),(3,_('Neutral')))
 	word = models.CharField( max_length = 100)
+	word_root = models.CharField( max_length = 100)
 	polarity = models.CharField(
 	    max_length=4,
 	    choices=POLARITY_CHOICES,
