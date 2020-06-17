@@ -162,7 +162,7 @@ class UserProfileUpdateAPISerializer(DynamicFieldsModelSerializer,serializers.Mo
 class DictionarySerializer(DynamicFieldsModelSerializer,serializers.ModelSerializer):
 	class Meta:
 		model = Dictionary
-		fields = ('__all__')
+		fields = ('word','polarity','language','is_active','is_deleted')
 
 class DictionaryPolarityAPISerializer(serializers.ModelSerializer):
 	class Meta:

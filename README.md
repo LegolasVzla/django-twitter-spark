@@ -278,6 +278,19 @@ Endpoint |HTTP Method | CRUD Method | Result
 Parameters:
 - Mandatory: social network account id (twitter)
 
+## Updating System Dictionary
+------------------------
+
+If you want to add a new word in the system dictionary, you can use the following endpoint:
+
+	http://127.0.0.1:8000/api/dictionary/
+
+Then, in your terminal, run in the root of the project the below command to update the ```word_root``` field of the related new word and also update the fixtures:
+
+	python manage.py update_dictionary_word_roots 1
+
+Where "1" es Spanish language.
+
 ## Contributions
 ------------------------
 
