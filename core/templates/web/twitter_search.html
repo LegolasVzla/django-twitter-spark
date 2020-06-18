@@ -38,9 +38,9 @@
 				<center>
 					<form class="navbar-search" role="search" method="POST" action="{% url 'twitter_results' %}">{% csrf_token %}
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Buscar" name="palabra" id="palabra" autofocus="" required="">
+							<input type="text" class="form-control" placeholder="Buscar" id="word_requested" autofocus="" required="">
 						</div>
-						<button id="btn-search-word" class="btn btn-primary pull-left" type="submit" formmethod="POST" formaction="/socialanalyzer/twitter_results/">Buscar Palabra o Frase</button>
+						<button id="btn-search-word" class="btn btn-primary pull-left"  onclick='searchWord()' type="submit" formmethod="POST" formaction="/socialanalyzer/twitter_results/">Buscar Palabra o Frase</button>
 					</form>	
 				</center><br>
 

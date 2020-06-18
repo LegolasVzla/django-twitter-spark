@@ -202,6 +202,10 @@ class CustomDictionaryView(View):
 
 class TwitterSearchView(View):
 	"""docstring for TwitterSearchView"""
+	def __init__(self,*args, **kwargs):
+		self.response_data = {'error': [], 'data': {}}
+		self.code = 200
+
 	def get(self, request, *args, **kwargs):
 		data = {}
 		data['message'] = 'Twitter Search'
@@ -209,10 +213,22 @@ class TwitterSearchView(View):
 		return render(request, 'web/twitter_search.html',data)
 
 	def post(self, request, *args, **kwargs):
-		data = {}
-		data['message'] = 'Twitter Results '
+		try:
+			if request.method == 'POST' and request.is_ajax():
+				_twitter_search = BigDataViewSet()
+				#import pdb;pdb.set_trace()
+				_twitter_search.twitter_search(request,text=request.POST['word'],user=1,language=1)
+				self.response_data['data'] = _twitter_search.response_data['data'][0]
+				self.code = _twitter_search.code
+				self.response_data['data']['code'] = self.code
 
-		return render(request, 'web/twitter_results.html',data)
+		except Exception as e:
+			logging.getLogger('error_logger').exception("[TwitterSearchView] - Error: " + str(e))
+			self.code = status.HTTP_500_INTERNAL_SERVER_ERROR
+			self.response_data['error'].append("[TwitterSearchView] - Error: " + str(e))
+		#return JsonResponse(self.response_data)
+		#return render(self.request, 'web/twitter_search.html',data)
+		return render(request,template_name='web/twitter_search.html',status=self.code,context=self.response_data)
 
 class RecentSearchTwitterView(View):
 	"""docstring for RecentSearchTwitterView"""

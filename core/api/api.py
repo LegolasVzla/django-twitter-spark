@@ -566,13 +566,14 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 						elif item['polarity'] == 'N':
 							negative.append(item['word'])
 
-					user_dictionary['positive'].append(positive)
-					user_dictionary['negative'].append(negative)
-
-					#import pdb;pdb.set_trace()
+					user_dictionary['positive'] = positive
+					user_dictionary['negative'] = negative
 
 					# Applying udf_twitter_sentiment_analysis pyspark udf to a new dataframe
 					sentiment_df = clean_tweet_df.withColumn("sentiment",MachineLearningMethods().udf_twitter_sentiment_analysis(user_dictionary)(col("clean_tweet")))
+
+					#sentiment_df.select('clean_tweet','sentiment').show(sentiment_df.count(),True)
+					#import pdb;pdb.set_trace()
 
 					# Create a temp view to get the sentiment analysis of
 					# word requested, based on the tweets found 

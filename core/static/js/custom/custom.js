@@ -478,6 +478,30 @@ function wordRemove(wordId) {
     })
 }
 
+// Function to save the spot information
+function searchWord(){
+    //console.log("------",$("#word_requested").val());
+    $.ajax({
+        type: "POST",
+        url:'/socialanalyzer/twitter_search/',
+        headers: { "X-CSRFToken": $.cookie("csrftoken") },
+        data: {
+            word: $("#word_requested").val()
+        },success: function showAnswer(data) {
+          if (data.data.code==200) {
+            //console.log("success",data);
+            var delayInMilliseconds = 2000; // 2 second
+            setTimeout(function() {
+              location.reload(true);
+            }, delayInMilliseconds);
+          }else{
+            alertify.error('An error happened searching the word, please try again.');
+            //console.log('Error, status:',data.data.code);
+          }
+        }
+    })
+}
+
 $(document).ready(function() {
 /*
     init_sparklines();
