@@ -55,6 +55,10 @@ This will install PostgreSQL and pip on your system. After that, you need to fil
 
 	[sparkConf]
 	SPARK_WORKERS = <host:port,...>
+	SPARK_EXECUTOR_MEMORY=<spark_executor_memory (suggested value greater or equal than 2)>
+	SPARK_EXECUTOR_CORES=<spark_executor_cores (suggested value greater or equal than 2)>
+	SPARK_CORE_MAX=<spark_core_max (suggested value greater or equal than 2)>
+	SPARK_DRIVER_MEMORY=<spark_driver_memory (suggested value greater or equal than 2)>
 	SPARK_UDF_FILE=/udf.zip
 
 - postgresdbConf section: fill in with your own PostgreSQL credentials. By default, DB_HOST and DB_PORT in PostgreSQL are localhost/5432.

@@ -116,6 +116,10 @@ ACCESS_TOKEN_SECRET = config.get('tweepyConf', 'ACCESS_TOKEN_SECRET')
 
 SPARK_WORKERS = config.get('sparkConf', 'SPARK_WORKERS')
 SPARK_UDF_FILE = BASE_DIR + config.get('sparkConf', 'SPARK_UDF_FILE')
+SPARK_EXECUTOR_MEMORY = str(config.get('sparkConf', 'SPARK_EXECUTOR_MEMORY'))
+SPARK_EXECUTOR_CORES = str(config.get('sparkConf', 'SPARK_EXECUTOR_CORES'))
+SPARK_CORE_MAX = str(config.get('sparkConf', 'SPARK_CORE_MAX'))
+SPARK_DRIVER_MEMORY = str(config.get('sparkConf', 'SPARK_DRIVER_MEMORY'))
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

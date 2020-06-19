@@ -49,7 +49,9 @@ import Stemmer
 
 from core.settings import BASE_DIR 
 from api.social_networks_api_connections import *
-from core.settings import SPARK_WORKERS,SPARK_UDF_FILE
+from core.settings import (SPARK_WORKERS,SPARK_UDF_FILE,
+	SPARK_EXECUTOR_MEMORY,SPARK_EXECUTOR_CORES,
+	SPARK_CORE_MAX,SPARK_DRIVER_MEMORY)
 from udf.pyspark_udf import (TextMiningMethods,MachineLearningMethods)
 
 User = get_user_model()
@@ -242,22 +244,22 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 				if _tweets.code == 200:
 
 					tweets_list = _tweets.response_data['data']
-
+					import pdb;pdb.set_trace()
 					# Create SparkSession
 					sc=SparkSession \
 						.builder \
-						.master("spark://"+SPARK_WORKERS) \
-						.appName('word_cloud') \
-						.config("spark.executor.memory", '2g') \
-						.config('spark.executor.cores', '2') \
-						.config('spark.cores.max', '2') \
-						.config("spark.driver.memory",'2g') \
+						.master('spark://'+SPARK_WORKERS) \
+						.appName('process_tweets') \
+						.config('spark.executor.memory',SPARK_EXECUTOR_MEMORY+'g') \
+						.config('spark.executor.cores', SPARK_EXECUTOR_CORES) \
+						.config('spark.cores.max', SPARK_CORE_MAX) \
+						.config('spark.driver.memory',SPARK_DRIVER_MEMORY+'g') \
 						.getOrCreate()
 					# spark.sparkContext.getConf().getAll()
 
 					# Or with SparkContext (SparkSession is better option)
 					# conf = SparkConf(). \
-					# 	.setAppName('word_cloud') \
+					# 	.setAppName('process_tweets') \
 					# 	.setMaster('spark://'+SPARK_WORKERS) \
 					# sc = SparkContext(conf=conf)
 					# SparkConf().getAll()
@@ -440,12 +442,12 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 				# Create SparkSession
 				sc=SparkSession \
 					.builder \
-					.master("spark://"+SPARK_WORKERS) \
-					.appName('word_cloud') \
-					.config("spark.executor.memory", '2g') \
-					.config('spark.executor.cores', '2') \
-					.config('spark.cores.max', '2') \
-					.config("spark.driver.memory",'2g') \
+					.master('spark://'+SPARK_WORKERS) \
+					.appName('twitter_search') \
+					.config('spark.executor.memory',SPARK_EXECUTOR_MEMORY+'g') \
+					.config('spark.executor.cores', SPARK_EXECUTOR_CORES) \
+					.config('spark.cores.max', SPARK_CORE_MAX) \
+					.config('spark.driver.memory',SPARK_DRIVER_MEMORY+'g') \
 					.getOrCreate()
 
 				sc.sparkContext.addPyFile(SPARK_UDF_FILE)
