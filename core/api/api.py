@@ -244,7 +244,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 				if _tweets.code == 200:
 
 					tweets_list = _tweets.response_data['data']
-					import pdb;pdb.set_trace()
+
 					# Create SparkSession
 					sc=SparkSession \
 						.builder \
@@ -470,20 +470,26 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 				tweepy_api_client =_socialnetworksapiconnections.tweepy_connection()
 
 				# Search in twitter the text requested (mixed: popular and real time results)
-				query_result = tweepy_api_client.search(
-					q=kwargs['data']['text'],
-					result_type="mixed",
-					count=100,
-					tweet_mode='extended',
-					lang="es"
-				)
+				# Spanish Search
+				if int(kwargs['data']['language']) == 1:
 
-				positive_score = 0.0
-				negative_score = 0.0
-				neutral_score = 0.0
+					query_result = tweepy_api_client.search(
+						q=kwargs['data']['text'],
+						result_type="mixed",
+						count=100,
+						tweet_mode='extended',
+						lang="es")
+
+				# Setting default values for final variables
+				self.data['positive_sentiment_score'] = 0.0
+				self.data['negative_sentiment_score'] = 0.0
+				self.data['neutral_sentiment_score'] = 1.0
+				self.data['polarity'] = "NU"
+				self.data['favorite_count_related'] = 0
+				self.data['retweet_count_related'] = 0
 
 				# Any result was found?
-				if query_result['search_metadata']['count'] > 0:
+				if len(query_result['statuses']) > 0:
 
 					# And iterate over all the tweet list
 					for index,tweet in enumerate(query_result['statuses']):
@@ -532,85 +538,92 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					# Applying udf functions to a new dataframe
 					clean_tweet_df = df.withColumn("clean_tweet", clean_tweet_udf(df["tweet"]))
 
-					# Get custom user dictionary
-					queryset1 = CustomDictionary.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						language_id=kwargs['data']['language'],
-						user_id=kwargs['data']['user']
-					).values('id','word','polarity')
+					# If the user is authenticated, get sentiment analysis
+					# of the word requested based on the user custom
+					# dictionary
+					if kwargs['data']['user']:
 
-					# Get system dictionary
-					queryset2 = Dictionary.objects.filter(
-						is_active=True,
-						is_deleted=False,
-						language_id=kwargs['data']['language']
-					).order_by('id')
+						# Get custom user dictionary
+						queryset1 = CustomDictionary.objects.filter(
+							is_active=True,
+							is_deleted=False,
+							language_id=kwargs['data']['language'],
+							user_id=kwargs['data']['user']
+						).values('id','word','polarity')
 
-					queryset_union = queryset1.union(queryset2)
+						# Get system dictionary
+						queryset2 = Dictionary.objects.filter(
+							is_active=True,
+							is_deleted=False,
+							language_id=kwargs['data']['language']
+						).order_by('id')
 
-					serializer = CustomDictionarySerializer(
-						queryset_union,
-						many=True,
-						required_fields=['id','word','polarity'],
-						fields=('id','word','polarity')
-					)
-					user_dictionary_unordered=json.loads(json.dumps(serializer.data))
-					#user_dictionary = sorted(user_dictionary_unordered, key=lambda k: k['polarity'])
+						queryset_union = queryset1.union(queryset2)
 
-					user_dictionary = {"positive": [], "negative": []}
+						serializer = CustomDictionarySerializer(
+							queryset_union,
+							many=True,
+							required_fields=['id','word','polarity'],
+							fields=('id','word','polarity')
+						)
+						user_dictionary_unordered=json.loads(json.dumps(serializer.data))
+						#user_dictionary = sorted(user_dictionary_unordered, key=lambda k: k['polarity'])
 
-					negative = []
-					positive = []
-					for item in user_dictionary_unordered:
-						if item['polarity'] == 'P':
-							positive.append(item['word'])
-						elif item['polarity'] == 'N':
-							negative.append(item['word'])
+						user_dictionary = {"positive": [], "negative": []}
 
-					user_dictionary['positive'] = positive
-					user_dictionary['negative'] = negative
+						negative = []
+						positive = []
+						for item in user_dictionary_unordered:
+							if item['polarity'] == 'P':
+								positive.append(item['word'])
+							elif item['polarity'] == 'N':
+								negative.append(item['word'])
 
-					# Applying udf_twitter_sentiment_analysis pyspark udf to a new dataframe
-					sentiment_df = clean_tweet_df.withColumn("sentiment",MachineLearningMethods().udf_twitter_sentiment_analysis(user_dictionary)(col("clean_tweet")))
+						user_dictionary['positive'] = positive
+						user_dictionary['negative'] = negative
 
-					#sentiment_df.select('clean_tweet','sentiment').show(sentiment_df.count(),True)
-					#import pdb;pdb.set_trace()
+						# Applying udf_twitter_sentiment_analysis pyspark udf to a new dataframe
+						sentiment_df = clean_tweet_df.withColumn("sentiment",MachineLearningMethods().udf_twitter_sentiment_analysis(user_dictionary)(col("clean_tweet")))
 
-					# Create a temp view to get the sentiment analysis of
-					# word requested, based on the tweets found 
-					sentiment_df.createOrReplaceTempView("sentiment_table")
+						#sentiment_df.select('clean_tweet','sentiment').show(sentiment_df.count(),True)
+						#import pdb;pdb.set_trace()
 
-					sentiment_df_sql = sc.sql("SELECT sentiment as sentimentAnalysis, SUM(favorite_count) AS favorite, SUM(retweet_count) AS retweets FROM sentiment_table GROUP BY sentiment")
+						# Create a temp view to get the sentiment analysis of
+						# word requested, based on the tweets found 
+						sentiment_df.createOrReplaceTempView("sentiment_table")
 
-					sentiment_resulting_list = sentiment_df_sql.select(
-						'sentimentAnalysis','favorite','retweets',
-					).toJSON().collect()
+						sentiment_df_sql = sc.sql("SELECT sentiment as sentimentAnalysis, SUM(favorite_count) AS favorite, SUM(retweet_count) AS retweets FROM sentiment_table GROUP BY sentiment")
 
-					sentiment_resulting_dict = json.loads(sentiment_resulting_list[0])
+						sentiment_resulting_list = sentiment_df_sql.select(
+							'sentimentAnalysis','favorite','retweets',
+						).toJSON().collect()
 
-					sentiment_analysis_resulting = json.loads(sentiment_resulting_dict['sentimentAnalysis'])
+						sentiment_resulting_dict = json.loads(sentiment_resulting_list[0])
 
-					# Setting results of sentiment analysis
-					if sentiment_analysis_resulting['polarity'] == 'P':
-						positive_score = sentiment_analysis_resulting['sentiment']
-					elif sentiment_analysis_resulting['polarity'] == 'N':
-						negative_score = sentiment_analysis_resulting['sentiment']
-					elif sentiment_analysis_resulting['polarity'] == 'N':
-						neutral_score = sentiment_analysis_resulting['sentiment']
+						sentiment_analysis_resulting = json.loads(sentiment_resulting_dict['sentimentAnalysis'])
 
-					sc.stop()
+						# Setting results of sentiment analysis
+						if sentiment_analysis_resulting['polarity'] == 'P':
+							self.data['positive_sentiment_score'] = sentiment_analysis_resulting['sentiment']
+						elif sentiment_analysis_resulting['polarity'] == 'N':
+							self.data['negative_sentiment_score'] = sentiment_analysis_resulting['sentiment']
+						elif sentiment_analysis_resulting['polarity'] == 'NU':
+							self.data['neutral_sentiment_score'] = sentiment_analysis_resulting['sentiment']
+
+						sc.stop()
+
+						self.data['polarity'] = sentiment_analysis_resulting['polarity']
+						self.data['favorite_count_related'] = sentiment_resulting_dict['favorite']
+						self.data['retweet_count_related'] = sentiment_resulting_dict['retweets']
+
+					# If the user isn't authenticated, get sentiment analysis
+					# 
+					else:
+						pass
 
 				# Not found the text requested
 				else:
 					pass
-
-				self.data['positive_sentiment_score'] = positive_score
-				self.data['negative_sentiment_score'] = negative_score
-				self.data['neutral_sentiment_score'] = neutral_score
-				self.data['polarity'] = sentiment_analysis_resulting['polarity']				
-				self.data['favorite_count_related'] = sentiment_resulting_dict['favorite']
-				self.data['retweet_count_related'] = sentiment_resulting_dict['retweets']
 
 				self.code = status.HTTP_200_OK
 				self.response_data['data'].append(self.data)
