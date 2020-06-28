@@ -214,9 +214,8 @@ class TwitterSearchView(View):
 
 	def post(self, request, *args, **kwargs):
 		try:
-			if request.method == 'POST' and request.is_ajax():
+			if (request.method == 'POST') and (request.is_ajax()):
 				_twitter_search = BigDataViewSet()
-				#import pdb;pdb.set_trace()
 				_twitter_search.twitter_search(request,text=request.POST['word'],user=1,language=1)
 				self.response_data['data'] = _twitter_search.response_data['data'][0]
 				self.code = _twitter_search.code

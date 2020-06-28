@@ -62,5 +62,5 @@ install:
 	python manage.py makemigrations
 	python manage.py migrate
 	# load default system data
-	python3 fixtures_load.py
-	python3 nltk_install.py
+	python manage.py insert_fixtures
+	python manage.py install_nltk
