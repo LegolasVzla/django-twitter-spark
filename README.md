@@ -5,11 +5,11 @@ Summary
 ---------------
 The presently work was an academic thesis, about how to make topic categorization and sentiment analysis of tweets in Python, using algorithms of Text Mining and Natural Language Processing (NLP) with Apache Spark. Adittionally a web application in Django was developt to display a several of graphics indicators like: a wordcloud and other interesting graphics.
 
-* Status: orienting all to APIs and adding improvements.
+* Status: orienting all to API REST with Django Rest Framework and adding several improvements.
 
-Authors:
+Original Idea:
 ---------------
-- Manuel Araujo
+- [Manuel Araujo](https://github.com/manuelaraujo1511)
 
 - Manuel Carrero
 
@@ -37,7 +37,7 @@ What would happen if we integrate these technologies?...Let's check it!
 
 	make setup
 
-This will install PostgreSQL and pip on your system. After that, you need to fill **settings.ini** file, with the structure as below:
+This will install PostgreSQL and pip on your system. After that, you need to create and fill up **settings.ini** file, with the structure as below:
 
 	[postgresdbConf]
 	DB_ENGINE=django.db.backends.postgresql
@@ -214,6 +214,18 @@ See full documentation of this flow [here](https://spark.apache.org/docs/latest/
 * CustomDictionary: is a customizable set of words per user, with positive and negative words
 * Search: is a tracking table where you could find you recently search.
 * SocialNetworkAccounts: is a set of social networks accounts used to sentiment analysis.
+
+## About Spanish Sentiment Analysis Solutions
+
+Nowadays exists many solutions of sentiment Analysis in English but is not the same history that in Spanish, since closer solutions provide a translate that allows you to receive Spanish content and translate to English to do the process. Sentiment Analysis is in fact a complex task in NLP, because exists things like the irony, jokes or mostly sarcasm, that aren' aspects that even for humans results easy to detect, so currently exists differents studies (in some cases related with neuronal networks), that try to solve this problem from differents points of views, based on the person who wrote the content, the reputation or the kind of previously content published by that person (account), etc, also if the analysis detect if exists sarcasm in the content, the polarity is changed to the opossited.
+
+In this project, on one hand, we bring another possible way of how to handle with this problem (of course including the possibilitiy of to do this analysis oriented to Big Data with Spark) that is by creating a custom dictionary by user of positive and negative words, that the user can define to contribute to the resulting analysis. It's important to emphazise that this isn't an advance solution (but it also represent another problem, that is the fact of how to build a Spanish Lexicon?), but it's an idea of how this problem could be attacked. In the other hand, we also offer the possibility of doing sentiment analysis by training a basic model of the Naives Bayes provided by NLTK. So when the user is authenticated, he can use the custom dictionary and if the user isn't authenticated, he could do sentiment analysis with the Naives Bayes model.
+
+## About TASS dataset
+
+The [Spain Society of Natural Language Proccessing (SEPLN)](http://www.sepln.org/), offers the [TASS Dataset](http://tass.sepln.org/) that "is a corpus of texts (mainly tweets) in Spanish tagged for Sentiment Analysis related tasks. It is divided into several subsets created for the various tasks proposed in the different editions through the years." You need to sign the License Agreement to download the dataset in the following [link](http://www.sepln.org/workshops/tass/tass_data/download.php).
+
+This project specify a ```tassConf``` section in the ```settings.ini``` file, to provide a list of the TASS Dataset XML files (using the 2019 edition), to train the Naive Bayes model.  
 
 ## Swagger Documentation
 
