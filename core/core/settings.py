@@ -121,6 +121,12 @@ SPARK_EXECUTOR_CORES = str(config.get('sparkConf', 'SPARK_EXECUTOR_CORES'))
 SPARK_CORE_MAX = str(config.get('sparkConf', 'SPARK_CORE_MAX'))
 SPARK_DRIVER_MEMORY = str(config.get('sparkConf', 'SPARK_DRIVER_MEMORY'))
 
+###################################################################
+##### TASS CONFIG
+###################################################################
+
+TASS_FILES_LIST = config.get('tassConf', 'TASS_FILES_LIST')
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
