@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand, CommandError
+import nltk
 
 class Command(BaseCommand):
     help = 'Install nltk for word tokenize and stop words'
 
     def handle(self, *args, **options):
         try:
-            import nltk
             nltk.download() # Needed for: stopwords.words()
             nltk.download('punkt')  # Needed for: word_tokenize()
 

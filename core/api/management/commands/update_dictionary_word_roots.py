@@ -1,5 +1,10 @@
+import os
+import datetime
+
+from django.utils.timezone import utc
 from api.models import Dictionary
 from django.core.management.base import BaseCommand, CommandError
+import Stemmer
 
 class Command(BaseCommand):
     help = 'Update word_roots of the Dictionary model'
@@ -8,13 +13,7 @@ class Command(BaseCommand):
         parser.add_argument('language_id', nargs='+', type=int)
 
     def handle(self, *args, **options):
-        try:
-            import os
-            import datetime
-            from django.utils.timezone import utc
-
-            import Stemmer
-            
+        try:            
             if options['language_id'][0] == 1:
                 stemmer = Stemmer.Stemmer('spanish')
             else:

@@ -64,3 +64,4 @@ install:
 	# load default system data
 	python manage.py insert_fixtures
 	python manage.py install_nltk
+	python manage.py bayesian_classifier_training

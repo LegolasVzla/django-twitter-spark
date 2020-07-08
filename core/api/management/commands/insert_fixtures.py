@@ -1,3 +1,6 @@
+import os
+import subprocess
+
 from django.core.management.base import BaseCommand, CommandError
 
 class Command(BaseCommand):
@@ -5,9 +8,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            import os
-            import subprocess
-
             subprocess.call("python manage.py loaddata fixtures/"+'languages.json',shell=True)
             subprocess.call("python manage.py loaddata fixtures/"+'social_networks.json',shell=True)
             subprocess.call("python manage.py loaddata fixtures/"+'users.json',shell=True)
