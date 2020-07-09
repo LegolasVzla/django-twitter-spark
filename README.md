@@ -11,7 +11,7 @@ Original Idea:
 ---------------
 - [Manuel Araujo](https://github.com/manuelaraujo1511)
 
-- Manuel Carrero
+- [Manuel Carrero](https://github.com/LegolasVzla)
 
 ## Technologies
 - [Django REST framework](https://www.django-rest-framework.org/) is a powerful and flexible toolkit for building Web APIs.
@@ -310,7 +310,7 @@ Then, in your terminal, run in the root of the project the below command to upda
 
 	python manage.py update_dictionary_word_roots 1
 
-Where "1" es Spanish language.
+Where "1" is Spanish language.
 
 ## Contributions
 ------------------------

@@ -1,3 +1,17 @@
+from os import path
+from os.path import exists
+import json
+import copy
+import os
+import re
+import string
+import random
+import logging
+import pickle
+from datetime import datetime
+from email.utils import parsedate_tz, mktime_tz
+from functools import wraps
+
 from api.models import (User,Dictionary,CustomDictionary,Topic,Search,
 	WordRoot,SocialNetworkAccounts)
 from api.serializers import (UserSerializer,UserDetailsAPISerializer,
@@ -17,20 +31,8 @@ from rest_framework import (viewsets, permissions,views,status,
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from os import path
-from os.path import exists
-import json
-import copy
-import os
-import re
-import string
-import random
 import matplotlib.pyplot as plt
-import logging
 import unidecode
-from datetime import datetime
-from email.utils import parsedate_tz, mktime_tz
-from functools import wraps
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -40,7 +42,6 @@ from pyspark import SparkConf,SparkContext
 from pyspark.sql import SparkSession,SQLContext
 from pyspark.sql.types import *
 from pyspark.sql.functions import udf, col
-
 import imageio
 #import io
 from wordcloud import WordCloud, STOPWORDS
@@ -585,41 +586,43 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 						# Applying udf_twitter_sentiment_analysis pyspark udf to a new dataframe
 						sentiment_df = clean_tweet_df.withColumn("sentiment",MachineLearningMethods().udf_twitter_sentiment_analysis(user_dictionary)(col("clean_tweet")))
 
-						#sentiment_df.select('clean_tweet','sentiment').show(sentiment_df.count(),True)
-						#import pdb;pdb.set_trace()
-
-						# Create a temp view to get the sentiment analysis of
-						# word requested, based on the tweets found 
-						sentiment_df.createOrReplaceTempView("sentiment_table")
-
-						sentiment_df_sql = sc.sql("SELECT sentiment as sentimentAnalysis, SUM(favorite_count) AS favorite, SUM(retweet_count) AS retweets FROM sentiment_table GROUP BY sentiment")
-
-						sentiment_resulting_list = sentiment_df_sql.select(
-							'sentimentAnalysis','favorite','retweets',
-						).toJSON().collect()
-
-						sentiment_resulting_dict = json.loads(sentiment_resulting_list[0])
-
-						sentiment_analysis_resulting = json.loads(sentiment_resulting_dict['sentimentAnalysis'])
-
-						# Setting results of sentiment analysis
-						if sentiment_analysis_resulting['polarity'] == 'P':
-							self.data['positive_sentiment_score'] = sentiment_analysis_resulting['sentiment']
-						elif sentiment_analysis_resulting['polarity'] == 'N':
-							self.data['negative_sentiment_score'] = sentiment_analysis_resulting['sentiment']
-						elif sentiment_analysis_resulting['polarity'] == 'NU':
-							self.data['neutral_sentiment_score'] = sentiment_analysis_resulting['sentiment']
-
-						sc.stop()
-
-						self.data['polarity'] = sentiment_analysis_resulting['polarity']
-						self.data['favorite_count_related'] = sentiment_resulting_dict['favorite']
-						self.data['retweet_count_related'] = sentiment_resulting_dict['retweets']
-
-					# If the user isn't authenticated, get sentiment analysis
-					# 
+					# If the user isn't authenticated, 
+					# load Bayesian Naives classifier
 					else:
-						pass
+
+						f = open('sentiment_classifier.pickle', 'rb')
+						classifier = pickle.load(f)
+						f.close()
+
+					#sentiment_df.select('clean_tweet','sentiment').show(sentiment_df.count(),True)
+					#import pdb;pdb.set_trace()
+
+					# Create a temp view to get the sentiment analysis of
+					# word requested, based on the tweets found 
+					sentiment_df.createOrReplaceTempView("sentiment_table")
+
+					sentiment_df_sql = sc.sql("SELECT sentiment as sentimentAnalysis, SUM(favorite_count) AS favorite, SUM(retweet_count) AS retweets FROM sentiment_table GROUP BY sentiment")
+
+					sentiment_resulting_list = sentiment_df_sql.select('sentimentAnalysis','favorite','retweets',).toJSON().collect()
+
+					sentiment_resulting_dict = json.loads(sentiment_resulting_list[0])
+
+					sentiment_analysis_resulting = json.loads(sentiment_resulting_dict['sentimentAnalysis'])
+
+					# Setting results of sentiment analysis
+					if sentiment_analysis_resulting['polarity'] == 'P':
+						self.data['positive_sentiment_score'] = sentiment_analysis_resulting['sentiment']
+					elif sentiment_analysis_resulting['polarity'] == 'N':
+						self.data['negative_sentiment_score'] = sentiment_analysis_resulting['sentiment']
+					elif sentiment_analysis_resulting['polarity'] == 'NU':
+						self.data['neutral_sentiment_score'] = sentiment_analysis_resulting['sentiment']
+
+					sc.stop()
+
+					self.data['polarity'] = sentiment_analysis_resulting['polarity']
+					self.data['favorite_count_related'] = sentiment_resulting_dict['favorite']
+					self.data['retweet_count_related'] = sentiment_resulting_dict['retweets']
+
 
 				# Not found the text requested
 				else:
