@@ -243,7 +243,7 @@ You can see the endpoints structure in the Swagger UI documentation:
 
 Basically the structure is as below for all the main instances (User, Dictionaries, Custom Dictionaries, Topics and Word roots)
 
-Endpoint |HTTP Method | CRUD Method | Result
+Endpoint Path |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
 `api/<instance>` | GET | READ | Get all the <instance> records
 `api/<instance>/id/` | GET | READ | Get a single <instance>
@@ -255,7 +255,7 @@ Endpoint |HTTP Method | CRUD Method | Result
 
 * Word_cloud: `api/word_cloud/`
 
-Endpoint |HTTP Method | CRUD Method | Result
+Endpoint Path |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
 `api/word_cloud/comments/<string:comments>/user_id/<int:user_id>` | POST | CREATE | To generate Twitter word cloud images.
 
@@ -271,19 +271,19 @@ In other case, word cloud will be with square form. The image will be generated 
 
 	/static/images/word_clouds/<user>
 
-Endpoint |HTTP Method | CRUD Method | Result
+Endpoint Path |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
 `api/word_cloud/list` | GET | READ | To list Twitter word cloud images by users.
 
 * Twitter_analytics: `api/twitter_analytics/`
 
-Endpoint |HTTP Method | CRUD Method | Result
+Endpoint Path |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
 `api/twitter_analytics/tweets_get` | POST | CREATE | To get a list with trending tweets
 
 * Machine Learning Layer: `api/ml_layer/`
 
-Endpoint |HTTP Method | CRUD Method | Result
+Endpoint Path |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
 `api/ml_layer/tweet_topic_classification` | POST | CREATE | Given a tweet, this will determine the topic of the tweet
 
@@ -292,7 +292,7 @@ Parameters:
 
 * Big Data Layer: `api/big_data_layer/`
 
-Endpoint |HTTP Method | CRUD Method | Result
+Endpoint Path |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
 `api/big_data_layer/process_tweets` | POST | CREATE | Given a social network account id (twitter), this endpoint will get current tweets, to process them with different goals: to determine the topic and sentiment analysys of all the tweets and also, returns cleaned tweets that you can use to generate a word cloud, for example.
 

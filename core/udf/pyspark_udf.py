@@ -270,3 +270,29 @@ class MachineLearningMethods():
 		from pyspark.sql.functions import udf
 		from pyspark.sql.types import StringType
 		return udf(lambda x: MachineLearningMethods().twitter_sentiment_analysis(custom_user_dictionary_dict,x),StringType())
+
+	def twitter_sentiment_analysis_bayesian_classifier(self,tweet):
+		import json
+		import pickle
+		import os
+		from nltk.tokenize import word_tokenize
+
+		try:
+			response_data = {}
+
+			# Import project path: "<your_full_path>/django-twitter-spark/core/udf"
+			project_path = os.path.join(os.path.dirname(__file__)) 
+
+			# Load the bayesian classifier sentiment model
+			f = open(project_path+'/../sentiment_classifier.pickle', 'rb')
+			classifier = pickle.load(f)
+			f.close()
+
+			custom_tokens = word_tokenize(TextMiningMethods().clean_tweet(tweet))
+
+			response_data['polarity'] = classifier.classify(dict([token, True] for token in custom_tokens))
+
+		except Exception as e:
+			response_data = { "polarity": None, "sentiment": None }
+
+		return json.dumps(response_data)

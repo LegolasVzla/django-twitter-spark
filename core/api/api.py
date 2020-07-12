@@ -1,13 +1,12 @@
+import os
 from os import path
 from os.path import exists
 import json
 import copy
-import os
 import re
 import string
 import random
 import logging
-import pickle
 from datetime import datetime
 from email.utils import parsedate_tz, mktime_tz
 from functools import wraps
@@ -590,12 +589,17 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					# load Bayesian Naives classifier
 					else:
 
-						f = open('sentiment_classifier.pickle', 'rb')
-						classifier = pickle.load(f)
-						f.close()
+						# Create a pyspark User Defined Function to clean tweets
+						twitter_sentiment_analysis_bayesian_classifier_udf = udf(MachineLearningMethods().twitter_sentiment_analysis_bayesian_classifier, StringType())
+
+						# Applying twitter_sentiment_analysis_bayesian_classifier 
+						# pyspark udf to a new dataframe
+						sentiment_df = clean_tweet_df.withColumn("sentiment",twitter_sentiment_analysis_bayesian_classifier_udf(col("tweet")))
+						#sentiment_df.select('sentiment').show(1,False)
+						
+						#import pdb;pdb.set_trace()
 
 					#sentiment_df.select('clean_tweet','sentiment').show(sentiment_df.count(),True)
-					#import pdb;pdb.set_trace()
 
 					# Create a temp view to get the sentiment analysis of
 					# word requested, based on the tweets found 

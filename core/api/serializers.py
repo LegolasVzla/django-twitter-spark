@@ -74,7 +74,7 @@ class WordCloudAPISerializer(serializers.ModelSerializer):
 		return data
 
 class TweetTopicClassificationAPISerializer(DynamicFieldsModelSerializer,serializers.Serializer):
-	text = serializers.CharField(required=False)
+	text = serializers.CharField(required=True)
 	user = serializers.IntegerField(source='id',required=False)
 	language = serializers.IntegerField(required=True)
 	class Meta:
@@ -84,7 +84,7 @@ class TweetTopicClassificationAPISerializer(DynamicFieldsModelSerializer,seriali
 	def to_internal_value(self, data):
 		required = []
 		optionals = []
-		for k in ['text','user','language']:
+		for k in ['text','language']:
 			'''
 			- Case 1: Is the k field in the data and it's empty?
 			- Case 2: Is not the k field in the data?
@@ -92,7 +92,7 @@ class TweetTopicClassificationAPISerializer(DynamicFieldsModelSerializer,seriali
 			if (data.keys().__contains__(k) and data[k] == '') or (not data.keys().__contains__(k)):
 				required.append(k)
 
-		for k in ['user','language']:
+		for k in ['user']:
 			# Is not the k field in the data?
 			if not data.keys().__contains__(k):
 				optionals.append(k)
