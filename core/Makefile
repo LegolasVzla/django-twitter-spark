@@ -64,4 +64,10 @@ install:
 	# load default system data
 	python manage.py insert_fixtures
 	python manage.py install_nltk
+	# tass and sentiment_classifiers folders related with tass dataset 
+	# and sentiment classifiers derived from that dataset
+	mkdir tass
+	mkdir sentiment_classifiers
 	python manage.py bayesian_classifier_training
+	# generate udf zip
+	zip -r udf.zip udf

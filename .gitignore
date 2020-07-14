@@ -107,8 +107,8 @@ settings.ini
 # Backend folders generated
 word_clouds/
 metastore_db/
+udf.zip
 
 # Tass stuff
 tass
-tass_dataset.xml
-sentiment_classifier.pickle
+sentiment_classifiers

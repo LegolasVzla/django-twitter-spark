@@ -12,6 +12,10 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk import FreqDist, classify, NaiveBayesClassifier
+from nltk.classify.scikitlearn import SklearnClassifier
+from sklearn.naive_bayes import MultinomialNB,BernoulliNB
+from sklearn.linear_model import LogisticRegression,SGDClassifier
+from sklearn.svm import SVC, LinearSVC, NuSVC
 
 from core.settings import (TASS_FILES_LIST)
 
@@ -68,8 +72,7 @@ class Command(BaseCommand):
         yield dict([token, True] for token in cleaned_tokens_list)
 
     def handle(self, *args, **options):
-    	print (bcolors.OKBLUE + "Training the Bayesian Classifier" + bcolors.ENDC)
-
+        print (bcolors.OKBLUE + "Training the Bayesian Classifiers" + bcolors.ENDC)
         files = ast.literal_eval(TASS_FILES_LIST)
 
         lines=[]
@@ -85,11 +88,11 @@ class Command(BaseCommand):
               lines = lines + readFile.readlines()[1:-1]
            readFile.close()
 
-        file = open(os.getcwd()+'/tass/dataset.xml','w')
+        file = open(os.getcwd()+'/tass/unified_tass_dataset.xml','w')
         file.writelines([item for item in lines])
         file.close()
 
-        tree = ET.parse(os.getcwd()+'/tass/dataset.xml')
+        tree = ET.parse(os.getcwd()+'/tass/unified_tass_dataset.xml')
         root = tree.getroot()
 
         positive_tweet_list = []
@@ -166,11 +169,65 @@ class Command(BaseCommand):
 
         classifier = NaiveBayesClassifier.train(train_data)
 
-        print (bcolors.OKGREEN + "Accuracy of Naives Bayes Classifier:", str(classify.accuracy(classifier, test_data)) + bcolors.ENDC)
-
+        print (bcolors.OKGREEN + "Accuracy of Naives Bayes Classifier:", str(classify.accuracy(classifier, test_data)*100) + bcolors.ENDC)
         # print(classifier.show_most_informative_features(10))
-
         # Saving Naives Bayes trained
-        f = open('sentiment_classifier.pickle', 'wb')
+        f = open('sentiment_classifiers/original_naives_bayes_classifier.pickle', 'wb')
         pickle.dump(classifier, f)
+        f.close()
+
+        MNB_classifier = SklearnClassifier(MultinomialNB())
+        MNB_classifier.train(train_data)
+        print (bcolors.OKGREEN + "MNB_classifier accuracy percent:", str(classify.accuracy(MNB_classifier, test_data)*100) + bcolors.ENDC)
+        # Saving MNB classifier trained
+        f = open('sentiment_classifiers/MNB_sentiment_classifier.pickle', 'wb')
+        pickle.dump(MNB_classifier, f)
+        f.close()
+
+        BernoulliNB_classifier = SklearnClassifier(BernoulliNB())
+        BernoulliNB_classifier.train(train_data)
+        print (bcolors.OKGREEN + "BernoulliNB_classifier accuracy percent:", str(classify.accuracy(BernoulliNB_classifier, test_data)*100) + bcolors.ENDC)
+        # Saving BernoulliNB classifier trained
+        f = open('sentiment_classifiers/BernoulliNB_sentiment_classifier.pickle', 'wb')
+        pickle.dump(BernoulliNB_classifier, f)
+        f.close()
+
+        LogisticRegression_classifier = SklearnClassifier(LogisticRegression())
+        LogisticRegression_classifier.train(train_data)
+        print (bcolors.OKGREEN + "LogisticRegression_classifier accuracy percent:", str(classify.accuracy(LogisticRegression_classifier, test_data)*100) + bcolors.ENDC)
+        # Saving LogisticRegression classifier trained
+        f = open('sentiment_classifiers/LogisticRegression_sentiment_classifier.pickle', 'wb')
+        pickle.dump(LogisticRegression_classifier, f)
+        f.close()
+
+        SGDClassifier_classifier = SklearnClassifier(SGDClassifier())
+        SGDClassifier_classifier.train(train_data)
+        print (bcolors.OKGREEN + "SGDClassifier_classifier accuracy percent:", str(classify.accuracy(SGDClassifier_classifier, test_data)*100) + bcolors.ENDC)
+        # Saving SGDClassifier classifier trained
+        f = open('sentiment_classifiers/SGDClassifier_sentiment_classifier.pickle', 'wb')
+        pickle.dump(SGDClassifier_classifier, f)
+        f.close()
+
+        SVC_classifier = SklearnClassifier(SVC())
+        SVC_classifier.train(train_data)
+        print (bcolors.OKGREEN + "SVC_classifier accuracy percent:", str(classify.accuracy(SVC_classifier, test_data)*100) + bcolors.ENDC)
+        # Saving SVC classifier trained
+        f = open('sentiment_classifiers/SVC_sentiment_classifier.pickle', 'wb')
+        pickle.dump(SVC_classifier, f)
+        f.close()
+
+        LinearSVC_classifier = SklearnClassifier(LinearSVC())
+        LinearSVC_classifier.train(train_data)
+        print (bcolors.OKGREEN + "LinearSVC_classifier accuracy percent:", str(classify.accuracy(LinearSVC_classifier, test_data)*100) + bcolors.ENDC)
+        # Saving LinearSVC classifier trained
+        f = open('sentiment_classifiers/LinearSVC_sentiment_classifier.pickle', 'wb')
+        pickle.dump(LinearSVC_classifier, f)
+        f.close()
+
+        NuSVC_classifier = SklearnClassifier(NuSVC())
+        NuSVC_classifier.train(train_data)
+        print (bcolors.OKGREEN + "NuSVC_classifier accuracy percent:", str(classify.accuracy(NuSVC_classifier, test_data)*100) + bcolors.ENDC)
+        # Saving NuSVC classifier trained
+        f = open('sentiment_classifiers/NuSVC_sentiment_classifier.pickle', 'wb')
+        pickle.dump(NuSVC_classifier, f)
         f.close()

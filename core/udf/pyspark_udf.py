@@ -284,7 +284,7 @@ class MachineLearningMethods():
 			project_path = os.path.join(os.path.dirname(__file__)) 
 
 			# Load the bayesian classifier sentiment model
-			f = open(project_path+'/../sentiment_classifier.pickle', 'rb')
+			f = open(project_path+'/../sentiment_classifiers/original_naives_bayes_classifier.pickle', 'rb')
 			classifier = pickle.load(f)
 			f.close()
 
