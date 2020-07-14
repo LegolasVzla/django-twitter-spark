@@ -5,7 +5,7 @@ coreapi==2.3.3
 coreschema==0.0.4
 cycler==0.10.0
 Cython==0.29.17
-Django==3.0.4
+Django==3.0.7
 djangorestframework==3.11.0
 djangorestframework-simplejwt==4.3.0
 drf-yasg==1.17.1
@@ -15,6 +15,7 @@ imageio==2.5.0
 inflection==0.4.0
 itypes==1.1.0
 Jinja2==2.10.1
+joblib==0.16.0
 kiwisolver==1.1.0
 MarkupSafe==1.1.1
 matplotlib==3.0.3
@@ -41,9 +42,12 @@ requests==2.22.0
 requests-oauthlib==1.3.0
 ruamel.yaml==0.16.10
 ruamel.yaml.clib==0.2.0
+scikit-learn==0.23.1
+scipy==1.5.1
 simplejson==3.16.0
 six==1.12.0
 sqlparse==0.3.0
+threadpoolctl==2.1.0
 tweepy==3.8.0
 tzlocal==2.0.0
 Unidecode==1.1.1

@@ -3,9 +3,17 @@ Thesis project: topic categorization and sentiment analysis on twitter
 
 Summary
 ---------------
-The presently work was an academic thesis, about how to make topic categorization and sentiment analysis of tweets in Python, using algorithms of Text Mining and Natural Language Processing (NLP) with Apache Spark. Adittionally a web application in Django was developt to display a several of graphics indicators like: a wordcloud and other interesting graphics.
+The presently work was (in a previously version) an academic thesis, about how to make topic categorization and sentiment analysis of tweets in Python, using Text Mining and Natural Language Processing (NLP) with Apache Spark. Adittionally a web application in Django was developt to display a several of graphics indicators like: a wordcloud and other interesting graphics.
 
-* Status: orienting all to API REST with Django Rest Framework and adding several improvements.
+Status:
+---------------
+I've oriented all the project to API REST with Django Rest Framework and added several improvements:
+
+- Applying Serializers
+- Applying Swagger Doc
+- Applying Django Classes Based Views 
+- Complementing custom Sentiment Analysis by user with Bayesian Classifiers from Sklearn
+- Differents improvements in logic, order, installation steps with makefile, environment variables to allow more scalability, and more things.
 
 Original Idea:
 ---------------
@@ -223,7 +231,7 @@ In this project, on one hand, we bring another possible way of how to handle wit
 
 ## About TASS dataset
 
-The [Spain Society of Natural Language Proccessing (SEPLN)](http://www.sepln.org/), offers the [TASS Dataset](http://tass.sepln.org/) that "is a corpus of texts (mainly tweets) in Spanish tagged for Sentiment Analysis related tasks. It is divided into several subsets created for the various tasks proposed in the different editions through the years." You need to sign the License Agreement to download the dataset in the following [link](http://www.sepln.org/workshops/tass/tass_data/download.php).
+The [Spain Society of Natural Language Proccessing (SEPLN)](http://www.sepln.org/), offers the [TASS Dataset](http://tass.sepln.org/) that "is a corpus of texts (mainly tweets) in Spanish tagged for Sentiment Analysis related tasks. It is divided into several subsets created for the various tasks proposed in the different editions through the years." **You need to sign the License Agreement to download the dataset** in the following [link](http://www.sepln.org/workshops/tass/tass_data/download.php).
 
 This project specify a ```tassConf``` section in the ```settings.ini``` file, to provide a list of the TASS Dataset XML files (using the 2019 edition), to train the Naive Bayes model.  
 
