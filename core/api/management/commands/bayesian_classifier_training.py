@@ -11,11 +11,13 @@ from django.core.management.base import BaseCommand, CommandError
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from nltk import FreqDist, classify, NaiveBayesClassifier
+from nltk import classify, NaiveBayesClassifier
 from nltk.classify.scikitlearn import SklearnClassifier
 from sklearn.naive_bayes import MultinomialNB,BernoulliNB
 from sklearn.linear_model import LogisticRegression,SGDClassifier
 from sklearn.svm import SVC, LinearSVC, NuSVC
+#from nltk.classify import ClassifierI
+from statistics import mode
 
 from core.settings import (TASS_FILES_LIST)
 
@@ -23,6 +25,26 @@ class bcolors:
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
     ENDC = '\033[0m'
+
+class VoteClassifier(ClassifierI):
+    def __init__(self, *classifiers):
+        self._classifiers = classifiers
+
+    def classify(self, features):
+        votes = []
+        for c in self._classifiers:
+            v = c.classify(features)
+            votes.append(v)
+        return mode(votes)
+
+    def confidence(self, features):
+        votes = []
+        for c in self._classifiers:
+            v = c.classify(features)
+            votes.append(v)
+        choice_votes = votes.count(mode(votes))
+        conf = choice_votes / len(votes)
+        return conf
 
 class Command(BaseCommand):
     help = 'To train Naive Bayes Classifier for Sentiment Analysis in twitter_search endpoint'
@@ -167,13 +189,13 @@ class Command(BaseCommand):
 
         train_data, test_data = dataset[:slice_size], dataset[slice_size:]
 
-        classifier = NaiveBayesClassifier.train(train_data)
+        original_bayesian_classifier = NaiveBayesClassifier.train(train_data)
 
-        print (bcolors.OKGREEN + "Accuracy of Naives Bayes Classifier:", str(classify.accuracy(classifier, test_data)*100) + bcolors.ENDC)
-        # print(classifier.show_most_informative_features(10))
+        print (bcolors.OKGREEN + "Accuracy of Naives Bayes Classifier:", str(classify.accuracy(original_bayesian_classifier, test_data)*100) + bcolors.ENDC)
+        # print(original_bayesian_classifier.show_most_informative_features(10))
         # Saving Naives Bayes trained
         f = open('sentiment_classifiers/original_naives_bayes_classifier.pickle', 'wb')
-        pickle.dump(classifier, f)
+        pickle.dump(original_bayesian_classifier, f)
         f.close()
 
         MNB_classifier = SklearnClassifier(MultinomialNB())
@@ -200,13 +222,13 @@ class Command(BaseCommand):
         pickle.dump(LogisticRegression_classifier, f)
         f.close()
 
-        SGDClassifier_classifier = SklearnClassifier(SGDClassifier())
-        SGDClassifier_classifier.train(train_data)
-        print (bcolors.OKGREEN + "SGDClassifier_classifier accuracy percent:", str(classify.accuracy(SGDClassifier_classifier, test_data)*100) + bcolors.ENDC)
-        # Saving SGDClassifier classifier trained
-        f = open('sentiment_classifiers/SGDClassifier_sentiment_classifier.pickle', 'wb')
-        pickle.dump(SGDClassifier_classifier, f)
-        f.close()
+        # SGDClassifier_classifier = SklearnClassifier(SGDClassifier())
+        # SGDClassifier_classifier.train(train_data)
+        # print (bcolors.OKGREEN + "SGDClassifier_classifier accuracy percent:", str(classify.accuracy(SGDClassifier_classifier, test_data)*100) + bcolors.ENDC)
+        # # Saving SGDClassifier classifier trained
+        # f = open('sentiment_classifiers/SGDClassifier_sentiment_classifier.pickle', 'wb')
+        # pickle.dump(SGDClassifier_classifier, f)
+        # f.close()
 
         SVC_classifier = SklearnClassifier(SVC())
         SVC_classifier.train(train_data)
@@ -231,3 +253,14 @@ class Command(BaseCommand):
         f = open('sentiment_classifiers/NuSVC_sentiment_classifier.pickle', 'wb')
         pickle.dump(NuSVC_classifier, f)
         f.close()
+
+        voted_classifier = VoteClassifier(original_bayesian_classifier,
+                                          SVC_classifier,
+                                          LinearSVC_classifier,
+                                          NuSVC_classifier,
+                                          #SGDClassifier_classifier,
+                                          MNB_classifier,
+                                          BernoulliNB_classifier,
+                                          LogisticRegression_classifier)
+        print (bcolors.OKGREEN + "Voted_classifier accuracy percent:", str(classify.accuracy(voted_classifier, test_data)*100) + bcolors.ENDC)
+        #print (bcolors.OKGREEN + "Classification:", str(voted_classifier.classify(test_data[0][0])), "Confidence %:", str(voted_classifier.confidence(test_data[0][0])*100) + bcolors.ENDC)
