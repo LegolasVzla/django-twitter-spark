@@ -82,6 +82,30 @@ class TextMiningMethods():
 
 		return tweets_list
 
+class VoteClassifier():
+    def __init__(self, *classifiers):
+        self._classifiers = classifiers
+
+    def classify(self, features):
+        from statistics import mode
+
+        votes = []
+        for current_classifier in self._classifiers:
+            v = current_classifier.classify(dict([token, True] for token in features))
+            votes.append(v)
+            return mode(votes)
+
+    def confidence(self, features):
+        from statistics import mode
+
+        votes = []
+        for current_classifier in self._classifiers:
+            v = current_classifier.classify(dict([token, True] for token in features))
+            votes.append(v)
+        choice_votes = votes.count(mode(votes))
+        conf = choice_votes / len(votes)
+        return conf
+
 class MachineLearningMethods():
 	'''
 	Class for machine learning udf
@@ -224,6 +248,17 @@ class MachineLearningMethods():
 	def twitter_sentiment_analysis(self,custom_user_dictionary_dict,clean_tweet):
 		'''
 		- Determinate sentiment analysis (polarity) of tweet
+		Note: this simple model, isn't trained to handle sarcasm or ironic 
+		sentences yet, i.e:
+
+		"Hoy es un maravilloso e impresionante día de mierda"
+
+		This is a tipically sarcams tweet but this model will categorize it 
+		as "Positive" by mayority of positive words. However, some words that
+		aren't in positive_dictionary.json or negative_dictionary.json
+		could be added by the user and selected as "Positive" or "Negative",
+		so in consequence, a sarcasm tweet could be categorized correctly,
+		but only by mayority of positive and negative words.
 		'''
 		import json
 		from nltk.tokenize import word_tokenize
@@ -246,23 +281,35 @@ class MachineLearningMethods():
 			neg = Counter(negative)[True]
 			total = pos + neg
 
-			if total > 0:		
+			if total > 0:
 				if pos == neg:
 					response_data["polarity"] = "NU" # Neutral
-					response_data["sentiment"] = 0.0
+					response_data["sentiment"] = (pos+neg)/len(tokens)
 				else:
 					if pos > neg:
 						response_data["polarity"] = "P"
-						response_data["sentiment"] = (pos*100)/total
+						# response_data["sentiment"] = (pos*100)/total
+						response_data["sentiment"] = pos/len(tokens)
 					else:
 						response_data["polarity"] = "N"
-						response_data["sentiment"] = (neg*100)/total
+						# response_data["sentiment"] = (neg*100)/total
+						response_data["sentiment"] = neg/len(tokens)
 			else:
+				# None token match with any positive or negative word, 
+				# so it's weak to determine a sentiment score
 				response_data["polarity"] = "NU"
+				# Note: sentiment score could be 1, if all the words
+				# are neutral, it means that it's necessary also a
+				# neutral dictionary
 				response_data["sentiment"] = 0.0
 
+			# We still don't have a way to determine confidence level
+			# with a sentiment analysis model from a dictionary with 
+			# positive and negative words
+			response_data["confidence"] = "Undefined"
+
 		except Exception as e:
-			response_data = { "polarity": None, "sentiment": None }
+			response_data = { "polarity": None, "sentiment": None, "confidence": "Undefined" }
 
 		return json.dumps(response_data)
 
@@ -275,6 +322,7 @@ class MachineLearningMethods():
 		import json
 		import pickle
 		import os
+
 		from nltk.tokenize import word_tokenize
 
 		try:
@@ -282,17 +330,70 @@ class MachineLearningMethods():
 
 			# Import project path: "<your_full_path>/django-twitter-spark/core/udf"
 			project_path = os.path.join(os.path.dirname(__file__)) 
-
+			#return os.getcwd()
 			# Load the bayesian classifier sentiment model
 			f = open(project_path+'/../sentiment_classifiers/original_naives_bayes_classifier.pickle', 'rb')
-			classifier = pickle.load(f)
+			#return os.getcwd() + " " + project_path+'/../sentiment_classifiers/'
+			original_bayesian_classifier = pickle.load(f)
 			f.close()
 
-			custom_tokens = word_tokenize(TextMiningMethods().clean_tweet(tweet))
+			# Load the SVC_classifier sentiment model
+			f = open(project_path+'/../sentiment_classifiers/SVC_sentiment_classifier.pickle', 'rb')
+			SVC_classifier = pickle.load(f)
+			f.close()
 
-			response_data['polarity'] = classifier.classify(dict([token, True] for token in custom_tokens))
+			# Load the LinearSVC_classifier sentiment model
+			f = open(project_path+'/../sentiment_classifiers/LinearSVC_sentiment_classifier.pickle', 'rb')
+			LinearSVC_classifier = pickle.load(f)
+			f.close()
+
+			# Load the NuSVC_classifier sentiment model
+			f = open(project_path+'/../sentiment_classifiers/NuSVC_sentiment_classifier.pickle', 'rb')
+			NuSVC_classifier = pickle.load(f)
+			f.close()
+
+			# Load the SGDClassifier_classifier sentiment model
+			# f = open(project_path+'/../sentiment_classifiers/SGDClassifier_sentiment_classifier.pickle', 'rb')
+			# SGDClassifier_classifier = pickle.load(f)
+			# f.close()
+
+			# Load the MNB_classifier sentiment model
+			f = open(project_path+'/../sentiment_classifiers/MNB_sentiment_classifier.pickle', 'rb')
+			MNB_classifier = pickle.load(f)
+			f.close()
+
+			# Load the BernoulliNB_classifier sentiment model
+			f = open(project_path+'/../sentiment_classifiers/BernoulliNB_sentiment_classifier.pickle', 'rb')
+			BernoulliNB_classifier = pickle.load(f)
+			f.close()
+
+			# Load the LogisticRegression_classifier sentiment model
+			f = open(project_path+'/../sentiment_classifiers/LogisticRegression_sentiment_classifier.pickle', 'rb')
+			LogisticRegression_classifier = pickle.load(f)
+			f.close()
+
+			voted_classifier = VoteClassifier(original_bayesian_classifier,
+			                                  SVC_classifier,
+			                                  LinearSVC_classifier,
+			                                  NuSVC_classifier,
+			                                  #SGDClassifier_classifier,
+			                                  MNB_classifier,
+			                                  BernoulliNB_classifier,
+			                                  LogisticRegression_classifier)
+
+			tweet_tokenized = word_tokenize(TextMiningMethods().clean_tweet(tweet))
+			polarity = voted_classifier.classify(tweet_tokenized)
+
+			if polarity == 'Positive':
+				response_data["polarity"] = "P"
+			elif polarity == 'Negative':
+				response_data["polarity"] = "N"
+			# elif polarity == 'Neutral':
+			# 	response_data["polarity"] = "NU"
+
+			response_data["confidence"] = voted_classifier.confidence(tweet_tokenized)
 
 		except Exception as e:
-			response_data = { "polarity": None, "sentiment": None }
+			response_data = { "polarity": None, "polarity": "Undefined", "confidence": None }
 
 		return json.dumps(response_data)
