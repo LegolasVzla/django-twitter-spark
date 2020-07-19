@@ -596,8 +596,9 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 						# Applying twitter_sentiment_analysis_bayesian_classifier 
 						# pyspark udf to a new dataframe
 						sentiment_df = clean_tweet_df.withColumn("sentiment",twitter_sentiment_analysis_bayesian_classifier_udf(col("tweet")))
-						# sentiment_df.select('sentiment').show(1,False)
-						# import pdb;pdb.set_trace()
+
+					# sentiment_df.select('sentiment').show(1,False)
+					# import pdb;pdb.set_trace()
 
 					# Create a temp view to get the sentiment analysis of
 					# word requested, based on the tweets found 
@@ -607,20 +608,16 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 
 					sentiment_resulting_list = sentiment_df_sql.select('sentimentAnalysis','favorite','retweets',).toJSON().collect()
 
+					sc.stop()
+
 					sentiment_resulting_dict = json.loads(sentiment_resulting_list[0])
 
 					sentiment_analysis_resulting = json.loads(sentiment_resulting_dict['sentimentAnalysis'])
 
 					# Setting results of sentiment analysis
-					if sentiment_analysis_resulting['polarity'] == 'P':
-						self.data['positive_sentiment_score'] = sentiment_analysis_resulting['sentiment']
-					elif sentiment_analysis_resulting['polarity'] == 'N':
-						self.data['negative_sentiment_score'] = sentiment_analysis_resulting['sentiment']
-					elif sentiment_analysis_resulting['polarity'] == 'NU':
-						self.data['neutral_sentiment_score'] = sentiment_analysis_resulting['sentiment']
-
-					sc.stop()
-
+					self.data['positive_sentiment_score'] = sentiment_analysis_resulting['positive_sentiment_score']
+					self.data['negative_sentiment_score'] = sentiment_analysis_resulting['negative_sentiment_score']
+					self.data['neutral_sentiment_score'] = sentiment_analysis_resulting['neutral_sentiment_score']
 					self.data['confidence'] = sentiment_analysis_resulting['confidence']
 					self.data['polarity'] = sentiment_analysis_resulting['polarity']
 					self.data['favorite_count_related'] = sentiment_resulting_dict['favorite']

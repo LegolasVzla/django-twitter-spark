@@ -253,7 +253,7 @@ class MachineLearningMethods():
 
 		"Hoy es un maravilloso e impresionante día de mierda"
 
-		This is a tipically sarcams tweet but this model will categorize it 
+		This is a tipically sarcam tweet but this model will categorize it 
 		as "Positive" by mayority of positive words. However, some words that
 		aren't in positive_dictionary.json or negative_dictionary.json
 		could be added by the user and selected as "Positive" or "Negative",
@@ -284,16 +284,18 @@ class MachineLearningMethods():
 			if total > 0:
 				if pos == neg:
 					response_data["polarity"] = "NU" # Neutral
-					response_data["sentiment"] = (pos+neg)/len(tokens)
 				else:
 					if pos > neg:
 						response_data["polarity"] = "P"
 						# response_data["sentiment"] = (pos*100)/total
-						response_data["sentiment"] = pos/len(tokens)
 					else:
 						response_data["polarity"] = "N"
 						# response_data["sentiment"] = (neg*100)/total
-						response_data["sentiment"] = neg/len(tokens)
+
+				response_data["positive_sentiment_score"] = pos/len(tokens)
+				response_data["negative_sentiment_score"] = neg/len(tokens)
+				response_data["neutral_sentiment_score"] = (len(tokens)-(pos+neg))/len(tokens)
+
 			else:
 				# None token match with any positive or negative word, 
 				# so it's weak to determine a sentiment score
@@ -301,7 +303,9 @@ class MachineLearningMethods():
 				# Note: sentiment score could be 1, if all the words
 				# are neutral, it means that it's necessary also a
 				# neutral dictionary
-				response_data["sentiment"] = 0.0
+				response_data["positive_sentiment_score"] = 0
+				response_data["negative_sentiment_score"] = 0
+				response_data["neutral_sentiment_score"] = 1
 
 			# We still don't have a way to determine confidence level
 			# with a sentiment analysis model from a dictionary with 
@@ -309,7 +313,13 @@ class MachineLearningMethods():
 			response_data["confidence"] = "Undefined"
 
 		except Exception as e:
-			response_data = { "polarity": None, "sentiment": None, "confidence": "Undefined" }
+			response_data = { 
+				"polarity": None,
+				"positive_sentiment_score": None,
+				"negative_sentiment_score": None,
+				"neutral_sentiment_score": None,
+				"confidence": "Undefined"
+			}
 
 		return json.dumps(response_data)
 
@@ -393,7 +403,21 @@ class MachineLearningMethods():
 
 			response_data["confidence"] = voted_classifier.confidence(tweet_tokenized)
 
+			# dist = classifier.prob_classify(features)
+			# for label in dist.samples():
+			#     print("%s: %f" % (label, dist.prob(label)))
+
+			response_data["positive_sentiment_score"] = dist.prob('Positive')
+			response_data["negative_sentiment_score"] = dist.prob('Negative')
+			# response_data["neutral_sentiment_score"] = float("{:f}".format(1-(dist.prob('Positive')+dist.prob('Negative'))))
+
 		except Exception as e:
-			response_data = { "polarity": None, "polarity": "Undefined", "confidence": None }
+			response_data = { 
+				"polarity": None,
+				"positive_sentiment_score": None,
+				"negative_sentiment_score": None,
+				"neutral_sentiment_score": None,
+				"confidence": "Undefined"
+			}
 
 		return json.dumps(response_data)
