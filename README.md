@@ -3,9 +3,9 @@ Thesis project: topic categorization and sentiment analysis on twitter
 
 Summary
 ---------------
-The presently work was (in a previously version) an academic thesis, about how to make topic categorization and sentiment analysis of tweets in Python, using Text Mining and Natural Language Processing (NLP) with Apache Spark. Adittionally a web application in Django was developt to display a several of graphics indicators like: a wordcloud and other interesting graphics.
+The presently work was (in a previously version) an academic thesis, about how to make topic categorization and sentiment analysis of tweets in Spanish with Python, using Text Mining and Natural Language Processing (NLP) with Apache Spark. Adittionally a web application in Django was developt to display a several of graphics indicators like: a wordcloud and other interesting graphics.
 
-Status:
+Improvements and Current Status:
 ---------------
 I've oriented all the project to API REST with Django Rest Framework and added several improvements:
 
@@ -33,6 +33,8 @@ Original Idea:
 - [Tweepy](https://www.tweepy.org/) is an easy-to-use Python library for accessing the Twitter API.
 
 - [NLTK (Natural Language Toolkit)](https://www.nltk.org/) is a leading platform for building Python programs to work with human language data.
+
+- [Scikit-Learn](https://scikit-learn.org/stable/) is a Python module for machine learning.
 
 What would happen if we integrate these technologies?...Let's check it!
 
@@ -78,7 +80,7 @@ This will install PostgreSQL and pip on your system. After that, you need to cre
 
 - sparkConf section: list of master workers to start spark and path where are defined pyspark udf (udf/pyspark_udf.py for this project)  
 
-- tassConf section: refers to the TASS datasets (xml files list)
+- tassConf section: refers to the TASS datasets (XML files list from 2019 edition)
 
 Then, activate your virtualenv already installed (by default, is called ```env``` in the ```Makefile```):
 
@@ -231,7 +233,7 @@ In this project, on one hand, we bring another possible way of how to handle wit
 
 	"Hoy es un maravilloso e impresionante día de mierda"
 
-This is a tipically sarcam tweet but the model based on the dictionary used on this project, will categorize it  as "Positive" by mayority of positive words. However, some words that aren't in ```positive_dictionary.json``` or ```negative_dictionary.json``` files could be added by the user and selected as "Positive" or "Negative", so in consequence, a sarcasm tweet could be categorized correctly, but only by mayority of positive and negative words, so it's important to emphasize that this isn't an advance solution (also it express another problem, how to build a Spanish Lexicon?), but it's an idea of how this problem could be attacked. In the other hand, we also offer the possibility of doing sentiment analysis by training a Voting Classifier system, consisting on Naives Bayes provided by NLTK and other machine learning models from Scikit Learn. So when the user is authenticated, the system will use the custom user dictionary model (**Rule-based Approach**, system naive since it don't take into account how words are combined in a sequence, i.e the context) and if the user isn't authenticated, the system will use Voting Classifier (**Automatic Approach**).
+This is a typically ironic tweet but the model based on the dictionary used on this project, will categorize it  as "Positive" by majority of positive words. However, some words that aren't in ```positive_dictionary.json``` or ```negative_dictionary.json``` files could be added by the user and selected as "Positive" or "Negative", so in consequence, a sarcasm tweet could be categorized correctly, but only by mayority of positive and negative words, so it's important to emphasize that this isn't an advance solution (also it express another problem, how to build a Spanish Lexicon?), but it's an idea of how this problem could be attacked. In the other hand, we also offer the possibility of doing sentiment analysis by training a Voting Classifier system, consisting on Naives Bayes provided by NLTK and other machine learning models from Scikit Learn. So when the user is authenticated, the system will use the custom user dictionary model (**Rule-based Approach**, system naive since it don't take into account how words are combined in a sequence, i.e the context) and if the user isn't authenticated, the system will use Voting Classifier (**Automatic Approach**).
 
 ## About TASS dataset
 
