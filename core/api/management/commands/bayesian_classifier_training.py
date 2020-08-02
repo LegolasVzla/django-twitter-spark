@@ -16,7 +16,7 @@ from nltk.classify.scikitlearn import SklearnClassifier
 from sklearn.naive_bayes import MultinomialNB,BernoulliNB
 from sklearn.linear_model import LogisticRegression,SGDClassifier
 from sklearn.svm import SVC, LinearSVC, NuSVC
-#from nltk.classify import ClassifierI
+from nltk.classify import ClassifierI
 from statistics import mode
 
 from core.settings import (TASS_FILES_LIST)
@@ -47,7 +47,7 @@ class VoteClassifier(ClassifierI):
         return conf
 
 class Command(BaseCommand):
-    help = 'To train Naive Bayes Classifier for Sentiment Analysis in twitter_search endpoint'
+    help = 'To train Classifiers and Vote Classifier for Sentiment Analysis in twitter_search endpoint'
 
     def clean_tweet(self,tweet):
         '''
@@ -94,7 +94,7 @@ class Command(BaseCommand):
         yield dict([token, True] for token in cleaned_tokens_list)
 
     def handle(self, *args, **options):
-        print (bcolors.OKBLUE + "Training the Bayesian Classifiers" + bcolors.ENDC)
+        print (bcolors.OKBLUE + "Training Classifier Models" + bcolors.ENDC)
         files = ast.literal_eval(TASS_FILES_LIST)
 
         lines=[]
@@ -230,23 +230,23 @@ class Command(BaseCommand):
         # pickle.dump(SGDClassifier_classifier, f)
         # f.close()
 
-        SVC_classifier = SklearnClassifier(SVC())
-        SVC_classifier.train(train_data)
-        print (bcolors.OKGREEN + "SVC_classifier accuracy percent:", str(classify.accuracy(SVC_classifier, test_data)*100) + bcolors.ENDC)
-        # Saving SVC classifier trained
-        f = open('sentiment_classifiers/SVC_sentiment_classifier.pickle', 'wb')
-        pickle.dump(SVC_classifier, f)
-        f.close()
+        # SVC_classifier = SklearnClassifier(SVC(probability=True))
+        # SVC_classifier.train(train_data)
+        # print (bcolors.OKGREEN + "SVC_classifier accuracy percent:", str(classify.accuracy(SVC_classifier, test_data)*100) + bcolors.ENDC)
+        # # Saving SVC classifier trained
+        # f = open('sentiment_classifiers/SVC_sentiment_classifier.pickle', 'wb')
+        # pickle.dump(SVC_classifier, f)
+        # f.close()
 
-        LinearSVC_classifier = SklearnClassifier(LinearSVC())
-        LinearSVC_classifier.train(train_data)
-        print (bcolors.OKGREEN + "LinearSVC_classifier accuracy percent:", str(classify.accuracy(LinearSVC_classifier, test_data)*100) + bcolors.ENDC)
+        # LinearSVC_classifier = SklearnClassifier(LinearSVC())
+        # LinearSVC_classifier.train(train_data)
+        # print (bcolors.OKGREEN + "LinearSVC_classifier accuracy percent:", str(classify.accuracy(LinearSVC_classifier, test_data)*100) + bcolors.ENDC)
         # Saving LinearSVC classifier trained
-        f = open('sentiment_classifiers/LinearSVC_sentiment_classifier.pickle', 'wb')
-        pickle.dump(LinearSVC_classifier, f)
-        f.close()
+        # f = open('sentiment_classifiers/LinearSVC_sentiment_classifier.pickle', 'wb')
+        # pickle.dump(LinearSVC_classifier, f)
+        # f.close()
 
-        NuSVC_classifier = SklearnClassifier(NuSVC())
+        NuSVC_classifier = SklearnClassifier(NuSVC(probability=True))
         NuSVC_classifier.train(train_data)
         print (bcolors.OKGREEN + "NuSVC_classifier accuracy percent:", str(classify.accuracy(NuSVC_classifier, test_data)*100) + bcolors.ENDC)
         # Saving NuSVC classifier trained
@@ -255,8 +255,8 @@ class Command(BaseCommand):
         f.close()
 
         voted_classifier = VoteClassifier(original_bayesian_classifier,
-                                          SVC_classifier,
-                                          LinearSVC_classifier,
+                                          #SVC_classifier,
+                                          #LinearSVC_classifier,
                                           NuSVC_classifier,
                                           #SGDClassifier_classifier,
                                           MNB_classifier,

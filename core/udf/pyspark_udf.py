@@ -106,6 +106,22 @@ class VoteClassifier():
         conf = choice_votes / len(votes)
         return conf
 
+    def get_tweets_for_model(self, features):
+        yield dict([token, True] for token in features)
+
+    def voted_classifier_prob_classify(self, features):
+        from statistics import mode
+
+        positive_dist = 0
+        negative_dist = 0
+        for current_classifier in self._classifiers:
+        	dist = current_classifier.prob_classify(list(VoteClassifier().get_tweets_for_model(features))[0])
+        	positive_dist+= dist.prob('Positive')
+        	negative_dist+= dist.prob('Negative')
+        positive_prob_classify = positive_dist/len(self._classifiers)
+        negative_prob_classify = negative_dist/len(self._classifiers)
+        return positive_prob_classify,negative_prob_classify
+
 class MachineLearningMethods():
 	'''
 	Class for machine learning udf
@@ -253,8 +269,8 @@ class MachineLearningMethods():
 
 		"Hoy es un maravilloso e impresionante día de mierda"
 
-		This is a tipically sarcam tweet but this model will categorize it 
-		as "Positive" by mayority of positive words. However, some words that
+		This is a typically ironic tweet but this model will categorize it 
+		as "Positive" by majority of positive words. However, some words that
 		aren't in positive_dictionary.json or negative_dictionary.json
 		could be added by the user and selected as "Positive" or "Negative",
 		so in consequence, a sarcasm tweet could be categorized correctly,
@@ -340,7 +356,7 @@ class MachineLearningMethods():
 
 			# Import project path: "<your_full_path>/django-twitter-spark/core/udf"
 			project_path = os.path.join(os.path.dirname(__file__)) 
-			#return os.getcwd()
+
 			# Load the bayesian classifier sentiment model
 			f = open(project_path+'/../sentiment_classifiers/original_naives_bayes_classifier.pickle', 'rb')
 			#return os.getcwd() + " " + project_path+'/../sentiment_classifiers/'
@@ -348,14 +364,14 @@ class MachineLearningMethods():
 			f.close()
 
 			# Load the SVC_classifier sentiment model
-			f = open(project_path+'/../sentiment_classifiers/SVC_sentiment_classifier.pickle', 'rb')
-			SVC_classifier = pickle.load(f)
-			f.close()
+			# f = open(project_path+'/../sentiment_classifiers/SVC_sentiment_classifier.pickle', 'rb')
+			# SVC_classifier = pickle.load(f)
+			# f.close()
 
 			# Load the LinearSVC_classifier sentiment model
-			f = open(project_path+'/../sentiment_classifiers/LinearSVC_sentiment_classifier.pickle', 'rb')
-			LinearSVC_classifier = pickle.load(f)
-			f.close()
+			# f = open(project_path+'/../sentiment_classifiers/LinearSVC_sentiment_classifier.pickle', 'rb')
+			# LinearSVC_classifier = pickle.load(f)
+			# f.close()
 
 			# Load the NuSVC_classifier sentiment model
 			f = open(project_path+'/../sentiment_classifiers/NuSVC_sentiment_classifier.pickle', 'rb')
@@ -383,8 +399,8 @@ class MachineLearningMethods():
 			f.close()
 
 			voted_classifier = VoteClassifier(original_bayesian_classifier,
-			                                  SVC_classifier,
-			                                  LinearSVC_classifier,
+			                                  #SVC_classifier,
+			                                  #LinearSVC_classifier,
 			                                  NuSVC_classifier,
 			                                  #SGDClassifier_classifier,
 			                                  MNB_classifier,
@@ -392,6 +408,8 @@ class MachineLearningMethods():
 			                                  LogisticRegression_classifier)
 
 			tweet_tokenized = word_tokenize(TextMiningMethods().clean_tweet(tweet))
+
+			# Get sentiment analysis of the tweet
 			polarity = voted_classifier.classify(tweet_tokenized)
 
 			if polarity == 'Positive':
@@ -401,15 +419,17 @@ class MachineLearningMethods():
 			# elif polarity == 'Neutral':
 			# 	response_data["polarity"] = "NU"
 
+			# Get confidence level of the analysis
 			response_data["confidence"] = voted_classifier.confidence(tweet_tokenized)
 
 			# dist = classifier.prob_classify(features)
 			# for label in dist.samples():
 			#     print("%s: %f" % (label, dist.prob(label)))
 
-			response_data["positive_sentiment_score"] = dist.prob('Positive')
-			response_data["negative_sentiment_score"] = dist.prob('Negative')
+			# response_data["positive_sentiment_score"] = dist.prob('Positive')
 			# response_data["neutral_sentiment_score"] = float("{:f}".format(1-(dist.prob('Positive')+dist.prob('Negative'))))
+
+			response_data["positive_sentiment_score"],response_data["negative_sentiment_score"] = voted_classifier.voted_classifier_prob_classify(tweet_tokenized)
 
 		except Exception as e:
 			response_data = { 
