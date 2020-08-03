@@ -308,10 +308,18 @@ Parameters:
 
 Endpoint Path |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
-`api/big_data_layer/process_tweets` | POST | CREATE | Given a social network account id (twitter), this endpoint will get current tweets, to process them with different goals: to determine the topic and sentiment analysys of all the tweets and also, returns cleaned tweets that you can use to generate a word cloud, for example.
+`api/big_data_layer/process_tweets/social_network/<int:social_network_id>` | POST | CREATE | Given a social network account id (twitter), this endpoint will get current tweets, to process them with different goals: to determine the topic and sentiment analysys of all the tweets and also, returns cleaned tweets that you can use to generate a word cloud, for example.
 
 Parameters:
 - Mandatory: social network account id (twitter)
+
+Endpoint Path |HTTP Method | CRUD Method | Used for
+-- | -- |-- |--
+`api/big_data_layer/twitter_search/text/<string:text>` | POST | CREATE | Given a text to search and a language (also an user), this endpoint will apply sentiment analysis againts the text found in the Twitter search, also will show differents indicators related, so the user could know if people is talking positive or negative about the text searched.
+
+Parameters:
+- Mandatory: text to search, language
+- Optionals: user
 
 ## Updating System Dictionary
 ------------------------
