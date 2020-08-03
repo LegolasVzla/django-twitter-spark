@@ -483,6 +483,8 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 
 				# Setting default values for final variables
 				self.data['sentiment_analysis_resulting'] = {}
+				self.data['positive_tweets_top'] = {}
+				self.data['negative_tweets_top'] = {}
 
 				# Any result was found?
 				if len(query_result['statuses']) > 0:
@@ -588,11 +590,11 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					else:
 
 						# Create a pyspark User Defined Function for Voting Classifiers
-						twitter_sentiment_analysis_bayesian_classifier_udf = udf(MachineLearningMethods().twitter_sentiment_analysis_bayesian_classifier, StringType())
+						twitter_sentiment_analysis_voted_classifier_udf = udf(MachineLearningMethods().twitter_sentiment_analysis_voted_classifier, StringType())
 
-						# Applying twitter_sentiment_analysis_bayesian_classifier 
+						# Applying twitter_sentiment_analysis_voted_classifier 
 						# pyspark udf to a new dataframe
-						sentiment_df = clean_tweet_df.withColumn("sentiment_scores",twitter_sentiment_analysis_bayesian_classifier_udf(col("tweet")))
+						sentiment_df = clean_tweet_df.withColumn("sentiment_scores",twitter_sentiment_analysis_voted_classifier_udf(col("tweet")))
 
 					# sentiment_df.select('sentiment_scores').show(1,False)
 
@@ -630,10 +632,51 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 						ORDER BY \
 							tweetsByPolarity DESC \
 					").toJSON().collect()
+
+					# Get top 5 of positive tweets related with the search 
+					# requested
+					positive_tweets_top = spark.sql("\
+						SELECT \
+							account_name AS account,\
+							tweet,\
+							favorite_count AS favorites,\
+							retweet_count AS retweets,\
+							formated_date AS createdAt,\
+							get_json_object(sentiment_scores,'$.positive_sentiment_score') AS positiveSentimentScore,\
+							get_json_object(sentiment_scores,'$.negative_sentiment_score') AS negativeSentimentScore,\
+							get_json_object(sentiment_scores,'$.confidence') AS confidenceScore \
+						FROM \
+							sentiment_table \
+						WHERE \
+							get_json_object(sentiment_scores,'$.polarity') = 'P' \
+						LIMIT 5\
+					").toJSON().collect()
+
+					# Get top 5 of negative tweets related with the search 
+					# requested
+					negative_tweets_top = spark.sql("\
+						SELECT \
+							account_name AS account,\
+							tweet,\
+							favorite_count AS favorites,\
+							retweet_count AS retweets,\
+							formated_date AS createdAt,\
+							get_json_object(sentiment_scores,'$.positive_sentiment_score') AS positiveSentimentScore,\
+							get_json_object(sentiment_scores,'$.negative_sentiment_score') AS negativeSentimentScore,\
+							get_json_object(sentiment_scores,'$.confidence') AS confidenceScore \
+						FROM \
+							sentiment_table \
+						WHERE \
+							get_json_object(sentiment_scores,'$.polarity') = 'N' \
+						LIMIT 5\
+					").toJSON().collect()
+
 					spark.stop()
 
 					# Setting results of sentiment analysis
 					self.data['sentiment_analysis_resulting'] = [json.loads(i) for i in sentiment_resulting_list]
+					self.data['positive_tweets_top'] = [json.loads(i) for i in positive_tweets_top]
+					self.data['negative_tweets_top'] = [json.loads(i) for i in negative_tweets_top]
 
 				# Not found the text requested
 				else:

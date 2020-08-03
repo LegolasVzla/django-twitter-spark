@@ -344,7 +344,7 @@ class MachineLearningMethods():
 		from pyspark.sql.types import StringType
 		return udf(lambda x: MachineLearningMethods().twitter_sentiment_analysis(custom_user_dictionary_dict,x),StringType())
 
-	def twitter_sentiment_analysis_bayesian_classifier(self,tweet):
+	def twitter_sentiment_analysis_voted_classifier(self,tweet):
 		import json
 		import pickle
 		import os
@@ -421,7 +421,7 @@ class MachineLearningMethods():
 
 			# Get confidence level of the analysis
 			response_data["confidence"] = voted_classifier.confidence(tweet_tokenized)
-			
+
 			# dist = classifier.prob_classify(features)
 			# for label in dist.samples():
 			#     print("%s: %f" % (label, dist.prob(label)))
