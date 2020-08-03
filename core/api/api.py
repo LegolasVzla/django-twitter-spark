@@ -246,7 +246,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					tweets_list = _tweets.response_data['data']
 
 					# Create SparkSession
-					sc=SparkSession \
+					spark=SparkSession \
 						.builder \
 						.master('spark://'+SPARK_WORKERS) \
 						.appName('process_tweets') \
@@ -264,7 +264,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					# sc = SparkContext(conf=conf)
 					# SparkConf().getAll()
 
-					sc.sparkContext.addPyFile(SPARK_UDF_FILE)
+					spark.sparkContext.addPyFile(SPARK_UDF_FILE)
 
 					'''
 					# Generate rdd of tweets list
@@ -345,7 +345,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					])
 
 					# Create a Spark DataFrame from a pandas DataFrame
-					df = sc.createDataFrame(tweet_pandas_df,schema=schema)
+					df = spark.createDataFrame(tweet_pandas_df,schema=schema)
 
 					# Create a pyspark User Defined Function to clean tweets
 					clean_tweet_udf = udf(TextMiningMethods().clean_tweet, StringType())
@@ -393,7 +393,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 
 						self.data['wordcloud'] = remove_uncommon_words_udf.func(clean_tweets,most_common_words_list)
 
-						sc.stop()
+						spark.stop()
 
 						self.data['timeline'] = []
 
@@ -440,7 +440,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 			if serializer.is_valid():
 
 				# Create SparkSession
-				sc=SparkSession \
+				spark=SparkSession \
 					.builder \
 					.master('spark://'+SPARK_WORKERS) \
 					.appName('twitter_search') \
@@ -450,7 +450,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					.config('spark.driver.memory',SPARK_DRIVER_MEMORY+'g') \
 					.getOrCreate()
 
-				sc.sparkContext.addPyFile(SPARK_UDF_FILE)
+				spark.sparkContext.addPyFile(SPARK_UDF_FILE)
 
 				# Define all columns name needed
 				cols = [
@@ -462,7 +462,8 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					'created_at',
 					'formated_date',
 					'clean_tweet',
-					'sentiment'
+					'sentiment_scores',
+					'polarity'
 				]
 				rows = []
 
@@ -481,13 +482,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 						lang="es")
 
 				# Setting default values for final variables
-				self.data['positive_sentiment_score'] = 0.0
-				self.data['negative_sentiment_score'] = 0.0
-				self.data['neutral_sentiment_score'] = 0.0
-				self.data['confidence'] = 0.0				
-				self.data['polarity'] = "NU"
-				self.data['favorite_count_related'] = 0
-				self.data['retweet_count_related'] = 0
+				self.data['sentiment_analysis_resulting'] = {}
 
 				# Any result was found?
 				if len(query_result['statuses']) > 0:
@@ -511,6 +506,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 							tweet['created_at'],
 							d.strftime('%d %b %Y %X'),
 							None,
+							None,
 							None
 						]
 						rows.append(row)
@@ -527,11 +523,12 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					    StructField("created_at", StringType(),True),
 					    StructField("formated_date", StringType(),True),
 					    StructField("clean_tweet", StringType(),True),
-					    StructField("sentiment", ArrayType(StringType()))
+					    StructField("sentiment_scores", ArrayType(StringType())),
+					    StructField("polarity", StringType(),True),
 					])
      
 					# Create a Spark DataFrame from a pandas DataFrame
-					df = sc.createDataFrame(tweet_pandas_df,schema=schema)
+					df = spark.createDataFrame(tweet_pandas_df,schema=schema)
 
 					# Create a pyspark User Defined Function to clean tweets
 					clean_tweet_udf = udf(TextMiningMethods().clean_tweet, StringType())
@@ -584,44 +581,59 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 						user_dictionary['negative'] = negative
 
 						# Applying udf_twitter_sentiment_analysis pyspark udf to a new dataframe
-						sentiment_df = clean_tweet_df.withColumn("sentiment",MachineLearningMethods().udf_twitter_sentiment_analysis(user_dictionary)(col("clean_tweet")))
+						sentiment_df = clean_tweet_df.withColumn("sentiment_scores",MachineLearningMethods().udf_twitter_sentiment_analysis(user_dictionary)(col("clean_tweet")))
 
 					# If the user isn't authenticated, 
 					# load Bayesian Naives classifier
 					else:
 
-						# Create a pyspark User Defined Function to clean tweets
+						# Create a pyspark User Defined Function for Voting Classifiers
 						twitter_sentiment_analysis_bayesian_classifier_udf = udf(MachineLearningMethods().twitter_sentiment_analysis_bayesian_classifier, StringType())
 
 						# Applying twitter_sentiment_analysis_bayesian_classifier 
 						# pyspark udf to a new dataframe
-						sentiment_df = clean_tweet_df.withColumn("sentiment",twitter_sentiment_analysis_bayesian_classifier_udf(col("tweet")))
+						sentiment_df = clean_tweet_df.withColumn("sentiment_scores",twitter_sentiment_analysis_bayesian_classifier_udf(col("tweet")))
 
-					# sentiment_df.select('sentiment').show(1,False)
-					# import pdb;pdb.set_trace()
+					# sentiment_df.select('sentiment_scores').show(1,False)
 
 					# Create a temp view to get the sentiment analysis of
 					# word requested, based on the tweets found 
 					sentiment_df.createOrReplaceTempView("sentiment_table")
+					# spark.sql("select * from sentiment_table limit 10").show()
+					# import pdb;pdb.set_trace()
 
-					sentiment_df_sql = sc.sql("SELECT sentiment as sentimentAnalysis, SUM(favorite_count) AS favorite, SUM(retweet_count) AS retweets FROM sentiment_table GROUP BY sentiment")
-
-					sentiment_resulting_list = sentiment_df_sql.select('sentimentAnalysis','favorite','retweets',).toJSON().collect()
-
-					sc.stop()
-
-					sentiment_resulting_dict = json.loads(sentiment_resulting_list[0])
-
-					sentiment_analysis_resulting = json.loads(sentiment_resulting_dict['sentimentAnalysis'])
+					'''
+					Finally, this query gets:
+					1) Polarities groups resulting: positive, negative
+					2) Quantity of positive and negative tweets
+					3) Total of positive and negative favorite tweets
+					4) Total of positive and negative retweets 
+					5) The average of positive/negative sentiment analysis
+					score per tweets
+					6) The average of confidence of the analysis per polarity,
+					i.e: How trustworthy was sentiment analysis for 
+					positive/negative tweets?
+					'''
+					sentiment_resulting_list = spark.sql("\
+						SELECT \
+							get_json_object(sentiment_scores,'$.polarity') AS polarity,\
+							COUNT(get_json_object(sentiment_scores,'$.polarity')) AS tweetsByPolarity,\
+							SUM(favorite_count) AS favorites,\
+							SUM(retweet_count) AS retweets,\
+							SUM(get_json_object(sentiment_scores,'$.positive_sentiment_score'))/(COUNT(get_json_object(sentiment_scores,'$.positive_sentiment_score'))) AS averagePositiveScorePerTweet,\
+							SUM(get_json_object(sentiment_scores,'$.negative_sentiment_score'))/(COUNT(get_json_object(sentiment_scores,'$.negative_sentiment_score'))) AS averageNegativeScorePerTweet,\
+							SUM(get_json_object(sentiment_scores,'$.confidence'))/(COUNT(get_json_object(sentiment_scores,'$.confidence'))) AS averageConfidenceScorePerTweet\
+						FROM \
+							sentiment_table \
+						GROUP BY \
+							get_json_object(sentiment_scores,'$.polarity')\
+						ORDER BY \
+							tweetsByPolarity DESC \
+					").toJSON().collect()
+					spark.stop()
 
 					# Setting results of sentiment analysis
-					self.data['positive_sentiment_score'] = sentiment_analysis_resulting['positive_sentiment_score']
-					self.data['negative_sentiment_score'] = sentiment_analysis_resulting['negative_sentiment_score']
-					self.data['neutral_sentiment_score'] = sentiment_analysis_resulting['neutral_sentiment_score']
-					self.data['confidence'] = sentiment_analysis_resulting['confidence']
-					self.data['polarity'] = sentiment_analysis_resulting['polarity']
-					self.data['favorite_count_related'] = sentiment_resulting_dict['favorite']
-					self.data['retweet_count_related'] = sentiment_resulting_dict['retweets']
+					self.data['sentiment_analysis_resulting'] = [json.loads(i) for i in sentiment_resulting_list]
 
 				# Not found the text requested
 				else:

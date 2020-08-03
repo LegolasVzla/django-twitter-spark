@@ -421,7 +421,7 @@ class MachineLearningMethods():
 
 			# Get confidence level of the analysis
 			response_data["confidence"] = voted_classifier.confidence(tweet_tokenized)
-
+			
 			# dist = classifier.prob_classify(features)
 			# for label in dist.samples():
 			#     print("%s: %f" % (label, dist.prob(label)))
