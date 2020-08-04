@@ -104,7 +104,7 @@ class MachineLearningViewSet(viewsets.ViewSet):
 
 				# Get twitter topics stored in Topic model
 				_word_roots_by_topic_list = WordRootViewSet()
-				response = requests.get("http://localhost:8000/api/word_root/word_roots_by_topic")
+				_word_roots_by_topic_list.word_roots_by_topic(request)
 
 				if _word_roots_by_topic_list.code == 200:
 	

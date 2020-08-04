@@ -7,12 +7,13 @@ The presently work was (in a previously version) an academic thesis, about how t
 
 Improvements and Current Status:
 ---------------
-I've oriented all the project to API REST with Django Rest Framework and added several improvements:
+I've oriented all the project to API REST with Django Rest Framework (DRF) and added several improvements:
 
-- Applying Serializers
+- Applying DRF Serializers
 - Applying Swagger Doc
 - Applying Django Classes Based Views 
-- Complementing custom Sentiment Analysis by user with Bayesian Classifiers from Sklearn
+- Complementing custom Sentiment Analysis by user with a Voting Classifier, based on different Machine Learning classifiers algoritms from Sklearn
+- Using Zookeeper High Availability for the master node
 - Differents improvements in logic, order, installation steps with makefile, environment variables to allow more scalability, and more things.
 
 Original Idea:
@@ -269,9 +270,12 @@ Endpoint Path |HTTP Method | CRUD Method | Used for
 
 * Word_cloud: `api/word_cloud/`
 
-Endpoint Path |HTTP Method | CRUD Method | Used for
+Endpoint |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
-`api/word_cloud/comments/<string:comments>/user_id/<int:user_id>` | POST | CREATE | To generate Twitter word cloud images.
+`create` | POST | CREATE | To generate Twitter word cloud images.
+
+Endpoint Path:
+	```api/word_cloud/comments/<string:comments>/user_id/<int:user_id>```
 
 Parameters:
 - Mandatory: comments
@@ -285,37 +289,55 @@ In other case, word cloud will be with square form. The image will be generated 
 
 	/static/images/word_clouds/<user>
 
-Endpoint Path |HTTP Method | CRUD Method | Used for
+Endpoint |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
-`api/word_cloud/list` | GET | READ | To list Twitter word cloud images by users.
+`list` | GET | READ | To list Twitter word cloud images by users.
+
+Endpoint Path:
+	```api/word_cloud/list```
 
 * Twitter_analytics: `api/twitter_analytics/`
 
-Endpoint Path |HTTP Method | CRUD Method | Used for
+Endpoint |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
-`api/twitter_analytics/tweets_get` | POST | CREATE | To get a list with trending tweets
+`tweets_get` | POST | CREATE | To get a list with trending tweets
+
+Endpoint Path:
+	```api/twitter_analytics/tweets_get```
+
+Parameters:
+- Mandatory: social network account id (1 = twitter)
 
 * Machine Learning Layer: `api/ml_layer/`
 
-Endpoint Path |HTTP Method | CRUD Method | Used for
+Endpoint |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
-`api/ml_layer/tweet_topic_classification` | POST | CREATE | Given a tweet, this will determine the topic of the tweet
+`tweet_topic_classification` | POST | CREATE | To determine the topic of the tweet
+
+Endpoint Path:
+	```api/ml_layer/tweet_topic_classification```
 
 Parameters:
 - Mandatory: text (a tweet)
 
 * Big Data Layer: `api/big_data_layer/`
 
-Endpoint Path |HTTP Method | CRUD Method | Used for
+Endpoint |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
-`api/big_data_layer/process_tweets/social_network/<int:social_network_id>` | POST | CREATE | Given a social network account id (twitter), this endpoint will get current tweets, to process them with different goals: to determine the topic and sentiment analysys of all the tweets and also, returns cleaned tweets that you can use to generate a word cloud, for example.
+`process_tweets` | POST | CREATE | To get current tweets, to process them with different goals: to determine the topic and sentiment analysys of all the tweets and also, returns cleaned tweets that you can use to generate a word cloud, for example.
+
+Endpoint Path:
+	```api/big_data_layer/process_tweets/social_network/<int:social_network_id>```
 
 Parameters:
-- Mandatory: social network account id (twitter)
+- Mandatory: social network account id (1 = twitter)
 
-Endpoint Path |HTTP Method | CRUD Method | Used for
+Endpoint |HTTP Method | CRUD Method | Used for
 -- | -- |-- |--
-`api/big_data_layer/twitter_search/text/<string:text>` | POST | CREATE | Given a text to search and a language (also an user), this endpoint will apply sentiment analysis againts the text found in the Twitter search, also will show differents indicators related, so the user could know if people is talking positive or negative about the text searched.
+`twitter_search` | POST | CREATE | To apply sentiment analysis againts the text found in the Twitter search, also will show differents indicators related, so the user could know if people is talking positive or negative about the text searched.
+
+Endpoint Path:
+	```api/big_data_layer/twitter_search/text/<string:text>```
 
 Parameters:
 - Mandatory: text to search, language
