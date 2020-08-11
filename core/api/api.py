@@ -88,7 +88,7 @@ class MachineLearningViewSet(viewsets.ViewSet):
 	def __init__(self):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0
+		self.code = status.HTTP_200_OK
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
@@ -214,7 +214,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 	def __init__(self):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0
+		self.code = status.HTTP_200_OK
 
 	def get_serializer_class(self):
 		if self.action in ['process_tweets']:
@@ -705,7 +705,7 @@ class WordCloudViewSet(viewsets.ViewSet):
 	def __init__(self):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0
+		self.code = status.HTTP_200_OK
 
 	@validate_type_of_request
 	def create(self, request, *args, **kwargs):
@@ -830,7 +830,7 @@ class TwitterViewSet(viewsets.ViewSet):
 	def __init__(self):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0
+		self.code = status.HTTP_200_OK
 
 	@validate_type_of_request
 	@action(methods=['post'], detail=False)
@@ -915,7 +915,7 @@ class UserViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0		
+		self.code = status.HTTP_200_OK		
 
 	def get_serializer_class(self):
 		if self.action in ['user_details']:
@@ -1039,7 +1039,7 @@ class DictionaryViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0		
+		self.code = status.HTTP_200_OK		
 
 	def get_serializer_class(self):
 		if self.action in ['dictionary_by_polarity']:
@@ -1109,7 +1109,7 @@ class CustomDictionaryViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0		
+		self.code = status.HTTP_200_OK		
 
 	def get_serializer_class(self):
 		if self.action in ['custom_dictionary_kpi','user_custom_dictionary',
@@ -1468,7 +1468,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}		
-		self.code = 0		
+		self.code = status.HTTP_200_OK		
 
 	def get_serializer_class(self):
 		if self.action in ['recent_search_kpi','recent_search']:
@@ -1795,7 +1795,7 @@ class WordRootViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0
+		self.code = status.HTTP_200_OK
 
 	@validate_type_of_request
 	@action(methods=['get'], detail=False)
@@ -1850,7 +1850,7 @@ class SocialNetworkAccountsViewSet(viewsets.ModelViewSet):
 	def __init__(self,*args, **kwargs):
 		self.response_data = {'error': [], 'data': []}
 		self.data = {}
-		self.code = 0		
+		self.code = status.HTTP_200_OK		
 
 	def get_serializer_class(self):
 		if self.action in ['accounts_by_social_network']:

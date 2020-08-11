@@ -44,6 +44,10 @@ What would happen if we integrate these technologies?...Let's check it!
 
 ## Installation
 
+Clone this project:
+
+	git clone https://github.com/LegolasVzla/django-twitter-spark
+
 ```Makefile``` will help you with all the installation. First of all, in ```django-twitter-spark/core/``` path, execute:
 
 	make setup

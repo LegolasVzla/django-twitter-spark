@@ -4,7 +4,7 @@ import subprocess
 from django.core.management.base import BaseCommand, CommandError
 
 class Command(BaseCommand):
-    help = 'Install nltk for word tokenize and stop words'
+    help = 'Insert all default data'
 
     def handle(self, *args, **options):
         try:
