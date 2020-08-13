@@ -40,7 +40,7 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
                 self.fields[field_name].required = True
 
 class WordCloudAPISerializer(serializers.ModelSerializer):
-	comments = serializers.CharField(required=True)
+	comments = serializers.CharField(required=True,help_text="List of comment (cleaned tokens), after apply TextMiningMethods.clean_tweet() function")
 	user = serializers.IntegerField(source='id',required=False)
 	class Meta:
 		model = User
@@ -74,9 +74,9 @@ class WordCloudAPISerializer(serializers.ModelSerializer):
 		return data
 
 class TweetTopicClassificationAPISerializer(DynamicFieldsModelSerializer,serializers.Serializer):
-	text = serializers.CharField(required=True)
+	text = serializers.CharField(required=True,help_text='A tweet from Twitter')
 	user = serializers.IntegerField(source='id',required=False)
-	language = serializers.IntegerField(required=True)
+	language = serializers.IntegerField(required=True,help_text='Language id, use 1 for Spanish')
 	class Meta:
 		model = User
 		fields = ('text','user','language')
