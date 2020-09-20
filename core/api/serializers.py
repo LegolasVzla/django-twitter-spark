@@ -75,11 +75,10 @@ class WordCloudAPISerializer(serializers.ModelSerializer):
 
 class TweetTopicClassificationAPISerializer(DynamicFieldsModelSerializer,serializers.Serializer):
 	text = serializers.CharField(required=True,help_text='A tweet from Twitter')
-	user = serializers.IntegerField(source='id',required=False)
 	language = serializers.IntegerField(required=True,help_text='Language id, use 1 for Spanish')
 	class Meta:
-		model = User
-		fields = ('text','user','language')
+		model = Search
+		fields = ('user','text','language')
 
 	def to_internal_value(self, data):
 		required = []
