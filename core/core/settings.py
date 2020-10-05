@@ -45,11 +45,9 @@ INSTALLED_APPS = [
     'accounts',
     'users',
     'api',
-    'web',
     'udf',
     'rest_framework',
     'drf_yasg'
-#    'django.contrib.humanize',
 ]
 
 
