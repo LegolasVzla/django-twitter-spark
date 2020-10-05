@@ -336,8 +336,7 @@ SIMPLE_JWT = {
 ##### Simplejwt CONFIG
 ###################################################################
 
-
 # Frontend client port
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
+    'http://'+config.get('frontendClient', 'REACT_DOMAIN')+':'+config.get('frontendClient', 'REACT_PORT')
 ]

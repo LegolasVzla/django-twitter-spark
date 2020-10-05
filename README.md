@@ -23,15 +23,19 @@ Original Idea:
 - [Manuel Carrero](https://github.com/LegolasVzla)
 
 ## Technologies
+- [Django](https://www.djangoproject.com/) the web framework for perfectionists with deadlines.
+
 - [Django REST framework](https://www.django-rest-framework.org/) is a powerful and flexible toolkit for building Web APIs.
 
-- [Apache Spark](https://spark.apache.org/) is a unified analytics engine for large-scale data processing.
-
-- [Apache ZooKeeper](https://zookeeper.apache.org/) is an effort to develop and maintain an open-source server which enables highly reliable distributed coordination.
+- [React](https://es.reactjs.org/) a JavaScript library for building user interfaces
 
 - [PostgreSQL](https://www.postgresql.org/) is the World's Most Advanced Open Source Relational Database.
 
 - [Tweepy](https://www.tweepy.org/) is an easy-to-use Python library for accessing the Twitter API.
+
+- [Apache Spark](https://spark.apache.org/) is a unified analytics engine for large-scale data processing.
+
+- [Apache ZooKeeper](https://zookeeper.apache.org/) is an effort to develop and maintain an open-source server which enables highly reliable distributed coordination.
 
 - [NLTK (Natural Language Toolkit)](https://www.nltk.org/) is a leading platform for building Python programs to work with human language data.
 
@@ -48,7 +52,7 @@ Clone this project:
 
 	git clone https://github.com/LegolasVzla/django-twitter-spark
 
-```Makefile``` will help you with all the installation. First of all, in ```django-twitter-spark/core/``` path, execute:
+```Makefile``` will help you with all the installation. First of all, in ```django-twitter-spark/backend/``` path, execute:
 
 	make setup
 
@@ -79,6 +83,10 @@ This will install PostgreSQL and pip on your system. After that, you need to cre
 	[tassConf]
 	TASS_FILES_LIST=['file1.xml','file2.xml',...]
 
+	[frontendClient]
+	REACT_DOMAIN=<host>
+	REACT_PORT=<port>
+
 - postgresdbConf section: fill in with your own PostgreSQL credentials. By default, DB_HOST and DB_PORT in PostgreSQL are localhost/5432.
 
 - tweepyConf section: register a [Tweepy account](https://developer.twitter.com/en/apply-for-access) and fill in with your own credentials.
@@ -86,6 +94,8 @@ This will install PostgreSQL and pip on your system. After that, you need to cre
 - sparkConf section: list of master workers to start spark and path where are defined pyspark udf (udf/pyspark_udf.py for this project)  
 
 - tassConf section: refers to the TASS datasets (XML files list from 2019 edition)
+
+- frontendClient section: refers to React's domain and port (3000 by default)
 
 Then, activate your virtualenv already installed (by default, is called ```env``` in the ```Makefile```):
 
