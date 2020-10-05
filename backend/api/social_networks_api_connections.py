@@ -1,4 +1,4 @@
-from core.settings import (CONSUMER_KEY,CONSUMER_SECRET,ACCESS_TOKEN,
+from backend.settings import (CONSUMER_KEY,CONSUMER_SECRET,ACCESS_TOKEN,
 	ACCESS_TOKEN_SECRET)
 import tweepy
 from tweepy.parsers import JSONParser

@@ -47,9 +47,9 @@ from wordcloud import WordCloud, STOPWORDS
 import tzlocal
 import Stemmer
 
-from core.settings import BASE_DIR 
+from backend.settings import BASE_DIR 
 from api.social_networks_api_connections import *
-from core.settings import (SPARK_WORKERS,SPARK_UDF_FILE,
+from backend.settings import (SPARK_WORKERS,SPARK_UDF_FILE,
 	SPARK_EXECUTOR_MEMORY,SPARK_EXECUTOR_CORES,
 	SPARK_CORE_MAX,SPARK_DRIVER_MEMORY)
 from udf.pyspark_udf import (TextMiningMethods,MachineLearningMethods)

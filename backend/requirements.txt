@@ -1,11 +1,11 @@
-asgiref==3.2.5
+asgiref==3.2.10
 certifi==2019.6.16
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
 cycler==0.10.0
 Cython==0.29.17
-Django==3.0.7
+Django==3.1.2
 djangorestframework==3.11.0
 djangorestframework-simplejwt==4.3.0
 drf-yasg==1.17.1
@@ -26,7 +26,6 @@ openapi-codec==1.3.2
 packaging==20.3
 pandas==0.24.2
 Pillow==7.1.1
-pkg-resources==0.0.0
 psycopg2==2.8.3
 psycopg2-binary==2.8.3
 py4j==0.10.7
@@ -37,7 +36,7 @@ PySocks==1.7.1
 pyspark==2.4.6
 PyStemmer==2.0.0.1
 python-dateutil==2.8.0
-pytz==2019.1
+pytz==2020.1
 requests==2.24.0
 requests-oauthlib==1.3.0
 ruamel.yaml==0.16.10
@@ -46,7 +45,7 @@ scikit-learn==0.23.1
 scipy==1.5.1
 simplejson==3.16.0
 six==1.12.0
-sqlparse==0.3.0
+sqlparse==0.3.1
 threadpoolctl==2.1.0
 tweepy==3.8.0
 tzlocal==2.0.0
