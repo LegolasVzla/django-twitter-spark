@@ -71,3 +71,6 @@ install:
 	python manage.py bayesian_classifier_training
 	# generate udf zip
 	zip -r udf.zip udf
+	# install npm dependencies related with react
+	cd ../frontend
+	npm install
