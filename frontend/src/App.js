@@ -1,7 +1,7 @@
 import React from 'react';
 //import logo from '../src/img/logo.svg';
 import './App.css';
-import NavBar from './components/sections/navbar/Navbar';
+import NavBar from './components/navbar/Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home'
 import Search from './pages/Search'
