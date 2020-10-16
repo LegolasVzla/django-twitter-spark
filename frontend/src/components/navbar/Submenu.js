@@ -1,27 +1,26 @@
-import React, {useState} from 'react'
-import cn from 'classnames';
+import React from 'react'
+import { NavLink } from 'react-router-dom';
+// import cn from 'classnames';
 
 function Submenu(props) {
-    const [toggle, setToggle] = useState(false);
     const items = props.subMenuItems;
 
     const subMenuItems = items.map((item,index) =>
-        <li key={index.toString()} className="item">{item.title}</li>
+        <li key={index.toString()} style={{ listStyleType: 'none'}}>
+            <NavLink exact={item.exactPath} activeStyle={{color: 'cyan'}} to={item.path}>
+                {/* https://github.com/react-bootstrap/react-bootstrap/issues/5075 */}
+                {item.icon}
+                <span>{item.title}</span>
+            </NavLink>
+        </li>
     );
 
-    function toggleSubMenu() {
-        setToggle(!toggle);
-    }
-
-    const classes = cn('menu',{'transition': toggle,'visible': toggle});
+    // const classes = cn('menu',{'transition': toggle,'visible': toggle});
 
     return (
-        <div className="ui dropdown item" onClick={toggleSubMenu}>
-            <i className="dropdown icon" />
-                <ul className={classes}>
-                    {subMenuItems}
-                </ul>
-        </div>
+        <ul>
+            {subMenuItems}
+        </ul>
     )
 }
 
