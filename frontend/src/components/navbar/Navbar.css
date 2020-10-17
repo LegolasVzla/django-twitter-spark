@@ -7,6 +7,13 @@
     align-items: center;
 }
 
+.navbar-title {
+    width: 10rem;
+    font-size: large;
+    margin-top: 5px; 
+}
+
+
 /* X's properties */
 .close-icon-menu-bars {
     margin-left: 12.5rem;
@@ -48,6 +55,7 @@
     font-family: sans-serif;
     font-size: 0.8rem;
     margin-bottom: 10px;
+    margin: 1rem;
 }
 
 .nav-menu-subsection {
@@ -56,6 +64,7 @@
 
 .nav-menu-accordion{
     background-color: #002e39;
+    border-style: hidden;
     /* color: #fff; */
     /* text-decoration: none; */
     width: 245px;
@@ -102,6 +111,10 @@ nav ul li a{
     /* width: 100%; */
     border-left: 3px solid transparent;
     border-bottom:  1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-active-style{
+    color: cyan;
 }
 
 span {
