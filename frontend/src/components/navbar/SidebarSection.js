@@ -1,9 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import * as FaIcons from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
-import Accordion from 'react-bootstrap/Accordion'
-import Button from 'react-bootstrap/Button'
+import { Accordion,Button } from 'react-bootstrap'
 import Submenu from './Submenu'
 
 function SidebarSection(props) {
@@ -11,6 +10,8 @@ function SidebarSection(props) {
     const customActiveStyle = {
         color: 'cyan'
     };
+    const [submenu,setSubmenu] = useState(false);
+    const showSubmenu = () => setSubmenu(!submenu);
 
     return (
         <div className='nav-menu-subsection'>
@@ -26,10 +27,10 @@ function SidebarSection(props) {
                         {item.dropDownList.length > 0 ? (
                             <Accordion style={{ width: '245px'}}>
                                 <Accordion.Toggle bsPrefix='nav-menu-accordion' as={Button} eventKey="0">
-                                    <NavLink exact={item.exactPath} activeStyle={customActiveStyle} to={item.path}>
+                                    <NavLink exact={item.exactPath} activeStyle={customActiveStyle} to={item.path} onClick={showSubmenu}>
                                         {item.icon}
                                         <span>{item.title}</span>
-                                        <FaIcons.FaCaretDown/>
+                                        {submenu ? <FaIcons.FaCaretDown/> : <FaIcons.FaCaretRight/>}
                                     </NavLink>
                                 </Accordion.Toggle>
                                 <Accordion.Collapse eventKey="0">

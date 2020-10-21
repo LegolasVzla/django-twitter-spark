@@ -1,4 +1,3 @@
-/* top sidebar */ 
 .navbar {
     background-color: #005C72; /* 0E1526, 5779C6 */
     height: 60px;
@@ -6,13 +5,6 @@
     justify-content: flex-start;
     align-items: center;
 }
-
-.navbar-title {
-    width: 10rem;
-    font-size: large;
-    margin-top: 5px; 
-}
-
 
 /* X's properties */
 .close-icon-menu-bars {
@@ -23,11 +15,10 @@
 
 /* burger icon properties */
 .menu-bars {
-    margin-left: 2rem;
+    /* margin-left: 2rem; */
     font-size: 2rem;
     /* background: none; */
     size: 1rem;
-    margin-top: -1.5rem;
 }
 
 /* sidebar size */

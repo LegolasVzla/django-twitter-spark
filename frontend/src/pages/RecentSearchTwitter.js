@@ -1,6 +1,6 @@
 import React from 'react'
 
-function RecentSearch() {
+function RecentSearchTwitter() {
     return (
         <div className='recent-search'>
             <h1>Recent Search</h1>
@@ -8,4 +8,4 @@ function RecentSearch() {
     )
 }
 
-export default RecentSearch
+export default RecentSearchTwitter
