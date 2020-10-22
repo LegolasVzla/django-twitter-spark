@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import * as FaIcons from "react-icons/fa";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import './Navbar.css';
 import { Accordion,Button } from 'react-bootstrap'
 import Submenu from './Submenu'
@@ -27,11 +27,11 @@ function SidebarSection(props) {
                         {item.dropDownList.length > 0 ? (
                             <Accordion style={{ width: '245px'}}>
                                 <Accordion.Toggle bsPrefix='nav-menu-accordion' as={Button} eventKey="0">
-                                    <NavLink exact={item.exactPath} activeStyle={customActiveStyle} to={item.path} onClick={showSubmenu}>
+                                    <Link exact={item.exactPath} to={item.path} onClick={showSubmenu}>
                                         {item.icon}
                                         <span>{item.title}</span>
                                         {submenu ? <FaIcons.FaCaretDown/> : <FaIcons.FaCaretRight/>}
-                                    </NavLink>
+                                    </Link>
                                 </Accordion.Toggle>
                                 <Accordion.Collapse eventKey="0">
                                     <Submenu subMenuItems = {item.dropDownList} />
