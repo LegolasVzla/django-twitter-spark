@@ -5,14 +5,14 @@ import * as FiIcons from "react-icons/fi";
 export const DropdownData = [
     {
         title: 'Ver Mi Perfil',
-        path: '/ver-perfil',
+        path: '/profile-get',
         exactPath: false,
         icon: <FaIcons.FaUser />,
         cName: 'nav-text'
     },
     {
         title: 'Cerrar Sesión',
-        path: '/cerrar-sesion',
+        path: '/logout',
         exactPath: false,
         icon: <FiIcons.FiLogOut />,
         cName: 'nav-text'

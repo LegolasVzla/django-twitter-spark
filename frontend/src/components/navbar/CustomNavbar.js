@@ -41,7 +41,7 @@ function CustomNavbar() {
                     <Nav>
                         <Nav className="navbar">
                             <NavDropdown title="Usuario" id="collasible-nav-dropdown">
-                                <NavDropdown.Item href="/profile">Ver Mi Perfil</NavDropdown.Item>
+                                <NavDropdown.Item href="/profile-get">Ver Mi Perfil</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="/">Cerrar Sesión</NavDropdown.Item>
                             </NavDropdown>
