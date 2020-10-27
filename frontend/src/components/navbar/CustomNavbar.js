@@ -7,7 +7,6 @@ import './Navbar.css';
 import { IconContext } from 'react-icons'
 import SidebarSection from './SidebarSection'
 import { Navbar, NavDropdown, Nav } from 'react-bootstrap'
-// import Dropdown from './Dropdown'
 
 function CustomNavbar() {
     const [sidebar,setSidebar] = useState(false);
@@ -28,6 +27,7 @@ function CustomNavbar() {
         <>
             <IconContext.Provider value={{ color: '#fff'}}>
                 <Navbar collapseOnSelect expand="lg" variant="dark">
+                {/* Left navbar section */}
                 <Navbar.Brand href="/" style={{ color: '#fff'}}>
                     <AiIcons.AiOutlineFileSearch style={{ fontSize: '2rem' }}/> Topic Analyzer
                 </Navbar.Brand>
@@ -38,6 +38,7 @@ function CustomNavbar() {
                             <FaIcons.FaBars onClick={showSidebar} />
                         </Nav.Link>
                     </Nav>
+                    {/* Right navbar section */}
                     <Nav>
                         <Nav className="navbar">
                             <NavDropdown title="Usuario" id="collasible-nav-dropdown">

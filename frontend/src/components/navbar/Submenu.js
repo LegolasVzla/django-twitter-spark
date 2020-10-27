@@ -6,11 +6,15 @@ function Submenu(props) {
     const items = props.subMenuItems;
 
     const subMenuItems = items.map((item,index) =>
-        <li key={index.toString()} style={{ listStyleType: 'none'}}>
-            <NavLink exact={item.exactPath} activeStyle={{ color: 'cyan' }} to={item.path}>
+        <li key={item.keyIndex} style={{ listStyleType: 'none'}}>
+            <NavLink activeStyle={{ color: 'cyan' }} to={item.path}>
                 {/* https://github.com/react-bootstrap/react-bootstrap/issues/5075 */}
                 {item.icon}
                 <span>{item.title}</span>
+                {item.badge != null ? (
+                    item.badge
+                ):null
+                }                
             </NavLink>
         </li>
     );

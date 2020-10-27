@@ -22,12 +22,12 @@ function SidebarSection(props) {
             {/* Section items */}
             {sidebarItems.section.map((item,index) => {
                 return (
-                    <li key={index} className={item.cName} >
+                    <li key={item.keyIndex} className={item.cName} >
                         {/* If the current item has a submenu, display fa caret down icon for each sub item */}
                         {item.dropDownList.length > 0 ? (
                             <Accordion style={{ width: '245px'}}>
                                 <Accordion.Toggle bsPrefix='nav-menu-accordion' as={Button} eventKey="0">
-                                    <Link exact={item.exactPath} to={item.path} onClick={showSubmenu}>
+                                    <Link to={item.path} onClick={showSubmenu}>
                                         {item.icon}
                                         <span>{item.title}</span>
                                         {submenu ? <FaIcons.FaCaretDown/> : <FaIcons.FaCaretRight/>}
@@ -38,7 +38,7 @@ function SidebarSection(props) {
                                 </Accordion.Collapse>
                             </Accordion>
                         ) : (
-                            <NavLink exact={item.exactPath} activeStyle={customActiveStyle} to={item.path}>
+                            <NavLink exact activeStyle={customActiveStyle} to={item.path}>
                                 {item.icon}
                                 <span>{item.title}</span>
                             </NavLink>
