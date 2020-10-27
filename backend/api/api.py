@@ -455,6 +455,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 				# Define all columns name needed
 				cols = [
 					'id',
+					'profile_image_url',
 					'account_name',
 					'tweet',
 					'favorite_count',
@@ -489,7 +490,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 				# Any result was found?
 				if len(query_result['statuses']) > 0:
 
-					# And iterate over all the tweet list
+					# Iterate over all the tweet list
 					for index,tweet in enumerate(query_result['statuses']):
 
 						# Extract tweets of the current tweet account into a new pandas dataframe
@@ -501,6 +502,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 
 						row = [
 							tweet['id'],
+							tweet['user']['profile_image_url'],
 							tweet['user']['screen_name'],
 							tweet['full_text'],
 							tweet['favorite_count'],
@@ -518,7 +520,8 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 
 					schema = StructType([
 					    StructField("id", LongType(),True),
-					    StructField("account_name", StringType(),True),
+					    StructField("profile_image_url", StringType(),True),
+						StructField("account_name", StringType(),True),
 					    StructField("tweet", StringType(),True),
 					    StructField("favorite_count", IntegerType(),True),
 					    StructField("retweet_count", IntegerType(),True),
@@ -637,6 +640,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					# requested
 					positive_tweets_top = spark.sql("\
 						SELECT \
+							profile_image_url AS profileImageUrl,\
 							account_name AS account,\
 							tweet,\
 							favorite_count AS favorites,\
@@ -656,6 +660,7 @@ class BigDataViewSet(viewsets.ModelViewSet,viewsets.ViewSet):
 					# requested
 					negative_tweets_top = spark.sql("\
 						SELECT \
+							profile_image_url AS profileImageUrl,\
 							account_name AS account,\
 							tweet,\
 							favorite_count AS favorites,\
@@ -881,6 +886,7 @@ class TwitterViewSet(viewsets.ViewSet):
 						for tweet_data_index,tweet_data in enumerate(all_twitter_timeline_data):
 							tweet_element_data = {}
 							tweet_element_data['id'] = tweet_data['id']
+							tweet_element_data['profile_image_url'] = tweet_data['user']['profile_image_url']
 							tweet_element_data['text'] = tweet_data['text']
 							tweet_element_data['retweet_count'] = tweet_data['retweet_count']
 							tweet_element_data['favorite_count'] = tweet_data['favorite_count']
