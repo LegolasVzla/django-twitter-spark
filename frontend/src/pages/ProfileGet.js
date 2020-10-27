@@ -24,7 +24,6 @@ function ProfileGet() {
                         </Card.Header>
                         <Card.Body>
                             <Card.Title><h3>Tu Perfil</h3></Card.Title>
-                            <Card.Text>
                             <Form>
                                 <Form.Group controlId="formGroupFirstName">
                                     <Form.Label>Nombre</Form.Label>
@@ -40,9 +39,8 @@ function ProfileGet() {
                                 </Form.Group>
                                 <Button href="/profile-update" variant="primary" type="submit">
                                     Modificar Perfil
-                                </Button>                        
+                                </Button>
                             </Form>
-                            </Card.Text>
                         </Card.Body>
                     </Card>
 

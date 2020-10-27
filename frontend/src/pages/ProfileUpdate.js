@@ -26,7 +26,6 @@ function ProfileUpdate() {
                         </Card.Header>
                         <Card.Body>
                             <Card.Title><h3>Modificar Mi Perfil</h3></Card.Title>
-                            <Card.Text>
                             <Form>
                                 <Form.Group controlId="formGroupFirstName">
                                     <Form.Label>Nombre</Form.Label>
@@ -51,7 +50,6 @@ function ProfileUpdate() {
                                     Regresar
                                 </Button>                                
                             </Form>
-                            </Card.Text>
                         </Card.Body>
                     </Card>
 

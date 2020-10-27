@@ -8,7 +8,8 @@ function Submenu(props) {
     const subMenuItems = items.map((item,index) =>
         <li key={item.keyIndex} style={{ listStyleType: 'none'}}>
             <NavLink activeStyle={{ color: 'cyan' }} to={item.path}>
-                {/* https://github.com/react-bootstrap/react-bootstrap/issues/5075 */}
+                {/* Warning: findDOMNode is deprecated in StrictMode
+                https://github.com/react-bootstrap/react-bootstrap/issues/5075 */}
                 {item.icon}
                 <span>{item.title}</span>
                 {item.badge != null ? (
