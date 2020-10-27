@@ -25,7 +25,9 @@ function SearchTwitter() {
                         </Card.Header>
                         <Card.Body>
                             <Card.Title><h3>Buscar en Twitter</h3></Card.Title>
-                            <Card.Text><FaIcons.FaRegComment/> Ingresa una palabra para mostrar el tópico obtenido y también para saber si están hablando bien o mal sobre la misma.
+                            <Card.Text>
+                                <FaIcons.FaRegComment/> Ingresa una palabra para mostrar el tópico obtenido y también para saber si están hablando bien o mal sobre la misma.
+                            </Card.Text>
                             <Form>
                                 <Form.Group controlId="formBasicEmail" style={{marginTop: '1rem'}}>
                                     <Form.Control type="email"/>
@@ -34,7 +36,6 @@ function SearchTwitter() {
                                     Buscar
                                 </Button>                        
                             </Form>
-                            </Card.Text>
                         </Card.Body>
                     </Card>
 

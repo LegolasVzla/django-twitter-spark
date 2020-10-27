@@ -62,7 +62,9 @@ function SearchTwitter() {
                         </Card.Header>
                         <Card.Body>
                             <Card.Title><h3>Resultado de su Búsqueda en Twitter</h3></Card.Title>
-                            <Card.Text><FaIcons.FaRegComment/> Análisis de Sentimiento para la palabra:
+                            <Card.Text>
+                                <FaIcons.FaRegComment/> Análisis de Sentimiento para la palabra:
+                            </Card.Text>
                                 <Row>
                                     <Col lg={true} style={{ marginTop: '1rem'}}>
                                         <CustomSentimentCard cardItems={sentimentCardItems[0]} />
@@ -74,7 +76,6 @@ function SearchTwitter() {
                                         <CustomTwitterActionsCard cardItems={twitterActionsCardItems[1]} />
                                     </Col>
                                 </Row>
-                            </Card.Text>
                         </Card.Body>
                     </Card>
 
