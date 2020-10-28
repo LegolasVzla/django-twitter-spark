@@ -10,6 +10,7 @@
     "bootstrap": "^4.5.2",
     "elliptic": "^6.5.3",
     "http-proxy": "^1.18.1",
+    "linkifyjs": "^2.1.9",
     "moment": "^2.29.1",
     "node-forge": "^0.10.0",
     "react": "^16.13.1",

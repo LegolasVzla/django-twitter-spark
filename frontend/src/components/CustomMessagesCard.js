@@ -4,6 +4,9 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Image from 'react-bootstrap/Image'
 import * as FaIcons from "react-icons/fa";
 import * as moment from 'moment';
+import Linkify from 'linkifyjs/react';
+
+var options = {/* … */};
 
 function CustomMessagesCard(props) {
     const cardItems = props.cardItems;
@@ -24,14 +27,14 @@ function CustomMessagesCard(props) {
                     {moment(new Date(item.createdAt).toISOString()).fromNow()}
                 </Card.Subtitle>
                 <Card.Text>
-                    {item.tweet}
+                <Linkify options={options}>{item.tweet}</Linkify>
                 </Card.Text>
                 {/* Tweets Actions and Sentiment Analysis Resulting */}
-                <span style={customTweetStyle}><FaIcons.FaRetweet/>{' '}{item.retweets}</span>{' '}
-                <span style={customTweetStyle}><FaIcons.FaRegHeart/>{' '}{item.favorites}</span>{' '}
-                <span style={customTweetStyle}><FaIcons.FaRegSmile/>{' '}{Math.floor(item.positiveSentimentScore * 100)+'%'}</span>{' '}
-                <span style={customTweetStyle}><FaIcons.FaRegFrown/>{' '}{Math.floor(item.negativeSentimentScore * 100)+'%'}</span>{' '}
-                <span style={customTweetStyle}><FaIcons.FaCrosshairs/>{' '}{Math.floor(item.confidenceScore * 100)+'%'}</span>{' '}                
+                <span style={customTweetStyle}><FaIcons.FaRetweet style={{ color: "green" }}/>{' '}{item.retweets}</span>{' '}
+                <span style={customTweetStyle}><FaIcons.FaRegHeart style={{ color: "red" }}/>{' '}{item.favorites}</span>{' '}
+                <span style={customTweetStyle}><FaIcons.FaRegSmile style={{ color: "green" }}/>{' '}{Math.floor(item.positiveSentimentScore * 100)+'%'}</span>{' '}
+                <span style={customTweetStyle}><FaIcons.FaRegFrown style={{ color: "red" }}/>{' '}{Math.floor(item.negativeSentimentScore * 100)+'%'}</span>{' '}
+                <span style={customTweetStyle}><FaIcons.FaCrosshairs style={{ color: "blue" }}/>{' '}{Math.floor(item.confidenceScore * 100)+'%'}</span>{' '}
             </ListGroup.Item>
         </ListGroup>
     );
