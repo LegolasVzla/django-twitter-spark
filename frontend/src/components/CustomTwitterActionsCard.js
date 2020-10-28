@@ -11,7 +11,7 @@ function CustomTwitterActionsCard(props) {
         >
             <Card
                 bg={cardItems.cardType.toLowerCase()}
-                style={{ width: "5rem", padding: '15px 0px 0px 8px'}}
+                style={{ width: "5rem"}}
                 text={"white"}
             >
                 {cardItems.icon}

@@ -11,7 +11,7 @@ function Submenu(props) {
                 {/* Warning: findDOMNode is deprecated in StrictMode
                 https://github.com/react-bootstrap/react-bootstrap/issues/5075 */}
                 {item.icon}
-                <span>{item.title}</span>
+                <span style={{marginLeft: '10px'}}>{item.title}</span>
                 {item.badge != null ? (
                     item.badge
                 ):null

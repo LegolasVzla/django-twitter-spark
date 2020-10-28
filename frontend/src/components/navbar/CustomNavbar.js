@@ -52,7 +52,7 @@ function CustomNavbar() {
                 </Navbar.Collapse>
                 </Navbar>
             </IconContext.Provider>
-            {/* Sidebar Section */}
+            {/* Sidebar Section (Menu) */}
             <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                 <ul className='nav-menu-items'>
                     <Link to='#' className='close-icon-menu-bars' onClick={showSidebar}>

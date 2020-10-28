@@ -29,7 +29,7 @@ function SidebarSection(props) {
                                 <Accordion.Toggle bsPrefix='nav-menu-accordion' as={Button} eventKey="0">
                                     <Link to={item.path} onClick={showSubmenu}>
                                         {item.icon}
-                                        <span>{item.title}</span>
+                                        <span style={{marginLeft: '10px'}}>{item.title}</span>
                                         {submenu ? <FaIcons.FaCaretDown/> : <FaIcons.FaCaretRight/>}
                                     </Link>
                                 </Accordion.Toggle>
@@ -40,7 +40,7 @@ function SidebarSection(props) {
                         ) : (
                             <NavLink exact activeStyle={customActiveStyle} to={item.path}>
                                 {item.icon}
-                                <span>{item.title}</span>
+                                <span style={{marginLeft: '10px'}}>{item.title}</span>
                             </NavLink>
                         )}
                     </li>
