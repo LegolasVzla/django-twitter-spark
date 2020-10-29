@@ -3,7 +3,7 @@ Thesis project: topic categorization and sentiment analysis on twitter
 
 Summary
 ---------------
-The presently work was (in a previously version) an academic thesis, about how to make topic categorization and sentiment analysis of tweets in Spanish with Python, using Text Mining and Natural Language Processing (NLP) with Apache Spark. Adittionally a web application in Django was developt to display a several of graphics indicators like: a wordcloud and other interesting graphics.
+The presently work was (in a previously version) an academic thesis presented at the Central University of Venezuela (2018), about how to make topic categorization and sentiment analysis of tweets in Spanish with Python, using Text Mining and Natural Language Processing (NLP) with Apache Spark. Adittionally a web application in Django was developed to display various graphics indicators such as: a wordcloud and other interesting graphics.
 
 Improvements and Current Status:
 ---------------
