@@ -33,7 +33,7 @@ export const TopSidebarData = [
                 icon: <FaIcons.FaGenderless style={{ marginLeft: '1rem'}} />,
                 cName: 'nav-text',
                 keyIndex: 1.2,
-                badge: <Badge variant="success">Soon</Badge>                
+                badge: <Badge style={{marginLeft: '1rem'}} variant="success">Soon</Badge>                
             },
             {
                 title: "Instagram",
@@ -41,7 +41,7 @@ export const TopSidebarData = [
                 icon: <FaIcons.FaGenderless style={{ marginLeft: '1rem'}} />,
                 cName: 'nav-text',
                 keyIndex: 1.3,
-                badge: <Badge variant="success">Soon</Badge>                
+                badge: <Badge style={{marginLeft: '1rem'}} variant="success">Soon</Badge>                
             }
         ],
         keyIndex: 2
@@ -77,7 +77,7 @@ export const BottomSidebarData = [
                 icon: <FaIcons.FaGenderless style={{ marginLeft: '1rem'}} />,
                 cName: 'nav-text',
                 keyIndex: 2.2,
-                badge: <Badge variant="success">Soon</Badge>
+                badge: <Badge style={{marginLeft: '1rem'}} variant="success">Soon</Badge>
             },
             {
                 title: "Instagram",
@@ -85,7 +85,7 @@ export const BottomSidebarData = [
                 icon: <FaIcons.FaGenderless style={{ marginLeft: '1rem'}} />,
                 cName: 'nav-text',
                 keyIndex: 2.3,
-                badge: <Badge variant="success">Soon</Badge>
+                badge: <Badge style={{marginLeft: '1rem'}} variant="success">Soon</Badge>
             }
         ],
         keyIndex: 4        

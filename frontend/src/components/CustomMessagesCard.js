@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
+import {Link} from 'react-router-dom';
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Image from 'react-bootstrap/Image'
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 import * as FaIcons from "react-icons/fa";
 import * as BiIcons from "react-icons/bs";
 import * as moment from 'moment';
 import Linkify from 'linkifyjs/react';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import {Link} from 'react-router-dom';
 
 var options = {/* … */};
 
@@ -53,9 +53,9 @@ function CustomMessagesCard(props) {
             <Card style={{ marginTop: '1rem', marginBottom: '1rem'}}>
             <Card.Header>
                 <strong>{props.cardTitle} relacionados a su Búsqueda</strong>
-                <Link to="#">
-                    <BiIcons.BsInfoCircle style={{ marginLeft: '1rem '}} onClick={handleShow} />
-                </Link>
+                    <Link to="#">
+                        <BiIcons.BsInfoCircle style={{ marginLeft: '1rem '}} onClick={handleShow} />
+                    </Link>
             </Card.Header>
             <Card.Body>
                 {tweetContent}
