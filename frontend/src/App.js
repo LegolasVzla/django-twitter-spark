@@ -19,12 +19,12 @@ function App() {
         <CustomNavbar/>
         <Switch>
           <Route path="/" exact component={Home}/>
-          <Route path="/customdictionary" component={CustomDictionary}/>
-          <Route path="/profile-get" component={ProfileGet}/>
-          <Route path="/profile-update" component={ProfileUpdate}/>
-          <Route path="/search-twitter" component={SearchTwitter}/>
-          <Route path="/search-twitter-result" component={SearchTwitterResult}/>          
-          <Route path="/recent-twitter" component={RecentSearchTwitter}/>
+          <Route exact path="/customdictionary" component={CustomDictionary}/>
+          <Route exact path="/profile-get" component={ProfileGet}/>
+          <Route exact path="/profile-update" component={ProfileUpdate}/>
+          <Route exact path="/search-twitter" component={SearchTwitter}/>
+          <Route exact path="/search-twitter-result" component={SearchTwitterResult}/>          
+          <Route exact path="/recent-twitter" component={RecentSearchTwitter}/>
           <Route component={PageError}/>
         </Switch>
       </Router>

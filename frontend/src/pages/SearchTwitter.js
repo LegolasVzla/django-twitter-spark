@@ -6,7 +6,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
-import * as FaIcons from "react-icons/fa";
+import { Prompt } from 'react-router'
+import * as FaIcons from "react-icons/fa"
 
 function SearchTwitter() {
     return (
@@ -29,6 +30,10 @@ function SearchTwitter() {
                                 <FaIcons.FaRegComment/> Ingresa una palabra para mostrar el tópico obtenido y también para saber si están hablando bien o mal sobre la misma.
                             </Card.Text>
                             <Form>
+                                <Prompt 
+                                    when
+                                    message="¿Está seguro de querer abandonar su búsqueda?"
+                                />
                                 <Form.Group controlId="formBasicEmail" style={{marginTop: '1rem'}}>
                                     <Form.Control type="email"/>
                                 </Form.Group>
