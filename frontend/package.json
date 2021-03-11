@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^12.1.7",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
-    "elliptic": "^6.5.3",
+    "elliptic": "^6.5.4",
     "http-proxy": "^1.18.1",
     "linkifyjs": "^2.1.9",
     "moment": "^2.29.1",
