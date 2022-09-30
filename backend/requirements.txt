@@ -16,7 +16,7 @@ imageio==2.5.0
 inflection==0.4.0
 itypes==1.1.0
 Jinja2==2.10.1
-joblib==0.16.0
+joblib==1.2.0
 kiwisolver==1.1.0
 MarkupSafe==1.1.1
 matplotlib==3.0.3
